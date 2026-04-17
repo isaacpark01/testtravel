@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Roamly — Planner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; }
+    body { font-family: 'Inter', sans-serif; background: #0b1120; color: #f0faf9; display: flex; flex-direction: column; }
+
+    /* ── Scrollbar ─────────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 4px; }
+
+    /* ── Nav ───────────────────────────────────────────────────── */
+    .top-nav {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0 18px; height: 52px; min-height: 52px;
+      background: #0f1929; border-bottom: 1px solid rgba(255,255,255,.06);
+      z-index: 200; flex-shrink: 0;
+    }
+    .nav-logo {
+      font-weight: 800; font-size: 16px; color: #2dd4bf;
+      text-decoration: none; white-space: nowrap; flex-shrink: 0; letter-spacing: -.3px;
+    }
+    .nav-logo span { color: #f0faf9; }
+    .nav-sep { width: 1px; height: 20px; background: rgba(255,255,255,.08); flex-shrink: 0; }
+    .nav-center { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+    .trip-name-input {
+      background: transparent; border: none; outline: none;
+      font-size: 14px; font-weight: 700; color: #f0faf9; width: 100%;
+    }
+    .trip-name-input::placeholder { color: #334155; }
+    .nav-date-range { font-size: 11px; color: #64748b; }
+    .nav-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .btn-primary {
+      background: #0d9488; border: none; border-radius: 8px;
+      color: #fff; font-size: 13px; font-weight: 700; padding: 7px 14px;
+      cursor: pointer; white-space: nowrap; transition: background .15s; flex-shrink: 0;
+    }
+    .btn-primary:hover { background: #0f766e; }
+    .btn-ghost {
+      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.09);
+      border-radius: 8px; color: #94a3b8; font-size: 12px; font-weight: 600;
+      padding: 6px 12px; cursor: pointer; white-space: nowrap;
+      text-decoration: none; display: inline-flex; align-items: center;
+      transition: all .15s; flex-shrink: 0;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,.08); color: #e2e8f0; }
+    .trips-dropdown-wrap { position: relative; }
+    .trips-dropdown-btn {
+      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.09);
+      border-radius: 8px; color: #94a3b8; font-size: 12px; font-weight: 600;
+      padding: 6px 12px; cursor: pointer; white-space: nowrap; transition: all .15s;
+    }
+    .trips-dropdown-btn:hover { background: rgba(255,255,255,.08); color: #e2e8f0; }
+    .trips-dropdown-menu {
+      position: absolute; top: calc(100% + 6px); right: 0; min-width: 220px;
+      background: #1a2742; border: 1px solid rgba(255,255,255,.1);
+      border-radius: 12px; padding: 6px; z-index: 300;
+      box-shadow: 0 8px 32px rgba(0,0,0,.5); display: none;
+    }
+    .trips-dropdown-menu.open { display: block; }
+    .trip-dd-item {
+      display: flex; align-items: center; gap: 8px; padding: 8px 10px;
+      border-radius: 8px; cursor: pointer; transition: background .12s;
+    }
+    .trip-dd-item:hover { background: rgba(255,255,255,.05); }
+    .trip-dd-item.active { background: rgba(13,148,136,.12); }
+    .trip-dd-item-name { flex: 1; font-size: 13px; font-weight: 600; color: #e2e8f0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .trip-dd-item.active .trip-dd-item-name { color: #2dd4bf; }
+    .trip-dd-item-del { background: none; border: none; color: #475569; font-size: 14px; cursor: pointer; padding: 2px 4px; border-radius: 4px; }
+    .trip-dd-item-del:hover { color: #f87171; }
+    .trip-dd-sep { height: 1px; background: rgba(255,255,255,.06); margin: 4px 0; }
+    .mob-map-toggle {
+      display: none; background: rgba(45,212,191,.1); border: 1px solid rgba(45,212,191,.3);
+      border-radius: 8px; color: #2dd4bf; font-size: 12px; font-weight: 700;
+      padding: 6px 12px; cursor: pointer; flex-shrink: 0;
+    }
+
+    /* ── Hero ──────────────────────────────────────────────────── */
+    .hero-band {
+      position: relative; height: 160px; min-height: 160px; flex-shrink: 0;
+      background-size: cover; background-position: center;
+      background-color: #0f1929;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(11,17,32,.45) 0%, rgba(11,17,32,.85) 70%, #0b1120 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 20px 0;
+    }
+    .hero-meta { display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 14px; }
+    .hero-titles {}
+    .hero-city { font-size: 22px; font-weight: 800; color: #f0faf9; letter-spacing: -.4px; line-height: 1.2; }
+    .hero-trip-name { font-size: 13px; color: rgba(240,250,249,.6); margin-top: 3px; }
+    .hero-actions { display: flex; gap: 6px; }
+    .hero-action-btn {
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15);
+      border-radius: 8px; color: #f0faf9; font-size: 12px; font-weight: 600;
+      padding: 6px 11px; cursor: pointer; backdrop-filter: blur(8px); transition: all .15s;
+    }
+    .hero-action-btn:hover { background: rgba(255,255,255,.18); }
+
+    /* ── Tab bar ───────────────────────────────────────────────── */
+    .tab-bar {
+      display: flex; align-items: center; gap: 2px;
+      padding: 0 16px; height: 44px; min-height: 44px;
+      background: #0b1120; border-bottom: 1px solid rgba(255,255,255,.06);
+      flex-shrink: 0; z-index: 10;
+    }
+    .tab-btn {
+      background: none; border: none; border-bottom: 2px solid transparent;
+      color: #64748b; font-size: 13px; font-weight: 600; padding: 0 14px;
+      height: 100%; cursor: pointer; white-space: nowrap;
+      transition: color .15s, border-color .15s; flex-shrink: 0;
+    }
+    .tab-btn:hover { color: #94a3b8; }
+    .tab-btn.active { color: #2dd4bf; border-bottom-color: #2dd4bf; }
+    .tab-bar-spacer { flex: 1; }
+    .saves-count-badge {
+      background: rgba(244,114,182,.15); border: 1px solid rgba(244,114,182,.3);
+      color: #f472b6; font-size: 10px; font-weight: 700;
+      border-radius: 10px; padding: 1px 6px; margin-left: 4px;
+    }
+
+    /* ── Main layout ───────────────────────────────────────────── */
+    .planner-layout { display: flex; flex: 1; min-height: 0; overflow: hidden; }
+
+    /* ── Content panel (left) ──────────────────────────────────── */
+    .content-panel {
+      width: 480px; min-width: 320px; max-width: 480px; flex-shrink: 0;
+      background: #0f1929; display: flex; flex-direction: column;
+      overflow: hidden; border-right: 1px solid rgba(255,255,255,.06);
+    }
+
+    /* ── Tab panels ────────────────────────────────────────────── */
+    .tab-panel { display: none; flex-direction: column; flex: 1; min-height: 0; overflow: hidden; }
+    .tab-panel.active { display: flex; }
+
+    /* ── Itinerary tab ─────────────────────────────────────────── */
+    .date-pills-row {
+      display: flex; gap: 6px; padding: 10px 14px;
+      overflow-x: auto; flex-shrink: 0;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .date-pill {
+      flex-shrink: 0; padding: 5px 14px; border-radius: 20px;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08);
+      color: #64748b; font-size: 12px; font-weight: 600; cursor: pointer;
+      transition: all .15s; white-space: nowrap; position: relative;
+    }
+    .date-pill:hover { background: rgba(255,255,255,.09); color: #94a3b8; }
+    .date-pill.active { background: #0d9488; border-color: #2dd4bf; color: #f0faf9; }
+    .date-pill-del {
+      position: absolute; top: -5px; right: -5px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: #f87171; color: #fff; font-size: 9px; font-weight: 800;
+      border: none; cursor: pointer; display: none; align-items: center; justify-content: center;
+      line-height: 1;
+    }
+    .date-pill:hover .date-pill-del { display: flex; }
+    .add-day-pill {
+      flex-shrink: 0; padding: 5px 12px; border-radius: 20px;
+      background: transparent; border: 1px dashed rgba(45,212,191,.3);
+      color: #2dd4bf; font-size: 12px; font-weight: 600; cursor: pointer;
+      transition: all .15s;
+    }
+    .add-day-pill:hover { background: rgba(13,148,136,.1); }
+
+    .itin-cards-area { flex: 1; overflow-y: auto; padding: 12px 14px; display: flex; flex-direction: column; gap: 7px; }
+    .itin-cards-area.drag-over { outline: 2px dashed rgba(45,212,191,.3); outline-offset: -4px; border-radius: 4px; }
+
+    .itin-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; gap: 10px; text-align: center; padding: 32px; }
+    .itin-empty .empty-icon { font-size: 40px; }
+    .itin-empty p { font-size: 13px; color: #64748b; max-width: 240px; line-height: 1.6; }
+
+    .saves-counter { font-size: 11px; color: #64748b; padding: 4px 14px 0; flex-shrink: 0; }
+
+    /* Place card (itinerary) */
+    .placed-card {
+      background: #111827; border: 1px solid rgba(255,255,255,.07);
+      border-radius: 12px; padding: 10px 12px;
+      display: flex; align-items: flex-start; gap: 10px;
+      cursor: grab; transition: all .15s; position: relative;
+    }
+    .placed-card:hover { border-color: rgba(45,212,191,.25); background: #141e30; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,.3); }
+    .placed-card:active { cursor: grabbing; }
+    .placed-card.dragging { opacity: .4; transform: scale(.97); }
+    .placed-num {
+      font-size: 11px; font-weight: 800; color: #334155;
+      background: rgba(255,255,255,.05); border-radius: 6px;
+      padding: 3px 7px; flex-shrink: 0; margin-top: 1px;
+    }
+    .placed-photo {
+      width: 56px; height: 56px; border-radius: 8px;
+      object-fit: cover; flex-shrink: 0; background: #1a2742;
+    }
+    .placed-body { flex: 1; min-width: 0; }
+    .placed-city-badge {
+      font-size: 10px; font-weight: 700; color: #2dd4bf;
+      background: rgba(13,148,136,.15); border-radius: 4px;
+      padding: 1px 6px; display: inline-block; margin-bottom: 4px;
+    }
+    .placed-name { font-size: 13px; font-weight: 700; color: #f0faf9; }
+    .placed-meta { display: flex; align-items: center; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
+    .placed-cat-tag {
+      font-size: 10px; font-weight: 600; color: #64748b;
+      background: rgba(255,255,255,.05); border-radius: 4px; padding: 1px 6px;
+    }
+    .placed-rating { font-size: 10px; color: #fbbf24; font-weight: 600; }
+    .placed-duration { font-size: 10px; color: #64748b; }
+    .placed-note-input {
+      width: 100%; background: transparent; border: none; outline: none;
+      font-size: 11px; color: #64748b; margin-top: 6px;
+      border-bottom: 1px solid transparent; transition: border-color .15s;
+      font-family: 'Inter', sans-serif;
+    }
+    .placed-note-input:focus { border-color: rgba(255,255,255,.1); color: #94a3b8; }
+    .placed-note-input::placeholder { color: #2a3a52; }
+    .placed-del {
+      position: absolute; top: 9px; right: 9px;
+      background: none; border: none; color: #334155; font-size: 16px;
+      cursor: pointer; border-radius: 4px; padding: 1px 4px; transition: color .12s; line-height: 1;
+    }
+    .placed-del:hover { color: #f87171; }
+
+    /* Add place row */
+    .add-place-row { padding: 10px 14px; border-top: 1px solid rgba(255,255,255,.05); flex-shrink: 0; position: relative; }
+    .add-place-input {
+      width: 100%; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px; color: #e2e8f0; font-size: 13px; padding: 9px 14px;
+      outline: none; transition: border-color .15s; font-family: 'Inter', sans-serif;
+    }
+    .add-place-input:focus { border-color: rgba(45,212,191,.35); }
+    .add-place-input::placeholder { color: #334155; }
+    .add-place-suggestions {
+      position: absolute; bottom: calc(100% + 4px); left: 14px; right: 14px;
+      background: #1a2742; border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px; z-index: 50; max-height: 200px; overflow-y: auto;
+      box-shadow: 0 -8px 24px rgba(0,0,0,.4); display: none;
+    }
+    .add-place-suggestions.open { display: block; }
+    .suggest-item {
+      display: flex; align-items: center; gap: 10px; padding: 8px 12px;
+      cursor: pointer; transition: background .1s; border-radius: 8px; margin: 3px;
+    }
+    .suggest-item:hover { background: rgba(255,255,255,.06); }
+    .suggest-name { font-size: 13px; font-weight: 600; color: #e2e8f0; }
+    .suggest-meta { font-size: 11px; color: #64748b; margin-top: 1px; }
+
+    /* ── Saves tab ─────────────────────────────────────────────── */
+    .saves-search-wrap { padding: 10px 14px 6px; flex-shrink: 0; }
+    .saves-search {
+      width: 100%; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px; color: #e2e8f0; font-size: 13px; padding: 9px 14px;
+      outline: none; transition: border-color .15s; font-family: 'Inter', sans-serif;
+    }
+    .saves-search:focus { border-color: rgba(45,212,191,.35); }
+    .saves-search::placeholder { color: #334155; }
+    .saves-grid { flex: 1; overflow-y: auto; padding: 8px 14px; display: flex; flex-direction: column; gap: 10px; }
+
+    .save-card {
+      background: #111827; border: 1px solid rgba(255,255,255,.07);
+      border-radius: 14px; overflow: hidden; transition: all .18s;
+      display: flex; flex-direction: column;
+    }
+    .save-card:hover { border-color: rgba(244,114,182,.3); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.35); }
+    .save-photo-wrap { position: relative; height: 150px; overflow: hidden; flex-shrink: 0; }
+    .save-photo { width: 100%; height: 100%; object-fit: cover; background: #1a2742; transition: transform .3s; }
+    .save-card:hover .save-photo { transform: scale(1.04); }
+    .save-heart-overlay {
+      position: absolute; top: 8px; right: 8px;
+      background: rgba(0,0,0,.5); border: none; border-radius: 50%;
+      width: 30px; height: 30px; color: #f472b6; font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(4px); cursor: pointer;
+    }
+    .save-city-badge {
+      position: absolute; bottom: 8px; left: 8px;
+      font-size: 10px; font-weight: 700; color: #f0faf9;
+      background: rgba(244,114,182,.75); border-radius: 5px;
+      padding: 2px 7px; backdrop-filter: blur(4px);
+    }
+    .save-body { padding: 10px 12px; display: flex; flex-direction: column; gap: 5px; }
+    .save-name { font-size: 13px; font-weight: 700; color: #f0faf9; line-height: 1.3; }
+    .save-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .save-rating { font-size: 11px; color: #94a3b8; }
+    .save-cat { font-size: 10px; font-weight: 600; color: #64748b; background: rgba(255,255,255,.05); border-radius: 4px; padding: 1px 6px; }
+    .save-footer { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; padding-top: 4px; border-top: 1px solid rgba(255,255,255,.05); }
+    .save-social-btn {
+      font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 3px;
+      transition: all .15s; border: 1px solid; white-space: nowrap;
+    }
+    .save-ig  { background: rgba(225,48,108,.08); border-color: rgba(225,48,108,.3); color: #e1306c; }
+    .save-ig:hover { background: rgba(225,48,108,.2); }
+    .save-tt  { background: rgba(105,201,208,.08); border-color: rgba(105,201,208,.3); color: #69c9d0; }
+    .save-tt:hover { background: rgba(105,201,208,.2); }
+    .save-add-btn {
+      margin-left: auto;
+      background: rgba(13,148,136,.12); border: 1px solid rgba(45,212,191,.25);
+      border-radius: 7px; color: #2dd4bf; font-size: 11px; font-weight: 700;
+      padding: 4px 10px; cursor: pointer; white-space: nowrap; transition: all .15s;
+    }
+    .save-add-btn:hover { background: rgba(13,148,136,.3); }
+    .save-del-btn {
+      background: none; border: none; color: #334155; font-size: 16px;
+      cursor: pointer; padding: 2px 5px; border-radius: 4px; transition: color .12s; line-height: 1;
+    }
+    .save-del-btn:hover { color: #f87171; }
+
+    /* ── Discover tab ──────────────────────────────────────────── */
+    .discover-header { padding: 10px 14px 6px; flex-shrink: 0; }
+
+    /* Search bar */
+    .disc-search-wrap {
+      position: relative; margin-bottom: 10px;
+    }
+    .disc-search-input {
+      width: 100%; box-sizing: border-box;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 12px; color: #f0faf9; font-size: 13px;
+      padding: 9px 36px 9px 14px; outline: none; transition: border-color .15s;
+      font-family: inherit;
+    }
+    .disc-search-input::placeholder { color: #475569; }
+    .disc-search-input:focus { border-color: rgba(45,212,191,.4); }
+    .disc-search-clear {
+      position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; color: #64748b; cursor: pointer;
+      font-size: 16px; padding: 2px 4px; line-height: 1;
+    }
+    .disc-search-clear:hover { color: #94a3b8; }
+
+    /* Sort pills */
+    .disc-sort-row {
+      display: flex; gap: 5px; flex-wrap: nowrap; overflow-x: auto;
+      padding-bottom: 4px; margin-top: 8px;
+    }
+    .disc-sort-pill {
+      flex-shrink: 0; padding: 4px 11px; border-radius: 20px;
+      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+      color: #64748b; font-size: 11px; font-weight: 700; cursor: pointer; transition: all .15s;
+      white-space: nowrap;
+    }
+    .disc-sort-pill:hover { background: rgba(255,255,255,.09); color: #94a3b8; }
+    .disc-sort-pill.active { background: rgba(251,191,36,.1); border-color: rgba(251,191,36,.3); color: #fbbf24; }
+
+    /* Trending social section */
+    .trending-section { padding: 4px 0 8px; }
+    .trending-title { font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 8px; }
+    .trending-scroll {
+      display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px;
+    }
+    .trending-scroll::-webkit-scrollbar { display: none; }
+    .trending-card {
+      flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-start;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08);
+      border-radius: 12px; padding: 9px 12px; text-decoration: none;
+      min-width: 130px; max-width: 160px; gap: 4px; transition: background .15s;
+    }
+    .trending-card:hover { background: rgba(255,255,255,.09); }
+    .trending-platform { font-size: 10px; font-weight: 800; letter-spacing: .5px; }
+    .trending-platform.tt  { color: #f97316; }
+    .trending-platform.ig  { color: #a78bfa; }
+    .trending-label { font-size: 12px; font-weight: 600; color: #cbd5e1; line-height: 1.3; }
+    .trending-sub   { font-size: 10px; color: #64748b; }
+
+    /* Card badges */
+    .card-badge-wrap { position: absolute; top: 8px; left: 8px; display: flex; flex-direction: column; gap: 4px; }
+    .badge-budget   { font-size: 10px; font-weight: 800; background: rgba(52,211,153,.18); color: #34d399; border-radius: 6px; padding: 2px 7px; }
+    .badge-toppick  { font-size: 10px; font-weight: 800; background: rgba(251,191,36,.15); color: #fbbf24; border-radius: 6px; padding: 2px 7px; }
+
+    /* Card entrance animation */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .discover-card { animation: fadeInUp .3s ease both; }
+
+    .filter-pills { display: flex; gap: 6px; flex-wrap: nowrap; overflow-x: auto; }
+    .filter-pill {
+      flex-shrink: 0; padding: 5px 14px; border-radius: 20px;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08);
+      color: #64748b; font-size: 12px; font-weight: 600; cursor: pointer; transition: all .15s;
+    }
+    .filter-pill:hover { background: rgba(255,255,255,.09); color: #94a3b8; }
+    .filter-pill.active { background: rgba(13,148,136,.15); border-color: rgba(45,212,191,.3); color: #2dd4bf; }
+    .discover-grid {
+      flex: 1; overflow-y: auto; padding: 10px 14px 14px;
+      display: flex; flex-direction: column; gap: 12px;
+      align-content: start;
+    }
+
+    .discover-card {
+      background: #111827; border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px; overflow: hidden; transition: border-color .18s, box-shadow .18s;
+      display: flex; flex-direction: column; cursor: pointer; flex-shrink: 0;
+    }
+    .discover-card:hover { border-color: rgba(45,212,191,.35); box-shadow: 0 6px 24px rgba(0,0,0,.45); }
+    .disc-photo-wrap { position: relative; height: 160px; overflow: hidden; flex-shrink: 0; }
+    .disc-photo { width: 100%; height: 100%; object-fit: cover; background: #1a2742; transition: transform .35s; }
+    .discover-card:hover .disc-photo { transform: scale(1.04); }
+
+    /* Name overlaid at bottom of photo — always visible, never clipped */
+    .disc-name-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
+      background: linear-gradient(to top, rgba(0,0,0,.88) 0%, rgba(0,0,0,.5) 55%, transparent 100%);
+      padding: 36px 12px 10px;
+    }
+    .disc-name {
+      font-size: 15px; font-weight: 800; color: #fff; line-height: 1.3;
+      text-shadow: 0 1px 4px rgba(0,0,0,.6);
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+
+    .disc-heart-btn {
+      position: absolute; top: 10px; right: 10px;
+      background: rgba(0,0,0,.55); border: none; border-radius: 50%;
+      width: 32px; height: 32px; color: #f0faf9; font-size: 16px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(4px); transition: all .15s; z-index: 4;
+    }
+    .disc-heart-btn:hover { background: rgba(244,114,182,.55); }
+    .disc-heart-btn.saved { color: #f472b6; background: rgba(244,114,182,.4); }
+    .disc-cat-pill {
+      position: absolute; top: 10px; left: 10px; z-index: 4;
+      font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 6px;
+      backdrop-filter: blur(6px); background: rgba(0,0,0,.65); color: #e2e8f0;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .disc-body { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 6px; }
+    .disc-desc {
+      font-size: 11px; color: #94a3b8; line-height: 1.5;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .disc-meta-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .disc-stars { font-size: 13px; color: #fbbf24; letter-spacing: .5px; }
+    .disc-stars span { color: #64748b; font-size: 11px; margin-left: 3px; }
+    .rating-source { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
+    .src-yelp   { background: rgba(196,18,0,.15); color: #ef4444; }
+    .src-google { background: rgba(66,133,244,.15); color: #60a5fa; }
+    .local-gem-pill { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; background: rgba(52,211,153,.12); color: #34d399; white-space: nowrap; }
+    .disc-price { font-size: 12px; font-weight: 700; color: #fb923c; }
+    .disc-free  { font-size: 12px; font-weight: 700; color: #34d399; }
+    .disc-add-btn {
+      width: 100%; background: rgba(13,148,136,.15); border: 1px solid rgba(45,212,191,.3);
+      border-radius: 10px; color: #2dd4bf; font-size: 13px; font-weight: 700;
+      padding: 9px 10px; cursor: pointer; text-align: center;
+      transition: background .15s; font-family: 'Inter', sans-serif;
+    }
+    .disc-add-btn:hover { background: rgba(13,148,136,.35); }
+
+    /* ── Place profile modal ───────────────────────────────────── */
+    .profile-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.7);
+      backdrop-filter: blur(10px); z-index: 600;
+      display: flex; align-items: center; justify-content: center; padding: 16px;
+    }
+    .profile-overlay.hidden { display: none; }
+    .profile-box {
+      background: #111827; border: 1px solid rgba(255,255,255,.1);
+      border-radius: 20px; width: 100%; max-width: 420px;
+      max-height: 88vh; overflow-y: auto; display: flex; flex-direction: column;
+    }
+    .profile-photo-wrap { position: relative; height: 240px; flex-shrink: 0; overflow: hidden; border-radius: 20px 20px 0 0; }
+    .profile-slideshow { position: relative; width: 100%; height: 100%; }
+    .profile-slide {
+      position: absolute; inset: 0; opacity: 0; transition: opacity .35s ease;
+    }
+    .profile-slide.active { opacity: 1; z-index: 1; }
+    .profile-slide img {
+      width: 100%; height: 100%; object-fit: cover; background: #1a2742;
+    }
+    .slide-nav {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
+      background: rgba(0,0,0,.5); border: none; border-radius: 50%;
+      width: 30px; height: 30px; color: #f0faf9; font-size: 16px; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(4px); transition: background .15s; line-height: 1;
+    }
+    .slide-nav:hover { background: rgba(0,0,0,.75); }
+    .slide-nav.prev { left: 8px; }
+    .slide-nav.next { right: 8px; }
+    .slide-dots {
+      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 5px; z-index: 5;
+    }
+    .slide-dot {
+      width: 7px; height: 7px; border-radius: 50%; border: none; padding: 0;
+      background: rgba(255,255,255,.4); cursor: pointer; transition: all .2s;
+    }
+    .slide-dot.active { background: #fff; transform: scale(1.3); }
+    .slide-counter {
+      position: absolute; bottom: 10px; right: 12px; z-index: 5;
+      background: rgba(0,0,0,.55); border-radius: 10px; padding: 2px 8px;
+      font-size: 10px; font-weight: 700; color: rgba(255,255,255,.8);
+      backdrop-filter: blur(4px);
+    }
+    .profile-close {
+      position: absolute; top: 12px; left: 12px; z-index: 6;
+      background: rgba(0,0,0,.55); border: none; border-radius: 50%;
+      width: 32px; height: 32px; color: #f0faf9; font-size: 18px; font-weight: 300;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(4px); transition: background .15s; line-height: 1;
+    }
+    .profile-close:hover { background: rgba(0,0,0,.8); }
+    .profile-saved-badge {
+      position: absolute; top: 12px; right: 12px; z-index: 6;
+      background: rgba(244,114,182,.3); border: 1px solid rgba(244,114,182,.5);
+      border-radius: 20px; color: #f472b6; font-size: 11px; font-weight: 700;
+      padding: 4px 10px; backdrop-filter: blur(4px); display: none;
+    }
+    .profile-content { padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+    .profile-city-tag {
+      font-size: 11px; font-weight: 700; color: #2dd4bf;
+      background: rgba(13,148,136,.15); border-radius: 5px; padding: 2px 8px;
+      display: inline-block; align-self: flex-start;
+    }
+    .profile-name { font-size: 20px; font-weight: 800; color: #f0faf9; line-height: 1.2; }
+    .profile-rating-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .profile-stars { font-size: 16px; color: #fbbf24; letter-spacing: 1px; }
+    .profile-stars-num { font-size: 13px; color: #94a3b8; font-weight: 600; }
+    .profile-price { font-size: 13px; font-weight: 700; color: #fb923c; }
+    .profile-free  { font-size: 13px; font-weight: 700; color: #34d399; }
+    .profile-cat   { font-size: 11px; font-weight: 600; color: #64748b; background: rgba(255,255,255,.06); border-radius: 5px; padding: 2px 8px; }
+    .profile-desc {
+      font-size: 13px; color: #cbd5e1; line-height: 1.6;
+      margin-bottom: 6px;
+    }
+    .profile-tip {
+      font-size: 13px; color: #94a3b8; line-height: 1.6;
+      background: rgba(255,255,255,.03); border-radius: 10px; padding: 12px;
+      border-left: 3px solid rgba(45,212,191,.3);
+    }
+    .profile-social-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    }
+    .profile-social-link {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px; padding: 10px 12px; text-decoration: none;
+      color: #e2e8f0; font-size: 12px; font-weight: 600;
+      transition: all .15s;
+    }
+    .profile-social-link:hover { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.15); }
+    .profile-social-link .soc-icon { font-size: 18px; flex-shrink: 0; }
+    .profile-social-link .soc-label { display: flex; flex-direction: column; gap: 1px; }
+    .profile-social-link .soc-name { font-size: 12px; font-weight: 700; color: #f0faf9; }
+    .profile-social-link .soc-sub { font-size: 10px; color: #64748b; }
+    .profile-actions { display: flex; gap: 8px; }
+    .profile-save-btn {
+      flex: 1; background: rgba(244,114,182,.1); border: 1px solid rgba(244,114,182,.3);
+      border-radius: 10px; color: #f472b6; font-size: 13px; font-weight: 700;
+      padding: 11px; cursor: pointer; transition: all .15s; font-family: 'Inter', sans-serif;
+    }
+    .profile-save-btn:hover { background: rgba(244,114,182,.22); }
+    .profile-save-btn.saved { background: rgba(244,114,182,.22); }
+    .profile-plan-btn {
+      flex: 2; background: #0d9488; border: none;
+      border-radius: 10px; color: #fff; font-size: 13px; font-weight: 700;
+      padding: 11px; cursor: pointer; transition: background .15s; font-family: 'Inter', sans-serif;
+    }
+    .profile-plan-btn:hover { background: #0f766e; }
+
+    /* ── Map panel ─────────────────────────────────────────────── */
+    .map-panel { flex: 1; min-width: 0; position: relative; overflow: hidden; }
+    #map { position: absolute; inset: 0; }
+    .map-no-trip {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 10px;
+      background: #0b1120; color: #475569; text-align: center; padding: 32px;
+    }
+    .map-no-trip .empty-icon { font-size: 40px; }
+    .map-no-trip p { font-size: 13px; max-width: 200px; line-height: 1.6; }
+
+    /* ── Modal ─────────────────────────────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.65);
+      backdrop-filter: blur(8px); z-index: 500;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .modal-overlay.hidden { display: none; }
+    .modal-box {
+      background: #1a2742; border: 1px solid rgba(45,212,191,.2);
+      border-radius: 18px; padding: 26px; width: 360px; max-width: 92vw;
+    }
+    .modal-title { font-size: 18px; font-weight: 800; color: #f0faf9; margin-bottom: 18px; }
+    .modal-label { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 5px; margin-top: 12px; }
+    .modal-label:first-of-type { margin-top: 0; }
+    .modal-input {
+      width: 100%; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px; color: #e2e8f0; font-size: 14px; padding: 10px 14px;
+      outline: none; font-family: 'Inter', sans-serif; transition: border-color .15s;
+    }
+    .modal-input:focus { border-color: rgba(45,212,191,.4); }
+    .modal-select {
+      width: 100%; background: #111827; border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px; color: #e2e8f0; font-size: 14px; padding: 10px 14px;
+      outline: none; font-family: 'Inter', sans-serif; cursor: pointer;
+      transition: border-color .15s; appearance: none;
+    }
+    .modal-select:focus { border-color: rgba(45,212,191,.4); }
+    .modal-select option { background: #1a2742; }
+    .modal-row { display: flex; gap: 10px; }
+    .modal-row > * { flex: 1; }
+    .modal-error { font-size: 12px; color: #f87171; margin-top: 8px; min-height: 16px; }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }
+    .btn-cancel {
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 8px; color: #94a3b8; font-size: 13px; font-weight: 600;
+      padding: 8px 16px; cursor: pointer; transition: all .15s;
+    }
+    .btn-cancel:hover { background: rgba(255,255,255,.09); }
+
+    /* ── Rewards tab ──────────────────────────────────────────── */
+    .rewards-scroll { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 16px; }
+    .rewards-hero {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e1b4b 100%);
+      border: 1px solid rgba(129,140,248,.2); border-radius: 16px;
+      padding: 20px; text-align: center;
+    }
+    .rewards-hero-icon { font-size: 36px; margin-bottom: 6px; }
+    .rewards-hero-title { font-size: 18px; font-weight: 800; color: #e0e7ff; }
+    .rewards-hero-sub { font-size: 12px; color: #a5b4fc; margin-top: 4px; line-height: 1.5; }
+
+    .rewards-section-title {
+      font-size: 14px; font-weight: 800; color: #e0e7ff; margin-bottom: 2px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .rewards-section-sub { font-size: 11px; color: #64748b; margin-bottom: 8px; }
+
+    .cc-card {
+      background: #111827; border: 1px solid rgba(129,140,248,.12);
+      border-radius: 14px; overflow: hidden; transition: all .18s;
+    }
+    .cc-card:hover { border-color: rgba(129,140,248,.35); box-shadow: 0 4px 20px rgba(0,0,0,.3); }
+    .cc-card-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px; border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .cc-card-icon {
+      width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 800;
+    }
+    .cc-card-icon.amex { background: linear-gradient(135deg, #006fcf, #00aeef); color: #fff; }
+    .cc-card-icon.chase { background: linear-gradient(135deg, #1a5276, #2e86c1); color: #fff; }
+    .cc-card-icon.citi { background: linear-gradient(135deg, #003b70, #0066b2); color: #fff; }
+    .cc-card-icon.cap1 { background: linear-gradient(135deg, #a30000, #d4380d); color: #fff; }
+    .cc-card-icon.bilt { background: linear-gradient(135deg, #1a1a2e, #16213e); color: #818cf8; }
+    .cc-card-icon.generic { background: linear-gradient(135deg, #374151, #4b5563); color: #e5e7eb; }
+    .cc-card-info { flex: 1; min-width: 0; }
+    .cc-card-name { font-size: 13px; font-weight: 700; color: #f0faf9; }
+    .cc-card-issuer { font-size: 10px; color: #64748b; font-weight: 600; }
+    .cc-card-bonus {
+      background: rgba(52,211,153,.1); border: 1px solid rgba(52,211,153,.25);
+      border-radius: 6px; padding: 2px 8px; font-size: 10px; font-weight: 700;
+      color: #34d399; white-space: nowrap; flex-shrink: 0;
+    }
+    .cc-card-body { padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+    .cc-card-row { display: flex; align-items: flex-start; gap: 8px; }
+    .cc-card-label { font-size: 10px; font-weight: 700; color: #64748b; min-width: 55px; flex-shrink: 0; text-transform: uppercase; letter-spacing: .04em; padding-top: 1px; }
+    .cc-card-val { font-size: 12px; color: #cbd5e1; line-height: 1.5; }
+    .cc-card-val strong { color: #a5b4fc; font-weight: 700; }
+
+    .cc-city-cards { display: flex; flex-direction: column; gap: 10px; }
+    .cc-city-block { margin-bottom: 4px; }
+    .cc-city-name {
+      font-size: 12px; font-weight: 700; color: #2dd4bf;
+      background: rgba(13,148,136,.1); border-radius: 6px;
+      padding: 4px 10px; display: inline-block; margin-bottom: 8px;
+    }
+    .cc-city-tips { display: flex; flex-direction: column; gap: 6px; }
+    .cc-city-tip {
+      font-size: 11px; color: #94a3b8; line-height: 1.5;
+      padding: 8px 10px; background: rgba(255,255,255,.03);
+      border-radius: 8px; border-left: 3px solid rgba(129,140,248,.3);
+    }
+    .cc-city-tip strong { color: #e0e7ff; }
+
+    .checklist-wrap {
+      background: #111827; border: 1px solid rgba(52,211,153,.15);
+      border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 8px;
+    }
+    .checklist-item {
+      display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: #cbd5e1; line-height: 1.5;
+    }
+    .checklist-num {
+      width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(129,140,248,.15); color: #818cf8; font-size: 10px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .blog-card {
+      background: #111827; border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px; padding: 14px; cursor: pointer; transition: all .18s;
+    }
+    .blog-card:hover { border-color: rgba(129,140,248,.3); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,.3); }
+    .blog-card-tag { font-size: 10px; font-weight: 700; color: #818cf8; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
+    .blog-card-title { font-size: 13px; font-weight: 700; color: #f0faf9; line-height: 1.4; margin-bottom: 4px; }
+    .blog-card-excerpt { font-size: 11px; color: #64748b; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .blog-card-expanded { display: none; margin-top: 10px; font-size: 12px; color: #94a3b8; line-height: 1.7; }
+    .blog-card-expanded.open { display: block; }
+    .blog-card-expanded p { margin-bottom: 8px; }
+    .blog-card-expanded strong { color: #e0e7ff; }
+    .blog-card-expanded ul { padding-left: 16px; margin: 6px 0; }
+    .blog-card-expanded li { margin-bottom: 4px; }
+
+    /* ── Toast ─────────────────────────────────────────────────── */
+    .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: #1a2742; border: 1px solid rgba(45,212,191,.3);
+      border-radius: 10px; color: #f0faf9; font-size: 13px; font-weight: 600;
+      padding: 10px 20px; z-index: 9999; white-space: nowrap;
+      box-shadow: 0 4px 20px rgba(0,0,0,.5);
+      animation: toastIn .25s ease;
+    }
+    @keyframes toastIn { from { opacity:0; transform: translateX(-50%) translateY(8px); } to { opacity:1; transform: translateX(-50%) translateY(0); } }
+
+    /* ── Mobile ────────────────────────────────────────────────── */
+    .mob-map-close {
+      display: none; position: absolute; top: 12px; right: 12px; z-index: 600;
+      background: rgba(11,17,32,.85); border: 1px solid rgba(255,255,255,.15);
+      border-radius: 10px; color: #f0faf9; font-size: 13px; font-weight: 700;
+      padding: 8px 16px; cursor: pointer; backdrop-filter: blur(8px);
+    }
+    @media (max-width: 768px) {
+      .content-panel { width: 100%; max-width: 100%; }
+      .map-panel { display: none; position: fixed; inset: 0; z-index: 150; }
+      .map-panel.mob-visible { display: block; }
+      .map-panel.mob-visible .mob-map-close { display: block; }
+      .mob-map-toggle { display: flex; align-items: center; gap: 5px; }
+      .hero-band { height: 120px; min-height: 120px; }
+      /* Hide nav items that don't fit on small screens */
+      .btn-ghost { display: none; }
+      #btn-new-trip { display: none; }
+      .trips-dropdown-wrap { display: none; }
+      /* Lang picker always visible on mobile */
+      .lang-picker-btn { width: 38px; height: 38px; font-size: 18px; }
+      .lang-picker-menu { right: 0; left: auto; min-width: 180px; }
+    }
+    @media (max-width: 500px) {
+      .hero-actions { flex-wrap: wrap; gap: 4px; }
+      .hero-action-btn { font-size: 11px; padding: 5px 8px; }
+    }
+
+    /* ── Quick Add / Import ────────────────────────────────────── */
+    .qa-trigger-btn {
+      flex: 1; background: rgba(13,148,136,.12); border: 1px solid rgba(45,212,191,.25);
+      border-radius: 8px; color: #2dd4bf; font-size: 12px; font-weight: 700;
+      padding: 7px 10px; cursor: pointer; transition: all .15s; font-family: 'Inter', sans-serif;
+    }
+    .qa-trigger-btn:hover { background: rgba(13,148,136,.28); }
+    .qa-bulk-btn { background: rgba(244,114,182,.08); border-color: rgba(244,114,182,.25); color: #f472b6; }
+    .qa-bulk-btn:hover { background: rgba(244,114,182,.2); }
+
+    .qa-modal-box {
+      background: #1a2742; border: 1px solid rgba(45,212,191,.2);
+      border-radius: 20px; width: 100%; max-width: 440px;
+      max-height: 88vh; overflow-y: auto; display: flex; flex-direction: column;
+    }
+    .qa-modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 22px 14px; border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .qa-modal-title { font-size: 17px; font-weight: 800; color: #f0faf9; }
+    .qa-tab-row { display: flex; gap: 4px; background: rgba(255,255,255,.04); border-radius: 8px; padding: 3px; }
+    .qa-tab {
+      flex: 1; background: none; border: none; border-radius: 6px;
+      color: #64748b; font-size: 12px; font-weight: 700; padding: 5px 10px;
+      cursor: pointer; font-family: 'Inter', sans-serif; transition: all .15s; white-space: nowrap;
+    }
+    .qa-tab.active { background: #0d9488; color: #fff; }
+    .qa-body { padding: 18px 22px 22px; display: flex; flex-direction: column; gap: 14px; }
+    .qa-label { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 5px; }
+    .qa-input {
+      width: 100%; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px; color: #e2e8f0; font-size: 14px; padding: 10px 14px;
+      outline: none; font-family: 'Inter', sans-serif; transition: border-color .15s;
+    }
+    .qa-input:focus { border-color: rgba(45,212,191,.4); }
+    .qa-input::placeholder { color: #334155; }
+    .qa-textarea {
+      width: 100%; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px; color: #e2e8f0; font-size: 13px; padding: 10px 14px;
+      outline: none; font-family: 'Inter', sans-serif; transition: border-color .15s;
+      min-height: 130px; resize: vertical; line-height: 1.6;
+    }
+    .qa-textarea:focus { border-color: rgba(45,212,191,.4); }
+    .qa-textarea::placeholder { color: #334155; }
+    .qa-select {
+      width: 100%; background: #111827; border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px; color: #e2e8f0; font-size: 14px; padding: 10px 14px;
+      outline: none; font-family: 'Inter', sans-serif; cursor: pointer; appearance: none;
+    }
+    .qa-select option { background: #1a2742; }
+    .social-pick-row { display: flex; gap: 8px; }
+    .social-pick-btn {
+      flex: 1; background: rgba(255,255,255,.04); border: 1.5px solid rgba(255,255,255,.1);
+      border-radius: 10px; color: #94a3b8; font-size: 12px; font-weight: 700;
+      padding: 9px 6px; cursor: pointer; font-family: 'Inter', sans-serif;
+      transition: all .15s; text-align: center;
+    }
+    .social-pick-btn:hover { background: rgba(255,255,255,.09); }
+    .social-pick-btn.active-ig  { background: rgba(225,48,108,.15);  border-color: #e1306c; color: #e1306c; }
+    .social-pick-btn.active-tt  { background: rgba(105,201,208,.15); border-color: #69c9d0; color: #69c9d0; }
+    .social-pick-btn.active-oth { background: rgba(45,212,191,.12);  border-color: #2dd4bf; color: #2dd4bf; }
+    .qa-hint { font-size: 11px; color: #475569; line-height: 1.6; }
+    .qa-share-banner {
+      background: rgba(45,212,191,.08); border: 1px solid rgba(45,212,191,.2);
+      border-radius: 10px; padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px;
+    }
+    .qa-share-banner-icon { font-size: 20px; flex-shrink: 0; }
+    .qa-share-banner-text { font-size: 12px; color: #94a3b8; line-height: 1.6; }
+    .qa-share-banner-text strong { color: #2dd4bf; }
+    .social-badge {
+      display: inline-flex; align-items: center; gap: 3px;
+      font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 5px;
+      margin-top: 3px;
+    }
+    .badge-ig  { background: rgba(225,48,108,.15);  color: #e1306c; }
+    .badge-tt  { background: rgba(105,201,208,.15); color: #69c9d0; }
+    .badge-oth { background: rgba(45,212,191,.1);   color: #2dd4bf; }
+
+    /* ── Best Time of Day badge ────────────────────────────────── */
+    .best-time-badge {
+      font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 5px;
+      border: 1px solid; white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;
+    }
+
+    /* ── Day Insights ──────────────────────────────────────────── */
+    .day-insight {
+      display: flex; align-items: flex-start; gap: 8px;
+      border-radius: 9px; padding: 8px 11px; margin-bottom: 5px;
+      border: 1px solid; flex-shrink: 0;
+    }
+    .insight-icon { font-size: 13px; flex-shrink: 0; line-height: 1.5; }
+    .insight-text { font-size: 12px; font-weight: 600; line-height: 1.5; }
+
+    /* ── Packing List Modal ────────────────────────────────────── */
+    .pack-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.7);
+      backdrop-filter: blur(10px); z-index: 600;
+      display: flex; align-items: center; justify-content: center; padding: 16px;
+    }
+    .pack-overlay.hidden { display: none; }
+    .pack-box {
+      background: #111827; border: 1px solid rgba(255,255,255,.1);
+      border-radius: 20px; width: 100%; max-width: 420px;
+      max-height: 86vh; display: flex; flex-direction: column;
+    }
+    .pack-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 20px 14px; border-bottom: 1px solid rgba(255,255,255,.07); flex-shrink: 0;
+    }
+    .pack-header-title { font-size: 17px; font-weight: 800; color: #f0faf9; }
+    .pack-header-close {
+      background: none; border: none; color: #475569; font-size: 20px; cursor: pointer;
+      padding: 2px 6px; border-radius: 6px; transition: color .12s; line-height: 1;
+    }
+    .pack-header-close:hover { color: #f0faf9; }
+    .pack-body { flex: 1; overflow-y: auto; padding: 16px 20px 20px; display: flex; flex-direction: column; gap: 0; }
+    .pack-progress {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 16px; flex-shrink: 0;
+    }
+    .pack-prog-bar-track { flex: 1; height: 5px; background: rgba(255,255,255,.08); border-radius: 5px; overflow: hidden; }
+    .pack-prog-bar-fill { height: 100%; background: #2dd4bf; border-radius: 5px; transition: width .3s ease; }
+    .pack-prog-label { font-size: 11px; font-weight: 700; color: #2dd4bf; white-space: nowrap; }
+    .pack-section { margin-bottom: 18px; }
+    .pack-section-title { font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+    .pack-item {
+      display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px;
+      cursor: pointer; transition: background .12s; margin-bottom: 2px; user-select: none;
+    }
+    .pack-item:hover { background: rgba(255,255,255,.05); }
+    .pack-item.checked { opacity: .55; }
+    .pack-item.checked .pack-item-text { text-decoration: line-through; color: #475569; }
+    .pack-check {
+      width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid rgba(255,255,255,.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; color: #2dd4bf; flex-shrink: 0;
+      transition: all .12s; background: transparent;
+    }
+    .pack-item.checked .pack-check { background: rgba(45,212,191,.15); border-color: #2dd4bf; }
+    .pack-item-text { font-size: 13px; color: #e2e8f0; font-weight: 500; }
+
+    /* ── Vibe Tags ────────────────────────────────────────────── */
+    .vibe-tags { display: flex; flex-wrap: wrap; gap: 4px; margin: 2px 0; }
+    .vibe-tag {
+      font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 5px;
+      white-space: nowrap; letter-spacing: .01em;
+    }
+    .disc-vibes { margin: 1px 0 2px; }
+
+    /* ── Day Health Bar ────────────────────────────────────────── */
+    .day-health-bar {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07);
+      border-radius: 10px; padding: 7px 12px; margin-bottom: 4px; flex-shrink: 0;
+    }
+    .dhb-energy { font-size: 12px; font-weight: 700; }
+    .dhb-sep {
+      width: 3px; height: 3px; border-radius: 50%;
+      background: rgba(255,255,255,.2); flex-shrink: 0;
+    }
+    .dhb-stat { font-size: 11px; color: #64748b; font-weight: 600; }
+
+    /* ── Pill energy dot ───────────────────────────────────────── */
+    .pill-energy-dot {
+      display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+      margin-right: 5px; flex-shrink: 0; vertical-align: middle; margin-top: -1px;
+    }
+    .pill-energy-dot.chill    { background: #34d399; box-shadow: 0 0 4px rgba(52,211,153,.5); }
+    .pill-energy-dot.moderate { background: #fbbf24; box-shadow: 0 0 4px rgba(251,191,36,.5); }
+    .pill-energy-dot.packed   { background: #f87171; box-shadow: 0 0 4px rgba(248,113,113,.5); }
+
+    /* ── Budget bar (hero) ─────────────────────────────────────── */
+    .hero-budget-bar {
+      padding: 0 20px 14px; display: none;
+    }
+    .budget-bar-info {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 5px;
+    }
+    .budget-label { font-size: 10px; font-weight: 700; color: rgba(240,250,249,.5); text-transform: uppercase; letter-spacing: .06em; }
+    .budget-amount { font-size: 12px; font-weight: 800; color: #f0faf9; }
+    .budget-of { font-size: 11px; font-weight: 400; color: rgba(240,250,249,.4); }
+    .budget-bar-track {
+      height: 4px; background: rgba(255,255,255,.1); border-radius: 4px; overflow: hidden;
+    }
+    .budget-bar-fill { height: 100%; border-radius: 4px; transition: width .4s ease; }
+
+    /* ── Vibe filter row (discover) ────────────────────────────── */
+    .vibe-filter-row {
+      display: flex; gap: 6px; flex-wrap: nowrap; overflow-x: auto;
+      padding-top: 8px;
+    }
+    .vibe-filter-pill {
+      flex-shrink: 0; padding: 4px 11px; border-radius: 20px;
+      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+      color: #64748b; font-size: 11px; font-weight: 700; cursor: pointer; transition: all .15s;
+      white-space: nowrap;
+    }
+    .vibe-filter-pill:hover { background: rgba(255,255,255,.09); color: #94a3b8; }
+    .vibe-filter-pill.active { background: rgba(167,139,250,.12); border-color: rgba(167,139,250,.4); color: #a78bfa; }
+
+    /* ── Language Picker ─────────────────────────────────────── */
+    .lang-picker-wrap { position: relative; }
+    .lang-picker-btn {
+      background: rgba(45,212,191,.08); border: 1px solid rgba(45,212,191,.25);
+      border-radius: 8px; color: #2dd4bf; font-size: 16px;
+      width: 36px; height: 36px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; transition: all .15s;
+    }
+    .lang-picker-btn:hover { background: rgba(45,212,191,.18); border-color: rgba(45,212,191,.5); }
+    .lang-picker-menu {
+      position: absolute; right: 0; top: calc(100% + 6px);
+      background: #1e293b; border: 1px solid rgba(255,255,255,.1);
+      border-radius: 12px; padding: 6px; z-index: 600; min-width: 165px;
+      box-shadow: 0 8px 28px rgba(0,0,0,.45); display: none;
+    }
+    .lang-picker-menu.open { display: block; }
+    .lang-option {
+      display: flex; align-items: center; gap: 9px;
+      padding: 7px 10px; border-radius: 8px; cursor: pointer;
+      font-size: 13px; color: #94a3b8; transition: background .12s; border: none;
+      background: none; width: 100%; text-align: left;
+    }
+    .lang-option:hover { background: rgba(255,255,255,.06); color: #f0faf9; }
+    .lang-option.active { background: rgba(45,212,191,.1); color: #2dd4bf; }
+    .lang-flag { font-size: 15px; line-height: 1; }
+    .lang-name { font-weight: 600; flex: 1; }
+    .lang-native { font-size: 11px; color: #475569; }
+
+    /* RTL support (Arabic) */
+    html[dir="rtl"] body { direction: rtl; }
+    html[dir="rtl"] .nav-right { flex-direction: row-reverse; }
+    html[dir="rtl"] .lang-picker-menu { right: auto; left: 0; }
+    html[dir="rtl"] .filter-pills,
+    html[dir="rtl"] .disc-sort-row,
+    html[dir="rtl"] .vibe-filter-row,
+    html[dir="rtl"] .trending-scroll { flex-direction: row-reverse; }
+    html[dir="rtl"] .disc-cat-pill { left: auto; right: 8px; }
+    html[dir="rtl"] .disc-heart-btn { right: auto; left: 8px; }
+    html[dir="rtl"] .card-badge-wrap { left: auto; right: 8px; }
+    html[dir="rtl"] .tab-bar { flex-direction: row-reverse; }
+
+    /* Leaflet overrides */
+    .leaflet-container { background: #0b1120; font-family: 'Inter', sans-serif; }
+    .leaflet-popup-content-wrapper { background: #1a2742; border: 1px solid rgba(255,255,255,.1); border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,.5); }
+    .leaflet-popup-content { color: #f0faf9; font-family: 'Inter', sans-serif; margin: 10px 14px; }
+    .leaflet-popup-tip { background: #1a2742; }
+    .leaflet-popup-close-button { color: #64748b !important; }
+    .pin-popup-name { font-size: 13px; font-weight: 700; color: #f0faf9; }
+    .pin-popup-day { font-size: 11px; color: #2dd4bf; margin-top: 3px; font-weight: 600; }
+    .pin-popup-city { font-size: 11px; color: #64748b; margin-top: 1px; }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="top-nav">
+  <a class="nav-logo" href="index.html">🌍 Roam<span>ly</span></a>
+  <div class="nav-sep"></div>
+  <div class="nav-center">
+    <input id="trip-name-input" class="trip-name-input" placeholder="Untitled Trip" autocomplete="off" />
+    <div class="nav-date-range" id="nav-date-range"></div>
+  </div>
+  <div class="nav-right">
+    <div class="trips-dropdown-wrap" id="trips-dropdown-wrap">
+      <button class="trips-dropdown-btn" onclick="toggleTripsDropdown()">Trips ▾</button>
+      <div class="trips-dropdown-menu" id="trips-dropdown-menu"></div>
+    </div>
+    <button class="btn-primary" id="btn-new-trip" data-i18n="newTrip" onclick="openNewTripModal()">+ New Trip</button>
+    <a href="index.html" class="btn-ghost" id="btn-explore" data-i18n="explore">← Explore</a>
+    <div class="lang-picker-wrap" id="lang-picker-wrap">
+      <button class="lang-picker-btn" id="lang-picker-btn" onclick="toggleLangPicker()" title="Language / 言語 / Idioma">🌐</button>
+      <div class="lang-picker-menu" id="lang-picker-menu"></div>
+    </div>
+    <button class="mob-map-toggle" id="mob-map-toggle" onclick="toggleMobileMap()">🗺 Map</button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero-band" id="hero-band">
+  <div class="hero-overlay">
+    <div class="hero-meta">
+      <div class="hero-titles">
+        <div class="hero-city" id="hero-city">Select a Trip</div>
+        <div class="hero-trip-name" id="hero-trip-name">Create or select a trip to begin planning</div>
+      </div>
+      <div class="hero-actions">
+        <button class="hero-action-btn" onclick="openPackingList()">🎒 Pack</button>
+        <button class="hero-action-btn" onclick="handleHeroShare()">📤 Share Plan</button>
+        <button class="hero-action-btn" onclick="openNewTripModal()">⚙ Settings</button>
+      </div>
+    </div>
+    <div id="hero-budget-bar" class="hero-budget-bar"></div>
+  </div>
+</div>
+
+<!-- Tab bar -->
+<div class="tab-bar">
+  <button class="tab-btn" id="tab-saves" onclick="switchTab('saves')">
+    <span data-i18n="tabSaves">♡ Saves</span><span class="saves-count-badge" id="saves-badge" style="display:none">0</span>
+  </button>
+  <button class="tab-btn active" id="tab-itinerary" data-i18n="tabItinerary" onclick="switchTab('itinerary')">📅 Itinerary</button>
+  <button class="tab-btn" id="tab-discover" data-i18n="tabDiscover" onclick="switchTab('discover')">🔍 Discover</button>
+  <button class="tab-btn" id="tab-rewards" data-i18n="tabRewards" onclick="switchTab('rewards')">💳 Rewards</button>
+</div>
+
+<!-- Main layout -->
+<div class="planner-layout">
+
+  <!-- Left content panel -->
+  <div class="content-panel">
+
+    <!-- SAVES TAB -->
+    <div class="tab-panel" id="panel-saves">
+      <div class="saves-search-wrap">
+        <input class="saves-search" type="search" placeholder="Search saved places..." oninput="renderSavesTab(this.value)" />
+        <div style="display:flex;gap:6px;margin-top:8px">
+          <button class="qa-trigger-btn" onclick="openQuickAdd()">+ Quick Add</button>
+          <button class="qa-trigger-btn qa-bulk-btn" onclick="openBulkImport()">📋 Import List</button>
+        </div>
+      </div>
+      <div class="saves-grid" id="saves-grid"></div>
+    </div>
+
+    <!-- ITINERARY TAB -->
+    <div class="tab-panel active" id="panel-itinerary">
+      <div class="date-pills-row" id="date-pills-row"></div>
+      <div class="saves-counter" id="saves-counter"></div>
+      <div class="itin-cards-area" id="itin-cards-area"
+        ondragover="onDayDragOver(event)"
+        ondragleave="onDayDragLeave(event)"
+        ondrop="onDayDrop(event)">
+      </div>
+      <div class="add-place-row">
+        <input class="add-place-input" id="add-place-input" type="text"
+          placeholder="+ Add a place — search by name..."
+          autocomplete="off"
+          oninput="onAddPlaceInput(this.value)"
+          onkeydown="onAddPlaceKey(event)" />
+        <div class="add-place-suggestions" id="add-place-suggestions"></div>
+      </div>
+    </div>
+
+    <!-- DISCOVER TAB -->
+    <div class="tab-panel" id="panel-discover">
+      <div class="discover-header">
+        <div class="disc-search-wrap">
+          <input type="text" id="disc-search" class="disc-search-input"
+            placeholder="Search places, food, activities…" autocomplete="off" />
+          <button class="disc-search-clear" id="disc-search-clear" style="display:none" title="Clear">✕</button>
+        </div>
+        <div class="filter-pills" id="discover-filter-pills">
+          <button class="filter-pill active" data-filter="all" data-i18n="filterAll" onclick="setDiscoverFilter('all')">All</button>
+          <button class="filter-pill" data-filter="activities" data-i18n="filterActivities" onclick="setDiscoverFilter('activities')">🎯 Activities</button>
+          <button class="filter-pill" data-filter="food" data-i18n="filterFood" onclick="setDiscoverFilter('food')">🍽 Food</button>
+          <button class="filter-pill" data-filter="free" data-i18n="filterFree" onclick="setDiscoverFilter('free')">✨ Free</button>
+        </div>
+        <div class="disc-sort-row" id="disc-sort-row">
+          <button class="disc-sort-pill active" data-sort="rating" data-i18n="sortRating" onclick="setDiscoverSort('rating')">⭐ Top Rated</button>
+          <button class="disc-sort-pill" data-sort="price-low" data-i18n="sortPriceLow" onclick="setDiscoverSort('price-low')">💸 Price: Low</button>
+          <button class="disc-sort-pill" data-sort="price-high" data-i18n="sortPriceHigh" onclick="setDiscoverSort('price-high')">💎 Price: High</button>
+          <button class="disc-sort-pill" data-sort="az" data-i18n="sortAZ" onclick="setDiscoverSort('az')">A → Z</button>
+        </div>
+        <div class="vibe-filter-row" id="vibe-filter-row">
+          <button class="vibe-filter-pill active" data-vibe="" data-i18n="vibeAll" onclick="setDiscoverVibe('')">All Vibes</button>
+          <button class="vibe-filter-pill" data-vibe="hidden-gem" data-i18n="vibeHiddenGem" onclick="setDiscoverVibe('hidden-gem')">💎 Hidden Gem</button>
+          <button class="vibe-filter-pill" data-vibe="budget" data-i18n="vibeBudget" onclick="setDiscoverVibe('budget')">💸 Budget</button>
+          <button class="vibe-filter-pill" data-vibe="romantic" data-i18n="vibeRomantic" onclick="setDiscoverVibe('romantic')">❤️ Romantic</button>
+          <button class="vibe-filter-pill" data-vibe="outdoor" data-i18n="vibeOutdoor" onclick="setDiscoverVibe('outdoor')">🌿 Outdoor</button>
+          <button class="vibe-filter-pill" data-vibe="foodie" data-i18n="vibeFoodie" onclick="setDiscoverVibe('foodie')">🍜 Foodie</button>
+          <button class="vibe-filter-pill" data-vibe="instagrammable" data-i18n="vibeInstagrammable" onclick="setDiscoverVibe('instagrammable')">📸 Instagrammable</button>
+          <button class="vibe-filter-pill" data-vibe="local-fave" data-i18n="vibeLocalFave" onclick="setDiscoverVibe('local-fave')">🌟 Local Fave</button>
+          <button class="vibe-filter-pill" data-vibe="splurge" data-i18n="vibeSplurge" onclick="setDiscoverVibe('splurge')">✨ Splurge</button>
+        </div>
+      </div>
+      <div class="discover-grid" id="discover-grid"></div>
+    </div>
+
+    <!-- REWARDS TAB -->
+    <div class="tab-panel" id="panel-rewards">
+      <div class="rewards-scroll" id="rewards-scroll"></div>
+    </div>
+
+  </div>
+
+  <!-- Map panel -->
+  <div class="map-panel" id="map-panel">
+    <button class="mob-map-close" id="mob-map-close" onclick="toggleMobileMap()">✕ Close Map</button>
+    <div id="map"></div>
+  </div>
+
+</div>
+
+<!-- Place Profile Modal -->
+<div id="place-profile-modal" class="profile-overlay hidden" onclick="if(event.target===this)closePlaceProfile()">
+  <div class="profile-box">
+    <div class="profile-photo-wrap">
+      <div class="profile-slideshow" id="profile-slideshow"></div>
+      <button class="slide-nav prev" onclick="profileSlide(-1)">‹</button>
+      <button class="slide-nav next" onclick="profileSlide(1)">›</button>
+      <div class="slide-dots" id="profile-slide-dots"></div>
+      <span class="slide-counter" id="profile-slide-counter"></span>
+      <button class="profile-close" onclick="closePlaceProfile()">&#x2715;</button>
+      <div class="profile-saved-badge" id="profile-saved-badge">♥ Saved</div>
+    </div>
+    <div class="profile-content">
+      <div class="profile-city-tag" id="profile-city-tag"></div>
+      <div class="profile-name" id="profile-name"></div>
+      <div class="profile-rating-row">
+        <span class="profile-stars" id="profile-stars"></span>
+        <span class="profile-stars-num" id="profile-stars-num"></span>
+        <span class="profile-price" id="profile-price" style="display:none"></span>
+        <span class="profile-free"  id="profile-free"  style="display:none">FREE</span>
+        <span class="profile-cat"   id="profile-cat"></span>
+        <span class="rating-source" id="profile-source-badge"></span>
+        <span class="local-gem-pill" id="profile-gem-badge" style="display:none">🔒 Local Gem</span>
+      </div>
+      <div class="profile-desc" id="profile-desc" style="display:none"></div>
+      <div class="profile-tip" id="profile-tip" style="display:none"></div>
+      <div class="profile-social-grid">
+        <a class="profile-social-link" id="profile-ig"     target="_blank" rel="noopener">
+          <span class="soc-icon">📸</span>
+          <span class="soc-label"><span class="soc-name">Instagram</span><span class="soc-sub">See photos &amp; reels</span></span>
+        </a>
+        <a class="profile-social-link" id="profile-tt"     target="_blank" rel="noopener">
+          <span class="soc-icon">🎵</span>
+          <span class="soc-label"><span class="soc-name">TikTok</span><span class="soc-sub">Watch videos</span></span>
+        </a>
+        <a class="profile-social-link" id="profile-yelp"   target="_blank" rel="noopener">
+          <span class="soc-icon">⭐</span>
+          <span class="soc-label"><span class="soc-name">Yelp</span><span class="soc-sub">Reviews &amp; ratings</span></span>
+        </a>
+        <a class="profile-social-link" id="profile-google" target="_blank" rel="noopener">
+          <span class="soc-icon">🔍</span>
+          <span class="soc-label"><span class="soc-name">Google</span><span class="soc-sub">Maps &amp; reviews</span></span>
+        </a>
+      </div>
+      <div class="profile-actions">
+        <button class="profile-save-btn" id="profile-save-btn" onclick="profileToggleSave()">♡ Save</button>
+        <button class="profile-plan-btn" onclick="profileAddToPlanner()">+ Add to Planner</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Quick Add / Bulk Import Modal -->
+<div id="quick-add-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeQuickAdd()">
+  <div class="qa-modal-box">
+    <div class="qa-modal-header">
+      <span class="qa-modal-title" id="qa-modal-title">Add a Place</span>
+      <div class="qa-tab-row">
+        <button class="qa-tab active" id="qa-tab-single" onclick="switchQaTab('single')">✏️ Single</button>
+        <button class="qa-tab"        id="qa-tab-bulk"   onclick="switchQaTab('bulk')">📋 Import List</button>
+      </div>
+    </div>
+
+    <!-- SINGLE ADD -->
+    <div class="qa-body" id="qa-pane-single">
+      <div id="qa-share-banner" class="qa-share-banner" style="display:none">
+        <span class="qa-share-banner-icon">📲</span>
+        <div class="qa-share-banner-text">
+          <strong>Shared from social</strong><br>
+          We pre-filled the place name from what you shared. Edit it if needed.
+        </div>
+      </div>
+      <div>
+        <div class="qa-label">Place Name</div>
+        <input id="qa-name" class="qa-input" type="text" placeholder="e.g. Joe's Pizza, Nobu, Central Park" autocomplete="off" />
+      </div>
+      <div>
+        <div class="qa-label">City</div>
+        <select id="qa-city" class="qa-select">
+          <option value="">Choose a city…</option>
+        </select>
+      </div>
+      <div>
+        <div class="qa-label">Category</div>
+        <select id="qa-category" class="qa-select">
+          <option value="food">🍽 Food / Restaurant</option>
+          <option value="activity">🎯 Activity / Attraction</option>
+        </select>
+      </div>
+      <div>
+        <div class="qa-label">Where did you see it?</div>
+        <div class="social-pick-row">
+          <button class="social-pick-btn" id="spb-ig"  onclick="pickSocial('instagram')">📸 Instagram</button>
+          <button class="social-pick-btn" id="spb-tt"  onclick="pickSocial('tiktok')">🎵 TikTok</button>
+          <button class="social-pick-btn" id="spb-oth" onclick="pickSocial('other')">🔖 Other</button>
+        </div>
+      </div>
+      <div>
+        <div class="qa-label">Note <span style="color:#334155;font-weight:400;text-transform:none">(optional)</span></div>
+        <input id="qa-note" class="qa-input" type="text" placeholder="e.g. seen on @foodblogger, must try the ramen" autocomplete="off" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeQuickAdd()">Cancel</button>
+        <button class="btn-primary" onclick="saveQuickAdd()">Save to Wishlist</button>
+      </div>
+    </div>
+
+    <!-- BULK IMPORT -->
+    <div class="qa-body" id="qa-pane-bulk" style="display:none">
+      <div class="qa-share-banner">
+        <span class="qa-share-banner-icon">💡</span>
+        <div class="qa-share-banner-text">
+          <strong>Paste your list below — one place per line.</strong><br>
+          Works great with your Instagram saved collection, Google Maps lists, or your own notes.
+        </div>
+      </div>
+      <div>
+        <div class="qa-label">Places (one per line)</div>
+        <textarea id="qa-bulk-text" class="qa-textarea" placeholder="Joe's Pizza&#10;Katz's Delicatessen&#10;Chelsea Market&#10;Shake Shack Madison Sq&#10;..."></textarea>
+      </div>
+      <div class="modal-row">
+        <div>
+          <div class="qa-label">City</div>
+          <select id="qa-bulk-city" class="qa-select">
+            <option value="">Choose a city…</option>
+          </select>
+        </div>
+        <div>
+          <div class="qa-label">Category</div>
+          <select id="qa-bulk-category" class="qa-select">
+            <option value="food">🍽 Food</option>
+            <option value="activity">🎯 Activity</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <div class="qa-label">Where did you see these?</div>
+        <div class="social-pick-row">
+          <button class="social-pick-btn" id="bspb-ig"  onclick="pickBulkSocial('instagram')">📸 Instagram</button>
+          <button class="social-pick-btn" id="bspb-tt"  onclick="pickBulkSocial('tiktok')">🎵 TikTok</button>
+          <button class="social-pick-btn" id="bspb-oth" onclick="pickBulkSocial('other')">🔖 Other</button>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeQuickAdd()">Cancel</button>
+        <button class="btn-primary" id="qa-bulk-save-btn" onclick="saveBulkImport()">Import Places</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- New Trip Modal -->
+<div id="new-trip-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeNewTripModal()">
+  <div class="modal-box">
+    <div class="modal-title">Plan a New Trip</div>
+    <div class="modal-label">Trip Name</div>
+    <input id="nt-name" class="modal-input" type="text" placeholder="e.g. Tokyo Summer 2026" autocomplete="off" />
+    <div class="modal-label">Destination</div>
+    <select id="nt-city" class="modal-select">
+      <option value="">Choose a destination…</option>
+    </select>
+    <div class="modal-row">
+      <div>
+        <div class="modal-label">Start Date <span style="color:#334155;font-weight:400">(optional)</span></div>
+        <input id="nt-date" class="modal-input" type="date" />
+      </div>
+      <div>
+        <div class="modal-label">Number of Days</div>
+        <input id="nt-days" class="modal-input" type="number" min="1" max="14" value="3" />
+      </div>
+    </div>
+    <div class="modal-label">Total Budget <span style="color:#334155;font-weight:400">(optional, in $)</span></div>
+    <input id="nt-budget" class="modal-input" type="number" min="0" placeholder="e.g. 800" />
+    <div class="modal-error" id="nt-error"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeNewTripModal()">Cancel</button>
+      <button class="btn-primary" onclick="createTrip()">Create Trip</button>
+    </div>
+  </div>
+</div>
+
+<!-- Packing List Modal -->
+<div id="pack-modal" class="pack-overlay hidden" onclick="if(event.target===this)closePackingList()">
+  <div class="pack-box">
+    <div class="pack-header">
+      <span class="pack-header-title">🎒 Smart Packing List</span>
+      <button class="pack-header-close" onclick="closePackingList()">&#x2715;</button>
+    </div>
+    <div class="pack-body" id="pack-content"></div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="data.js"></script>
+<script src="planner.js"></script>
+</body>
+</html>

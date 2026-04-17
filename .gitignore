@@ -1,0 +1,26 @@
+# Netlify
+.netlify
+
+# Build/helper scripts (not part of the deployed app)
+fetch-*.js
+fix-photos.js
+build-photo-db.js
+rebuild-photos.js
+add-descriptions.js
+gen-wiki.js
+wiki-photos-generated.js
+wiki-photos-v2.js
+merge_food.js
+food_patch_*.json
+
+# Temp/state files
+*-progress*.json
+photo-progress*.json
+all-places.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
