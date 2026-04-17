@@ -1437,6 +1437,7 @@ function openTripPicker() {
 function closeTripPicker() { document.getElementById('trip-picker-modal').classList.add('hidden'); }
 
 function updateTripStartDate(val) {
+  if (!currentTrip) return;
   const data = getPlans();
   const trip = data.trips.find(t => t.id === currentTrip.id);
   if (!trip) return;
@@ -1448,6 +1449,7 @@ function updateTripStartDate(val) {
 
 /* ── Kanban ─────────────────────────────────────────────── */
 function renderKanban() {
+  if (!currentTrip) return;
   const board = document.getElementById('kanban-board');
   if (!currentTrip.days || !currentTrip.days.length) {
     board.innerHTML = `
@@ -1533,6 +1535,7 @@ function setupDragEvents() {
 }
 
 function moveCard(cardId, fromDayId, toDayId) {
+  if (!currentTrip) return;
   const data = getPlans();
   const trip = data.trips.find(t => t.id === currentTrip.id);
   if (!trip) return;
@@ -1549,8 +1552,10 @@ function moveCard(cardId, fromDayId, toDayId) {
 }
 
 function addDay() {
+  if (!currentTrip) return;
   const data = getPlans();
   const trip = data.trips.find(t => t.id === currentTrip.id);
+  if (!trip) return;
   if (!trip.days) trip.days = [];
   const num = trip.days.length + 1;
   trip.days.push({ id: crypto.randomUUID(), num, cards: [] });
@@ -1565,8 +1570,10 @@ function addDay() {
 }
 
 function removeDay(dayId) {
+  if (!currentTrip) return;
   const data = getPlans();
   const trip = data.trips.find(t => t.id === currentTrip.id);
+  if (!trip) return;
   trip.days = trip.days.filter(d => d.id !== dayId);
   trip.days.forEach((d, i) => d.num = i + 1);
   currentTrip = trip;
@@ -1575,6 +1582,7 @@ function removeDay(dayId) {
 }
 
 function addCard(dayId) {
+  if (!currentTrip) return;
   const citySelect = document.getElementById(`k-city-${dayId}`);
   const noteInput  = document.getElementById(`k-note-${dayId}`);
   const cityId = citySelect?.value || '';
@@ -1594,6 +1602,7 @@ function addCard(dayId) {
 }
 
 function removeCard(dayId, cardId) {
+  if (!currentTrip) return;
   const data = getPlans();
   const trip = data.trips.find(t => t.id === currentTrip.id);
   const day  = trip?.days.find(d => d.id === dayId);

@@ -552,6 +552,17 @@ When a user shares an Instagram or TikTok post to Roamly, the app opens at `plan
 
 ## Bugs Fixed
 
+### 2026-04-16 (Session 6)
+- **Null crash in `renderKanban()` (app.js):** Accessed `currentTrip.days` before checking `currentTrip !== null`. Added `if (!currentTrip) return` guard at function start.
+- **Null crash in `updateTripStartDate()` (app.js):** Accessed `currentTrip.id` without null guard. Fixed.
+- **Null crash in `moveCard()` (app.js):** Accessed `currentTrip.id` without null guard. Fixed.
+- **Null crash in `addDay()` (app.js):** Accessed `currentTrip.id` without null guard; also missing `if (!trip) return` guard after the find. Both fixed.
+- **Null crash in `removeDay()` (app.js):** Accessed `currentTrip.id` then directly called `trip.days.filter` with no null check on `trip`. Both fixed.
+- **Null crash in `addCard()` (app.js):** Accessed `currentTrip.id` without null guard. Fixed.
+- **Null crash in `removeCard()` (app.js):** Accessed `currentTrip.id` without null guard. Fixed.
+
+Pattern: all planner mutation functions now start with `if (!currentTrip) return` before any `currentTrip.xxx` access.
+
 ### 2026-04-15 (Session 5)
 - **Food expansion — 10 restaurants per genre:** All 34 cities expanded from 1 restaurant per cuisine genre to ~10. 6,418 total restaurants across all cities. New entries were appended via a patch-and-merge script (`merge_food.js`, now deleted).
 - **Double-comma corruption in food arrays (data.js):** The merge script inserted `,\n` before new items, but the last original item in each food array already had a trailing comma — creating `},\n,\n{` (a JavaScript sparse-array elision). This produced `undefined` holes in all 34 food arrays. Fixed by replacing all 34 occurrences of the `\n    ,\n` double-comma pattern with a single `\n`.
