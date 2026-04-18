@@ -2151,7 +2151,7 @@ const CITIES = [
     name: "New Orleans",
     country: "USA",
     tagline: "Jazz, Creole Food & Mardi Gras",
-    image: "https://images.unsplash.com/photo-1551871812-10ecc21ffa2f?w=800&q=80",
+    image: "https://images.unsplash.com/photo-YhTGZygEflo?w=800&q=80",
     iata: "MSY",
     packType: "city_usa",
     activities: [
@@ -2371,7 +2371,7 @@ const CITIES = [
     name: "Nashville",
     country: "USA",
     tagline: "Music City USA",
-    image: "https://images.unsplash.com/photo-1544985361-b420d7a77043?w=800&q=80",
+    image: "https://images.unsplash.com/photo-ImooodzdegE?w=800&q=80",
     iata: "BNA",
     packType: "city_usa",
     activities: [
@@ -2764,7 +2764,7 @@ const CITIES = [
     name: "Orlando",
     country: "USA",
     tagline: "Theme Park Capital of the World",
-    image: "https://images.unsplash.com/photo-1559827291-72ee739d0d9a?w=800&q=80",
+    image: "https://images.unsplash.com/photo-sewG7UXFj18?w=800&q=80",
     iata: "MCO",
     packType: "theme_park",
     activities: [
@@ -6057,7 +6057,7 @@ const CITIES = [
     name: "San Diego",
     country: "USA",
     tagline: "America's Finest City",
-    image: "https://images.unsplash.com/photo-1489824904134-891ab64532f1?w=800&q=80",
+    image: "https://images.unsplash.com/photo-iLi4U0eskGk?w=800&q=80",
     iata: "SAN",
     packType: "city_usa",
     activities: [
@@ -6502,7 +6502,7 @@ const CITIES = [
     name: "Boston",
     country: "USA",
     tagline: "The Cradle of Liberty",
-    image: "https://images.unsplash.com/photo-1477414348463-c0eb7f1359b6?w=800&q=80",
+    image: "https://images.unsplash.com/photo-dPOmHAZC_yA?w=800&q=80",
     iata: "BOS",
     packType: "city_usa",
     activities: [
@@ -6724,7 +6724,7 @@ const CITIES = [
     name: "Denver",
     country: "USA",
     tagline: "The Mile High City",
-    image: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?w=800&q=80",
+    image: "https://images.unsplash.com/photo-NflJmUuaYVI?w=800&q=80",
     iata: "DEN",
     packType: "city_usa",
     activities: [
@@ -6918,7 +6918,7 @@ const CITIES = [
     name: "Portland",
     country: "USA",
     tagline: "Keep Portland Weird",
-    image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=800&q=80",
+    image: "https://images.unsplash.com/photo-srHTAuSUPQU?w=800&q=80",
     iata: "PDX",
     packType: "city_usa",
     activities: [
@@ -7150,7 +7150,7 @@ const CITIES = [
     name: "Atlanta",
     country: "USA",
     tagline: "The City in a Forest",
-    image: "https://images.unsplash.com/photo-1566737236500-c8ac43014a67?w=800&q=80",
+    image: "https://images.unsplash.com/photo-i1RcGbiX2dE?w=800&q=80",
     iata: "ATL",
     packType: "city_usa",
     activities: [
