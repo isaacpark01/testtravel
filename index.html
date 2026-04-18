@@ -2,621 +2,171 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0d9488" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>Roamly — Plan Your Next Adventure</title>
-  <meta name="description" content="Discover destinations, build day-by-day itineraries, and plan trips with friends — all in one place. Free travel planner with 50+ destinations." />
-  <link rel="canonical" href="https://roamly.app/" />
-  <!-- Open Graph -->
-  <meta property="og:type"        content="website" />
-  <meta property="og:url"         content="https://roamly.app/" />
-  <meta property="og:title"       content="Roamly — Plan Your Next Adventure" />
-  <meta property="og:description" content="Discover destinations, build day-by-day itineraries, and plan group trips — all in one place. Free forever." />
-  <meta property="og:image"       content="https://roamly.app/og-image.jpg" />
-  <meta property="og:site_name"   content="Roamly" />
-  <!-- Twitter Card -->
-  <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Roamly — Plan Your Next Adventure" />
-  <meta name="twitter:description" content="Discover destinations, build itineraries, compare flights and hotels — free travel planner." />
-  <meta name="twitter:image"       content="https://roamly.app/og-image.jpg" />
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Roamly",
-    "url": "https://roamly.app",
-    "description": "Discover destinations, build day-by-day itineraries, and plan trips with friends.",
-    "applicationCategory": "TravelApplication",
-    "operatingSystem": "Web",
-    "inLanguage": ["en","es","fr","ja","ko","zh","pt","ar","hi","vi","tl"],
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "featureList": ["Day-by-day itinerary planner","Group trip boards","Flight & hotel deal search","50+ curated destinations"]
-  }
-  </script>
-  <link rel="manifest" href="manifest.json" />
+  <title>Roamly — Coming Soon</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: #0a1628;
+      color: #fff;
+      font-family: Inter, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(13,148,136,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(13,148,136,0.10) 0%, transparent 50%);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+      color: #2dd4bf;
+      letter-spacing: -0.5px;
+      margin-bottom: 48px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(45,212,191,0.12);
+      border: 1px solid rgba(45,212,191,0.3);
+      color: #2dd4bf;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 8vw, 72px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    h1 span {
+      background: linear-gradient(135deg, #2dd4bf, #0d9488);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    p {
+      font-size: 18px;
+      color: #94a3b8;
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+
+    .progress-bar {
+      width: min(400px, 100%);
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 100px;
+      margin: 0 auto 12px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 72%;
+      background: linear-gradient(90deg, #0d9488, #2dd4bf);
+      border-radius: 100px;
+      animation: shimmer 2s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .progress-label {
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 48px;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      max-width: 520px;
+      margin-bottom: 48px;
+    }
+
+    .feature {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 13px;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .feature .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #2dd4bf;
+      flex-shrink: 0;
+    }
+
+    .footer {
+      font-size: 12px;
+      color: #334155;
+      margin-top: 24px;
+    }
+  </style>
 </head>
 <body>
+  <div class="logo">🌍 Roamly</div>
 
-<!-- ══ WIP BANNER ══════════════════════════════════════════════ -->
-<div id="wip-banner" style="background:#0f766e;color:#fff;text-align:center;padding:10px 16px;font-size:13px;font-family:Inter,sans-serif;display:flex;align-items:center;justify-content:center;gap:10px;position:relative;z-index:9999;">
-  <span>🚧</span>
-  <span>We're actively building Roamly — new features and improvements are dropping regularly. Thanks for your patience!</span>
-  <button onclick="document.getElementById('wip-banner').style.display='none'" style="background:none;border:1px solid rgba(255,255,255,0.4);color:#fff;border-radius:4px;padding:2px 8px;cursor:pointer;font-size:12px;margin-left:8px;">Dismiss</button>
-</div>
+  <div class="badge">🚧 Work in Progress</div>
 
-<!-- ══ COOKIE CONSENT BANNER ════════════════════════════════════ -->
-<div id="cookie-banner" class="cookie-banner" role="region" aria-label="Cookie consent" style="display:none">
-  <p class="cookie-text">
-    We use cookies and local storage to keep you signed in and remember your language preference.
-    See our <a href="/privacy.html">Privacy Policy</a> for details.
-  </p>
-  <div class="cookie-actions">
-    <button class="cookie-decline" onclick="cookieChoice(false)">Decline</button>
-    <button class="cookie-accept" onclick="cookieChoice(true)">Accept All</button>
+  <h1>Something great is<br><span>coming soon.</span></h1>
+
+  <p>We're building the smartest travel planner on the web. New features and destinations dropping soon — check back shortly.</p>
+
+  <div class="progress-bar">
+    <div class="progress-fill"></div>
   </div>
-</div>
+  <div class="progress-label">72% complete</div>
 
-<!-- ══ AUTH MODAL ══════════════════════════════════════════════ -->
-<div id="auth-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title" onclick="if(event.target===this)closeAuth()">
-  <div class="modal-card" style="max-width:400px;border-radius:18px;padding:32px">
-    <!-- Login -->
-    <div id="auth-login-view">
-      <div id="auth-modal-title" style="font-size:22px;font-weight:800;margin-bottom:20px">Sign In</div>
-      <label class="modal-field-label">Email</label>
-      <input id="login-email" class="auth-field" type="email" placeholder="you@example.com" autocomplete="email" />
-      <label class="modal-field-label" style="margin-top:12px">Password</label>
-      <input id="login-password" class="auth-field" type="password" placeholder="••••••••" autocomplete="current-password" />
-      <div id="login-error" class="modal-error hidden"></div>
-      <button class="auth-btn-solid" style="width:100%;margin-top:16px" onclick="signIn()">Sign In</button>
-      <p style="text-align:center;font-size:13px;color:rgba(240,250,249,.4);margin-top:14px">
-        <a href="#" style="color:rgba(240,250,249,.35)" onclick="switchAuth('forgot');return false">Forgot password?</a>
-        &nbsp;·&nbsp;
-        No account? <a href="#" style="color:#2dd4bf" onclick="switchAuth('signup');return false">Sign Up</a>
-      </p>
-    </div>
-    <!-- Signup -->
-    <div id="auth-signup-view" class="hidden">
-      <div style="font-size:22px;font-weight:800;margin-bottom:20px">Create Account</div>
-      <label class="modal-field-label">Display Name</label>
-      <input id="signup-username" class="auth-field" type="text" placeholder="Your name" autocomplete="username" />
-      <label class="modal-field-label" style="margin-top:12px">Email</label>
-      <input id="signup-email" class="auth-field" type="email" placeholder="you@example.com" autocomplete="email" />
-      <label class="modal-field-label" style="margin-top:12px">Password</label>
-      <input id="signup-password" class="auth-field" type="password" placeholder="6+ characters" autocomplete="new-password" />
-      <div id="signup-error" class="modal-error hidden"></div>
-      <button class="auth-btn-solid" style="width:100%;margin-top:16px" onclick="signUp()">Create Account</button>
-      <p style="text-align:center;font-size:13px;color:rgba(240,250,249,.4);margin-top:14px">
-        Already have one? <a href="#" style="color:#2dd4bf" onclick="switchAuth('login');return false">Sign In</a>
-      </p>
-    </div>
-    <!-- Forgot Password -->
-    <div id="auth-forgot-view" class="hidden">
-      <div style="font-size:22px;font-weight:800;margin-bottom:8px">Reset Password</div>
-      <p style="font-size:13px;color:rgba(240,250,249,.45);margin-bottom:20px;line-height:1.6">Enter your email and we'll send you a reset link.</p>
-      <label class="modal-field-label">Email</label>
-      <input id="forgot-email" class="auth-field" type="email" placeholder="you@example.com" autocomplete="email" />
-      <div id="forgot-error" class="modal-error hidden"></div>
-      <div id="forgot-ok" class="hidden" style="background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.3);color:#34d399;border-radius:8px;padding:11px 14px;font-size:13px;margin-top:12px">
-        ✓ Check your email for a reset link.
-      </div>
-      <button class="auth-btn-solid" style="width:100%;margin-top:16px" onclick="sendPasswordReset()">Send Reset Link</button>
-      <p style="text-align:center;font-size:13px;color:rgba(240,250,249,.4);margin-top:14px">
-        Back to <a href="#" style="color:#2dd4bf" onclick="switchAuth('login');return false">Sign In</a>
-      </p>
-    </div>
-    <!-- Success -->
-    <div id="auth-success-view" class="hidden" style="text-align:center;padding:20px 0">
-      <div style="font-size:40px;margin-bottom:12px">✅</div>
-      <div id="auth-success-msg" style="font-size:15px;font-weight:600;color:#f0faf9;line-height:1.6"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ PROFILE MODAL ═══════════════════════════════════════════ -->
-<div id="profile-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-label="User profile" onclick="if(event.target===this)closeProfile()">
-  <div class="modal-card" style="max-width:360px;border-radius:18px;padding:32px;text-align:center">
-    <div id="profile-avatar-lg" style="width:60px;height:60px;border-radius:50%;background:#0d9488;color:#fff;font-size:22px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px"></div>
-    <div id="profile-username-display" style="font-size:18px;font-weight:800;color:#f0faf9;margin-bottom:4px"></div>
-    <div id="profile-email-display" style="font-size:13px;color:rgba(240,250,249,.4);margin-bottom:24px"></div>
-    <button class="auth-btn-outline" style="width:100%;margin-bottom:10px" onclick="signOut()">Sign Out</button>
-    <button class="auth-btn-outline" style="width:100%" onclick="closeProfile()">Close</button>
-  </div>
-</div>
-
-<!-- ══ CITY DETAIL MODAL ════════════════════════════════════════ -->
-<div id="city-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-city-name">
-  <div class="modal-card">
-    <div class="modal-drag-handle"></div>
-    <div id="modal-hero-img" class="modal-hero">
-      <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="modal-city-header">
-        <div>
-          <div id="modal-city-name" class="modal-city-name"></div>
-          <div id="modal-country" class="modal-country"></div>
-          <div id="modal-tagline" class="modal-tagline"></div>
-        </div>
-        <button class="modal-pin-btn" onclick="pinCityToBoard()">📌 Pin to Board</button>
-      </div>
-
-      <div class="modal-filters">
-        <input id="tab-search" class="modal-search-input" type="text" placeholder="🔍 Search…" oninput="applyFilter()" autocomplete="off" />
-        <select id="price-filter" class="filter-select" onchange="applyFilter()">
-          <option value="all">All Prices</option>
-          <option value="free">Free</option>
-          <option value="budget">Budget (&lt;$15)</option>
-          <option value="mid">Mid ($15-$50)</option>
-          <option value="premium">Premium ($50+)</option>
-        </select>
-        <select id="sort-filter" class="filter-select" onchange="applyFilter()">
-          <option value="default">Default Order</option>
-          <option value="rating">Top Rated</option>
-          <option value="price-asc">Price: Low → High</option>
-          <option value="price-desc">Price: High → Low</option>
-        </select>
-      </div>
-
-      <div class="modal-tabs">
-        <button class="tab-btn active" onclick="switchTab('activities',this)">🎯 Activities</button>
-        <button class="tab-btn"        onclick="switchTab('food',this)">🍽 Food</button>
-        <button class="tab-btn"        onclick="switchTab('transport',this)">🚌 Transport</button>
-        <button class="tab-btn"        onclick="switchTab('deals',this)">✈ Deals</button>
-        <button class="tab-btn"        onclick="switchTab('pack',this)">🎒 Pack</button>
-        <button class="tab-btn"        onclick="switchTab('essentials',this)">🗣 Essentials</button>
-      </div>
-
-      <div id="tab-activities" class="tab-pane active">
-        <div id="activities-list" class="cards-grid"></div>
-      </div>
-      <div id="tab-food" class="tab-pane">
-        <div id="food-list"></div>
-      </div>
-      <div id="tab-transport" class="tab-pane">
-        <div id="transport-list" class="cards-grid"></div>
-      </div>
-      <div id="tab-deals" class="tab-pane">
-        <div id="deals-content"></div>
-      </div>
-      <div id="tab-pack" class="tab-pane">
-        <div id="pack-content"></div>
-      </div>
-      <div id="tab-essentials" class="tab-pane">
-        <div id="essentials-content"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ NEW BOARD MODAL ══════════════════════════════════════════ -->
-<div id="new-board-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-label="New group board" onclick="if(event.target===this)closeNewBoardModal()">
-  <div class="modal-card" style="max-width:360px;border-radius:18px;padding:28px">
-    <div style="font-size:18px;font-weight:800;margin-bottom:16px">New Group Board</div>
-    <input id="new-board-name" class="auth-field" type="text" placeholder="Board name…" />
-    <div id="new-board-error" class="modal-error hidden"></div>
-    <div style="display:flex;gap:8px;margin-top:14px">
-      <button class="auth-btn-outline" style="flex:1" onclick="closeNewBoardModal()">Cancel</button>
-      <button class="auth-btn-solid"   style="flex:1" onclick="createBoard()">Create</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ BOARD PICKER MODAL ═══════════════════════════════════════ -->
-<div id="board-picker-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-label="Select board" onclick="if(event.target===this)closeBoardPicker()">
-  <div class="modal-card" style="max-width:360px;border-radius:18px;padding:28px">
-    <div style="font-size:18px;font-weight:800;margin-bottom:16px">Your Boards</div>
-    <div id="board-picker-list"></div>
-    <button class="auth-btn-outline" style="width:100%;margin-top:14px" onclick="closeBoardPicker()">Close</button>
-  </div>
-</div>
-
-<!-- ══ NEW TRIP MODAL ═══════════════════════════════════════════ -->
-<div id="new-trip-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-label="New trip" onclick="if(event.target===this)closeNewTripModal()">
-  <div class="modal-card" style="max-width:360px;border-radius:18px;padding:28px">
-    <div style="font-size:18px;font-weight:800;margin-bottom:16px">New Trip</div>
-    <input id="new-trip-name" class="auth-field" type="text" placeholder="Trip name…" />
-    <div style="display:flex;gap:8px;margin-top:14px">
-      <button class="auth-btn-outline" style="flex:1" onclick="closeNewTripModal()">Cancel</button>
-      <button class="auth-btn-solid"   style="flex:1" onclick="createTrip()">Create</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ TRIP PICKER MODAL ════════════════════════════════════════ -->
-<div id="trip-picker-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-label="Select trip" onclick="if(event.target===this)closeTripPicker()">
-  <div class="modal-card" style="max-width:360px;border-radius:18px;padding:28px">
-    <div style="font-size:18px;font-weight:800;margin-bottom:16px">Your Trips</div>
-    <div id="trip-picker-list"></div>
-    <button class="auth-btn-outline" style="width:100%;margin-top:14px" onclick="closeTripPicker()">Close</button>
-  </div>
-</div>
-
-<!-- ══ DAY PICKER POPUP ═════════════════════════════════════════ -->
-<div id="day-picker-popup" class="modal-overlay hidden" onclick="if(event.target===this)closeDayPicker()"></div>
-
-<!-- ══ HEADER ═══════════════════════════════════════════════════ -->
-<header class="site-header">
-  <div class="header-inner">
-    <div class="logo">🌍 Roamly</div>
-    <nav class="header-nav">
-      <a href="#cities" data-i18n="navExplore" onclick="scrollToCities()">Explore</a>
-      <a href="planner.html" data-i18n="navPlanner">Planner</a>
-      <a href="#deals" data-i18n="navDeals">Deals</a>
-    </nav>
-    <div class="lang-picker-wrap" id="home-lang-wrap">
-      <button class="lang-globe-btn" onclick="toggleHomeLang()" title="Language">🌐</button>
-      <div class="lang-dropdown" id="home-lang-menu"></div>
-    </div>
-    <div id="header-auth" class="header-auth">
-      <button class="auth-btn-outline" data-i18n="navLogin" onclick="openAuth('login')">Log In</button>
-      <button class="auth-btn-solid"   data-i18n="navSignup" onclick="openAuth('signup')">Sign Up</button>
-    </div>
-    <div id="header-user" class="header-user hidden">
-      <div id="header-avatar" class="user-avatar" onclick="openProfile()"></div>
-      <span id="header-username" class="header-username"></span>
-    </div>
-  </div>
-</header>
-
-<!-- ══ HERO ═════════════════════════════════════════════════════ -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
-    <div class="hero-left">
-      <div class="hero-eyebrow" data-i18n="heroEyebrow">Plan Smarter. Travel Better.</div>
-      <h1 class="hero-title">
-        <span data-i18n="heroTitle1">Where will you</span><br>
-        <span class="teal-text" data-i18n="heroTitle2">go next?</span>
-      </h1>
-      <p class="hero-sub" data-i18n="heroSub">
-        Discover destinations, build day-by-day itineraries, and plan trips with friends — all in one place.
-      </p>
-      <div class="hero-cta-row">
-        <button class="btn-book" data-i18n="heroCTA1" onclick="scrollToCities()">
-          Explore Destinations →
-        </button>
-        <a href="planner.html" class="auth-btn-outline" data-i18n="heroCTA2" style="padding:15px 28px;border-radius:50px;font-size:15px;text-decoration:none">
-          Open Planner
-        </a>
-      </div>
-      <div class="hero-search" style="position:relative">
-        <input id="city-search" type="text" data-i18n-placeholder="heroSearch" placeholder="Search a destination…" autocomplete="off" onkeydown="if(event.key==='Enter')searchCity()" />
-        <button data-i18n="heroSearchBtn" onclick="searchCity()">Search</button>
-        <div id="search-suggestions" class="search-suggestions hidden" style="position:absolute;top:100%;left:0;right:0;z-index:200"></div>
-      </div>
-    </div>
-    <div class="hero-cards">
-      <div class="hero-card">
-        <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=400&q=80" alt="New York City" width="210" height="120" loading="lazy" />
-        <div class="hero-card-info">
-          <div class="hero-card-name">New York City</div>
-          <div class="hero-card-sub">⭐ 4.9 · Most Popular</div>
-        </div>
-      </div>
-      <div class="hero-card">
-        <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&q=80" alt="Tokyo" width="210" height="120" loading="lazy" />
-        <div class="hero-card-info">
-          <div class="hero-card-name">Tokyo, Japan</div>
-          <div class="hero-card-sub">⭐ 4.9 · Trending</div>
-        </div>
-      </div>
-      <div class="hero-card">
-        <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&q=80" alt="Paris" width="210" height="120" loading="lazy" />
-        <div class="hero-card-info">
-          <div class="hero-card-name">Paris, France</div>
-          <div class="hero-card-sub">⭐ 4.8 · Most Saved</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="hero-scroll-hint">↓</div>
-</section>
-
-<!-- ══ STATS BAR ═════════════════════════════════════════════════ -->
-<div class="stats-bar">
-  <div class="stats-bar-inner">
-    <div class="stat-item reveal">
-      <span class="stat-num" data-count="50" data-suffix="+">50+</span>
-      <span class="stat-label">Destinations</span>
-    </div>
-    <div class="stat-item reveal reveal-delay-1">
-      <span class="stat-num">Free</span>
-      <span class="stat-label">Forever</span>
-    </div>
-    <div class="stat-item reveal reveal-delay-2">
-      <span class="stat-num" data-count="11">11</span>
-      <span class="stat-label">Languages</span>
-    </div>
-    <div class="stat-item reveal reveal-delay-3">
-      <span class="stat-num">∞</span>
-      <span class="stat-label">Trips &amp; Boards</span>
-    </div>
-  </div>
-</div>
-
-<!-- ══ HOW IT WORKS ══════════════════════════════════════════════ -->
-<section class="how-section">
-  <div class="section-header reveal">
-    <h2>Plan any trip in three steps</h2>
-    <p>From inspiration to itinerary — Roamly does the heavy lifting</p>
-  </div>
-  <div class="how-grid">
-    <div class="how-card reveal" data-step="1">
-      <span class="how-icon">🔍</span>
-      <div class="how-title">Discover</div>
-      <p class="how-desc">Browse 50+ handpicked destinations with curated activities, restaurant picks, transport options, and local deals — filtered by price, rating, and your travel style.</p>
-    </div>
-    <div class="how-card reveal reveal-delay-1" data-step="2">
-      <span class="how-icon">🗓</span>
-      <div class="how-title">Plan</div>
-      <p class="how-desc">Drag activities into a day-by-day kanban board for your solo trip, or spin up a shared Group Board and let your crew vote on ideas in real time.</p>
-    </div>
-    <div class="how-card reveal reveal-delay-2" data-step="3">
-      <span class="how-icon">✈</span>
-      <div class="how-title">Book</div>
-      <p class="how-desc">Compare flights across Google Flights, Kayak, Skyscanner, and Expedia with one click. Search rental cars and estimate your full trip budget before you commit.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ══ CITIES ════════════════════════════════════════════════════ -->
-<section id="cities" class="section cities-section">
-  <div class="section-header reveal">
-    <h2 data-i18n="citiesTitle">Explore Destinations</h2>
-    <p data-i18n="citiesSub">Tap any city to browse activities, food, transport and deals</p>
-  </div>
-  <div class="region-filter">
-    <button class="region-btn active" data-i18n="regionAll" onclick="filterRegion('all',this)">🌍 All</button>
-    <button class="region-btn" data-i18n="regionUSA" onclick="filterRegion('USA',this)">🇺🇸 USA</button>
-    <button class="region-btn" data-i18n="regionIntl" onclick="filterRegion('International',this)">✈ International</button>
-  </div>
-  <div id="city-grid" class="city-grid"></div>
-</section>
-
-<!-- ══ GROUP BOARD ════════════════════════════════════════════════ -->
-<section id="group" class="section group-section">
-  <div class="section-header">
-    <h2 data-i18n="groupTitle">Group Trip Board</h2>
-    <p data-i18n="groupSub">Vote on ideas with your travel crew in real time</p>
+  <div class="features">
+    <div class="feature"><span class="dot"></span>34 curated destinations</div>
+    <div class="feature"><span class="dot"></span>Day-by-day itineraries</div>
+    <div class="feature"><span class="dot"></span>Group trip planning</div>
+    <div class="feature"><span class="dot"></span>6,000+ restaurants & activities</div>
+    <div class="feature"><span class="dot"></span>Flight & hotel deals</div>
+    <div class="feature"><span class="dot"></span>Offline-ready PWA</div>
   </div>
 
-  <div class="planner-mode-bar">
-    <button class="mode-btn active" data-i18n="modeSolo" onclick="switchPlannerMode('solo',this)">🗓 Solo Planner</button>
-    <button class="mode-btn" data-i18n="modeGroup" onclick="switchPlannerMode('group',this)">👥 Group Board</button>
-  </div>
-
-  <!-- SOLO PLANNER -->
-  <div id="solo-planner">
-    <div id="planner-empty">
-      <div class="board-empty">
-        <div>🗓</div>
-        <p data-i18n="emptyTrip">Create a trip to start planning your days</p>
-        <button class="auth-btn-solid" data-i18n="btnNewTrip" style="margin-top:16px" onclick="openNewTripModal()">+ New Trip</button>
-      </div>
-    </div>
-
-    <div id="planner-ui" class="hidden">
-      <div class="planner-toolbar">
-        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-          <span id="active-trip-name" style="font-size:16px;font-weight:800;color:#f0faf9"></span>
-          <input id="planner-start-date" type="date" class="filter-select" style="font-size:12px" onchange="updateTripStartDate(this.value)" />
-        </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="auth-btn-outline" style="font-size:12px;padding:7px 14px" onclick="addDay()">+ Day</button>
-          <button class="auth-btn-outline" style="font-size:12px;padding:7px 14px" onclick="openTripPicker()">Switch Trip</button>
-          <button class="auth-btn-outline" style="font-size:12px;padding:7px 14px" onclick="openNewTripModal()">+ New Trip</button>
-        </div>
-      </div>
-      <div id="kanban-board" class="kanban-board"></div>
-    </div>
-  </div>
-
-  <!-- GROUP PLANNER -->
-  <div id="group-planner" class="hidden">
-    <!-- Not configured notice -->
-    <div id="supabase-notice" class="board-empty hidden">
-      <div>🔧</div>
-      <p>Connect Supabase to enable the group board.</p>
-    </div>
-
-    <!-- Login prompt -->
-    <div id="board-login-prompt" class="board-empty hidden">
-      <div>👥</div>
-      <p>Sign in to create and share trip boards with friends</p>
-      <div style="display:flex;gap:10px;margin-top:16px">
-        <button class="auth-btn-outline" onclick="openAuth('login')">Log In</button>
-        <button class="auth-btn-solid"   onclick="openAuth('signup')">Sign Up</button>
-      </div>
-    </div>
-
-    <!-- Board UI -->
-    <div id="board-ui" class="hidden">
-      <div class="board-header">
-        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-          <span style="font-size:16px;font-weight:700">📋</span>
-          <span id="active-board-name" style="font-size:16px;font-weight:700;color:#f0faf9"></span>
-        </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <div id="online-users" style="display:flex;gap:6px;flex-wrap:wrap;align-items:center"></div>
-          <button class="auth-btn-outline" style="font-size:12px;padding:7px 14px" onclick="openBoardPicker()">Switch Board</button>
-          <button class="auth-btn-outline" style="font-size:12px;padding:7px 14px" onclick="shareBoard()">🔗 Share</button>
-          <button class="auth-btn-solid"   style="font-size:12px;padding:7px 14px" onclick="openNewBoardModal()">+ New Board</button>
-        </div>
-      </div>
-
-      <div class="add-idea-form">
-        <div class="idea-form-row">
-          <select id="idea-city"><option value="">Pick a city…</option></select>
-          <input id="idea-note" type="text" placeholder="Describe your idea…" onkeydown="if(event.key==='Enter')addIdea()" />
-          <button class="auth-btn-solid" onclick="addIdea()">Pin It</button>
-        </div>
-      </div>
-
-      <div id="ideas-list" class="ideas-list"></div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ DEALS ═════════════════════════════════════════════════════ -->
-<section id="deals" class="section deals-section">
-  <div class="section-header">
-    <h2 data-i18n="dealsTitle">Find Deals</h2>
-    <p data-i18n="dealsSub">Search flights, cars, and hotels — compare across platforms</p>
-  </div>
-
-  <!-- Flight search -->
-  <div class="deal-form-card">
-    <h3 data-i18n="dealsFlights">✈ Flights</h3>
-    <div class="deal-form">
-      <div class="idea-form-row">
-        <input id="flight-from"   type="text"    placeholder="From (city or airport)" />
-        <input id="flight-to"     type="text"    placeholder="To (city or airport)" />
-        <input id="flight-depart" type="date" />
-        <input id="flight-return" type="date" />
-        <input id="flight-pax"    type="number"  min="1" max="9" value="1" placeholder="Pax" style="max-width:80px" />
-      </div>
-    </div>
-    <div class="deals-grid-mini" style="margin-top:14px">
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildFlightLink('google',this)">Google Flights</a>
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildFlightLink('kayak',this)">Kayak</a>
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildFlightLink('skyscanner',this)">Skyscanner</a>
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildFlightLink('expedia',this)">Expedia</a>
-    </div>
-  </div>
-
-  <!-- Car rental search -->
-  <div class="deal-form-card" style="margin-top:20px">
-    <h3 data-i18n="dealsCars">🚗 Rental Cars</h3>
-    <div class="deal-form">
-      <div class="idea-form-row">
-        <input id="car-location" type="text" placeholder="Pick-up location" />
-        <input id="car-pickup"   type="date" />
-        <input id="car-dropoff"  type="date" />
-      </div>
-    </div>
-    <div class="deals-grid-mini" style="margin-top:14px">
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildCarLink('kayak',this)">Kayak Cars</a>
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildCarLink('google',this)">Google</a>
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildCarLink('enterprise',this)">Enterprise</a>
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildCarLink('hertz',this)">Hertz</a>
-    </div>
-  </div>
-
-  <!-- Budget estimator -->
-  <div class="deal-form-card" style="margin-top:20px">
-    <h3 data-i18n="dealsBudget">💰 Trip Budget Estimator</h3>
-    <div class="deal-form">
-      <div class="idea-form-row">
-        <input id="est-city-input" type="text" placeholder="Destination…" list="est-city-list" autocomplete="off" />
-        <datalist id="est-city-list"></datalist>
-        <select id="est-style">
-          <option value="budget">Budget traveler</option>
-          <option value="mid" selected>Mid-range</option>
-          <option value="luxury">Luxury</option>
-        </select>
-        <input id="est-days" type="number" min="1" max="30" value="7" placeholder="Days" style="max-width:80px" />
-        <button class="auth-btn-solid" onclick="estimateBudget()">Estimate</button>
-      </div>
-    </div>
-    <div id="estimate-result" class="hidden" style="margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px"></div>
-  </div>
-</section>
-
-<!-- ══ FOOTER ════════════════════════════════════════════════════ -->
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-top">
-      <!-- Brand -->
-      <div>
-        <div class="footer-brand-logo">🌍 Roamly</div>
-        <p class="footer-brand-tagline">Discover destinations, build day-by-day itineraries, and plan trips with friends — all in one place. Free forever.</p>
-        <div class="footer-socials">
-          <a class="footer-social-btn" href="#" aria-label="Twitter / X" title="Twitter">𝕏</a>
-          <a class="footer-social-btn" href="#" aria-label="Instagram" title="Instagram">📸</a>
-          <a class="footer-social-btn" href="#" aria-label="TikTok" title="TikTok">🎵</a>
-          <a class="footer-social-btn" href="#" aria-label="YouTube" title="YouTube">▶</a>
-        </div>
-      </div>
-      <!-- Product links -->
-      <div class="footer-col">
-        <h4>Product</h4>
-        <a href="/#cities">Explore Destinations</a>
-        <a href="/planner.html">Trip Planner</a>
-        <a href="/#deals">Find Flights &amp; Cars</a>
-        <a href="/#group">Group Board</a>
-      </div>
-      <!-- Legal links -->
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <a href="/privacy.html">Privacy Policy</a>
-        <a href="/terms.html">Terms of Service</a>
-        <a href="mailto:support@roamly.app">Contact Support</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p class="footer-copy">© 2026 Roamly. All rights reserved. Travel information is for guidance only — always verify with official sources.</p>
-      <div class="footer-legal-links">
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
-        <a href="mailto:support@roamly.app">Contact</a>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<!-- ══ BOTTOM NAV (mobile) ═══════════════════════════════════════ -->
-<nav class="bottom-nav">
-  <button class="bnav-btn active" onclick="scrollToSection('home',this)">
-    <span class="bnav-icon">🏠</span><span class="bnav-label">Home</span>
-  </button>
-  <button class="bnav-btn" onclick="scrollToSection('cities',this)">
-    <span class="bnav-icon">🌍</span><span class="bnav-label">Explore</span>
-  </button>
-  <button class="bnav-btn" onclick="window.location.href='planner.html'">
-    <span class="bnav-icon">🗓</span><span class="bnav-label">Planner</span>
-  </button>
-  <button class="bnav-btn" onclick="scrollToSection('deals',this)">
-    <span class="bnav-icon">✈</span><span class="bnav-label">Deals</span>
-  </button>
-  <button class="bnav-btn" onclick="openProfileOrAuth()">
-    <span class="bnav-icon">👤</span><span class="bnav-label">Profile</span>
-  </button>
-</nav>
-
-<!-- ══ TOAST ═════════════════════════════════════════════════════ -->
-<div id="share-toast" class="share-toast"></div>
-
-<!-- ══ SCRIPTS ════════════════════════════════════════════════════ -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="config.js"></script>
-<script src="data.js"></script>
-<script src="app.js"></script>
-
-<script>
-/* ── Cookie consent ── */
-(function() {
-  var COOKIE_KEY = 'roamly_cookies';
-  var banner = document.getElementById('cookie-banner');
-  if (!banner) return;
-  if (localStorage.getItem(COOKIE_KEY) !== null) return; // already decided
-  banner.style.display = 'flex';
-  window.cookieChoice = function(accepted) {
-    localStorage.setItem(COOKIE_KEY, accepted ? '1' : '0');
-    banner.classList.add('hidden');
-    setTimeout(function() { banner.style.display = 'none'; }, 400);
-  };
-})();
-</script>
-<script src="i18n.js"></script>
-<script src="reveal.js"></script>
-
+  <div class="footer">© 2026 Roamly · Built with ❤️</div>
 </body>
 </html>
