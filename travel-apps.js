@@ -457,3 +457,45 @@ const CITY_TRAVEL_APPS = {
     tip: 'In summer (June–September), heat exceeds 110°F (43°C). Never walk long distances outdoors between 10 AM–6 PM. A car with AC is not optional.',
   },
 };
+
+// ── City Currency Data ────────────────────────────────────────────────────────
+// code: ISO 4217 currency code (used with Frankfurter API)
+// name: display name
+// symbol: currency symbol
+// usd cities get no rate fetch (already home currency)
+const CITY_CURRENCY = {
+  nyc:          { code: 'USD', name: 'US Dollar',          symbol: '$'   },
+  miami:        { code: 'USD', name: 'US Dollar',          symbol: '$'   },
+  hawaii:       { code: 'USD', name: 'US Dollar',          symbol: '$'   },
+  losangeles:   { code: 'USD', name: 'US Dollar',          symbol: '$'   },
+  chicago:      { code: 'USD', name: 'US Dollar',          symbol: '$'   },
+  lasvegas:     { code: 'USD', name: 'US Dollar',          symbol: '$'   },
+  neworleans:   { code: 'USD', name: 'US Dollar',          symbol: '$'   },
+  nashville:    { code: 'USD', name: 'US Dollar',          symbol: '$'   },
+  sanfrancisco: { code: 'USD', name: 'US Dollar',          symbol: '$'   },
+  orlando:      { code: 'USD', name: 'US Dollar',          symbol: '$'   },
+  austin:       { code: 'USD', name: 'US Dollar',          symbol: '$'   },
+  seattle:      { code: 'USD', name: 'US Dollar',          symbol: '$'   },
+  sandiego:     { code: 'USD', name: 'US Dollar',          symbol: '$'   },
+  washingtondc: { code: 'USD', name: 'US Dollar',          symbol: '$'   },
+  boston:       { code: 'USD', name: 'US Dollar',          symbol: '$'   },
+  denver:       { code: 'USD', name: 'US Dollar',          symbol: '$'   },
+  portland:     { code: 'USD', name: 'US Dollar',          symbol: '$'   },
+  atlanta:      { code: 'USD', name: 'US Dollar',          symbol: '$'   },
+  philadelphia: { code: 'USD', name: 'US Dollar',          symbol: '$'   },
+  phoenix:      { code: 'USD', name: 'US Dollar',          symbol: '$'   },
+  paris:        { code: 'EUR', name: 'Euro',               symbol: '€'   },
+  barcelona:    { code: 'EUR', name: 'Euro',               symbol: '€'   },
+  rome:         { code: 'EUR', name: 'Euro',               symbol: '€'   },
+  amsterdam:    { code: 'EUR', name: 'Euro',               symbol: '€'   },
+  lisbon:       { code: 'EUR', name: 'Euro',               symbol: '€'   },
+  london:       { code: 'GBP', name: 'British Pound',      symbol: '£'   },
+  tokyo:        { code: 'JPY', name: 'Japanese Yen',       symbol: '¥'   },
+  bali:         { code: 'IDR', name: 'Indonesian Rupiah',  symbol: 'Rp'  },
+  sydney:       { code: 'AUD', name: 'Australian Dollar',  symbol: 'A$'  },
+  dubai:        { code: 'AED', name: 'UAE Dirham',         symbol: 'AED' },
+  bangkok:      { code: 'THB', name: 'Thai Baht',          symbol: '฿'   },
+  singapore:    { code: 'SGD', name: 'Singapore Dollar',   symbol: 'S$'  },
+  seoul:        { code: 'KRW', name: 'South Korean Won',   symbol: '₩'   },
+  mexicocity:   { code: 'MXN', name: 'Mexican Peso',       symbol: 'MX$' },
+};
