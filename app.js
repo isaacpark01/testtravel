@@ -465,6 +465,7 @@ async function checkURLForBoard() {
   const params = new URLSearchParams(window.location.search);
   const boardId = params.get('board');
   if (!boardId || !IS_CONFIGURED) return;
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(boardId)) return;
   const { data: board } = await supabaseClient.from('boards').select('*').eq('id', boardId).single();
   if (board && currentUser) { selectBoard(board); document.getElementById('group').scrollIntoView({ behavior: 'smooth' }); }
 }
@@ -556,7 +557,7 @@ function renderCards(items, containerId, type) {
   container.innerHTML = items.map(item => {
     const priceStr = item.price === 0 ? `<span class="spot-price free">FREE</span>` : `<span class="spot-price">$${item.price}</span>`;
     const photoSrc   = item.photo || getSpotPhoto(item.name, currentCity.name);
-    const cityImgSrc = escHtml(currentCity.image.replace('w=800','w=400'));
+    const cityImgSrc = jsqApp(currentCity.image.replace('w=800','w=400'));
     const photo = type !== 'transport'
       ? `<img class="spot-photo" src="${escHtml(photoSrc)}" alt="${escHtml(item.name)}" loading="lazy"
            onerror="if(!this._fb){this._fb=true;this.src='${cityImgSrc}'}else{this.onerror=null}" />`
@@ -817,7 +818,7 @@ function renderFoodByGenre(items) {
         ${list.map(item => `
           <div class="spot-card">
             <img class="spot-photo" src="${escHtml(item.photo || getSpotPhoto(item.name, currentCity.name))}" alt="${escHtml(item.name)}" loading="lazy"
-              onerror="if(!this._fb){this._fb=true;this.src='${escHtml(currentCity.image.replace('w=800','w=400'))}'}else{this.onerror=null}" />
+              onerror="if(!this._fb){this._fb=true;this.src='${jsqApp(currentCity.image.replace('w=800','w=400'))}'}else{this.onerror=null}" />
             <div class="spot-body">
               <div class="spot-header"><div class="spot-name">${escHtml(item.name)}</div><span class="spot-price${item.price===0?' free':''}">${item.price===0?'FREE':'$'+item.price}</span><button class="spot-add-day-btn" onclick="addToDay('${jsqApp(currentCity.id)}','${jsqApp(currentCity.name)}','${jsqApp(item.name)}')">+ Plan</button></div>
               <div class="spot-meta"><span class="spot-tag tag-rating">⭐ ${item.rating}</span></div>
@@ -973,7 +974,7 @@ function setVoiceGender(gender, btn) {
 }
 
 function speakPhrase(text, bcp47) {
-  if (!('speechSynthesis' in window)) { alert('Audio not supported in this browser.'); return; }
+  if (!('speechSynthesis' in window)) { showToast('Audio not supported in this browser.'); return; }
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
   u.lang = bcp47 || 'en-US';
@@ -1210,14 +1211,21 @@ function estimateBudget() {
   if (!city) { showToast('Type a destination from the list then estimate.'); return; }
   const style = document.getElementById('est-style').value;
   const days  = parseInt(document.getElementById('est-days').value, 10);
+  if (!days || days < 1 || days > 365) { showToast('Enter a number of days between 1 and 365.'); return; }
   const k = style[0]; // 'b', 'm', or 'l'
+  const BUDGET_TIERS = {
+    b: { flights: 350,  hotel: 20,  food: 15,  acts: 8,  transit: 5  },
+    m: { flights: 600,  hotel: 80,  food: 45,  acts: 25, transit: 12 },
+    l: { flights: 1200, hotel: 200, food: 120, acts: 70, transit: 30 },
+  };
   const c = COL[city.id] || { b:55, m:130, l:360 };
+  const t       = BUDGET_TIERS[k];
   const daily   = c[k];
-  const flights = k==='b' ? 350 : k==='m' ? 600 : 1200;
-  const hotel   = (k==='b' ? 20  : k==='m' ? 80  : 200) * days;
-  const food    = (k==='b' ? 15  : k==='m' ? 45  : 120) * days;
-  const acts    = (k==='b' ? 8   : k==='m' ? 25  : 70)  * days;
-  const transit = (k==='b' ? 5   : k==='m' ? 12  : 30)  * days;
+  const flights = t.flights;
+  const hotel   = t.hotel   * days;
+  const food    = t.food    * days;
+  const acts    = t.acts    * days;
+  const transit = t.transit * days;
   const total   = flights + hotel + food + acts + transit;
   const el = document.getElementById('estimate-result');
   el.classList.remove('hidden');
@@ -1300,7 +1308,7 @@ function addToDay(cityId, cityName, spotName) {
     return;
   }
   if (!currentTrip.days || !currentTrip.days.length) {
-    alert('Add a day to your planner first, then tap "+ Plan" again.');
+    showToast('Add a day to your planner first, then tap "+ Plan" again.');
     return;
   }
   _pendingSpot = { cityId, cityName, spotName };
@@ -1361,10 +1369,10 @@ function switchPlannerMode(mode, btn) {
 }
 
 function getPlans() {
-  try { return JSON.parse(localStorage.getItem('pintrip_plans') || '{"trips":[],"active":null}'); }
+  try { return JSON.parse(localStorage.getItem('roamly_v2') || '{"trips":[],"active":null}'); }
   catch { return { trips: [], active: null }; }
 }
-function savePlans(data) { localStorage.setItem('pintrip_plans', JSON.stringify(data)); }
+function savePlans(data) { localStorage.setItem('roamly_v2', JSON.stringify(data)); }
 
 function loadPlanner() {
   const data = getPlans();

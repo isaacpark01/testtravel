@@ -209,8 +209,9 @@ const CITY_COORDS = {
 };
 
 // ── Jitter helper for place coords ───────────────────────────
+// djb2-style hash — position-aware so "abc" and "cba" produce different offsets
 function jitter(cityCoord, seed) {
-  const h = [...seed].reduce((a, c) => a + c.charCodeAt(0), 0);
+  const h = [...seed].reduce((a, c, i) => ((a * 31 + c.charCodeAt(0) + i) & 0x7fffffff), 0);
   return [
     cityCoord[0] + ((h % 40) - 20) * 0.0012,
     cityCoord[1] + ((h % 37) - 18) * 0.0015,
@@ -1277,6 +1278,7 @@ function renderAll() {
   renderTripsDropdown();
   renderHero();
   renderBudgetBar();
+  renderBudgetRecs();
   renderDatePills();
   renderItinCards();
   renderSavesTab();
@@ -1474,6 +1476,51 @@ function renderBudgetBar() {
         <span class="budget-amount">~$${totalSpend}</span>
       </div>`;
   }
+}
+
+// ── Budget recommendations ────────────────────────────────────
+function renderBudgetRecs() {
+  const el = document.getElementById('budget-recs');
+  if (!el) return;
+
+  const budget = currentTrip?.budget;
+  const city   = getCurrentCity();
+  if (!budget || !city) { el.style.display = 'none'; return; }
+
+  const days      = (currentTrip.days || []).length || 1;
+  const perDay    = budget / days;
+
+  const scoreItem = (item, type) => ({
+    name:   item.name,
+    price:  typeof item.price === 'number' ? item.price : 0,
+    rating: item.rating || 0,
+    type,
+  });
+
+  const affordable = [
+    ...(city.food       || []).filter(Boolean).map(i => scoreItem(i, 'food')),
+    ...(city.activities || []).filter(Boolean).map(i => scoreItem(i, 'activity')),
+  ].filter(i => i.price <= perDay);
+
+  if (!affordable.length) { el.style.display = 'none'; return; }
+
+  affordable.sort((a, b) => b.rating - a.rating || a.price - b.price);
+  const picks = affordable.slice(0, 8);
+
+  const emoji = type => type === 'food' ? '🍽' : '🎯';
+  const priceStr = p => p === 0 ? 'Free' : `$${p}`;
+
+  el.style.display = 'block';
+  el.innerHTML = `
+    <div class="budget-recs-title">Places within your budget ($${Math.round(perDay)}/day)</div>
+    <div class="budget-recs-scroll">
+      ${picks.map(p => `
+        <div class="budget-rec-chip">
+          <div class="rec-emoji">${emoji(p.type)}</div>
+          <div class="rec-name">${esc(p.name)}</div>
+          <span class="rec-price">${priceStr(p.price)}</span><span class="rec-rating">⭐ ${p.rating}</span>
+        </div>`).join('')}
+    </div>`;
 }
 
 function handleHeroInvite() {
@@ -1776,6 +1823,7 @@ function addCardToDay(dayId, place) {
   renderDatePills();
   renderSavesBadge();
   renderBudgetBar();
+  renderBudgetRecs();
   updateMapPins();
 }
 
@@ -1792,6 +1840,7 @@ function removeCard(dayId, cardId) {
   renderItinCards();
   renderDatePills();
   renderBudgetBar();
+  renderBudgetRecs();
   updateMapPins();
 }
 
@@ -2359,6 +2408,8 @@ function initMap() {
     updateMapPins();
   } catch (e) {
     console.warn('Leaflet init failed:', e);
+    const mapEl = document.getElementById('map');
+    if (mapEl) mapEl.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#94a3b8;font-size:14px;">Map unavailable — check your connection and reload.</div>';
   }
 }
 

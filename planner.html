@@ -968,6 +968,34 @@
     }
     .budget-bar-fill { height: 100%; border-radius: 4px; transition: width .4s ease; }
 
+    /* ── Budget recommendations ─────────────────────────────────── */
+    .budget-recs {
+      padding: 0 16px 16px;
+    }
+    .budget-recs-title {
+      font-size: 10px; font-weight: 700; color: rgba(240,250,249,.45);
+      text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px;
+    }
+    .budget-recs-scroll {
+      display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px;
+    }
+    .budget-rec-chip {
+      flex-shrink: 0; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px; padding: 9px 12px; min-width: 130px; max-width: 160px;
+    }
+    .budget-rec-chip .rec-emoji { font-size: 14px; }
+    .budget-rec-chip .rec-name {
+      font-size: 11px; font-weight: 700; color: #f0faf9;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      margin: 3px 0 2px;
+    }
+    .budget-rec-chip .rec-price {
+      font-size: 11px; color: #34d399; font-weight: 600;
+    }
+    .budget-rec-chip .rec-rating {
+      font-size: 10px; color: rgba(240,250,249,.45); margin-left: 4px;
+    }
+
     /* ── Vibe filter row (discover) ────────────────────────────── */
     .vibe-filter-row {
       display: flex; gap: 6px; flex-wrap: nowrap; overflow-x: auto;
@@ -1074,6 +1102,7 @@
       </div>
     </div>
     <div id="hero-budget-bar" class="hero-budget-bar"></div>
+    <div id="budget-recs" class="budget-recs" style="display:none"></div>
   </div>
 </div>
 
