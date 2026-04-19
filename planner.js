@@ -1338,10 +1338,10 @@ function renderTripsDropdown() {
     return;
   }
   el.innerHTML = d.trips.map(t => `
-    <div class="trip-dd-item ${t.id === currentTrip?.id ? 'active' : ''}" onclick="selectTrip('${t.id}')">
+    <div class="trip-dd-item ${t.id === currentTrip?.id ? 'active' : ''}" onclick="selectTrip('${jsq(t.id)}')">
       <span class="trip-dd-item-name">${esc(t.name)}</span>
       <span style="font-size:10px;color:#475569">${(t.days || []).length}d</span>
-      <button class="trip-dd-item-del" onclick="event.stopPropagation();deleteTrip('${t.id}')">×</button>
+      <button class="trip-dd-item-del" onclick="event.stopPropagation();deleteTrip('${jsq(t.id)}')">×</button>
     </div>`).join('') +
     `<div class="trip-dd-sep"></div>
      <div class="trip-dd-item" onclick="openNewTripModal();document.getElementById('trips-dropdown-menu').classList.remove('open')">
@@ -1435,7 +1435,7 @@ function createTrip() {
   d.trips.push(trip);
   d.active     = trip.id;
   currentTrip  = trip;
-  currentDayId = trip.days[0].id;
+  currentDayId = trip.days?.[0]?.id || null;
   saveStore(d);
   closeNewTripModal();
   renderAll();
@@ -1628,9 +1628,9 @@ function renderDatePills() {
        : stats.energy === 'moderate' ? '<span class="pill-energy-dot moderate"></span>'
        : '<span class="pill-energy-dot packed"></span>')
       : '';
-    return `<div class="date-pill ${act ? 'active' : ''}" onclick="selectDay('${day.id}')">
+    return `<div class="date-pill ${act ? 'active' : ''}" onclick="selectDay('${jsq(day.id)}')">
       ${dot}${esc(label)}
-      <button class="date-pill-del" onclick="event.stopPropagation();removeDay('${day.id}')">×</button>
+      <button class="date-pill-del" onclick="event.stopPropagation();removeDay('${jsq(day.id)}')">×</button>
     </div>`;
   }).join('') + `<button class="add-day-pill" onclick="addDay()">+ Day</button>`;
 }
@@ -1767,10 +1767,11 @@ function renderPlacedCard(card, dayId, num) {
       </div>
       <input class="placed-note-input" placeholder="Add a note..."
         value="${esc(card.note || '')}"
-        onchange="updateCardNote('${dayId}','${card.id}',this.value)"
+        onchange="updateCardNote('${jsq(dayId)}','${jsq(card.id)}',this.value)"
         onclick="event.stopPropagation()" />
+      <button class="placed-dir-btn" onclick="getDirectionsTo('${jsq(card.name)}')" title="Get directions">📍 Get there</button>
     </div>
-    <button class="placed-del" title="Remove" onclick="removeCard('${dayId}','${card.id}')">···</button>
+    <button class="placed-del" title="Remove" onclick="removeCard('${jsq(dayId)}','${jsq(card.id)}')">···</button>
   </div>`;
 }
 
@@ -2145,6 +2146,77 @@ function clearDiscSearch() {
   renderDiscoverTab();
 }
 
+// ── Travel Guide (Discover → Travel Guide filter) ─────────────────────────
+function renderTravelGuide(container, city) {
+  const guide = typeof CITY_TRAVEL_APPS !== 'undefined' ? CITY_TRAVEL_APPS[city.id] : null;
+
+  if (!guide) {
+    container.innerHTML = `<div class="itin-empty" style="grid-column:1/-1"><div class="empty-icon">✈</div><p>No travel guide yet for ${esc(city.name)}.</p></div>`;
+    return;
+  }
+
+  const appRows = (arr) => (arr || []).map(a =>
+    `<div class="tg-row">
+      <span class="tg-star">${a.star ? '★' : '·'}</span>
+      <div><div class="tg-app-name">${esc(a.n)}</div>${a.note ? `<div class="tg-app-note">${esc(a.note)}</div>` : ''}</div>
+    </div>`
+  ).join('');
+
+  const section = (icon, title, sub, rows, extra) => `
+    <div class="tg-section">
+      <div class="tg-section-head">
+        <span class="tg-section-icon">${icon}</span>
+        <span class="tg-section-title">${title}</span>
+        ${sub ? `<span class="tg-section-sub">${esc(sub)}</span>` : ''}
+      </div>
+      ${rows}
+      ${extra || ''}
+    </div>`;
+
+  const html = `<div class="travel-guide">
+    <div class="tg-tip-box"><strong>💡 Main tip:</strong> ${esc(guide.tip)}</div>
+
+    ${section('🗺', 'Maps & Navigation', `Best: ${esc(guide.bestMap)}`, appRows(guide.maps), '')}
+
+    ${section('🚇', 'Getting Around', guide.transit?.card || '', appRows((guide.transit?.apps || []).map(a => ({ n: a }))),
+      `<div class="tg-tip-box">${esc(guide.transit?.tip || '')}</div>`)}
+
+    ${section('🚕', 'Ride-Hailing', '', appRows(guide.ride), '')}
+
+    ${section('🍽', 'Food & Reservations', '', appRows(guide.food), '')}
+
+    <div class="tg-section">
+      <div class="tg-section-head"><span class="tg-section-icon">💳</span><span class="tg-section-title">Payments</span></div>
+      <div class="tg-pay-box">${esc(guide.pay)}</div>
+    </div>
+
+    <div class="tg-section">
+      <div class="tg-section-head"><span class="tg-section-icon">📱</span><span class="tg-section-title">SIM / Connectivity</span></div>
+      <div class="tg-sim-box">${esc(guide.sim)}</div>
+    </div>
+  </div>`;
+
+  container.style.display = 'block';
+  container.innerHTML = html;
+}
+
+// ── Get Directions (city-aware map deep link) ─────────────────────────────
+function getDirectionsTo(placeName) {
+  const city     = getCurrentCity();
+  const guide    = city && typeof CITY_TRAVEL_APPS !== 'undefined' ? CITY_TRAVEL_APPS[city.id] : null;
+  const cityName = city?.name || '';
+  const query    = encodeURIComponent(`${placeName} ${cityName}`);
+
+  // Seoul → Naver Map (Google Maps is unreliable in Korea)
+  if (city?.id === 'seoul') {
+    window.open(`https://map.naver.com/v5/search/${encodeURIComponent(placeName)}`, '_blank', 'noopener');
+    return;
+  }
+
+  // Default: Google Maps search
+  window.open(`https://maps.google.com/maps?q=${query}`, '_blank', 'noopener');
+}
+
 function renderTrendingSection(city) {
   const cityQ   = encodeURIComponent(city.name);
   const topFood = (city.food || []).slice(0, 3);
@@ -2184,6 +2256,12 @@ function renderDiscoverTab() {
 
   const saves   = currentTrip.saves || [];
   const isSaved = name => saves.some(s => s.name === name);
+
+  // Travel Guide tab — render separately and return early
+  if (discoverFilter === 'travel') {
+    renderTravelGuide(grid, city);
+    return;
+  }
 
   let items = [];
   if (discoverFilter === 'all' || discoverFilter === 'activities') {
@@ -2780,7 +2858,7 @@ function showImportReview(places) {
       <div>
         <div class="import-review-name">${esc(p.name)}</div>
         ${p.note ? `<div class="import-review-note">${esc(p.note)}</div>` : ''}
-        ${p.source ? `<div class="import-review-source">${_importSourceLabel[p.source] || p.source}</div>` : ''}
+        ${p.source ? `<div class="import-review-source">${esc(_importSourceLabel[p.source] || p.source)}</div>` : ''}
       </div>
     </label>`).join('');
   closeQuickAdd();

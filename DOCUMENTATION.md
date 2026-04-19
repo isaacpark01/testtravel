@@ -11,18 +11,25 @@ A mobile-first travel planning PWA. Two surfaces: **index.html** (explore/browse
 
 ```
 itinerary-app/
-├── index.html         # Explore page — hero, city browser, deals, group boards
+├── index.html         # "Coming Soon" landing page (WIP mode)
+├── app.html           # Full explore page — hero, city browser, deals, group boards
 ├── planner.html       # Trip planner — Saves / Itinerary / Discover / Rewards / Map
 ├── planner.js         # All planner logic (see function index below)
-├── styles.css         # Global CSS — dark teal theme, referenced by index.html
-├── app.js             # index.html logic — auth, city browser, deals, boards
+├── travel-apps.js     # CITY_TRAVEL_APPS — best maps, transit, ride & food apps per city (34 cities)
+├── styles.css         # Global CSS — dark teal theme, referenced by app.html
+├── app.js             # app.html logic — auth, city browser, deals, boards
 ├── data.js            # Static city data — 34 destinations + credit card rewards
-├── config.js          # Supabase credentials (URL + anon key)
+├── config.js          # Supabase credentials (URL + anon key — governed by RLS)
 ├── admin.html         # Admin dashboard — users, boards, ideas management
 ├── admin.js           # Admin logic — auth gate, CRUD, event delegation
 ├── admin-setup.sql    # SQL to set up admin user
 ├── schema.sql         # Supabase DB schema + RLS policies
 ├── schema-fix.sql     # Schema migration patches
+├── i18n.js            # Home page translations — 11 languages, renderMenu, applyTranslations
+├── reveal.js          # Scroll-reveal (IntersectionObserver) + animated stat counters
+├── privacy.html       # Privacy Policy (GDPR/CCPA compliant, 10 sections)
+├── terms.html         # Terms of Service (12 sections)
+├── 404.html           # Branded 404 page
 ├── manifest.json      # PWA manifest — name, icons, share_target
 ├── _headers           # Netlify security headers (CSP, HSTS, X-Frame-Options)
 ├── _redirects         # Netlify URL routing rules
@@ -66,9 +73,14 @@ itinerary-app/
 | **Smart Day Insights** | Warns when a day is overloaded, has no food, has no activities, has tourist traps, or celebrates a balanced day |
 | **Best Time of Day** | 🌅 🌙 ☀️ badges derived from tip text keywords |
 | **Share My Trip** | Formats entire itinerary as copyable text — Web Share API on mobile, clipboard on desktop |
+| **Export Itinerary** | 📤 Export button opens a print-ready HTML page (auto-triggers print dialog) with full itinerary, wishlist, and spend summary — saves as PDF via browser print |
 | **Smart Packing List** | Auto-generated checklist based on destination type + planned activities |
-| **Map** | Leaflet + OpenStreetMap — pins for itinerary (teal), saves (pink), discover (grey) |
+| **Map** | Leaflet + OpenStreetMap — pins for itinerary (teal), saves (pink), discover (grey). Shows "Map unavailable" if Leaflet CDN fails. |
 | **Search** | Type to search all cities' places; hit Enter to add top result or a custom name |
+| **Travel Guide** | ✈ Travel Guide filter in Discover tab — shows best maps app, transit card, ride-hailing, food/reservation apps, payment tips, and SIM advice per city. Powered by `travel-apps.js` CITY_TRAVEL_APPS (34 cities). |
+| **Get There button** | 📍 Get there button on each itinerary card — opens the city-appropriate map app (Naver Map for Seoul, Google Maps elsewhere) pre-filled with the place name. |
+| **File Import** | 📂 Import Places in the Saves tab supports drag-and-drop or file picker: Google Maps Takeout `Saved Places.json`, TikTok `Favorite Videos.json`, Instagram `saved_posts.json`, and ZIP archives. Parsed in-browser (no upload). Shows review checklist before adding to saves. |
+| **Budget Recommendations** | When a trip budget is set, a scrollable row of chips appears below the budget bar showing top-rated food + activities priced within the per-day budget. Updates live as cards are added/removed. |
 
 ### Explore (`index.html`)
 
@@ -82,7 +94,11 @@ itinerary-app/
 | **Rental Cars** | Kayak, Google Cars, Enterprise, Hertz |
 | **Budget Estimator** | Three travel styles × configurable trip length → estimated spend |
 | **Group Trip Board** | Create boards, pin cities, vote up/down (Supabase realtime) |
-| **User Auth** | Email/password via Supabase |
+| **User Auth** | Email/password via Supabase — sign up, sign in, forgot password (reset email via Supabase) |
+| **Cookie Consent** | GDPR banner stored in localStorage; slide-up animation; links to Privacy Policy |
+| **SEO / Structured Data** | Open Graph, Twitter Card, JSON-LD WebApplication schema, canonical URL, sitemap-ready meta |
+| **Scroll Animations** | `reveal.js` — IntersectionObserver fade-up on section headers and cards; animated stat counters |
+| **Legal Pages** | `privacy.html` (GDPR/CCPA, 10 sections) + `terms.html` (12 sections) + `404.html` (branded) |
 
 ### Admin (`admin.html`)
 
@@ -93,6 +109,30 @@ itinerary-app/
 | **Boards Tab** | Delete boards (cascades to ideas and votes) |
 | **Ideas Tab** | Delete individual ideas and their votes |
 | **Stats Bar** | Total users, boards, ideas, votes |
+
+---
+
+## Security
+
+### XSS Prevention
+- `esc(s)` / `escHtml(s)` — always used for HTML content and attribute values
+- `jsq(s)` — used for strings inside single-quoted `onclick='...'` handlers (including all trip/day/card UUIDs)
+- Never inject `item.name`, `item.tip`, city names, user data, or imported file data raw into `innerHTML`
+- Imported file data (Google Maps, TikTok, Instagram) is parsed in-browser — nothing is uploaded to a server
+
+### Supabase
+- Anon key in `config.js` is safe to commit — it has no elevated privileges
+- All DB access is governed by Row-Level Security (RLS) policies in `schema.sql`
+- Admin access requires DB-verified `is_admin` flag — not client-side-only
+
+### Content Security Policy (`_headers`)
+- CSP header set by Netlify via `_headers` file
+- `unsafe-inline` required for inline event handlers — future refactor to `addEventListener` would allow removing it
+- `HSTS` and `X-Frame-Options: DENY` set
+
+### localStorage
+- All `getStore()` / `savePlans()` calls are wrapped in `try/catch` — gracefully handles private browsing and storage quota errors
+- Storage key: `roamly_v2` (unified across `app.js` and `planner.js`)
 
 ---
 
@@ -180,9 +220,27 @@ itinerary-app/
 ### Credit Card Rewards (`data.js`)
 ```js
 REWARDS_CARDS       // 6 top travel credit cards with earn rates, bonuses, perks
-CITY_REWARDS_TIPS   // 16 cities × 3 card-specific tips per city
+CITY_REWARDS_TIPS   // 34 cities × 3 card-specific tips per city
+AIRLINE_REWARDS     // 14 airlines — best card, earn rate, hub cities, partner airlines
 REWARDS_BLOG        // 4 expandable blog articles on points strategy
 REWARDS_CHECKLIST   // 15-step points maximization checklist
+```
+
+### City Travel Apps (`travel-apps.js`)
+```js
+CITY_TRAVEL_APPS = {
+  nyc: {
+    bestMap: 'Citymapper',          // best single map app for this city
+    maps:    [{ n, note, star }],   // star:true = recommended default
+    transit: { card, apps, tip },   // card = physical pass to buy; tip = key transit advice
+    ride:    [{ n, note, star }],   // star:true = use app, not street hailing
+    food:    [{ n, note }],         // ordering & reservation apps
+    pay:     'string',              // payment advice (cashless vs cash)
+    sim:     'string',              // SIM/connectivity recommendation
+    tip:     'string',              // single most important travel tip
+  },
+  // ... all 34 cities
+}
 ```
 
 ---
@@ -293,7 +351,7 @@ _maleVoiceKeys   = ['male','david','alex','daniel','fred','james','george','mark
 ### Utility
 | Function | Purpose |
 |---|---|
-| `escHtml(s)` | HTML-escape for content / double-quoted attributes — converts `&`, `<`, `>`, `"`, `'` |
+| `escHtml(s)` | HTML-escape for content / double-quoted attributes — converts `&`, `<`, `>`, `"`. Does **not** escape `'` (intentional — see comment in source). Use `jsqApp` for single-quoted JS strings. |
 | `jsqApp(s)` | Backslash-escape for single-quoted inline JS strings in `onclick` — converts `'` → `\'` and `\` → `\\`. Use instead of `escHtml` when a string appears inside `onclick='...'` |
 | `showToast(msg, dur)` | Shows a transient toast notification |
 | `slugify(s)` | Lowercases and strips non-alphanumeric characters |

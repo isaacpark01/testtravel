@@ -968,6 +968,32 @@
     }
     .budget-bar-fill { height: 100%; border-radius: 4px; transition: width .4s ease; }
 
+    /* ── Travel guide (discover tab) ───────────────────────────── */
+    .travel-guide { padding: 12px 14px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; }
+    .tg-section { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); border-radius: 12px; overflow: hidden; }
+    .tg-section-head { padding: 12px 14px 8px; display: flex; align-items: center; gap: 8px; }
+    .tg-section-icon { font-size: 18px; }
+    .tg-section-title { font-size: 13px; font-weight: 700; color: #f0faf9; }
+    .tg-section-sub { font-size: 11px; color: #64748b; margin-left: auto; }
+    .tg-row { display: flex; align-items: flex-start; gap: 10px; padding: 8px 14px; border-top: 1px solid rgba(255,255,255,.05); }
+    .tg-star { color: #fbbf24; font-size: 11px; flex-shrink: 0; margin-top: 2px; }
+    .tg-app-name { font-size: 12px; font-weight: 700; color: #e2e8f0; }
+    .tg-app-note { font-size: 11px; color: #64748b; margin-top: 1px; }
+    .tg-tip-box { margin: 0 14px 14px; padding: 10px 12px; background: rgba(45,212,191,.08); border: 1px solid rgba(45,212,191,.2); border-radius: 8px; font-size: 12px; color: #94a3b8; line-height: 1.5; }
+    .tg-tip-box strong { color: #2dd4bf; }
+    .tg-pay-box { margin: 0 14px 14px; padding: 9px 12px; background: rgba(251,191,36,.06); border: 1px solid rgba(251,191,36,.2); border-radius: 8px; font-size: 12px; color: #94a3b8; }
+    .tg-sim-box { margin: 0 14px 14px; padding: 9px 12px; background: rgba(99,102,241,.07); border: 1px solid rgba(99,102,241,.2); border-radius: 8px; font-size: 12px; color: #94a3b8; }
+
+    /* ── Get there button on itinerary cards ────────────────────── */
+    .placed-dir-btn {
+      display: inline-flex; align-items: center; gap: 4px;
+      margin-top: 5px; padding: 3px 8px; border-radius: 6px;
+      background: rgba(45,212,191,.1); border: 1px solid rgba(45,212,191,.25);
+      color: #2dd4bf; font-size: 10px; font-weight: 600; cursor: pointer;
+      transition: background .15s;
+    }
+    .placed-dir-btn:hover { background: rgba(45,212,191,.2); }
+
     /* ── File import drop zone ──────────────────────────────────── */
     .qa-file-drop {
       border: 2px dashed rgba(45,212,191,.25); border-radius: 12px;
@@ -1205,6 +1231,7 @@
           <button class="filter-pill" data-filter="activities" data-i18n="filterActivities" onclick="setDiscoverFilter('activities')">🎯 Activities</button>
           <button class="filter-pill" data-filter="food" data-i18n="filterFood" onclick="setDiscoverFilter('food')">🍽 Food</button>
           <button class="filter-pill" data-filter="free" data-i18n="filterFree" onclick="setDiscoverFilter('free')">✨ Free</button>
+          <button class="filter-pill" data-filter="travel" onclick="setDiscoverFilter('travel')">✈ Travel Guide</button>
         </div>
         <div class="disc-sort-row" id="disc-sort-row">
           <button class="disc-sort-pill active" data-sort="rating" data-i18n="sortRating" onclick="setDiscoverSort('rating')">⭐ Top Rated</button>
@@ -1456,6 +1483,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="data.js"></script>
+<script src="travel-apps.js"></script>
 <script src="planner.js"></script>
 </body>
 </html>
