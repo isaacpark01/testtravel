@@ -1023,13 +1023,48 @@ function renderEssentialsTab() {
         </div>`).join('')}
       </div>
     </div>`;
+  // City-specific travel apps from travel-apps.js
+  const tg = typeof CITY_TRAVEL_APPS !== 'undefined' ? CITY_TRAVEL_APPS[currentCity.id] : null;
+  if (tg) {
+    const appRow = (arr) => (arr || []).map(a =>
+      `<div class="app-card">
+        <div class="app-icon">${a.star ? '⭐' : '📱'}</div>
+        <div><div class="app-name">${escHtml(a.n)}</div><div class="app-desc">${escHtml(a.note || (a.star ? 'Recommended for this city' : ''))}</div></div>
+      </div>`
+    ).join('');
+
+    html += `
+    <div class="essentials-section">
+      <div class="essentials-title">🗺 Best Maps for ${escHtml(currentCity.name)}</div>
+      <div class="app-grid">${appRow(tg.maps)}</div>
+      ${tg.transit ? `<div class="essentials-tip-box">🚇 <strong>Transit card:</strong> ${escHtml(tg.transit.card)} &nbsp;·&nbsp; ${escHtml(tg.transit.tip)}</div>` : ''}
+    </div>
+    <div class="essentials-section">
+      <div class="essentials-title">🚕 Ride-Hailing</div>
+      <div class="app-grid">${appRow(tg.ride)}</div>
+    </div>
+    <div class="essentials-section">
+      <div class="essentials-title">🍽 Food & Reservations</div>
+      <div class="app-grid">${appRow(tg.food)}</div>
+    </div>
+    <div class="essentials-section">
+      <div class="essentials-title">💳 Payments & SIM</div>
+      <div class="essentials-tip-box">💳 ${escHtml(tg.pay)}</div>
+      <div class="essentials-tip-box" style="margin-top:8px">📱 ${escHtml(tg.sim)}</div>
+    </div>
+    <div class="essentials-section">
+      <div class="essentials-title">💡 Top Travel Tip</div>
+      <div class="essentials-tip-box">${escHtml(tg.tip)}</div>
+    </div>`;
+  }
+
   html += `
     <div class="essentials-section">
       <div class="essentials-title">📲 Translation Apps</div>
       <div class="app-grid">${TRANSLATE_APPS.map(a=>`<div class="app-card"><div class="app-icon">${a.icon}</div><div><div class="app-name">${a.name}</div><div class="app-desc">${a.desc}</div></div></div>`).join('')}</div>
     </div>
     <div class="essentials-section">
-      <div class="essentials-title">🌍 Essential Travel Apps</div>
+      <div class="essentials-title">🌍 General Travel Apps</div>
       <div class="app-grid">${GENERAL_TRAVEL_APPS.map(a=>`<div class="app-card"><div class="app-icon">${a.icon}</div><div><div class="app-name">${a.name}</div><div class="app-desc">${a.desc}</div></div></div>`).join('')}</div>
     </div>`;
   document.getElementById('essentials-content').innerHTML = html;
