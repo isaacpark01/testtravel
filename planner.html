@@ -671,6 +671,36 @@
     .cc-card-val { font-size: 12px; color: #cbd5e1; line-height: 1.5; }
     .cc-card-val strong { color: #a5b4fc; font-weight: 700; }
 
+    /* Trip-specific card picks */
+    .trip-card-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
+    .trip-card-box {
+      background: rgba(13,148,136,.08); border: 1px solid rgba(45,212,191,.2);
+      border-radius: 12px; padding: 14px; transition: border-color .18s;
+    }
+    .trip-card-box:hover { border-color: rgba(45,212,191,.4); }
+
+    /* Airline grid */
+    .airline-grid { display: flex; flex-direction: column; gap: 10px; }
+    .airline-card {
+      background: #111827; border: 1px solid rgba(255,255,255,.08);
+      border-radius: 12px; padding: 14px; transition: all .18s;
+    }
+    .airline-card:hover { border-color: rgba(45,212,191,.25); }
+    .airline-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .airline-badge {
+      background: rgba(45,212,191,.12); border: 1px solid rgba(45,212,191,.25);
+      color: #2dd4bf; font-size: 11px; font-weight: 800; letter-spacing: .5px;
+      padding: 4px 8px; border-radius: 6px; flex-shrink: 0;
+    }
+    .airline-best { font-size: 12px; color: #94a3b8; margin-bottom: 4px; }
+    .airline-earn { font-size: 11px; color: #64748b; margin-bottom: 6px; }
+    .airline-tip { font-size: 12px; color: #94a3b8; line-height: 1.6; margin-bottom: 8px; }
+    .airline-partners { display: flex; flex-wrap: wrap; gap: 4px; }
+    .partner-tag {
+      font-size: 10px; color: #818cf8; background: rgba(129,140,248,.1);
+      border: 1px solid rgba(129,140,248,.2); border-radius: 4px; padding: 2px 7px;
+    }
+
     .cc-city-cards { display: flex; flex-direction: column; gap: 10px; }
     .cc-city-block { margin-bottom: 4px; }
     .cc-city-name {

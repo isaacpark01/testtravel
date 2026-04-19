@@ -2679,22 +2679,57 @@ function renderRewardsTab() {
   const container = document.getElementById('rewards-scroll');
   if (!container) return;
 
-  const cityId = currentTrip?.cityId || '';
-  const cards = typeof REWARDS_CARDS !== 'undefined' ? REWARDS_CARDS : [];
+  const cityId   = currentTrip?.cityId || '';
+  const cards    = typeof REWARDS_CARDS    !== 'undefined' ? REWARDS_CARDS    : [];
   const cityTips = typeof CITY_REWARDS_TIPS !== 'undefined' ? CITY_REWARDS_TIPS : {};
-  const blogs = typeof REWARDS_BLOG !== 'undefined' ? REWARDS_BLOG : [];
-  const checklist = typeof REWARDS_CHECKLIST !== 'undefined' ? REWARDS_CHECKLIST : [];
+  const airlines = typeof AIRLINE_REWARDS  !== 'undefined' ? AIRLINE_REWARDS  : [];
+  const blogs    = typeof REWARDS_BLOG     !== 'undefined' ? REWARDS_BLOG     : [];
+  const checklist= typeof REWARDS_CHECKLIST!== 'undefined' ? REWARDS_CHECKLIST: [];
 
+  const tripCity = cityTips[cityId];
   let html = '';
 
-  // Hero
+  // ── Hero ─────────────────────────────────────────────────────────────────
   html += `<div class="rewards-hero">
     <div class="rewards-hero-icon">💳</div>
     <div class="rewards-hero-title">Travel Rewards Hub</div>
-    <div class="rewards-hero-sub">Best credit cards, city-specific point strategies, and a step-by-step checklist to travel for (almost) free.</div>
+    <div class="rewards-hero-sub">Best cards for every city, airline, and situation — maximize every point.</div>
   </div>`;
 
-  // ── Top cards ──
+  // ── Best cards for THIS trip ──────────────────────────────────────────────
+  if (tripCity) {
+    html += `<div class="rewards-section-title">📍 Best Cards for ${esc(tripCity.name)}</div>`;
+    html += `<div class="rewards-section-sub">Tailored to maximize points on your specific trip</div>`;
+    html += `<div class="trip-card-grid">`;
+    tripCity.tips.forEach((t, i) => {
+      const rank = ['#1 Pick', '#2 Pick', '#3 Pick'][i] || '';
+      const rankColor = i === 0 ? '#2dd4bf' : i === 1 ? '#94a3b8' : '#64748b';
+      html += `<div class="trip-card-box">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <span style="font-size:11px;font-weight:700;color:${rankColor};letter-spacing:.5px;text-transform:uppercase">${rank}</span>
+          <span style="font-size:14px;font-weight:700;color:#e2e8f0">${esc(t.card)}</span>
+        </div>
+        <div style="font-size:13px;color:#94a3b8;line-height:1.6">${esc(t.tip)}</div>
+      </div>`;
+    });
+    html += `</div>`;
+
+    // relevant airlines for this city
+    const cityAirlines = airlines.filter(a => a.hubs.includes(cityId));
+    if (cityAirlines.length) {
+      html += `<div style="margin-top:8px;padding:14px 16px;background:rgba(45,212,191,.06);border:1px solid rgba(45,212,191,.15);border-radius:10px">`;
+      html += `<div style="font-size:12px;font-weight:600;color:#2dd4bf;margin-bottom:8px;letter-spacing:.5px">✈ AIRLINES FLYING TO ${esc(tripCity.name.toUpperCase())}</div>`;
+      cityAirlines.forEach(a => {
+        html += `<div style="margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.05)">
+          <div style="font-size:13px;font-weight:600;color:#e2e8f0;margin-bottom:3px">${esc(a.airline)} (${esc(a.code)}) — Best: <span style="color:#2dd4bf">${esc(a.bestCard)}</span></div>
+          <div style="font-size:12px;color:#94a3b8">${esc(a.tip)}</div>
+        </div>`;
+      });
+      html += `</div>`;
+    }
+  }
+
+  // ── All credit cards ──────────────────────────────────────────────────────
   html += `<div class="rewards-section-title">🏆 Top Travel Credit Cards</div>`;
   html += `<div class="rewards-section-sub">Ranked by signup bonus value and travel perks</div>`;
   html += `<div class="cc-city-cards">`;
@@ -2719,31 +2754,53 @@ function renderRewardsTab() {
   }
   html += `</div>`;
 
-  // ── City-specific tips ──
-  const tipCityId = cityId && cityTips[cityId] ? cityId : null;
-  const tipCities = tipCityId
-    ? [tipCityId, ...Object.keys(cityTips).filter(k => k !== tipCityId)]
+  // ── Airline Rewards ───────────────────────────────────────────────────────
+  html += `<div class="rewards-section-title">✈️ Airline Rewards Guide</div>`;
+  html += `<div class="rewards-section-sub">Which card to use for every major airline — and how to transfer points for maximum value</div>`;
+  html += `<div class="airline-grid">`;
+  for (const a of airlines) {
+    html += `<div class="airline-card">
+      <div class="airline-card-header">
+        <div class="airline-badge">${esc(a.code)}</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:#e2e8f0">${esc(a.airline)}</div>
+          <div style="font-size:11px;color:#64748b">${esc(a.region)}</div>
+        </div>
+      </div>
+      <div class="airline-best">Best card: <strong style="color:#2dd4bf">${esc(a.bestCard)}</strong></div>
+      <div class="airline-earn">📊 ${esc(a.earn)}</div>
+      <div class="airline-tip">${esc(a.tip)}</div>
+      <div class="airline-partners">${a.partners.map(p => `<span class="partner-tag">${esc(p)}</span>`).join('')}</div>
+    </div>`;
+  }
+  html += `</div>`;
+
+  // ── City-by-city tips ─────────────────────────────────────────────────────
+  const tipCities = cityId && cityTips[cityId]
+    ? [cityId, ...Object.keys(cityTips).filter(k => k !== cityId)]
     : Object.keys(cityTips);
 
-  html += `<div class="rewards-section-title">🗺 City-by-City Point Strategies</div>`;
-  html += `<div class="rewards-section-sub">${tipCityId ? 'Your trip city is shown first' : 'Maximize earnings at every destination'}</div>`;
+  html += `<div class="rewards-section-title">🗺 All Cities — Point Strategies</div>`;
+  html += `<div class="rewards-section-sub">${tripCity ? 'Your trip city shown first' : 'Maximize earnings at every destination'}</div>`;
 
   for (const cid of tipCities) {
     const ct = cityTips[cid];
     if (!ct) continue;
-    const highlight = cid === tipCityId ? ' style="border:1px solid rgba(45,212,191,.25);background:rgba(13,148,136,.05);border-radius:12px;padding:10px;margin-bottom:4px"' : '';
+    const isTrip = cid === cityId;
+    const highlight = isTrip ? ' style="border:1px solid rgba(45,212,191,.25);background:rgba(13,148,136,.05);border-radius:12px;padding:10px;margin-bottom:4px"' : '';
     html += `<div class="cc-city-block"${highlight}>`;
-    html += `<div class="cc-city-name">${cid === tipCityId ? '📍 ' : ''}${esc(ct.name)}</div>`;
+    html += `<div class="cc-city-name">${isTrip ? '📍 ' : ''}${esc(ct.name)}</div>`;
     html += `<div class="cc-city-tips">`;
-    for (const t of ct.tips) {
-      html += `<div class="cc-city-tip"><strong>${esc(t.card)}:</strong> ${esc(t.tip)}</div>`;
-    }
+    ct.tips.forEach((t, i) => {
+      const label = i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉';
+      html += `<div class="cc-city-tip"><span style="margin-right:4px">${label}</span><strong>${esc(t.card)}:</strong> ${esc(t.tip)}</div>`;
+    });
     html += `</div></div>`;
   }
 
-  // ── Checklist ──
+  // ── Checklist ─────────────────────────────────────────────────────────────
   html += `<div class="rewards-section-title">✅ Points Maximizer Checklist</div>`;
-  html += `<div class="rewards-section-sub">Follow these 15 steps to go from zero to 100K+ points</div>`;
+  html += `<div class="rewards-section-sub">Follow these steps to go from 0 to 100K+ points</div>`;
   html += `<div class="checklist-wrap">`;
   checklist.forEach((item, i) => {
     html += `<div class="checklist-item">
@@ -2753,7 +2810,7 @@ function renderRewardsTab() {
   });
   html += `</div>`;
 
-  // ── Blog articles ──
+  // ── Blog articles ─────────────────────────────────────────────────────────
   html += `<div class="rewards-section-title">📖 Rewards Guides</div>`;
   html += `<div class="rewards-section-sub">Deep dives on strategy, hacks, and city-specific tips</div>`;
   for (let i = 0; i < blogs.length; i++) {

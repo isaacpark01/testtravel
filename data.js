@@ -7990,7 +7990,266 @@ const CITY_REWARDS_TIPS = {
       { card: "Capital One Venture X", tip: "Access Capital One Lounge at SEA (one of their flagship locations)." },
     ],
   },
+  london: {
+    name: "London",
+    tips: [
+      { card: "Capital One Venture X", tip: "No FX fees on GBP + 10x on hotel bookings. London hotels avg £200+/night = 2,000+ pts/night. Priority Pass at LHR." },
+      { card: "Amex Gold", tip: "4x on London's incredible dining scene — from Michelin spots to gastropubs. Budget £40–100/meal." },
+      { card: "Chase Sapphire Reserve", tip: "Priority Pass access at LHR (huge airport, long waits). Transfer points to British Airways Avios for short-haul Avios sweet spots." },
+    ],
+  },
+  rome: {
+    name: "Rome",
+    tips: [
+      { card: "Amex Gold", tip: "4x on dining — Roman trattorias, gelaterias, and coffee bars are your biggest spend at €20–60/meal. Transfer to Alitalia partners." },
+      { card: "Capital One Venture X", tip: "No FX fees in EUR + lounge at FCO (Terminal 3 Priority Pass). Use 10x hotel rate for Rome's boutique hotels near the Colosseum." },
+      { card: "Citi Premier", tip: "3x on flights. Book Rome via connecting hubs — transfer Citi points to Turkish Miles & Smiles for cheap business class to FCO." },
+    ],
+  },
+  amsterdam: {
+    name: "Amsterdam",
+    tips: [
+      { card: "Capital One Venture X", tip: "No FX fees + 10x on hotels + Priority Pass at AMS (great Centurion-style lounge). Amsterdam hotels avg €150–300/night." },
+      { card: "Amex Gold", tip: "4x on Amsterdam's café and restaurant scene. Transfer Amex points to KLM Flying Blue for short hops to European cities." },
+      { card: "Chase Sapphire Preferred", tip: "Transfer to Air France/KLM Flying Blue 1:1 for great value on transatlantic flights to AMS. No foreign transaction fees." },
+    ],
+  },
+  sydney: {
+    name: "Sydney",
+    tips: [
+      { card: "Capital One Venture X", tip: "5x on flights (14–18 hr haul from US) + no FX fees in AUD. Book flights via Capital One Travel for the full bonus." },
+      { card: "Amex Gold", tip: "4x on Sydney's world-class dining — Quay, Tetsuya's, and the harbour-view restaurants avg A$80–150/person." },
+      { card: "Citi Premier", tip: "3x on flights booked directly. Transfer Citi points to Qantas Frequent Flyer for premium cabin awards to Sydney." },
+    ],
+  },
+  dubai: {
+    name: "Dubai",
+    tips: [
+      { card: "Capital One Venture X", tip: "10x on Dubai's luxury hotels ($300–600/night at Burj Al Arab-level properties). Priority Pass at DXB — one of the world's best airport lounges." },
+      { card: "Chase Sapphire Reserve", tip: "Trip delay/cancellation insurance critical for long-haul to DXB. Transfer to Emirates Skywards for business class redemptions." },
+      { card: "Amex Gold", tip: "4x on Dubai's restaurant scene — from gold-leaf burgers to Nobu. Transfer Amex pts to Etihad Guest for Abu Dhabi day trips." },
+    ],
+  },
+  bangkok: {
+    name: "Bangkok",
+    tips: [
+      { card: "Capital One Venture X", tip: "No FX fees on Thai Baht + 2x on all spend. Most street food is cash-only, so use the card at hotels ($50–150/night, 10x rate)." },
+      { card: "Citi Premier", tip: "3x on flights. Bangkok is 18–20 hours from the US — transfer Citi points to Thai Airways Royal Orchid Plus for business class." },
+      { card: "Chase Sapphire Reserve", tip: "Priority Pass lounge at BKK Suvarnabhumi (critical for long layovers). Transfer to Singapore Airlines KrisFlyer for Bangkok hops." },
+    ],
+  },
+  singapore: {
+    name: "Singapore",
+    tips: [
+      { card: "Capital One Venture X", tip: "No FX fees in SGD + 10x on Singapore's premium hotels (Marina Bay Sands avg S$500/night = 5,000+ pts). Priority Pass at Changi." },
+      { card: "Chase Sapphire Reserve", tip: "Transfer Chase points to Singapore Airlines KrisFlyer 1:1 — the best first class product in the world. Book the Suites at 90K pts one-way." },
+      { card: "Amex Gold", tip: "4x on Singapore's Michelin-starred hawker centers and fine dining. Changi Airport dining also earns 4x." },
+    ],
+  },
+  lisbon: {
+    name: "Lisbon",
+    tips: [
+      { card: "Amex Gold", tip: "4x on dining — petiscos, seafood restaurants, and pastelarias at €15–40/meal. Lisbon is one of Europe's best food cities for value." },
+      { card: "Capital One Venture X", tip: "No FX fees in EUR + lounge access at LIS. Lisbon hotels avg €100–200/night — use 10x rate via Capital One Travel." },
+      { card: "Citi Premier", tip: "3x on flights. Transfer to TAP Air Portugal Miles&Go for award flights to Azores or Madeira from Lisbon." },
+    ],
+  },
+  seoul: {
+    name: "Seoul",
+    tips: [
+      { card: "Capital One Venture X", tip: "No FX fees in KRW + 10x on Seoul's design hotels and boutique stays in Gangnam ($150–300/night). Priority Pass at ICN." },
+      { card: "Amex Gold", tip: "4x on Korean BBQ restaurants and the incredible Seoul dining scene — avg ₩30,000–80,000/person per meal." },
+      { card: "Chase Sapphire Preferred", tip: "Transfer Chase points to Korean Air SkyPass 1:1 for domestic hops to Jeju Island or JOON flights to Seoul from the US." },
+    ],
+  },
+  mexicocity: {
+    name: "Mexico City",
+    tips: [
+      { card: "Chase Sapphire Preferred", tip: "2x on all travel + no FX fees in MXN. Mexico City is budget-friendly — use the card at Pujol-level restaurants (avg $50–80) for 3x dining." },
+      { card: "Amex Gold", tip: "4x on Mexico City's world-renowned taco stands, cantinas, and Michelin-starred restaurants. CDMX is a foodie paradise." },
+      { card: "Citi Premier", tip: "3x on flights to MEX. Many airlines fly direct from the US — book via Citi and transfer to Aeromexico Club Premier for redemptions." },
+    ],
+  },
+  sandiego: {
+    name: "San Diego",
+    tips: [
+      { card: "Amex Gold", tip: "4x on San Diego's taco shops, craft breweries, and Gaslamp Quarter restaurants. Little Italy dining earns big at 4x." },
+      { card: "Capital One Venture X", tip: "10x on hotels near the waterfront and Balboa Park ($150–250/night). 5x on flights from SAN." },
+      { card: "Chase Sapphire Preferred", tip: "2x on border crossing rideshares to Tijuana and return. Transfer to Hyatt for boutique hotels in La Jolla." },
+    ],
+  },
+  washingtondc: {
+    name: "Washington DC",
+    tips: [
+      { card: "Chase Sapphire Reserve", tip: "3x on DC Metro rides and taxis. The $300 travel credit easily covers transit between DCA/IAD and the Mall." },
+      { card: "Bilt Mastercard", tip: "Earn points on DC rent (avg $2,200/mo) + 3x on dining in Adams Morgan and Navy Yard. Transfer to Hyatt for Georgetown properties." },
+      { card: "Capital One Venture X", tip: "10x on DC hotels near the monuments ($200–350/night). Priority Pass at IAD Dulles international terminal." },
+    ],
+  },
+  boston: {
+    name: "Boston",
+    tips: [
+      { card: "Chase Sapphire Reserve", tip: "3x on the MBTA subway (T) and dining. The Seaport District restaurant scene earns big — avg $50–90/person at Island Creek Oysters." },
+      { card: "Amex Gold", tip: "4x on Boston's North End Italian restaurants, seafood in the Seaport, and Harvard Square cafés. Budget $60–100/meal for top spots." },
+      { card: "Bilt Mastercard", tip: "Earn on Boston rent + transfer to Hyatt for Cambridge properties near MIT/Harvard. No foreign fees for Boston's international vibe." },
+    ],
+  },
+  denver: {
+    name: "Denver",
+    tips: [
+      { card: "Capital One Venture X", tip: "5x on flights from DEN (major United hub) + 10x on mountain resort hotels in Vail/Aspen ($400–800/night in ski season)." },
+      { card: "Amex Gold", tip: "4x on Denver's craft brewery restaurant scene in the RiNo district and Larimer Square fine dining. Budget $40–80/meal." },
+      { card: "Chase Sapphire Reserve", tip: "3x on outdoor gear rental and ski resort dining. Trip cancellation insurance covers mountain weather delays." },
+    ],
+  },
+  portland: {
+    name: "Portland",
+    tips: [
+      { card: "Amex Gold", tip: "4x on Portland's James Beard Award-winning restaurant scene — Pok Pok, Le Pigeon, Tasty n Daughters. Budget $40–80/meal." },
+      { card: "Chase Sapphire Preferred", tip: "Transfer to Hyatt for boutique Portland hotels like The Nines. 2x on travel including MAX light rail and Portland Streetcar." },
+      { card: "Citi Premier", tip: "3x on flights. PDX is an Alaska Airlines hub — transfer Citi points to Alaska Mileage Plan for great Pacific Northwest redemptions." },
+    ],
+  },
+  atlanta: {
+    name: "Atlanta",
+    tips: [
+      { card: "Capital One Venture X", tip: "5x on Delta flights (ATL is Delta's mega-hub — more Delta flights than anywhere on Earth). Stack with Delta SkyMiles credit for upgrades." },
+      { card: "Amex Gold", tip: "4x on Atlanta's booming restaurant scene — Ponce City Market, Beltline restaurants, Buckhead steakhouses avg $50–100/meal." },
+      { card: "Chase Sapphire Reserve", tip: "Priority Pass lounge at ATL's massive international terminal (T-gates). Transfer to Delta SkyMiles via Amex or direct Delta card." },
+    ],
+  },
+  philadelphia: {
+    name: "Philadelphia",
+    tips: [
+      { card: "Amex Gold", tip: "4x on Philly's iconic food scene — cheesesteak spots, Reading Terminal Market, BYOB restaurants, and the Fishtown dining corridor." },
+      { card: "Bilt Mastercard", tip: "Earn on Philly rent (avg $1,800/mo = 21,600 pts/yr) + 3x on dining. Transfer to Hyatt for Center City hotels." },
+      { card: "Chase Sapphire Preferred", tip: "2x on SEPTA transit + transfer to United for PHL routes. The Hyatt at the Bellevue earns well on Chase transfers." },
+    ],
+  },
+  phoenix: {
+    name: "Phoenix / Scottsdale",
+    tips: [
+      { card: "Capital One Venture X", tip: "10x on Scottsdale resort hotels ($300–600/night at the Boulders, Four Seasons Scottsdale, or Sanctuary). Priority Pass lounge at PHX." },
+      { card: "Amex Gold", tip: "4x on Scottsdale's award-winning restaurant scene — Old Town dining, Bourbon Steak, Talavera. Budget $60–120/meal at top spots." },
+      { card: "Chase Sapphire Reserve", tip: "The $300 travel credit easily covers PHX transport. Transfer to Hyatt for Andaz Scottsdale or Alila Scottsdale (stunning pool resorts)." },
+    ],
+  },
 };
+
+const AIRLINE_REWARDS = [
+  {
+    airline: "Delta Air Lines", code: "DL", region: "US Domestic + International",
+    hubs: ["atlanta","nyc","losangeles","seattle","boston","minneapolis"],
+    bestCard: "Amex Gold Card",
+    earn: "3x points on flights booked directly with Delta",
+    tip: "Transfer Amex Membership Rewards to Delta SkyMiles 1:1. Best for domestic economy awards (12,500 pts one-way). Stack with a Delta co-brand card for upgrades.",
+    partners: ["Amex Membership Rewards → SkyMiles 1:1"],
+  },
+  {
+    airline: "United Airlines", code: "UA", region: "US Domestic + International",
+    hubs: ["chicago","sanfrancisco","nyc","denver","houston","washingtondc"],
+    bestCard: "Chase Sapphire Reserve",
+    earn: "3x on all travel, transfer to United MileagePlus 1:1",
+    tip: "Chase points transfer to United MileagePlus at 1:1. Sweet spot: saver awards on United partners (Air Canada, ANA, Lufthansa). Book 5–11 months early for best availability.",
+    partners: ["Chase Ultimate Rewards → MileagePlus 1:1"],
+  },
+  {
+    airline: "American Airlines", code: "AA", region: "US Domestic + Latin America",
+    hubs: ["dallas","miami","philadelphia","charlotte","phoenix","chicago"],
+    bestCard: "Citi Premier Card",
+    earn: "3x on flights + transfer to AAdvantage",
+    tip: "Citi and Bilt both transfer to AA AAdvantage 1:1. Best redemptions: Cathay Pacific business class to Asia (70K pts one-way). Book international awards 11 months out.",
+    partners: ["Citi ThankYou → AAdvantage 1:1", "Bilt → AAdvantage 1:1"],
+  },
+  {
+    airline: "Southwest Airlines", code: "WN", region: "US Domestic + Caribbean",
+    hubs: ["dallas","chicago","baltimore","denver","lasvegas","orlando"],
+    bestCard: "Chase Sapphire Preferred",
+    earn: "2x on travel + transfer to Rapid Rewards",
+    tip: "Chase transfers to Southwest Rapid Rewards 1:1. Chase Companion Pass (earn 135K pts in a calendar year) is the best deal in domestic travel — flies your +1 free all year.",
+    partners: ["Chase Ultimate Rewards → Rapid Rewards 1:1"],
+  },
+  {
+    airline: "Alaska Airlines", code: "AS", region: "US West Coast + Hawaii",
+    hubs: ["seattle","portland","losangeles","sanfrancisco","sandiego"],
+    bestCard: "Chase Sapphire Reserve",
+    earn: "3x on travel + transfer to Mileage Plan",
+    tip: "Chase and Bilt transfer to Alaska Mileage Plan 1:1. Alaska partners with 13 airlines including Cathay Pacific, JAL, and British Airways — amazing for international awards at low rates.",
+    partners: ["Chase Ultimate Rewards → Mileage Plan 1:1", "Bilt → Mileage Plan 1:1"],
+  },
+  {
+    airline: "British Airways", code: "BA", region: "Europe + Worldwide via Avios",
+    hubs: ["london","nyc","miami","losangeles","chicago"],
+    bestCard: "Chase Sapphire Reserve",
+    earn: "3x on travel + transfer to Avios",
+    tip: "Avios are distance-based — great for short hops in Europe (4,500 pts one-way under 650 miles). Transfer Chase points 1:1. Also redeemable on Iberia, Aer Lingus, Qatar Airways.",
+    partners: ["Chase Ultimate Rewards → Avios 1:1", "Amex MR → Avios 1:1"],
+  },
+  {
+    airline: "Air France / KLM", code: "AF/KL", region: "Europe + Africa + Asia",
+    hubs: ["paris","amsterdam","nyc","losangeles","atlanta"],
+    bestCard: "Amex Gold Card",
+    earn: "3x on flights + transfer to Flying Blue",
+    tip: "Flying Blue runs monthly Promo Rewards with 25–50% discount on award flights. Transfer Amex or Chase points 1:1. Best sweet spot: Paris in business class from East Coast (57K pts).",
+    partners: ["Amex MR → Flying Blue 1:1", "Chase UR → Flying Blue 1:1"],
+  },
+  {
+    airline: "Emirates", code: "EK", region: "Middle East + Asia + Africa",
+    hubs: ["dubai","nyc","losangeles","miami","houston"],
+    bestCard: "Chase Sapphire Reserve",
+    earn: "3x on travel + transfer to Skywards",
+    tip: "Transfer Chase points to Emirates Skywards 1:1. Emirates First Class is the pinnacle of luxury — NYC to Dubai in First for 85K pts one-way. Book as soon as award space opens.",
+    partners: ["Chase Ultimate Rewards → Skywards 1:1"],
+  },
+  {
+    airline: "Singapore Airlines", code: "SQ", region: "Asia + Australia + Europe",
+    hubs: ["singapore","nyc","losangeles","houston"],
+    bestCard: "Chase Sapphire Reserve",
+    earn: "3x on travel + transfer to KrisFlyer",
+    tip: "Singapore Airlines Suites (A380) is the best first class product in the world. Transfer Chase points 1:1 to KrisFlyer. NYC to Singapore in Suites: 228K pts round-trip — book 355 days out.",
+    partners: ["Chase Ultimate Rewards → KrisFlyer 1:1"],
+  },
+  {
+    airline: "ANA All Nippon Airways", code: "NH", region: "Japan + Asia + US",
+    hubs: ["tokyo","losangeles","nyc","chicago","washington"],
+    bestCard: "Chase Sapphire Reserve",
+    earn: "3x on travel + transfer to ANA Mileage Club",
+    tip: "ANA has one of the best business class products to Japan. Transfer Chase 1:1. Best deal: round-trip to Tokyo in business class for 88K miles (partner awards). No fuel surcharges.",
+    partners: ["Chase Ultimate Rewards → ANA Mileage Club 1:1"],
+  },
+  {
+    airline: "Cathay Pacific", code: "CX", region: "Asia + Australia + Europe",
+    hubs: ["hongkong","nyc","losangeles","chicago","sanfrancisco"],
+    bestCard: "Capital One Venture X",
+    earn: "2x on everything + transfer to Asia Miles",
+    tip: "Capital One transfers to Cathay Pacific Asia Miles at 2:1.5. Cathay business class is excellent — Hong Kong to London in The Suite for 90K Asia Miles. Also book on Alaska Mileage Plan (partners).",
+    partners: ["Capital One → Asia Miles 2:1.5", "Alaska Mileage Plan (partner awards)"],
+  },
+  {
+    airline: "Lufthansa / Star Alliance", code: "LH", region: "Europe + Worldwide",
+    hubs: ["frankfurt","munich","nyc","chicago","miami","losangeles"],
+    bestCard: "Chase Sapphire Reserve",
+    earn: "3x on travel + transfer via Star Alliance partners",
+    tip: "Lufthansa doesn't have direct transfer partners — book via United MileagePlus (Star Alliance) or Avianca LifeMiles for Lufthansa Business/First. NYC to Frankfurt in Business: 57K United miles.",
+    partners: ["Chase UR → United MileagePlus → Lufthansa", "Citi → Avianca LifeMiles"],
+  },
+  {
+    airline: "Turkish Airlines", code: "TK", region: "Europe + Middle East + Asia",
+    hubs: ["istanbul","nyc","chicago","losangeles","miami"],
+    bestCard: "Citi Premier Card",
+    earn: "3x on flights + transfer to Miles & Smiles",
+    tip: "Turkish Miles & Smiles has incredible partner award pricing — business class to Africa or Asia via Istanbul for 45K miles one-way. Transfer Citi ThankYou points 1:1. Book via phone.",
+    partners: ["Citi ThankYou → Miles & Smiles 1:1"],
+  },
+  {
+    airline: "Qantas", code: "QF", region: "Australia + Pacific + Asia",
+    hubs: ["sydney","losangeles","dallas","nyc"],
+    bestCard: "Amex Gold Card",
+    earn: "3x on flights + transfer to Qantas Frequent Flyer",
+    tip: "Transfer Amex points to Qantas Frequent Flyer 1:1. Best redemption: Los Angeles to Sydney in Qantas Business for 105K pts one-way. No change fees on award tickets.",
+    partners: ["Amex MR → Qantas Frequent Flyer 1:1"],
+  },
+];
 
 const REWARDS_BLOG = [
   {
