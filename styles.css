@@ -544,6 +544,14 @@ body {
 .idea-form-row input, .idea-form-row select { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); color: #f0faf9; padding: 10px 12px; border-radius: 8px; font-size: 14px; font-family: inherit; outline: none; flex: 1; min-width: 120px; min-height: 44px; }
 .idea-form-row input::placeholder { color: rgba(240,250,249,.2); }
 .idea-form-row input:focus, .idea-form-row select:focus { border-color: rgba(45,212,191,.4); }
+/* Budget estimator city picker */
+.est-city-wrap { position: relative; flex: 1; min-width: 160px; display: flex; align-items: stretch; }
+.est-city-wrap input { flex: 1; border-radius: 8px 0 0 8px !important; min-width: 0; }
+.est-city-arrow { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-left: none; border-radius: 0 8px 8px 0; color: #94a3b8; padding: 0 12px; cursor: pointer; font-size: 14px; transition: background .15s; min-height: 44px; }
+.est-city-arrow:hover { background: rgba(255,255,255,.1); color: #f0faf9; }
+.est-city-dropdown { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: #1e293b; border: 1px solid rgba(255,255,255,.1); border-radius: 10px; max-height: 220px; overflow-y: auto; z-index: 999; box-shadow: 0 8px 24px rgba(0,0,0,.4); }
+.est-city-option { padding: 10px 14px; font-size: 13px; color: #cbd5e1; cursor: pointer; transition: background .1s; }
+.est-city-option:hover, .est-city-option.active { background: rgba(45,212,191,.12); color: #2dd4bf; }
 .online-users { display: flex; gap: 6px; align-items: center; margin-bottom: 14px; flex-wrap: wrap; }
 .online-badge { display: flex; align-items: center; gap: 6px; background: rgba(52,211,153,.08); border: 1px solid rgba(52,211,153,.18); border-radius: 20px; padding: 4px 12px; font-size: 12px; color: #34d399; font-weight: 600; }
 .online-dot { width: 7px; height: 7px; background: #34d399; border-radius: 50%; animation: pulse 2s ease infinite; }

@@ -1177,15 +1177,75 @@ function buildCarLink(platform, anchor) {
 }
 
 /* ===================== BUDGET ESTIMATOR ===================== */
+let _estDropdownOpen = false;
+
 function populateEstimatorSelect() {
-  const dl = document.getElementById('est-city-list');
-  if (!dl) return;
-  CITIES.forEach(c => {
-    const o = document.createElement('option');
-    o.value = `${c.name}, ${c.country}`;
-    dl.appendChild(o);
+  // Populate dropdown options once
+  const dd = document.getElementById('est-city-dropdown');
+  if (!dd) return;
+  dd.innerHTML = CITIES.map(c =>
+    `<div class="est-city-option" onclick="selectEstCity('${escHtml(c.name)}, ${escHtml(c.country)}')">${escHtml(c.name)}, ${escHtml(c.country)}</div>`
+  ).join('');
+  // Close dropdown when clicking outside
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.est-city-wrap')) closeEstDropdown();
   });
 }
+
+function showEstDropdown() {
+  const dd = document.getElementById('est-city-dropdown');
+  if (!dd) return;
+  dd.style.display = 'block';
+  _estDropdownOpen = true;
+  filterEstCities(document.getElementById('est-city-input').value);
+}
+
+function closeEstDropdown() {
+  const dd = document.getElementById('est-city-dropdown');
+  if (dd) dd.style.display = 'none';
+  _estDropdownOpen = false;
+}
+
+function toggleEstDropdown() {
+  _estDropdownOpen ? closeEstDropdown() : showEstDropdown();
+}
+
+function filterEstCities(val) {
+  const dd = document.getElementById('est-city-dropdown');
+  if (!dd) return;
+  const q = val.trim().toLowerCase();
+  const opts = dd.querySelectorAll('.est-city-option');
+  let any = false;
+  opts.forEach(o => {
+    const show = !q || o.textContent.toLowerCase().includes(q);
+    o.style.display = show ? 'block' : 'none';
+    if (show) any = true;
+  });
+  dd.style.display = any ? 'block' : 'none';
+  _estDropdownOpen = any;
+}
+
+function selectEstCity(val) {
+  const inp = document.getElementById('est-city-input');
+  if (inp) inp.value = val;
+  closeEstDropdown();
+}
+
+function estCityKeydown(e) {
+  const dd = document.getElementById('est-city-dropdown');
+  if (!dd || dd.style.display === 'none') return;
+  const visible = [...dd.querySelectorAll('.est-city-option')].filter(o => o.style.display !== 'none');
+  const active  = dd.querySelector('.est-city-option.active');
+  let idx = visible.indexOf(active);
+  if (e.key === 'ArrowDown') { e.preventDefault(); idx = Math.min(idx + 1, visible.length - 1); }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); idx = Math.max(idx - 1, 0); }
+  else if (e.key === 'Enter' && active) { e.preventDefault(); selectEstCity(active.textContent); return; }
+  else if (e.key === 'Escape') { closeEstDropdown(); return; }
+  else return;
+  visible.forEach(o => o.classList.remove('active'));
+  if (visible[idx]) { visible[idx].classList.add('active'); visible[idx].scrollIntoView({ block: 'nearest' }); }
+}
+
 const COL = {
   // USA
   nyc:          {b:70,m:180,l:450}, miami:        {b:65,m:160,l:420}, hawaii:       {b:75,m:190,l:500},

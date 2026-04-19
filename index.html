@@ -515,8 +515,14 @@
     <h3 data-i18n="dealsBudget">💰 Trip Budget Estimator</h3>
     <div class="deal-form">
       <div class="idea-form-row">
-        <input id="est-city-input" type="text" placeholder="Destination…" list="est-city-list" autocomplete="off" />
-        <datalist id="est-city-list"></datalist>
+        <div class="est-city-wrap">
+          <input id="est-city-input" type="text" placeholder="Destination…" autocomplete="off"
+            oninput="filterEstCities(this.value)"
+            onfocus="showEstDropdown()"
+            onkeydown="estCityKeydown(event)" />
+          <button class="est-city-arrow" type="button" onclick="toggleEstDropdown()">▾</button>
+          <div class="est-city-dropdown" id="est-city-dropdown" style="display:none"></div>
+        </div>
         <select id="est-style">
           <option value="budget">Budget traveler</option>
           <option value="mid" selected>Mid-range</option>
