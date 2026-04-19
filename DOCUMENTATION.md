@@ -11,15 +11,17 @@ A mobile-first travel planning PWA. Two surfaces: **index.html** (explore/browse
 
 ```
 itinerary-app/
-├── index.html         # "Coming Soon" landing page (WIP mode)
-├── app.html           # Full explore page — hero, city browser, deals, group boards
+├── index.html         # Full explore page — hero, city browser, deals, group boards
+├── app.html           # Legacy alias (same content as index.html — kept for redirects)
 ├── planner.html       # Trip planner — Saves / Itinerary / Discover / Rewards / Map
+├── reset-password.html# Password reset page — handles Supabase PASSWORD_RECOVERY flow
 ├── planner.js         # All planner logic (see function index below)
-├── travel-apps.js     # CITY_TRAVEL_APPS — best maps, transit, ride & food apps per city (34 cities)
-├── styles.css         # Global CSS — dark teal theme, referenced by app.html
-├── app.js             # app.html logic — auth, city browser, deals, boards
+├── travel-apps.js     # CITY_TRAVEL_APPS + CITY_CURRENCY — best apps & currency per city (34 cities)
+├── styles.css         # Global CSS — dark teal theme
+├── app.js             # index.html logic — auth, city browser, deals, boards, essentials
 ├── data.js            # Static city data — 34 destinations + credit card rewards
 ├── config.js          # Supabase credentials (URL + anon key — governed by RLS)
+├── robots.txt         # Disallows all crawlers (private app — noindex)
 ├── admin.html         # Admin dashboard — users, boards, ideas management
 ├── admin.js           # Admin logic — auth gate, CRUD, event delegation
 ├── admin-setup.sql    # SQL to set up admin user
@@ -89,6 +91,9 @@ itinerary-app/
 | **City Browser** | 34 cities with Activities, Food, Transit, Pack, Essentials tabs; live search bar filters places by name, tip, and cuisine |
 | **Local Language Phrases** | All 34 cities show local language/dialect, practical phrases, romanized pronunciation, and audio playback via Web Speech API |
 | **Voice Gender Picker** | ♀ Female / ♂ Male voice toggle for phrase audio — matches browser voices by known name keywords |
+| **City Travel Apps** | Essentials tab shows best maps, transit card, ride-hailing, food apps, payment tips, and SIM advice per city (34 cities via `travel-apps.js`) |
+| **Live Currency Rates** | Essentials tab fetches live USD exchange rate from Frankfurter API (no key required). Displays rate + date. USD cities show "no exchange needed". Rates cached per session. |
+| **Currency Exchange Finder** | "📍 Find currency exchange in {city}" button deep-links to Google Maps search for currency exchange locations. |
 | **Images on All Tiles** | Every activity and food tile has a photo; onerror fallback chain: item photo → city hero |
 | **Flight Deals** | Deep-links to Google Flights, Kayak, Skyscanner, Expedia |
 | **Rental Cars** | Kayak, Google Cars, Enterprise, Hertz |
@@ -241,7 +246,20 @@ CITY_TRAVEL_APPS = {
   },
   // ... all 34 cities
 }
+
+CITY_CURRENCY = {
+  nyc:   { code: 'USD', name: 'US Dollar',       symbol: '$'  },
+  paris: { code: 'EUR', name: 'Euro',             symbol: '€' },
+  tokyo: { code: 'JPY', name: 'Japanese Yen',     symbol: '¥' },
+  // ... all 34 cities
+}
 ```
+
+### Live Currency Rate (`app.js`)
+
+`fetchCurrencyRate(cityId)` — fetches `https://api.frankfurter.app/latest?from=USD&to={CODE}` and caches the result in `_currencyRateCache`. USD cities return immediately with `{ usd: true }` — no fetch needed.
+
+`renderCurrencySection(cityId)` — renders the currency section HTML with a loading placeholder, then calls `fetchCurrencyRate()` async and patches the DOM with the live rate. Also renders a Google Maps link for finding currency exchange locations in the city.
 
 ---
 
@@ -609,6 +627,13 @@ When a user shares an Instagram or TikTok post to Roamly, the app opens at `plan
 ---
 
 ## Bugs Fixed
+
+### 2026-04-19 (Session 7)
+- **CSP blocked Frankfurter API (currency feature silently failing):** `api.frankfurter.app` was not in the `connect-src` directive of `_headers`. Fetch requests to the currency rate API were blocked by the browser on the Netlify deployment. Added `https://api.frankfurter.app` to `connect-src`.
+- **`reset-password.html` didn't exist:** `sendPasswordReset()` sent users to `/reset-password.html` for the Supabase PASSWORD_RECOVERY redirect but the file was missing — anyone who clicked the reset email got a 404. Created `reset-password.html` that uses `supabaseClient.auth.onAuthStateChange` to detect the `PASSWORD_RECOVERY` event and shows a new-password form.
+- **`addIdea()` double-click created duplicate pins:** "Pin It" button had no ID and no disabled state during the async Supabase insert. Rapid double-clicks would fire two inserts. Added `id="add-idea-btn"` to the button and added `btn.disabled = true/false` around the insert. Also capped idea text at 500 characters.
+- **`sendPasswordReset()` button could be spam-clicked:** No loading state during the async email send. Added disable + "Sending…" label during the request; re-enables on completion or error. Added `id="forgot-submit-btn"` to the button.
+- **`renderIdeas()` used `escHtml()` for onclick ID strings:** `voteIdea('${escHtml(idea.id)}',...)` and `deleteIdea('${escHtml(idea.id)}')` used the wrong escape function for single-quoted onclick attributes. UUIDs are alphanumeric+dashes so this was safe in practice, but inconsistent with the rest of the codebase. Changed to `jsqApp()`.
 
 ### 2026-04-16 (Session 6)
 - **Null crash in `renderKanban()` (app.js):** Accessed `currentTrip.days` before checking `currentTrip !== null`. Added `if (!currentTrip) return` guard at function start.

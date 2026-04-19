@@ -108,7 +108,7 @@
       <div id="forgot-ok" class="hidden" style="background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.3);color:#34d399;border-radius:8px;padding:11px 14px;font-size:13px;margin-top:12px">
         ✓ Check your email for a reset link.
       </div>
-      <button class="auth-btn-solid" style="width:100%;margin-top:16px" onclick="sendPasswordReset()">Send Reset Link</button>
+      <button id="forgot-submit-btn" class="auth-btn-solid" style="width:100%;margin-top:16px" onclick="sendPasswordReset()">Send Reset Link</button>
       <p style="text-align:center;font-size:13px;color:rgba(240,250,249,.4);margin-top:14px">
         Back to <a href="#" style="color:#2dd4bf" onclick="switchAuth('login');return false">Sign In</a>
       </p>
@@ -457,7 +457,7 @@
         <div class="idea-form-row">
           <select id="idea-city"><option value="">Pick a city…</option></select>
           <input id="idea-note" type="text" placeholder="Describe your idea…" onkeydown="if(event.key==='Enter')addIdea()" />
-          <button class="auth-btn-solid" onclick="addIdea()">Pin It</button>
+          <button id="add-idea-btn" class="auth-btn-solid" onclick="addIdea()">Pin It</button>
         </div>
       </div>
 

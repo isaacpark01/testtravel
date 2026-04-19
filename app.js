@@ -189,13 +189,16 @@ async function sendPasswordReset() {
   const email = document.getElementById('forgot-email').value.trim();
   const err   = document.getElementById('forgot-error');
   const ok    = document.getElementById('forgot-ok');
+  const btn   = document.getElementById('forgot-submit-btn');
   err.classList.add('hidden');
   ok.classList.add('hidden');
   if (!email) { err.textContent = 'Please enter your email.'; err.classList.remove('hidden'); return; }
   if (!supabaseClient) { err.textContent = 'Auth not configured.'; err.classList.remove('hidden'); return; }
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
   const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
     redirectTo: window.location.origin + '/reset-password.html',
   });
+  if (btn) { btn.disabled = false; btn.textContent = 'Send Reset Link'; }
   if (error) { err.textContent = error.message; err.classList.remove('hidden'); return; }
   ok.classList.remove('hidden');
 }
@@ -366,15 +369,18 @@ async function addIdea() {
   if (!currentUser) { openAuth('login'); return; }
   if (!currentBoard) { openNewBoardModal(); return; }
   const cityId   = document.getElementById('idea-city').value;
-  const note     = document.getElementById('idea-note').value.trim();
+  const note     = document.getElementById('idea-note').value.trim().slice(0, 500);
   if (!cityId || !note) { showToast('Pick a city and describe your idea!'); return; }
   if (!currentProfile) { showToast('Profile not loaded yet — try again.'); return; }
+  const btn = document.getElementById('add-idea-btn');
+  if (btn) btn.disabled = true;
   const city = CITIES.find(c => c.id === cityId);
   await supabaseClient.from('ideas').insert({
     board_id: currentBoard.id, city_id: cityId, city_name: city?.name || cityId,
     note, created_by: currentUser.id, username: currentProfile.username, vote_score: 0,
   });
   document.getElementById('idea-note').value = '';
+  if (btn) btn.disabled = false;
 }
 
 async function voteIdea(ideaId, direction) {
@@ -418,11 +424,11 @@ function renderIdeas(ideas) {
           <div class="idea-meta">by ${escHtml(idea.username)}</div>
         </div>
         <div class="idea-votes">
-          <button class="vote-btn up ${userVote==='up'?'voted-up':''}" onclick="voteIdea('${escHtml(idea.id)}','up')">👍</button>
+          <button class="vote-btn up ${userVote==='up'?'voted-up':''}" onclick="voteIdea('${jsqApp(idea.id)}','up')">👍</button>
           <span class="vote-count" style="color:${score>0?'#6aaf82':score<0?'#c05050':'#9e9085'}">${score>0?'+':''}${score}</span>
-          <button class="vote-btn down ${userVote==='down'?'voted-down':''}" onclick="voteIdea('${escHtml(idea.id)}','down')">👎</button>
+          <button class="vote-btn down ${userVote==='down'?'voted-down':''}" onclick="voteIdea('${jsqApp(idea.id)}','down')">👎</button>
         </div>
-        ${isOwn ? `<button class="idea-delete" onclick="deleteIdea('${escHtml(idea.id)}')">✕</button>` : ''}
+        ${isOwn ? `<button class="idea-delete" onclick="deleteIdea('${jsqApp(idea.id)}')">✕</button>` : ''}
       </div>`;
   }).join('');
 }
