@@ -1032,6 +1032,49 @@ function renderPackingListContent() {
 
 // ── Share Trip Plan ───────────────────────────────────────────
 // Generates a clean, shareable text summary of the entire trip plan
+function exportItinerary() {
+  if (!currentTrip) { showToast('Create a trip first'); return; }
+  const city   = typeof CITIES !== 'undefined' ? CITIES.find(c => c.id === currentTrip.cityId) : null;
+  const lines  = [];
+  let totalSpend = 0;
+
+  lines.push(`<h1 style="font-family:Georgia,serif;color:#0d9488">🌏 ${esc(currentTrip.name)}</h1>`);
+  if (city) lines.push(`<p style="color:#555">📍 ${esc(city.name)}, ${esc(city.country)}</p>`);
+  if (currentTrip.budget) lines.push(`<p style="color:#555">💰 Budget: $${currentTrip.budget}</p>`);
+  lines.push('<hr>');
+
+  (currentTrip.days || []).forEach(day => {
+    const cards = day.cards || [];
+    if (!cards.length) return;
+    lines.push(`<h2 style="font-family:Georgia,serif;color:#0d9488;margin-top:20px">${esc(getDayLabel(day))}</h2>`);
+    lines.push('<ul style="margin:0;padding-left:18px">');
+    cards.forEach(c => {
+      const icon    = c.category === 'food' ? '🍽' : '🎯';
+      const price   = c.price === 0 ? 'Free' : c.price > 0 ? `$${c.price}` : '';
+      const rating  = c.rating ? `⭐ ${c.rating}` : '';
+      const meta    = [rating, price, c.duration].filter(Boolean).join(' · ');
+      lines.push(`<li style="margin-bottom:6px"><strong>${icon} ${esc(c.name)}</strong>${meta ? ` <span style="color:#888;font-size:13px">(${meta})</span>` : ''}${c.note ? `<br><span style="color:#888;font-size:12px">📝 ${esc(c.note)}</span>` : ''}</li>`);
+      if (typeof c.price === 'number' && c.price > 0) totalSpend += c.price;
+    });
+    lines.push('</ul>');
+  });
+
+  if ((currentTrip.saves || []).length) {
+    lines.push('<hr><h2 style="font-family:Georgia,serif;color:#0d9488">♡ Wishlist</h2><ul style="margin:0;padding-left:18px">');
+    currentTrip.saves.forEach(s => {
+      const icon = s.category === 'food' ? '🍽' : '🎯';
+      lines.push(`<li>${icon} ${esc(s.name)}${s.note ? ` — <span style="color:#888">${esc(s.note)}</span>` : ''}</li>`);
+    });
+    lines.push('</ul>');
+  }
+
+  lines.push(`<hr><p style="color:#888;font-size:12px">Planned spend: ~$${totalSpend} · Planned with Roamly</p>`);
+
+  const w = window.open('', '_blank');
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${esc(currentTrip.name)}</title><style>body{font-family:Inter,sans-serif;max-width:720px;margin:40px auto;padding:0 24px;color:#111}@media print{body{margin:20px}}</style></head><body>${lines.join('\n')}<script>setTimeout(()=>window.print(),400)<\/script></body></html>`);
+  w.document.close();
+}
+
 function shareTripPlan() {
   if (!currentTrip) { showToast('Create a trip first'); return; }
 
@@ -2603,11 +2646,184 @@ function openQuickAdd(prefill) {
   setTimeout(() => document.getElementById('qa-name').focus(), 60);
 }
 
+// ── File Import ───────────────────────────────────────────────
+let _importCandidates = [];
+
+async function handleFileImport(file) {
+  if (!file) return;
+  showToast('Reading file…');
+  try {
+    let places = [];
+    if (file.name.toLowerCase().endsWith('.zip')) {
+      places = await parseZipExport(file);
+    } else if (file.name.toLowerCase().endsWith('.json')) {
+      const text = await file.text();
+      places = parseAnyJson(JSON.parse(text), file.name);
+    } else {
+      showToast('Unsupported file type — try .json or .zip'); return;
+    }
+    if (!places.length) { showToast('No places found in this file'); return; }
+    showImportReview(places);
+  } catch (e) {
+    console.error('File import error:', e);
+    showToast('Could not read file — check the format and try again');
+  }
+}
+
+async function parseZipExport(file) {
+  if (!window.JSZip) { showToast('ZIP support unavailable — extract the file and upload the .json directly'); return []; }
+  const zip = await window.JSZip.loadAsync(file);
+  const tryFile = async (regex) => {
+    const f = zip.file(regex)[0];
+    return f ? f.async('text') : null;
+  };
+
+  let text = await tryFile(/Saved Places\.json$/i);
+  if (text) return parseGoogleMapsJson(JSON.parse(text));
+
+  text = await tryFile(/Favorite Videos\.json$/i);
+  if (text) return parseTikTokJson(JSON.parse(text));
+
+  text = await tryFile(/user_data\.json$/i);
+  if (text) { const r = parseTikTokJson(JSON.parse(text)); if (r.length) return r; }
+
+  text = await tryFile(/saved_posts\.json$/i);
+  if (text) return parseInstagramJson(JSON.parse(text));
+
+  // Fallback: scan all JSON files
+  const all = zip.file(/\.json$/i);
+  const places = [];
+  for (const f of all) {
+    try {
+      const t = await f.async('text');
+      places.push(...parseAnyJson(JSON.parse(t), f.name));
+    } catch {}
+  }
+  return dedupeImports(places);
+}
+
+function parseAnyJson(json, filename) {
+  const fn = (filename || '').toLowerCase();
+  if (fn.includes('saved places') || fn.includes('savedplaces') || json?.type === 'FeatureCollection') return parseGoogleMapsJson(json);
+  if (fn.includes('favorite') || fn.includes('tiktok') || json?.Activity?.['Favorite Videos'] || json?.FavoriteVideoList) return parseTikTokJson(json);
+  if (fn.includes('saved_posts') || fn.includes('instagram') || json?.saved_saved_media) return parseInstagramJson(json);
+  return [];
+}
+
+function parseGoogleMapsJson(json) {
+  return (json?.features || []).map(f => {
+    const name = f?.properties?.Title || f?.properties?.Location?.['Business Name'] || '';
+    const addr = f?.properties?.Location?.Address || '';
+    return name ? { name: name.trim(), note: addr.trim(), source: 'google_maps' } : null;
+  }).filter(Boolean);
+}
+
+function parseTikTokJson(json) {
+  const list = json?.Activity?.['Favorite Videos']?.FavoriteVideoList
+    || json?.FavoriteVideoList
+    || json?.['Favorite Videos']?.FavoriteVideoList || [];
+  const places = [];
+  list.forEach(item => {
+    extractPlacesFromText(item?.VideoDesc || item?.Description || '')
+      .forEach(name => places.push({ name, note: '', source: 'tiktok' }));
+  });
+  return dedupeImports(places);
+}
+
+function parseInstagramJson(json) {
+  const items = json?.saved_saved_media || json?.saved_posts || [];
+  const places = [];
+  items.forEach(item => {
+    [item?.title || '', item?.media?.[0]?.title || ''].forEach(text => {
+      if (text) extractPlacesFromText(text).forEach(name => places.push({ name, note: '', source: 'instagram' }));
+    });
+  });
+  return dedupeImports(places);
+}
+
+function extractPlacesFromText(text) {
+  if (!text) return [];
+  const places = [];
+  // 📍 Place Name — strongest signal
+  (text.match(/📍\s*([^\n📍#@]{3,60})/g) || []).forEach(m => {
+    const name = m.replace(/^📍\s*/, '').split(/[|,\n]/)[0].trim();
+    if (name.length > 2) places.push(name);
+  });
+  // "at Place Name" pattern
+  (text.match(/\bat\s+([A-Z][^\n,!?.]{2,40})/g) || []).forEach(m => {
+    const name = m.replace(/^\bat\s+/, '').trim();
+    if (name.length > 2) places.push(name);
+  });
+  // Quoted names
+  (text.match(/["""']([^"""']{3,50})["""']/g) || []).forEach(m =>
+    places.push(m.replace(/^["""']|["""']$/g, '').trim())
+  );
+  return places.filter(p => p.length > 2 && p.length < 60);
+}
+
+function dedupeImports(places) {
+  const seen = new Map();
+  places.forEach(p => { const k = p.name.toLowerCase().trim(); if (!seen.has(k)) seen.set(k, p); });
+  return [...seen.values()];
+}
+
+const _importSourceLabel = { google_maps: '🗺 Google Maps', tiktok: '🎵 TikTok', instagram: '📸 Instagram' };
+
+function showImportReview(places) {
+  _importCandidates = places;
+  const sources = [...new Set(places.map(p => p.source || ''))];
+  document.getElementById('import-review-title').textContent =
+    `Found ${places.length} place${places.length !== 1 ? 's' : ''} — ${sources.map(s => _importSourceLabel[s] || 'File').join(', ')}`;
+  document.getElementById('import-review-list').innerHTML = places.map((p, i) => `
+    <label class="import-review-item">
+      <input type="checkbox" data-idx="${i}" checked>
+      <div>
+        <div class="import-review-name">${esc(p.name)}</div>
+        ${p.note ? `<div class="import-review-note">${esc(p.note)}</div>` : ''}
+        ${p.source ? `<div class="import-review-source">${_importSourceLabel[p.source] || p.source}</div>` : ''}
+      </div>
+    </label>`).join('');
+  closeQuickAdd();
+  document.getElementById('import-review-modal').classList.remove('hidden');
+}
+
+function importToggleAll() {
+  const boxes = [...document.querySelectorAll('#import-review-list input[type=checkbox]')];
+  const allChecked = boxes.every(b => b.checked);
+  boxes.forEach(b => b.checked = !allChecked);
+}
+
+function closeImportReview() {
+  document.getElementById('import-review-modal').classList.add('hidden');
+  _importCandidates = [];
+}
+
+function confirmImportReview() {
+  if (!currentTrip) { showToast('Create a trip first'); return; }
+  const cityId   = currentTrip.cityId;
+  const city     = typeof CITIES !== 'undefined' ? CITIES.find(c => c.id === cityId) : null;
+  const checked  = [...document.querySelectorAll('#import-review-list input[type=checkbox]:checked')];
+  if (!checked.length) { showToast('Select at least one place'); return; }
+  let added = 0;
+  checked.forEach(cb => {
+    const p = _importCandidates[parseInt(cb.dataset.idx)];
+    if (!p) return;
+    if ((currentTrip.saves || []).some(s => s.name.toLowerCase() === p.name.toLowerCase())) return;
+    savePlace({ name: p.name, cityId, cityName: city?.name || '', category: 'food', rating: 0, price: null, socialSource: p.source || 'file', note: p.note || '' });
+    added++;
+  });
+  closeImportReview();
+  switchTab('saves');
+  showToast(`Added ${added} place${added !== 1 ? 's' : ''} to saves ♡`);
+}
+
 function openBulkImport() {
   _bulkSocial = null;
   document.getElementById('qa-bulk-text').value = '';
   document.getElementById('qa-bulk-city').value = '';
   document.getElementById('qa-bulk-category').value = 'food';
+  const fi = document.getElementById('qa-file-input');
+  if (fi) fi.value = '';
   ['bspb-ig','bspb-tt','bspb-oth'].forEach(id =>
     document.getElementById(id)?.classList.remove('active-ig','active-tt','active-oth')
   );

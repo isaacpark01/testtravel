@@ -968,6 +968,44 @@
     }
     .budget-bar-fill { height: 100%; border-radius: 4px; transition: width .4s ease; }
 
+    /* ── File import drop zone ──────────────────────────────────── */
+    .qa-file-drop {
+      border: 2px dashed rgba(45,212,191,.25); border-radius: 12px;
+      padding: 20px 16px; text-align: center; cursor: pointer;
+      transition: border-color .2s, background .2s; margin-bottom: 12px;
+    }
+    .qa-file-drop:hover, .qa-file-drop.drag-over {
+      border-color: #2dd4bf; background: rgba(45,212,191,.06);
+    }
+    .qa-file-drop-icon { font-size: 28px; margin-bottom: 6px; }
+    .qa-file-drop-label { font-size: 13px; font-weight: 600; color: #cbd5e1; margin-bottom: 3px; }
+    .qa-file-drop-link { color: #2dd4bf; text-decoration: underline; }
+    .qa-file-drop-hint { font-size: 11px; color: #475569; }
+    .qa-file-divider {
+      display: flex; align-items: center; gap: 10px;
+      color: #334155; font-size: 11px; margin: 4px 0 10px;
+    }
+    .qa-file-divider::before, .qa-file-divider::after {
+      content: ''; flex: 1; height: 1px; background: rgba(255,255,255,.07);
+    }
+
+    /* ── Import review modal ────────────────────────────────────── */
+    #import-review-modal .modal-box {
+      max-height: 82vh; overflow-y: auto; display: flex; flex-direction: column;
+    }
+    .import-review-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; }
+    .import-review-item {
+      display: flex; align-items: flex-start; gap: 10px; cursor: pointer;
+      padding: 9px 11px; border-radius: 8px;
+      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
+    }
+    .import-review-item:hover { background: rgba(255,255,255,.07); }
+    .import-review-item input[type=checkbox] { margin-top: 2px; accent-color: #2dd4bf; flex-shrink: 0; }
+    .import-review-name { font-size: 13px; font-weight: 600; color: #f0faf9; }
+    .import-review-note { font-size: 11px; color: #64748b; margin-top: 2px; }
+    .import-review-source { font-size: 10px; color: #2dd4bf; margin-top: 2px; }
+    .import-select-all { font-size: 12px; color: #2dd4bf; cursor: pointer; background: none; border: none; padding: 0; margin-bottom: 10px; }
+
     /* ── Budget recommendations ─────────────────────────────────── */
     .budget-recs {
       padding: 0 16px 16px;
@@ -1078,6 +1116,7 @@
       <div class="trips-dropdown-menu" id="trips-dropdown-menu"></div>
     </div>
     <button class="btn-primary" id="btn-new-trip" data-i18n="newTrip" onclick="openNewTripModal()">+ New Trip</button>
+    <button class="btn-ghost" onclick="exportItinerary()" title="Export / Print itinerary">📤 Export</button>
     <a href="index.html" class="btn-ghost" id="btn-explore" data-i18n="explore">← Explore</a>
     <div class="lang-picker-wrap" id="lang-picker-wrap">
       <button class="lang-picker-btn" id="lang-picker-btn" onclick="toggleLangPicker()" title="Language / 言語 / Idioma">🌐</button>
@@ -1312,13 +1351,18 @@
 
     <!-- BULK IMPORT -->
     <div class="qa-body" id="qa-pane-bulk" style="display:none">
-      <div class="qa-share-banner">
-        <span class="qa-share-banner-icon">💡</span>
-        <div class="qa-share-banner-text">
-          <strong>Paste your list below — one place per line.</strong><br>
-          Works great with your Instagram saved collection, Google Maps lists, or your own notes.
-        </div>
+      <!-- File upload drop zone -->
+      <div class="qa-file-drop" id="qa-file-drop"
+           onclick="document.getElementById('qa-file-input').click()"
+           ondragover="event.preventDefault();this.classList.add('drag-over')"
+           ondragleave="this.classList.remove('drag-over')"
+           ondrop="event.preventDefault();this.classList.remove('drag-over');handleFileImport(event.dataTransfer.files[0])">
+        <div class="qa-file-drop-icon">📂</div>
+        <div class="qa-file-drop-label">Drop your export file, or <span class="qa-file-drop-link">browse</span></div>
+        <div class="qa-file-drop-hint">Google Maps Takeout · TikTok data export · Instagram data export (.json or .zip)</div>
+        <input type="file" id="qa-file-input" accept=".json,.zip" style="display:none" onchange="handleFileImport(this.files[0])">
       </div>
+      <div class="qa-file-divider"><span>or paste manually</span></div>
       <div>
         <div class="qa-label">Places (one per line)</div>
         <textarea id="qa-bulk-text" class="qa-textarea" placeholder="Joe's Pizza&#10;Katz's Delicatessen&#10;Chelsea Market&#10;Shake Shack Madison Sq&#10;..."></textarea>
@@ -1350,6 +1394,20 @@
         <button class="btn-cancel" onclick="closeQuickAdd()">Cancel</button>
         <button class="btn-primary" id="qa-bulk-save-btn" onclick="saveBulkImport()">Import Places</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Import Review Modal -->
+<div id="import-review-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeImportReview()">
+  <div class="modal-box">
+    <div class="modal-title" id="import-review-title">Review Places</div>
+    <div style="font-size:12px;color:#64748b;margin-bottom:8px">Check the places you want to save to your trip.</div>
+    <button class="import-select-all" onclick="importToggleAll()">Select / deselect all</button>
+    <div class="import-review-list" id="import-review-list"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeImportReview()">Cancel</button>
+      <button class="btn-primary" onclick="confirmImportReview()">Add Selected ♡</button>
     </div>
   </div>
 </div>
@@ -1396,6 +1454,7 @@
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="data.js"></script>
 <script src="planner.js"></script>
 </body>
