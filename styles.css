@@ -458,6 +458,11 @@ body {
 .app-icon { font-size: 24px; flex-shrink: 0; }
 .app-name { font-size: 13px; font-weight: 600; color: #f0faf9; margin-bottom: 2px; }
 .app-desc { font-size: 11px; color: rgba(240,250,249,.35); line-height: 1.5; }
+.currency-rate-box { font-size: 13px; color: #e2e8f0; }
+.currency-date { font-size: 11px; color: rgba(240,250,249,.4); }
+.currency-loading { color: rgba(240,250,249,.35); font-style: italic; }
+.currency-exchange-btn { display: inline-block; margin-top: 10px; padding: 9px 16px; background: rgba(45,212,191,.1); border: 1px solid rgba(45,212,191,.25); border-radius: 8px; color: #2dd4bf; font-size: 12px; font-weight: 600; text-decoration: none; transition: background .15s; }
+.currency-exchange-btn:hover { background: rgba(45,212,191,.18); }
 .essentials-lang-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
 .voice-gender-wrap { display: flex; align-items: center; gap: 6px; }
 .voice-gender-label { font-size: 11px; color: rgba(240,250,249,.4); }

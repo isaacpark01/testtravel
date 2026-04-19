@@ -23,6 +23,7 @@ try {
 /* ===================== STATE ===================== */
 let currentCity = null;
 let currentTab = 'activities';
+const _currencyRateCache = {};
 
 /* ===================== PACK DATA ===================== */
 const PACK_DATA = {
@@ -997,6 +998,57 @@ function speakPhrase(text, bcp47) {
   window.speechSynthesis.speak(u);
 }
 
+/* ===================== CURRENCY RATE ===================== */
+async function fetchCurrencyRate(cityId) {
+  if (_currencyRateCache[cityId]) return _currencyRateCache[cityId];
+  const cur = (typeof CITY_CURRENCY !== 'undefined') ? CITY_CURRENCY[cityId] : null;
+  if (!cur) return null;
+  if (cur.code === 'USD') { _currencyRateCache[cityId] = { usd: true, ...cur }; return _currencyRateCache[cityId]; }
+  try {
+    const r = await fetch(`https://api.frankfurter.app/latest?from=USD&to=${cur.code}`);
+    if (!r.ok) throw new Error('fetch failed');
+    const data = await r.json();
+    const rate = data.rates[cur.code];
+    const result = { ...cur, rate, date: data.date };
+    _currencyRateCache[cityId] = result;
+    return result;
+  } catch { return { ...cur, rate: null }; }
+}
+
+function renderCurrencySection(cityId) {
+  const cur = (typeof CITY_CURRENCY !== 'undefined') ? CITY_CURRENCY[cityId] : null;
+  if (!cur) return '';
+  const cn = encodeURIComponent((currentCity || {}).name || cityId);
+  const exchangeUrl = `https://www.google.com/maps/search/currency+exchange+in+${cn}`;
+  const elId = `currency-rate-val-${cityId}`;
+  if (cur.code === 'USD') {
+    return `
+    <div class="essentials-section" id="currency-section-${cityId}">
+      <div class="essentials-title">💱 Currency</div>
+      <div class="essentials-tip-box">💵 Local currency is <strong>US Dollar (USD)</strong> — no exchange needed.</div>
+    </div>`;
+  }
+  fetchCurrencyRate(cityId).then(res => {
+    const el = document.getElementById(elId);
+    if (!el) return;
+    if (res && res.rate != null) {
+      el.innerHTML = `<strong>1 USD = ${res.rate.toLocaleString(undefined,{maximumFractionDigits:2})} ${escHtml(cur.symbol)} ${escHtml(cur.code)}</strong><span class="currency-date"> · as of ${escHtml(res.date)}</span>`;
+    } else {
+      el.textContent = 'Rate unavailable — check back later.';
+    }
+  });
+  return `
+    <div class="essentials-section" id="currency-section-${cityId}">
+      <div class="essentials-title">💱 Currency — ${escHtml(cur.name)} (${escHtml(cur.code)})</div>
+      <div class="essentials-tip-box currency-rate-box">
+        <span id="${elId}"><span class="currency-loading">Loading live rate…</span></span>
+      </div>
+      <a class="currency-exchange-btn" href="${exchangeUrl}" target="_blank" rel="noopener noreferrer">
+        📍 Find currency exchange in ${escHtml((currentCity || {}).name || cityId)}
+      </a>
+    </div>`;
+}
+
 /* ===================== ESSENTIALS TAB ===================== */
 function renderEssentialsTab() {
   if (!currentCity) return;
@@ -1057,6 +1109,8 @@ function renderEssentialsTab() {
       <div class="essentials-tip-box">${escHtml(tg.tip)}</div>
     </div>`;
   }
+
+  html += renderCurrencySection(currentCity.id);
 
   html += `
     <div class="essentials-section">
