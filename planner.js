@@ -25,7 +25,7 @@ const LANGS = [
 
 const TRANSLATIONS = {
   en: {
-    tabSaves:'♡ Saves', tabItinerary:'📅 Itinerary', tabDiscover:'🔍 Discover', tabRewards:'💳 Rewards',
+    tabSaves:'♡ Saves', tabItinerary:'📅 Itinerary', tabDiscover:'🔍 Discover', tabRewards:'💳 Rewards', tabGroup:'👥 Group',
     filterAll:'All', filterActivities:'🎯 Activities', filterFood:'🍽 Food', filterFree:'✨ Free',
     sortRating:'⭐ Top Rated', sortPriceLow:'💸 Price: Low', sortPriceHigh:'💎 Price: High', sortAZ:'A → Z',
     vibeAll:'All Vibes', vibeHiddenGem:'💎 Hidden Gem', vibeBudget:'💸 Budget', vibeRomantic:'❤️ Romantic',
@@ -34,11 +34,11 @@ const TRANSLATIONS = {
     searchPlaceholder:'Search places, food, activities…',
     addToPlanner:'+ Add to Planner', addToDay:'Add to Day', newTrip:'+ New Trip', explore:'← Explore',
     trendingTitle:'🔥 Trending on Social', noTrip:'Create a trip to discover places',
-    noResults:'No results — try a different search or filter',
+    noResults:'Nothing found — try a different vibe or search 🌊',
     addPlacePlaceholder:'+ Add a place — search by name...',
   },
   es: {
-    tabSaves:'♡ Guardados', tabItinerary:'📅 Itinerario', tabDiscover:'🔍 Descubrir', tabRewards:'💳 Recompensas',
+    tabSaves:'♡ Guardados', tabItinerary:'📅 Itinerario', tabDiscover:'🔍 Descubrir', tabRewards:'💳 Recompensas', tabGroup:'👥 Grupo',
     filterAll:'Todos', filterActivities:'🎯 Actividades', filterFood:'🍽 Comida', filterFree:'✨ Gratis',
     sortRating:'⭐ Mejor Valorado', sortPriceLow:'💸 Precio: Bajo', sortPriceHigh:'💎 Precio: Alto', sortAZ:'A → Z',
     vibeAll:'Todos los Vibes', vibeHiddenGem:'💎 Joya Oculta', vibeBudget:'💸 Económico', vibeRomantic:'❤️ Romántico',
@@ -51,7 +51,7 @@ const TRANSLATIONS = {
     addPlacePlaceholder:'+ Agregar un lugar — buscar por nombre...',
   },
   fr: {
-    tabSaves:'♡ Sauvegardes', tabItinerary:'📅 Itinéraire', tabDiscover:'🔍 Découvrir', tabRewards:'💳 Récompenses',
+    tabSaves:'♡ Sauvegardes', tabItinerary:'📅 Itinéraire', tabDiscover:'🔍 Découvrir', tabRewards:'💳 Récompenses', tabGroup:'👥 Groupe',
     filterAll:'Tout', filterActivities:'🎯 Activités', filterFood:'🍽 Nourriture', filterFree:'✨ Gratuit',
     sortRating:'⭐ Mieux Notés', sortPriceLow:'💸 Prix : Bas', sortPriceHigh:'💎 Prix : Haut', sortAZ:'A → Z',
     vibeAll:'Tous les Vibes', vibeHiddenGem:'💎 Joyau Caché', vibeBudget:'💸 Budget', vibeRomantic:'❤️ Romantique',
@@ -64,7 +64,7 @@ const TRANSLATIONS = {
     addPlacePlaceholder:'+ Ajouter un lieu — rechercher par nom...',
   },
   ja: {
-    tabSaves:'♡ 保存済み', tabItinerary:'📅 旅程', tabDiscover:'🔍 発見', tabRewards:'💳 特典',
+    tabSaves:'♡ 保存済み', tabItinerary:'📅 旅程', tabDiscover:'🔍 発見', tabRewards:'💳 特典', tabGroup:'👥 グループ',
     filterAll:'すべて', filterActivities:'🎯 アクティビティ', filterFood:'🍽 グルメ', filterFree:'✨ 無料',
     sortRating:'⭐ 評価順', sortPriceLow:'💸 価格：安い順', sortPriceHigh:'💎 価格：高い順', sortAZ:'A → Z',
     vibeAll:'すべてのバイブ', vibeHiddenGem:'💎 穴場スポット', vibeBudget:'💸 リーズナブル', vibeRomantic:'❤️ ロマンチック',
@@ -77,7 +77,7 @@ const TRANSLATIONS = {
     addPlacePlaceholder:'+ 場所を追加 — 名前で検索...',
   },
   ko: {
-    tabSaves:'♡ 저장됨', tabItinerary:'📅 일정', tabDiscover:'🔍 탐색', tabRewards:'💳 리워드',
+    tabSaves:'♡ 저장됨', tabItinerary:'📅 일정', tabDiscover:'🔍 탐색', tabRewards:'💳 리워드', tabGroup:'👥 그룹',
     filterAll:'전체', filterActivities:'🎯 액티비티', filterFood:'🍽 음식', filterFree:'✨ 무료',
     sortRating:'⭐ 평점순', sortPriceLow:'💸 가격: 낮은순', sortPriceHigh:'💎 가격: 높은순', sortAZ:'A → Z',
     vibeAll:'모든 바이브', vibeHiddenGem:'💎 숨겨진 보석', vibeBudget:'💸 저렴한', vibeRomantic:'❤️ 로맨틱',
@@ -90,7 +90,7 @@ const TRANSLATIONS = {
     addPlacePlaceholder:'+ 장소 추가 — 이름으로 검색...',
   },
   zh: {
-    tabSaves:'♡ 已保存', tabItinerary:'📅 行程', tabDiscover:'🔍 发现', tabRewards:'💳 奖励',
+    tabSaves:'♡ 已保存', tabItinerary:'📅 行程', tabDiscover:'🔍 发现', tabRewards:'💳 奖励', tabGroup:'👥 群组',
     filterAll:'全部', filterActivities:'🎯 活动', filterFood:'🍽 美食', filterFree:'✨ 免费',
     sortRating:'⭐ 评分最高', sortPriceLow:'💸 价格：从低到高', sortPriceHigh:'💎 价格：从高到低', sortAZ:'A → Z',
     vibeAll:'全部氛围', vibeHiddenGem:'💎 隐秘宝藏', vibeBudget:'💸 实惠', vibeRomantic:'❤️ 浪漫',
@@ -103,7 +103,7 @@ const TRANSLATIONS = {
     addPlacePlaceholder:'+ 添加地点 — 按名称搜索...',
   },
   pt: {
-    tabSaves:'♡ Salvos', tabItinerary:'📅 Roteiro', tabDiscover:'🔍 Descobrir', tabRewards:'💳 Recompensas',
+    tabSaves:'♡ Salvos', tabItinerary:'📅 Roteiro', tabDiscover:'🔍 Descobrir', tabRewards:'💳 Recompensas', tabGroup:'👥 Grupo',
     filterAll:'Todos', filterActivities:'🎯 Atividades', filterFood:'🍽 Comida', filterFree:'✨ Grátis',
     sortRating:'⭐ Melhor Avaliados', sortPriceLow:'💸 Preço: Baixo', sortPriceHigh:'💎 Preço: Alto', sortAZ:'A → Z',
     vibeAll:'Todos os Vibes', vibeHiddenGem:'💎 Joia Escondida', vibeBudget:'💸 Econômico', vibeRomantic:'❤️ Romântico',
@@ -116,7 +116,7 @@ const TRANSLATIONS = {
     addPlacePlaceholder:'+ Adicionar lugar — buscar pelo nome...',
   },
   ar: {
-    tabSaves:'♡ المحفوظات', tabItinerary:'📅 الجدول', tabDiscover:'🔍 استكشف', tabRewards:'💳 المكافآت',
+    tabSaves:'♡ المحفوظات', tabItinerary:'📅 الجدول', tabDiscover:'🔍 استكشف', tabRewards:'💳 المكافآت', tabGroup:'👥 المجموعة',
     filterAll:'الكل', filterActivities:'🎯 الأنشطة', filterFood:'🍽 الطعام', filterFree:'✨ مجاني',
     sortRating:'⭐ الأعلى تقييمًا', sortPriceLow:'💸 السعر: الأقل', sortPriceHigh:'💎 السعر: الأعلى', sortAZ:'أ → ي',
     vibeAll:'كل الأجواء', vibeHiddenGem:'💎 جوهرة مخفية', vibeBudget:'💸 اقتصادي', vibeRomantic:'❤️ رومانسي',
@@ -129,7 +129,7 @@ const TRANSLATIONS = {
     addPlacePlaceholder:'+ أضف مكانًا — ابحث بالاسم...',
   },
   hi: {
-    tabSaves:'♡ सेव किए', tabItinerary:'📅 यात्रा योजना', tabDiscover:'🔍 खोजें', tabRewards:'💳 पुरस्कार',
+    tabSaves:'♡ सेव किए', tabItinerary:'📅 यात्रा योजना', tabDiscover:'🔍 खोजें', tabRewards:'💳 पुरस्कार', tabGroup:'👥 ग्रुप',
     filterAll:'सभी', filterActivities:'🎯 गतिविधियाँ', filterFood:'🍽 खाना', filterFree:'✨ मुफ्त',
     sortRating:'⭐ सर्वश्रेष्ठ', sortPriceLow:'💸 कीमत: कम', sortPriceHigh:'💎 कीमत: अधिक', sortAZ:'A → Z',
     vibeAll:'सभी वाइब्स', vibeHiddenGem:'💎 छुपा रत्न', vibeBudget:'💸 बजट', vibeRomantic:'❤️ रोमांटिक',
@@ -142,7 +142,7 @@ const TRANSLATIONS = {
     addPlacePlaceholder:'+ जगह जोड़ें — नाम से खोजें...',
   },
   vi: {
-    tabSaves:'♡ Đã lưu', tabItinerary:'📅 Lịch trình', tabDiscover:'🔍 Khám phá', tabRewards:'💳 Phần thưởng',
+    tabSaves:'♡ Đã lưu', tabItinerary:'📅 Lịch trình', tabDiscover:'🔍 Khám phá', tabRewards:'💳 Phần thưởng', tabGroup:'👥 Nhóm',
     filterAll:'Tất cả', filterActivities:'🎯 Hoạt động', filterFood:'🍽 Ẩm thực', filterFree:'✨ Miễn phí',
     sortRating:'⭐ Đánh giá cao', sortPriceLow:'💸 Giá: Thấp', sortPriceHigh:'💎 Giá: Cao', sortAZ:'A → Z',
     vibeAll:'Tất cả Vibes', vibeHiddenGem:'💎 Viên ngọc ẩn', vibeBudget:'💸 Tiết kiệm', vibeRomantic:'❤️ Lãng mạn',
@@ -155,7 +155,7 @@ const TRANSLATIONS = {
     addPlacePlaceholder:'+ Thêm địa điểm — tìm theo tên...',
   },
   tl: {
-    tabSaves:'♡ Naka-save', tabItinerary:'📅 Itinerary', tabDiscover:'🔍 Tuklasin', tabRewards:'💳 Rewards',
+    tabSaves:'♡ Naka-save', tabItinerary:'📅 Itinerary', tabDiscover:'🔍 Tuklasin', tabRewards:'💳 Rewards', tabGroup:'👥 Grupo',
     filterAll:'Lahat', filterActivities:'🎯 Aktibidad', filterFood:'🍽 Pagkain', filterFree:'✨ Libre',
     sortRating:'⭐ Pinaka-rated', sortPriceLow:'💸 Presyo: Mababa', sortPriceHigh:'💎 Presyo: Mataas', sortAZ:'A → Z',
     vibeAll:'Lahat ng Vibes', vibeHiddenGem:'💎 Nakatagong Hiyas', vibeBudget:'💸 Budget', vibeRomantic:'❤️ Romantiko',
@@ -691,7 +691,7 @@ function renderProfileSlideshow(photos) {
 
   container.innerHTML = photos.map((url, i) =>
     `<div class="profile-slide ${i === 0 ? 'active' : ''}">
-      <img src="${esc(url)}" alt="Photo ${i + 1}" loading="${i === 0 ? 'eager' : 'lazy'}"
+      <img src="${escHtml(url)}" alt="Photo ${i + 1}" loading="${i === 0 ? 'eager' : 'lazy'}"
         onerror="this.parentElement.style.display='none'" />
     </div>`
   ).join('');
@@ -735,17 +735,17 @@ function profileSlideTo(idx) {
 
 // ── HTML helpers ──────────────────────────────────────────────
 // For HTML content / double-quoted attributes
-function esc(s) {
+function escHtml(s) {
   return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 // For values placed inside single-quoted JS string literals in onclick attributes
-// e.g. onclick="fn('${jsq(name)}')"  — names like "Joe's Pizza" or "L'As du Fallafel" would
+// e.g. onclick="fn('${jsqApp(name)}')"  — names like "Joe's Pizza" or "L'As du Fallafel" would
 // otherwise break out of the string and corrupt the handler.
 // IMPORTANT: use \' (JS backslash-escape), NOT &#39; (HTML entity) — the HTML parser decodes
 // entities before JS evaluates inline handlers, so &#39; → ' → SyntaxError.
-function jsq(s) {
-  return esc(s).replace(/'/g, "\\'");
+function jsqApp(s) {
+  return escHtml(s).replace(/'/g, "\\'");
 }
 
 // Turn a place name into a social-media hashtag slug
@@ -915,7 +915,7 @@ function renderDayInsights(insights) {
   return insights.map(i => `
     <div class="day-insight" style="background:${colors[i.type]};border-color:${textColors[i.type]}22">
       <span class="insight-icon">${icons[i.type]}</span>
-      <span class="insight-text" style="color:${textColors[i.type]}">${esc(i.text)}</span>
+      <span class="insight-text" style="color:${textColors[i.type]}">${escHtml(i.text)}</span>
     </div>`).join('');
 }
 
@@ -1009,13 +1009,13 @@ function renderPackingListContent() {
 
   const listHTML = sections.map(sec => `
     <div class="pack-section">
-      <div class="pack-section-title">${esc(sec.title)}</div>
+      <div class="pack-section-title">${escHtml(sec.title)}</div>
       ${sec.items.map(item => {
         const key = item;
         const done = _packChecked.has(key);
         return `<label class="pack-item ${done ? 'checked' : ''}" onclick="togglePackItem(${JSON.stringify(key)})">
           <span class="pack-check">${done ? '✓' : ''}</span>
-          <span class="pack-item-text">${esc(item)}</span>
+          <span class="pack-item-text">${escHtml(item)}</span>
         </label>`;
       }).join('')}
     </div>`).join('');
@@ -1038,22 +1038,22 @@ function exportItinerary() {
   const lines  = [];
   let totalSpend = 0;
 
-  lines.push(`<h1 style="font-family:Georgia,serif;color:#0d9488">🌏 ${esc(currentTrip.name)}</h1>`);
-  if (city) lines.push(`<p style="color:#555">📍 ${esc(city.name)}, ${esc(city.country)}</p>`);
+  lines.push(`<h1 style="font-family:Georgia,serif;color:#0d9488">🌏 ${escHtml(currentTrip.name)}</h1>`);
+  if (city) lines.push(`<p style="color:#555">📍 ${escHtml(city.name)}, ${escHtml(city.country)}</p>`);
   if (currentTrip.budget) lines.push(`<p style="color:#555">💰 Budget: $${currentTrip.budget}</p>`);
   lines.push('<hr>');
 
   (currentTrip.days || []).forEach(day => {
     const cards = day.cards || [];
     if (!cards.length) return;
-    lines.push(`<h2 style="font-family:Georgia,serif;color:#0d9488;margin-top:20px">${esc(getDayLabel(day))}</h2>`);
+    lines.push(`<h2 style="font-family:Georgia,serif;color:#0d9488;margin-top:20px">${escHtml(getDayLabel(day))}</h2>`);
     lines.push('<ul style="margin:0;padding-left:18px">');
     cards.forEach(c => {
       const icon    = c.category === 'food' ? '🍽' : '🎯';
       const price   = c.price === 0 ? 'Free' : c.price > 0 ? `$${c.price}` : '';
       const rating  = c.rating ? `⭐ ${c.rating}` : '';
       const meta    = [rating, price, c.duration].filter(Boolean).join(' · ');
-      lines.push(`<li style="margin-bottom:6px"><strong>${icon} ${esc(c.name)}</strong>${meta ? ` <span style="color:#888;font-size:13px">(${meta})</span>` : ''}${c.note ? `<br><span style="color:#888;font-size:12px">📝 ${esc(c.note)}</span>` : ''}</li>`);
+      lines.push(`<li style="margin-bottom:6px"><strong>${icon} ${escHtml(c.name)}</strong>${meta ? ` <span style="color:#888;font-size:13px">(${meta})</span>` : ''}${c.note ? `<br><span style="color:#888;font-size:12px">📝 ${escHtml(c.note)}</span>` : ''}</li>`);
       if (typeof c.price === 'number' && c.price > 0) totalSpend += c.price;
     });
     lines.push('</ul>');
@@ -1063,7 +1063,7 @@ function exportItinerary() {
     lines.push('<hr><h2 style="font-family:Georgia,serif;color:#0d9488">♡ Wishlist</h2><ul style="margin:0;padding-left:18px">');
     currentTrip.saves.forEach(s => {
       const icon = s.category === 'food' ? '🍽' : '🎯';
-      lines.push(`<li>${icon} ${esc(s.name)}${s.note ? ` — <span style="color:#888">${esc(s.note)}</span>` : ''}</li>`);
+      lines.push(`<li>${icon} ${escHtml(s.name)}${s.note ? ` — <span style="color:#888">${escHtml(s.note)}</span>` : ''}</li>`);
     });
     lines.push('</ul>');
   }
@@ -1071,7 +1071,7 @@ function exportItinerary() {
   lines.push(`<hr><p style="color:#888;font-size:12px">Planned spend: ~$${totalSpend} · Planned with Pinly</p>`);
 
   const w = window.open('', '_blank');
-  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${esc(currentTrip.name)}</title><style>body{font-family:Inter,sans-serif;max-width:720px;margin:40px auto;padding:0 24px;color:#111}@media print{body{margin:20px}}</style></head><body>${lines.join('\n')}<script>setTimeout(()=>window.print(),400)<\/script></body></html>`);
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${escHtml(currentTrip.name)}</title><style>body{font-family:Inter,sans-serif;max-width:720px;margin:40px auto;padding:0 24px;color:#111}@media print{body{margin:20px}}</style></head><body>${lines.join('\n')}<script>setTimeout(()=>window.print(),400)<\/script></body></html>`);
   w.document.close();
 }
 
@@ -1338,10 +1338,10 @@ function renderTripsDropdown() {
     return;
   }
   el.innerHTML = d.trips.map(t => `
-    <div class="trip-dd-item ${t.id === currentTrip?.id ? 'active' : ''}" onclick="selectTrip('${jsq(t.id)}')">
-      <span class="trip-dd-item-name">${esc(t.name)}</span>
+    <div class="trip-dd-item ${t.id === currentTrip?.id ? 'active' : ''}" onclick="selectTrip('${jsqApp(t.id)}')">
+      <span class="trip-dd-item-name">${escHtml(t.name)}</span>
       <span style="font-size:10px;color:#475569">${(t.days || []).length}d</span>
-      <button class="trip-dd-item-del" onclick="event.stopPropagation();deleteTrip('${jsq(t.id)}')">×</button>
+      <button class="trip-dd-item-del" onclick="event.stopPropagation();deleteTrip('${jsqApp(t.id)}')">×</button>
     </div>`).join('') +
     `<div class="trip-dd-sep"></div>
      <div class="trip-dd-item" onclick="openNewTripModal();document.getElementById('trips-dropdown-menu').classList.remove('open')">
@@ -1564,7 +1564,7 @@ function renderBudgetRecs() {
       ${picks.map(p => `
         <div class="budget-rec-chip">
           <div class="rec-emoji">${emoji(p.type)}</div>
-          <div class="rec-name">${esc(p.name)}</div>
+          <div class="rec-name">${escHtml(p.name)}</div>
           <span class="rec-price">${priceStr(p.price)}</span><span class="rec-rating">⭐ ${p.rating}</span>
         </div>`).join('')}
     </div>`;
@@ -1632,9 +1632,9 @@ function renderDatePills() {
        : stats.energy === 'moderate' ? '<span class="pill-energy-dot moderate"></span>'
        : '<span class="pill-energy-dot packed"></span>')
       : '';
-    return `<div class="date-pill ${act ? 'active' : ''}" onclick="selectDay('${jsq(day.id)}')">
-      ${dot}${esc(label)}
-      <button class="date-pill-del" onclick="event.stopPropagation();removeDay('${jsq(day.id)}')">×</button>
+    return `<div class="date-pill ${act ? 'active' : ''}" onclick="selectDay('${jsqApp(day.id)}')">
+      ${dot}${escHtml(label)}
+      <button class="date-pill-del" onclick="event.stopPropagation();removeDay('${jsqApp(day.id)}')">×</button>
     </div>`;
   }).join('') + `<button class="add-day-pill" onclick="addDay()">+ Day</button>`;
 }
@@ -1696,8 +1696,8 @@ function renderItinCards() {
 
   if (!currentTrip) {
     area.innerHTML = `<div class="itin-empty">
-      <div class="empty-icon">🗓</div>
-      <p>Create a trip to start building your itinerary</p>
+      <div class="empty-icon">✈️</div>
+      <p>Hit <strong>+ New Trip</strong> up top to start planning your next adventure 🌍</p>
     </div>`;
     ctr.textContent = '';
     return;
@@ -1707,7 +1707,7 @@ function renderItinCards() {
   if (!days.length) {
     area.innerHTML = `<div class="itin-empty">
       <div class="empty-icon">📅</div>
-      <p>Click <strong style="color:#2dd4bf">+ Day</strong> above to add your first day</p>
+      <p>Tap <strong>+ Day</strong> to add your first day — then drop some places in ✨</p>
     </div>`;
     ctr.textContent = '';
     return;
@@ -1728,8 +1728,8 @@ function renderItinCards() {
 
   if (!cards.length) {
     area.innerHTML = `<div class="itin-empty">
-      <div class="empty-icon">✈️</div>
-      <p>Search for a place above or browse <strong style="color:#2dd4bf;cursor:pointer" onclick="switchTab('discover')">Discover →</strong></p>
+      <div class="empty-icon">📍</div>
+      <p>Drop your first spot here — search above or check out <strong style="color:var(--teal,#2dd4bf);cursor:pointer" onclick="switchTab('discover')">Discover →</strong></p>
     </div>`;
   
     return;
@@ -1757,25 +1757,25 @@ function renderPlacedCard(card, dayId, num) {
 
   return `<div class="placed-card" draggable="true" data-card-id="${card.id}" data-day-id="${dayId}">
     <div class="placed-num">${num}</div>
-    <img class="placed-photo" src="${esc(photo)}" alt="${esc(card.name)}" loading="lazy"
+    <img class="placed-photo" src="${escHtml(photo)}" alt="${escHtml(card.name)}" loading="lazy"
       onerror="this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=80&q=70'" />
     <div class="placed-body">
-      ${card.cityName ? `<div class="placed-city-badge">${esc(card.cityName)}</div>` : ''}
-      <div class="placed-name">${esc(card.name)}</div>
+      ${card.cityName ? `<div class="placed-city-badge">${escHtml(card.cityName)}</div>` : ''}
+      <div class="placed-name">${escHtml(card.name)}</div>
       <div class="placed-meta">
-        <span class="placed-cat-tag">${catIcon} ${esc(card.category || 'Activity')}</span>
+        <span class="placed-cat-tag">${catIcon} ${escHtml(card.category || 'Activity')}</span>
         ${card.rating ? `<span class="placed-rating">${renderStars(card.rating)} ${card.rating}</span>` : ''}
         ${price}
-        ${card.duration ? `<span class="placed-duration">⏱ ${esc(card.duration)}</span>` : ''}
+        ${card.duration ? `<span class="placed-duration">⏱ ${escHtml(card.duration)}</span>` : ''}
         ${timeHTML}
       </div>
       <input class="placed-note-input" placeholder="Add a note..."
-        value="${esc(card.note || '')}"
-        onchange="updateCardNote('${jsq(dayId)}','${jsq(card.id)}',this.value)"
+        value="${escHtml(card.note || '')}"
+        onchange="updateCardNote('${jsqApp(dayId)}','${jsqApp(card.id)}',this.value)"
         onclick="event.stopPropagation()" />
-      <button class="placed-dir-btn" onclick="getDirectionsTo('${jsq(card.name)}')" title="Get directions">📍 Get there</button>
+      <button class="placed-dir-btn" onclick="getDirectionsTo('${jsqApp(card.name)}')" title="Get directions">📍 Get there</button>
     </div>
-    <button class="placed-del" title="Remove" onclick="removeCard('${jsq(dayId)}','${jsq(card.id)}')">···</button>
+    <button class="placed-del" title="Remove" onclick="removeCard('${jsqApp(dayId)}','${jsqApp(card.id)}')">···</button>
   </div>`;
 }
 
@@ -1949,7 +1949,7 @@ function onAddPlaceInput(val) {
     // Allow custom entry
     addPlaceSuggestItems = [];
     suggestions.innerHTML = `<div class="suggest-item" onclick="addCustomPlace()">
-      <div><div class="suggest-name">+ Add "${esc(val.trim())}"</div><div class="suggest-meta">Custom place</div></div>
+      <div><div class="suggest-name">+ Add "${escHtml(val.trim())}"</div><div class="suggest-meta">Custom place</div></div>
     </div>`;
     suggestions.classList.add('open');
     return;
@@ -1959,11 +1959,11 @@ function onAddPlaceInput(val) {
   suggestions.innerHTML = top.map((item, i) => {
     const photo = getPhoto(item.name, item.cityImage, 40);
     return `<div class="suggest-item" onclick="pickSuggestion(${i})">
-      <img src="${esc(photo)}" style="width:36px;height:36px;border-radius:6px;object-fit:cover;flex-shrink:0;background:#1a2742"
+      <img src="${escHtml(photo)}" style="width:36px;height:36px;border-radius:6px;object-fit:cover;flex-shrink:0;background:#1a2742"
         onerror="this.style.display='none'" />
       <div>
-        <div class="suggest-name">${esc(item.name)}</div>
-        <div class="suggest-meta">${esc(item.cityName)} · ${item.category === 'food' ? '🍽 Food' : '🎯 Activity'} · ⭐ ${item.rating}</div>
+        <div class="suggest-name">${escHtml(item.name)}</div>
+        <div class="suggest-meta">${escHtml(item.cityName)} · ${item.category === 'food' ? '🍽 Food' : '🎯 Activity'} · ⭐ ${item.rating}</div>
       </div>
     </div>`;
   }).join('');
@@ -2021,12 +2021,12 @@ function renderSavesTab(filterVal) {
     : saves;
 
   if (!currentTrip) {
-    grid.innerHTML = `<div class="itin-empty"><div class="empty-icon">♡</div><p>Create a trip to start saving places</p></div>`;
+    grid.innerHTML = `<div class="itin-empty"><div class="empty-icon">✈️</div><p>Create a trip first — then heart the places you want to visit 💫</p></div>`;
     return;
   }
 
   if (!filtered.length) {
-    grid.innerHTML = `<div class="itin-empty"><div class="empty-icon">🔍</div><p>No saves yet — browse <strong style="color:#2dd4bf;cursor:pointer" onclick="switchTab('discover')">Discover →</strong> to heart places</p></div>`;
+    grid.innerHTML = `<div class="itin-empty"><div class="empty-icon">♡</div><p>Nothing saved yet — explore <strong style="color:var(--teal,#2dd4bf);cursor:pointer" onclick="switchTab('discover')">Discover →</strong> and heart the spots you're feeling 🔥</p></div>`;
     return;
   }
 
@@ -2041,20 +2041,20 @@ function renderSavesTab(filterVal) {
     const vibeHTML = renderVibeTags(vibes);
     return `<div class="save-card">
       <div class="save-photo-wrap">
-        <img class="save-photo" src="${esc(photo)}" alt="${esc(s.name)}" loading="lazy"
+        <img class="save-photo" src="${escHtml(photo)}" alt="${escHtml(s.name)}" loading="lazy"
           onerror="this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=70'" />
         <div class="save-heart-overlay">♥</div>
-        ${s.cityName ? `<div class="save-city-badge">${esc(s.cityName)}</div>` : ''}
+        ${s.cityName ? `<div class="save-city-badge">${escHtml(s.cityName)}</div>` : ''}
       </div>
       <div class="save-body">
-        <div class="save-name">${esc(s.name)}</div>
+        <div class="save-name">${escHtml(s.name)}</div>
         ${s.socialSource === 'instagram' ? '<span class="social-badge badge-ig">📸 Instagram</span>' :
           s.socialSource === 'tiktok'    ? '<span class="social-badge badge-tt">🎵 TikTok</span>'    :
           s.socialSource === 'other'     ? '<span class="social-badge badge-oth">🔖 Saved</span>'    : ''}
         ${vibeHTML}
         <div class="save-meta">
           ${s.rating ? `<span class="save-rating">${renderStars(s.rating)} ${s.rating}</span>` : ''}
-          <span class="save-cat">${catIcon} ${esc(s.category || 'Activity')}</span>
+          <span class="save-cat">${catIcon} ${escHtml(s.category || 'Activity')}</span>
         </div>
         <div class="save-footer">
           <a class="save-social-btn save-ig" href="${igUrl}" target="_blank" rel="noopener">📸 IG</a>
@@ -2155,14 +2155,14 @@ function renderTravelGuide(container, city) {
   const guide = typeof CITY_TRAVEL_APPS !== 'undefined' ? CITY_TRAVEL_APPS[city.id] : null;
 
   if (!guide) {
-    container.innerHTML = `<div class="itin-empty" style="grid-column:1/-1"><div class="empty-icon">✈</div><p>No travel guide yet for ${esc(city.name)}.</p></div>`;
+    container.innerHTML = `<div class="itin-empty" style="grid-column:1/-1"><div class="empty-icon">✈</div><p>No travel guide yet for ${escHtml(city.name)}.</p></div>`;
     return;
   }
 
   const appRows = (arr) => (arr || []).map(a =>
     `<div class="tg-row">
       <span class="tg-star">${a.star ? '★' : '·'}</span>
-      <div><div class="tg-app-name">${esc(a.n)}</div>${a.note ? `<div class="tg-app-note">${esc(a.note)}</div>` : ''}</div>
+      <div><div class="tg-app-name">${escHtml(a.n)}</div>${a.note ? `<div class="tg-app-note">${escHtml(a.note)}</div>` : ''}</div>
     </div>`
   ).join('');
 
@@ -2171,19 +2171,19 @@ function renderTravelGuide(container, city) {
       <div class="tg-section-head">
         <span class="tg-section-icon">${icon}</span>
         <span class="tg-section-title">${title}</span>
-        ${sub ? `<span class="tg-section-sub">${esc(sub)}</span>` : ''}
+        ${sub ? `<span class="tg-section-sub">${escHtml(sub)}</span>` : ''}
       </div>
       ${rows}
       ${extra || ''}
     </div>`;
 
   const html = `<div class="travel-guide">
-    <div class="tg-tip-box"><strong>💡 Main tip:</strong> ${esc(guide.tip)}</div>
+    <div class="tg-tip-box"><strong>💡 Main tip:</strong> ${escHtml(guide.tip)}</div>
 
-    ${section('🗺', 'Maps & Navigation', `Best: ${esc(guide.bestMap)}`, appRows(guide.maps), '')}
+    ${section('🗺', 'Maps & Navigation', `Best: ${escHtml(guide.bestMap)}`, appRows(guide.maps), '')}
 
     ${section('🚇', 'Getting Around', guide.transit?.card || '', appRows((guide.transit?.apps || []).map(a => ({ n: a }))),
-      `<div class="tg-tip-box">${esc(guide.transit?.tip || '')}</div>`)}
+      `<div class="tg-tip-box">${escHtml(guide.transit?.tip || '')}</div>`)}
 
     ${section('🚕', 'Ride-Hailing', '', appRows(guide.ride), '')}
 
@@ -2191,12 +2191,12 @@ function renderTravelGuide(container, city) {
 
     <div class="tg-section">
       <div class="tg-section-head"><span class="tg-section-icon">💳</span><span class="tg-section-title">Payments</span></div>
-      <div class="tg-pay-box">${esc(guide.pay)}</div>
+      <div class="tg-pay-box">${escHtml(guide.pay)}</div>
     </div>
 
     <div class="tg-section">
       <div class="tg-section-head"><span class="tg-section-icon">📱</span><span class="tg-section-title">SIM / Connectivity</span></div>
-      <div class="tg-sim-box">${esc(guide.sim)}</div>
+      <div class="tg-sim-box">${escHtml(guide.sim)}</div>
     </div>
   </div>`;
 
@@ -2234,11 +2234,11 @@ function renderTrendingSection(city) {
     ...topActs.map(a => ({ platform: 'ig', label: a.name, sub: 'Instagram', href: `https://www.instagram.com/explore/tags/${encodeURIComponent(a.name.replace(/\s+/g,'').toLowerCase())}/` })),
   ];
   return `<div class="trending-section">
-    <div class="trending-title">${esc(t('trendingTitle'))}</div>
+    <div class="trending-title">${escHtml(t('trendingTitle'))}</div>
     <div class="trending-scroll">
       ${cards.map(c => `<a class="trending-card" href="${c.href}" target="_blank" rel="noopener">
         <span class="trending-platform ${c.platform}">${c.platform === 'tt' ? '▶ TikTok' : '◈ Instagram'}</span>
-        <span class="trending-label">${esc(c.label)}</span>
+        <span class="trending-label">${escHtml(c.label)}</span>
         <span class="trending-sub">${c.sub}</span>
       </a>`).join('')}
     </div>
@@ -2248,7 +2248,7 @@ function renderTrendingSection(city) {
 function renderDiscoverTab() {
   const grid = document.getElementById('discover-grid');
   if (!currentTrip) {
-    grid.innerHTML = `<div class="itin-empty" style="grid-column:1/-1"><div class="empty-icon">🔍</div><p>${esc(t('noTrip'))}</p></div>`;
+    grid.innerHTML = `<div class="itin-empty" style="grid-column:1/-1"><div class="empty-icon">🔍</div><p>${escHtml(t('noTrip'))}</p></div>`;
     return;
   }
 
@@ -2307,8 +2307,8 @@ function renderDiscoverTab() {
   }
 
   if (!items.length) {
-    const label = esc(discoverSearch || (discoverVibe ? VIBE_DEFS.find(v => v.id === discoverVibe)?.label || discoverVibe : ''));
-    grid.innerHTML = `<div class="itin-empty" style="grid-column:1/-1"><div class="empty-icon">😔</div><p>${esc(t('noResults'))}${label ? ` — "${label}"` : ''}</p></div>`;
+    const label = escHtml(discoverSearch || (discoverVibe ? VIBE_DEFS.find(v => v.id === discoverVibe)?.label || discoverVibe : ''));
+    grid.innerHTML = `<div class="itin-empty" style="grid-column:1/-1"><div class="empty-icon">😔</div><p>${escHtml(t('noResults'))}${label ? ` — "${label}"` : ''}</p></div>`;
     return;
   }
 
@@ -2346,23 +2346,23 @@ function renderDiscoverTab() {
         ${isBudget  ? '<span class="badge-budget">💰 Budget</span>'   : ''}
       </div>` : '';
 
-    return `<div class="discover-card" style="animation-delay:${idx * 35}ms" onclick="openPlaceProfile('${jsq(item.name)}')">
+    return `<div class="discover-card" style="animation-delay:${idx * 35}ms" onclick="openPlaceProfile('${jsqApp(item.name)}')">
       <div class="disc-photo-wrap">
-        <img class="disc-photo" src="${esc(photo)}" alt="${esc(item.name)}" loading="lazy"
+        <img class="disc-photo" src="${escHtml(photo)}" alt="${escHtml(item.name)}" loading="lazy"
           onerror="this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=70'" />
         <div class="disc-cat-pill">${catIcon} ${catLabel}</div>
         ${overlayBadges}
         <button class="disc-heart-btn ${saved ? 'saved' : ''}"
-          onclick="event.stopPropagation();discSaveByName('${jsq(item.name)}')"
+          onclick="event.stopPropagation();discSaveByName('${jsqApp(item.name)}')"
           title="${saved ? 'Saved!' : 'Save'}">
           ${saved ? '♥' : '♡'}
         </button>
         <div class="disc-name-overlay">
-          <div class="disc-name">${esc(item.name)}</div>
+          <div class="disc-name">${escHtml(item.name)}</div>
         </div>
       </div>
       <div class="disc-body">
-        ${item.desc ? `<div class="disc-desc">${esc(item.desc)}</div>` : ''}
+        ${item.desc ? `<div class="disc-desc">${escHtml(item.desc)}</div>` : ''}
         <div class="disc-meta-row">
           <span class="disc-stars">${stars} <span>${item.rating}</span></span>
           <span class="rating-source ${srcCls}">${srcLabel}</span>
@@ -2370,8 +2370,8 @@ function renderDiscoverTab() {
           ${priceEl}
           ${vibeHTML}
         </div>
-        <button class="disc-add-btn" onclick="event.stopPropagation();discAddByName('${jsq(item.name)}')">
-          ${esc(t('addToPlanner'))}
+        <button class="disc-add-btn" onclick="event.stopPropagation();discAddByName('${jsqApp(item.name)}')">
+          ${escHtml(t('addToPlanner'))}
         </button>
       </div>
     </div>`;
@@ -2579,7 +2579,7 @@ function updateMapPins() {
   const cityIcon = makeCircleIcon('#2dd4bf', 0.7);
   const cityMarker = L.marker(cityCoord, { icon: cityIcon })
     .addTo(leafletMap)
-    .bindPopup(`<div class="pin-popup-name">${esc(currentTrip?.name || 'Trip')}</div><div class="pin-popup-city">${esc(getCityName())}</div>`);
+    .bindPopup(`<div class="pin-popup-name">${escHtml(currentTrip?.name || 'Trip')}</div><div class="pin-popup-city">${escHtml(getCityName())}</div>`);
   mapMarkers.push(cityMarker);
   bounds.push(cityCoord);
 
@@ -2596,7 +2596,7 @@ function updateMapPins() {
       const icon   = isCurrentDay ? makeCircleIcon('#2dd4bf', 1) : makeCircleIcon('#2dd4bf', 0.45);
       const m      = L.marker(coord, { icon })
         .addTo(leafletMap)
-        .bindPopup(`<div class="pin-popup-name">${esc(card.name)}</div><div class="pin-popup-day">${esc(getDayLabel(day))}</div>${card.cityName ? `<div class="pin-popup-city">${esc(card.cityName)}</div>` : ''}`);
+        .bindPopup(`<div class="pin-popup-name">${escHtml(card.name)}</div><div class="pin-popup-day">${escHtml(getDayLabel(day))}</div>${card.cityName ? `<div class="pin-popup-city">${escHtml(card.cityName)}</div>` : ''}`);
       mapMarkers.push(m);
       bounds.push(coord);
     });
@@ -2610,7 +2610,7 @@ function updateMapPins() {
     const icon  = makeCircleIcon('#f472b6', 1);
     const m     = L.marker(coord, { icon })
       .addTo(leafletMap)
-      .bindPopup(`<div class="pin-popup-name">${esc(save.name)}</div><div class="pin-popup-day" style="color:#f472b6">Saved</div>${save.cityName ? `<div class="pin-popup-city">${esc(save.cityName)}</div>` : ''}`);
+      .bindPopup(`<div class="pin-popup-name">${escHtml(save.name)}</div><div class="pin-popup-day" style="color:#f472b6">Saved</div>${save.cityName ? `<div class="pin-popup-city">${escHtml(save.cityName)}</div>` : ''}`);
     mapMarkers.push(m);
     bounds.push(coord);
   });
@@ -2629,7 +2629,7 @@ function updateMapPins() {
         const icon  = makeCircleIcon('#64748b', 0.8);
         const m     = L.marker(coord, { icon })
           .addTo(leafletMap)
-          .bindPopup(`<div class="pin-popup-name">${esc(item.name)}</div><div class="pin-popup-city">${esc(city.name)}</div>`);
+          .bindPopup(`<div class="pin-popup-name">${escHtml(item.name)}</div><div class="pin-popup-city">${escHtml(city.name)}</div>`);
         mapMarkers.push(m);
         bounds.push(coord);
       });
@@ -2860,9 +2860,9 @@ function showImportReview(places) {
     <label class="import-review-item">
       <input type="checkbox" data-idx="${i}" checked>
       <div>
-        <div class="import-review-name">${esc(p.name)}</div>
-        ${p.note ? `<div class="import-review-note">${esc(p.note)}</div>` : ''}
-        ${p.source ? `<div class="import-review-source">${esc(_importSourceLabel[p.source] || p.source)}</div>` : ''}
+        <div class="import-review-name">${escHtml(p.name)}</div>
+        ${p.note ? `<div class="import-review-note">${escHtml(p.note)}</div>` : ''}
+        ${p.source ? `<div class="import-review-source">${escHtml(_importSourceLabel[p.source] || p.source)}</div>` : ''}
       </div>
     </label>`).join('');
   closeQuickAdd();
@@ -3047,7 +3047,7 @@ function renderRewardsTab() {
 
   // ── Best cards for THIS trip ──────────────────────────────────────────────
   if (tripCity) {
-    html += `<div class="rewards-section-title">📍 Best Cards for ${esc(tripCity.name)}</div>`;
+    html += `<div class="rewards-section-title">📍 Best Cards for ${escHtml(tripCity.name)}</div>`;
     html += `<div class="rewards-section-sub">Tailored to maximize points on your specific trip</div>`;
     html += `<div class="trip-card-grid">`;
     tripCity.tips.forEach((t, i) => {
@@ -3056,9 +3056,9 @@ function renderRewardsTab() {
       html += `<div class="trip-card-box">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
           <span style="font-size:11px;font-weight:700;color:${rankColor};letter-spacing:.5px;text-transform:uppercase">${rank}</span>
-          <span style="font-size:14px;font-weight:700;color:#e2e8f0">${esc(t.card)}</span>
+          <span style="font-size:14px;font-weight:700;color:#e2e8f0">${escHtml(t.card)}</span>
         </div>
-        <div style="font-size:13px;color:#94a3b8;line-height:1.6">${esc(t.tip)}</div>
+        <div style="font-size:13px;color:#94a3b8;line-height:1.6">${escHtml(t.tip)}</div>
       </div>`;
     });
     html += `</div>`;
@@ -3067,11 +3067,11 @@ function renderRewardsTab() {
     const cityAirlines = airlines.filter(a => a.hubs.includes(cityId));
     if (cityAirlines.length) {
       html += `<div style="margin-top:8px;padding:14px 16px;background:rgba(45,212,191,.06);border:1px solid rgba(45,212,191,.15);border-radius:10px">`;
-      html += `<div style="font-size:12px;font-weight:600;color:#2dd4bf;margin-bottom:8px;letter-spacing:.5px">✈ AIRLINES FLYING TO ${esc(tripCity.name.toUpperCase())}</div>`;
+      html += `<div style="font-size:12px;font-weight:600;color:#2dd4bf;margin-bottom:8px;letter-spacing:.5px">✈ AIRLINES FLYING TO ${escHtml(tripCity.name.toUpperCase())}</div>`;
       cityAirlines.forEach(a => {
         html += `<div style="margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.05)">
-          <div style="font-size:13px;font-weight:600;color:#e2e8f0;margin-bottom:3px">${esc(a.airline)} (${esc(a.code)}) — Best: <span style="color:#2dd4bf">${esc(a.bestCard)}</span></div>
-          <div style="font-size:12px;color:#94a3b8">${esc(a.tip)}</div>
+          <div style="font-size:13px;font-weight:600;color:#e2e8f0;margin-bottom:3px">${escHtml(a.airline)} (${escHtml(a.code)}) — Best: <span style="color:#2dd4bf">${escHtml(a.bestCard)}</span></div>
+          <div style="font-size:12px;color:#94a3b8">${escHtml(a.tip)}</div>
         </div>`;
       });
       html += `</div>`;
@@ -3083,20 +3083,20 @@ function renderRewardsTab() {
   html += `<div class="rewards-section-sub">Ranked by signup bonus value and travel perks</div>`;
   html += `<div class="cc-city-cards">`;
   for (const c of cards) {
-    const earnHtml = Object.entries(c.earn).map(([k,v]) => `<strong>${esc(v)}</strong> ${esc(k)}`).join(' · ');
-    const perksHtml = c.perks.map(p => `<span style="display:block;margin-bottom:2px">• ${esc(p)}</span>`).join('');
+    const earnHtml = Object.entries(c.earn).map(([k,v]) => `<strong>${escHtml(v)}</strong> ${escHtml(k)}`).join(' · ');
+    const perksHtml = c.perks.map(p => `<span style="display:block;margin-bottom:2px">• ${escHtml(p)}</span>`).join('');
     html += `<div class="cc-card">
       <div class="cc-card-header">
         <div class="cc-card-icon ${c.icon}">${c.issuer.charAt(0)}</div>
         <div class="cc-card-info">
-          <div class="cc-card-name">${esc(c.name)}</div>
-          <div class="cc-card-issuer">${esc(c.issuer)} · $${c.annualFee}/yr</div>
+          <div class="cc-card-name">${escHtml(c.name)}</div>
+          <div class="cc-card-issuer">${escHtml(c.issuer)} · $${c.annualFee}/yr</div>
         </div>
-        <div class="cc-card-bonus">${esc(c.bonus)}</div>
+        <div class="cc-card-bonus">${escHtml(c.bonus)}</div>
       </div>
       <div class="cc-card-body">
         <div class="cc-card-row"><div class="cc-card-label">Earn</div><div class="cc-card-val">${earnHtml}</div></div>
-        <div class="cc-card-row"><div class="cc-card-label">Bonus</div><div class="cc-card-val">${esc(c.bonusSpend)}</div></div>
+        <div class="cc-card-row"><div class="cc-card-label">Bonus</div><div class="cc-card-val">${escHtml(c.bonusSpend)}</div></div>
         <div class="cc-card-row"><div class="cc-card-label">Perks</div><div class="cc-card-val">${perksHtml}</div></div>
       </div>
     </div>`;
@@ -3110,16 +3110,16 @@ function renderRewardsTab() {
   for (const a of airlines) {
     html += `<div class="airline-card">
       <div class="airline-card-header">
-        <div class="airline-badge">${esc(a.code)}</div>
+        <div class="airline-badge">${escHtml(a.code)}</div>
         <div>
-          <div style="font-size:14px;font-weight:700;color:#e2e8f0">${esc(a.airline)}</div>
-          <div style="font-size:11px;color:#64748b">${esc(a.region)}</div>
+          <div style="font-size:14px;font-weight:700;color:#e2e8f0">${escHtml(a.airline)}</div>
+          <div style="font-size:11px;color:#64748b">${escHtml(a.region)}</div>
         </div>
       </div>
-      <div class="airline-best">Best card: <strong style="color:#2dd4bf">${esc(a.bestCard)}</strong></div>
-      <div class="airline-earn">📊 ${esc(a.earn)}</div>
-      <div class="airline-tip">${esc(a.tip)}</div>
-      <div class="airline-partners">${a.partners.map(p => `<span class="partner-tag">${esc(p)}</span>`).join('')}</div>
+      <div class="airline-best">Best card: <strong style="color:#2dd4bf">${escHtml(a.bestCard)}</strong></div>
+      <div class="airline-earn">📊 ${escHtml(a.earn)}</div>
+      <div class="airline-tip">${escHtml(a.tip)}</div>
+      <div class="airline-partners">${a.partners.map(p => `<span class="partner-tag">${escHtml(p)}</span>`).join('')}</div>
     </div>`;
   }
   html += `</div>`;
@@ -3138,11 +3138,11 @@ function renderRewardsTab() {
     const isTrip = cid === cityId;
     const highlight = isTrip ? ' style="border:1px solid rgba(45,212,191,.25);background:rgba(13,148,136,.05);border-radius:12px;padding:10px;margin-bottom:4px"' : '';
     html += `<div class="cc-city-block"${highlight}>`;
-    html += `<div class="cc-city-name">${isTrip ? '📍 ' : ''}${esc(ct.name)}</div>`;
+    html += `<div class="cc-city-name">${isTrip ? '📍 ' : ''}${escHtml(ct.name)}</div>`;
     html += `<div class="cc-city-tips">`;
     ct.tips.forEach((t, i) => {
       const label = i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉';
-      html += `<div class="cc-city-tip"><span style="margin-right:4px">${label}</span><strong>${esc(t.card)}:</strong> ${esc(t.tip)}</div>`;
+      html += `<div class="cc-city-tip"><span style="margin-right:4px">${label}</span><strong>${escHtml(t.card)}:</strong> ${escHtml(t.tip)}</div>`;
     });
     html += `</div></div>`;
   }
@@ -3154,7 +3154,7 @@ function renderRewardsTab() {
   checklist.forEach((item, i) => {
     html += `<div class="checklist-item">
       <div class="checklist-num">${i + 1}</div>
-      <div>${esc(item)}</div>
+      <div>${escHtml(item)}</div>
     </div>`;
   });
   html += `</div>`;
@@ -3165,9 +3165,9 @@ function renderRewardsTab() {
   for (let i = 0; i < blogs.length; i++) {
     const b = blogs[i];
     html += `<div class="blog-card" onclick="toggleBlogCard(${i})">
-      <div class="blog-card-tag">${esc(b.tag)}</div>
-      <div class="blog-card-title">${esc(b.title)}</div>
-      <div class="blog-card-excerpt">${esc(b.excerpt)}</div>
+      <div class="blog-card-tag">${escHtml(b.tag)}</div>
+      <div class="blog-card-title">${escHtml(b.title)}</div>
+      <div class="blog-card-excerpt">${escHtml(b.excerpt)}</div>
       <div class="blog-card-expanded" id="blog-expanded-${i}">${b.body}</div>
     </div>`;
   }
