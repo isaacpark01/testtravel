@@ -382,90 +382,6 @@
   <div id="city-grid" class="city-grid"></div>
 </section>
 
-<!-- ══ GROUP BOARD ════════════════════════════════════════════════ -->
-<section id="group" class="section group-section">
-  <div class="section-header">
-    <h2 data-i18n="groupTitle">Group Trip Board</h2>
-    <p data-i18n="groupSub">Vote on ideas with your travel crew in real time</p>
-  </div>
-
-  <div class="planner-mode-bar">
-    <button class="mode-btn active" data-i18n="modeSolo" onclick="switchPlannerMode('solo',this)">🗓 Solo Planner</button>
-    <button class="mode-btn" data-i18n="modeGroup" onclick="switchPlannerMode('group',this)">👥 Group Board</button>
-  </div>
-
-  <!-- SOLO PLANNER -->
-  <div id="solo-planner">
-    <div id="planner-empty">
-      <div class="board-empty">
-        <div>🗓</div>
-        <p data-i18n="emptyTrip">Create a trip to start planning your days</p>
-        <button class="auth-btn-solid" data-i18n="btnNewTrip" style="margin-top:16px" onclick="openNewTripModal()">+ New Trip</button>
-      </div>
-    </div>
-
-    <div id="planner-ui" class="hidden">
-      <div class="planner-toolbar">
-        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-          <span id="active-trip-name" style="font-size:16px;font-weight:800;color:#f0faf9"></span>
-          <input id="planner-start-date" type="date" class="filter-select" style="font-size:12px" onchange="updateTripStartDate(this.value)" />
-        </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="auth-btn-outline" style="font-size:12px;padding:7px 14px" onclick="addDay()">+ Day</button>
-          <button class="auth-btn-outline" style="font-size:12px;padding:7px 14px" onclick="openTripPicker()">Switch Trip</button>
-          <button class="auth-btn-outline" style="font-size:12px;padding:7px 14px" onclick="openNewTripModal()">+ New Trip</button>
-        </div>
-      </div>
-      <div id="kanban-board" class="kanban-board"></div>
-    </div>
-  </div>
-
-  <!-- GROUP PLANNER -->
-  <div id="group-planner" class="hidden">
-    <!-- Not configured notice -->
-    <div id="supabase-notice" class="board-empty hidden">
-      <div>🔧</div>
-      <p>Connect Supabase to enable the group board.</p>
-    </div>
-
-    <!-- Login prompt -->
-    <div id="board-login-prompt" class="board-empty hidden">
-      <div>👥</div>
-      <p>Sign in to create and share trip boards with friends</p>
-      <div style="display:flex;gap:10px;margin-top:16px">
-        <button class="auth-btn-outline" onclick="openAuth('login')">Log In</button>
-        <button class="auth-btn-solid"   onclick="openAuth('signup')">Sign Up</button>
-      </div>
-    </div>
-
-    <!-- Board UI -->
-    <div id="board-ui" class="hidden">
-      <div class="board-header">
-        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-          <span style="font-size:16px;font-weight:700">📋</span>
-          <span id="active-board-name" style="font-size:16px;font-weight:700;color:#f0faf9"></span>
-        </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <div id="online-users" style="display:flex;gap:6px;flex-wrap:wrap;align-items:center"></div>
-          <button class="auth-btn-outline" style="font-size:12px;padding:7px 14px" onclick="openBoardPicker()">Switch Board</button>
-          <button class="auth-btn-outline" style="font-size:12px;padding:7px 14px" onclick="shareBoard()">🔗 Share</button>
-          <button class="auth-btn-solid"   style="font-size:12px;padding:7px 14px" onclick="openNewBoardModal()">+ New Board</button>
-        </div>
-      </div>
-
-      <div class="add-idea-form">
-        <div class="idea-form-row">
-          <select id="idea-city"><option value="">Pick a city…</option></select>
-          <input id="idea-note" type="text" placeholder="Describe your idea…" onkeydown="if(event.key==='Enter')addIdea()" />
-          <button id="add-idea-btn" class="auth-btn-solid" onclick="addIdea()">Pin It</button>
-        </div>
-      </div>
-
-      <div id="ideas-list" class="ideas-list"></div>
-    </div>
-  </div>
-</section>
-
 <!-- ══ DEALS ═════════════════════════════════════════════════════ -->
 <section id="deals" class="section deals-section">
   <div class="section-header">
@@ -558,7 +474,7 @@
         <a href="/#cities">Explore Destinations</a>
         <a href="/planner.html">Trip Planner</a>
         <a href="/#deals">Find Flights &amp; Cars</a>
-        <a href="/#group">Group Board</a>
+        <a href="/planner.html?tab=group">Group Board</a>
       </div>
       <!-- Legal links -->
       <div class="footer-col">

@@ -1581,7 +1581,7 @@ function handleHeroShare() {
 // ── Tabs ──────────────────────────────────────────────────────
 function switchTab(tab) {
   activeTab = tab;
-  ['saves', 'itinerary', 'discover', 'rewards'].forEach(t => {
+  ['saves', 'itinerary', 'discover', 'rewards', 'group'].forEach(t => {
     document.getElementById(`tab-${t}`).classList.toggle('active', t === tab);
     document.getElementById(`panel-${t}`).classList.toggle('active', t === tab);
   });

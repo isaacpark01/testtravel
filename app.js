@@ -501,16 +501,9 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 document.getElementById('city-modal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 
 function pinCityToBoard() {
-  if (!currentUser) { openAuth('login'); return; }
   if (!currentCity) return;
-  const groupBtn = document.querySelector('.mode-btn[onclick*="group"]');
-  if (groupBtn) switchPlannerMode('group', groupBtn);
-  if (currentBoard) document.getElementById('idea-city').value = currentCity.id;
   closeModal();
-  document.getElementById('group').scrollIntoView({ behavior: 'smooth' });
-  setTimeout(() => {
-    if (currentBoard) document.getElementById('idea-note').focus();
-  }, 600);
+  window.location.href = `planner.html?tab=group${currentCity ? '&city=' + encodeURIComponent(currentCity.id) : ''}`;
 }
 
 /* ===================== TABS ===================== */

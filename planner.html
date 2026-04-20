@@ -621,6 +621,39 @@
     }
     .btn-cancel:hover { background: rgba(255,255,255,.09); }
 
+    /* ── Group Board tab ──────────────────────────────────────── */
+    .auth-field { width:100%;box-sizing:border-box;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#f0faf9;font-size:14px;padding:10px 12px;margin-top:4px;outline:none; }
+    .auth-field:focus { border-color:rgba(45,212,191,.4); }
+    .auth-btn-solid { background:#0d9488;border:none;border-radius:8px;color:#fff;font-size:14px;font-weight:700;padding:10px 18px;cursor:pointer;transition:background .15s; }
+    .auth-btn-solid:hover { background:#0f766e; }
+    .auth-btn-outline { background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#94a3b8;font-size:14px;font-weight:600;padding:10px 18px;cursor:pointer;transition:all .15s; }
+    .auth-btn-outline:hover { background:rgba(255,255,255,.09);color:#f0faf9; }
+    .modal-field-label { font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.06em; }
+    .board-empty { display:flex;flex-direction:column;align-items:center;gap:12px;padding:48px 20px;color:rgba(240,250,249,.35);text-align:center;font-size:14px; }
+    .board-empty > div { font-size:36px; }
+    .board-header { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;padding:12px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px; }
+    .add-idea-form { margin-bottom:16px; }
+    .idea-form-row { display:flex;gap:8px;flex-wrap:wrap; }
+    .idea-form-row input,.idea-form-row select { flex:1;min-width:120px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#f0faf9;font-size:13px;padding:9px 12px;outline:none; }
+    .idea-form-row input:focus,.idea-form-row select:focus { border-color:rgba(45,212,191,.4); }
+    .idea-form-row select option { background:#1a2742; }
+    .ideas-list { display:flex;flex-direction:column;gap:10px; }
+    .idea-card { background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:relative; }
+    .idea-city-badge { font-size:11px;font-weight:700;color:#2dd4bf;background:rgba(45,212,191,.1);border-radius:20px;padding:3px 10px;white-space:nowrap; }
+    .idea-content { flex:1;min-width:0; }
+    .idea-note { font-size:14px;color:#f0faf9;margin-bottom:3px;word-break:break-word; }
+    .idea-meta { font-size:11px;color:#64748b; }
+    .idea-votes { display:flex;align-items:center;gap:6px;flex-shrink:0; }
+    .vote-btn { background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;font-size:13px;padding:4px 8px;cursor:pointer;color:#f0faf9;transition:all .15s; }
+    .vote-btn:hover { background:rgba(255,255,255,.1); }
+    .vote-btn.voted-up { background:rgba(52,211,153,.15);border-color:rgba(52,211,153,.3); }
+    .vote-btn.voted-down { background:rgba(248,113,113,.12);border-color:rgba(248,113,113,.3); }
+    .vote-count { font-size:13px;font-weight:700;min-width:24px;text-align:center; }
+    .idea-delete { background:none;border:none;color:rgba(240,250,249,.25);font-size:14px;cursor:pointer;padding:4px 6px;flex-shrink:0; }
+    .idea-delete:hover { color:#f87171; }
+    .online-badge { font-size:11px;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2);border-radius:20px;color:#34d399;padding:3px 8px;display:flex;align-items:center;gap:4px; }
+    .online-dot { width:6px;height:6px;border-radius:50%;background:#34d399; }
+
     /* ── Rewards tab ──────────────────────────────────────────── */
     .rewards-scroll { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 16px; }
     .rewards-hero {
@@ -1180,6 +1213,7 @@
   <button class="tab-btn active" id="tab-itinerary" data-i18n="tabItinerary" onclick="switchTab('itinerary')">📅 Itinerary</button>
   <button class="tab-btn" id="tab-discover" data-i18n="tabDiscover" onclick="switchTab('discover')">🔍 Discover</button>
   <button class="tab-btn" id="tab-rewards" data-i18n="tabRewards" onclick="switchTab('rewards')">💳 Rewards</button>
+  <button class="tab-btn" id="tab-group" onclick="switchTab('group')">👥 Group</button>
 </div>
 
 <!-- Main layout -->
@@ -1258,6 +1292,54 @@
     <!-- REWARDS TAB -->
     <div class="tab-panel" id="panel-rewards">
       <div class="rewards-scroll" id="rewards-scroll"></div>
+    </div>
+
+    <!-- GROUP BOARD TAB -->
+    <div class="tab-panel" id="panel-group" style="overflow-y:auto;padding:16px">
+      <!-- User bar -->
+      <div id="grp-user-bar" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;padding:12px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px"></div>
+
+      <!-- Not configured notice -->
+      <div id="grp-notice" class="board-empty hidden">
+        <div>🔧</div>
+        <p>Connect Supabase to enable the group board.</p>
+      </div>
+
+      <!-- Login prompt -->
+      <div id="grp-login-prompt" class="board-empty hidden">
+        <div>👥</div>
+        <p>Sign in to create and share trip boards with your crew</p>
+        <div style="display:flex;gap:10px;margin-top:16px">
+          <button class="auth-btn-outline" onclick="openGroupAuth('login')">Log In</button>
+          <button class="auth-btn-solid"   onclick="openGroupAuth('signup')">Sign Up</button>
+        </div>
+      </div>
+
+      <!-- Board UI -->
+      <div id="grp-board-ui" class="hidden">
+        <div class="board-header">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span style="font-size:16px;font-weight:700">📋</span>
+            <span id="grp-active-board-name" style="font-size:16px;font-weight:700;color:#f0faf9"></span>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <div id="grp-online-users" style="display:flex;gap:6px;flex-wrap:wrap;align-items:center"></div>
+            <button class="auth-btn-outline" style="font-size:12px;padding:7px 14px" onclick="openBoardPicker()">Switch Board</button>
+            <button class="auth-btn-outline" style="font-size:12px;padding:7px 14px" onclick="shareBoard()">🔗 Share</button>
+            <button class="auth-btn-solid"   style="font-size:12px;padding:7px 14px" onclick="openNewBoardModal()">+ New Board</button>
+          </div>
+        </div>
+
+        <div class="add-idea-form">
+          <div class="idea-form-row">
+            <select id="grp-idea-city"><option value="">Pick a city…</option></select>
+            <input id="grp-idea-note" type="text" placeholder="Describe your idea…" onkeydown="if(event.key==='Enter')addIdea()" />
+            <button id="grp-add-idea-btn" class="auth-btn-solid" onclick="addIdea()">Pin It</button>
+          </div>
+        </div>
+
+        <div id="grp-ideas-list" class="ideas-list"></div>
+      </div>
     </div>
 
   </div>
@@ -1481,10 +1563,96 @@
   </div>
 </div>
 
+<!-- ── Group Auth Modal ──────────────────────────────────── -->
+<div id="grp-auth-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeGroupAuth()">
+  <div class="modal-card" style="max-width:400px;border-radius:18px;padding:32px">
+    <div id="grp-auth-login">
+      <div style="font-size:22px;font-weight:800;margin-bottom:20px">Sign In</div>
+      <label class="modal-field-label">Email</label>
+      <input id="grp-login-email" class="auth-field" type="email" placeholder="you@example.com" autocomplete="email" />
+      <label class="modal-field-label" style="margin-top:12px">Password</label>
+      <input id="grp-login-pass" class="auth-field" type="password" placeholder="••••••••" autocomplete="current-password" />
+      <div id="grp-login-error" class="modal-error hidden"></div>
+      <button class="auth-btn-solid" style="width:100%;margin-top:16px" onclick="grpSignIn()">Sign In</button>
+      <p style="text-align:center;font-size:13px;color:rgba(240,250,249,.4);margin-top:14px">
+        <a href="#" style="color:rgba(240,250,249,.35)" onclick="_grpSwitchAuth('forgot');return false">Forgot password?</a>
+        &nbsp;·&nbsp; No account? <a href="#" style="color:#2dd4bf" onclick="_grpSwitchAuth('signup');return false">Sign Up</a>
+      </p>
+    </div>
+    <div id="grp-auth-signup" class="hidden">
+      <div style="font-size:22px;font-weight:800;margin-bottom:20px">Create Account</div>
+      <label class="modal-field-label">Display Name</label>
+      <input id="grp-signup-name" class="auth-field" type="text" placeholder="Your name" autocomplete="username" />
+      <label class="modal-field-label" style="margin-top:12px">Email</label>
+      <input id="grp-signup-email" class="auth-field" type="email" placeholder="you@example.com" autocomplete="email" />
+      <label class="modal-field-label" style="margin-top:12px">Password</label>
+      <input id="grp-signup-pass" class="auth-field" type="password" placeholder="6+ characters" autocomplete="new-password" />
+      <div id="grp-signup-error" class="modal-error hidden"></div>
+      <button class="auth-btn-solid" style="width:100%;margin-top:16px" onclick="grpSignUp()">Create Account</button>
+      <p style="text-align:center;font-size:13px;color:rgba(240,250,249,.4);margin-top:14px">
+        Already have one? <a href="#" style="color:#2dd4bf" onclick="_grpSwitchAuth('login');return false">Sign In</a>
+      </p>
+    </div>
+    <div id="grp-auth-forgot" class="hidden">
+      <div style="font-size:22px;font-weight:800;margin-bottom:8px">Reset Password</div>
+      <label class="modal-field-label">Email</label>
+      <input id="grp-forgot-email" class="auth-field" type="email" placeholder="you@example.com" />
+      <div id="grp-forgot-error" class="modal-error hidden"></div>
+      <div id="grp-forgot-ok" class="hidden" style="background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.3);color:#34d399;border-radius:8px;padding:11px 14px;font-size:13px;margin-top:12px">
+        ✓ Check your email for a reset link.
+      </div>
+      <button class="auth-btn-solid" style="width:100%;margin-top:16px" onclick="grpSendReset()">Send Reset Link</button>
+      <p style="text-align:center;font-size:13px;color:rgba(240,250,249,.4);margin-top:14px">
+        Back to <a href="#" style="color:#2dd4bf" onclick="_grpSwitchAuth('login');return false">Sign In</a>
+      </p>
+    </div>
+    <div id="grp-auth-success" class="hidden" style="text-align:center;padding:20px 0">
+      <div style="font-size:40px;margin-bottom:12px">✅</div>
+      <div id="grp-auth-success-msg" style="font-size:15px;font-weight:600;color:#f0faf9;line-height:1.6"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Group Profile Modal ───────────────────────────────── -->
+<div id="grp-profile-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeGrpProfile()">
+  <div class="modal-card" style="max-width:360px;border-radius:18px;padding:32px;text-align:center">
+    <div id="grp-profile-avatar" style="width:60px;height:60px;border-radius:50%;background:#0d9488;color:#fff;font-size:22px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px"></div>
+    <div id="grp-profile-name"  style="font-size:18px;font-weight:800;color:#f0faf9;margin-bottom:4px"></div>
+    <div id="grp-profile-email" style="font-size:13px;color:rgba(240,250,249,.4);margin-bottom:24px"></div>
+    <button class="auth-btn-outline" style="width:100%;margin-bottom:10px" onclick="grpSignOut()">Sign Out</button>
+    <button class="auth-btn-outline" style="width:100%" onclick="closeGrpProfile()">Close</button>
+  </div>
+</div>
+
+<!-- ── New Board Modal ───────────────────────────────────── -->
+<div id="grp-new-board-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeNewBoardModal()">
+  <div class="modal-card" style="max-width:360px;border-radius:18px;padding:28px">
+    <div style="font-size:18px;font-weight:800;margin-bottom:16px">New Group Board</div>
+    <input id="grp-new-board-name" class="auth-field" type="text" placeholder="Board name…" />
+    <div id="grp-new-board-error" class="modal-error hidden"></div>
+    <div style="display:flex;gap:8px;margin-top:14px">
+      <button class="auth-btn-outline" style="flex:1" onclick="closeNewBoardModal()">Cancel</button>
+      <button class="auth-btn-solid"   style="flex:1" onclick="createBoard()">Create</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Board Picker Modal ────────────────────────────────── -->
+<div id="grp-board-picker-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeBoardPicker()">
+  <div class="modal-card" style="max-width:360px;border-radius:18px;padding:28px">
+    <div style="font-size:18px;font-weight:800;margin-bottom:16px">Your Boards</div>
+    <div id="grp-board-picker-list"></div>
+    <button class="auth-btn-outline" style="width:100%;margin-top:14px" onclick="closeBoardPicker()">Close</button>
+  </div>
+</div>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
 <script src="data.js"></script>
 <script src="travel-apps.js"></script>
 <script src="planner.js"></script>
+<script src="group.js"></script>
 </body>
 </html>
