@@ -1038,10 +1038,11 @@ async function fetchCurrencyRate(cityId) {
   if (!cur) return null;
   if (cur.code === 'USD') { _currencyRateCache[cityId] = { usd: true, code: 'USD' }; return _currencyRateCache[cityId]; }
   try {
-    const r = await fetch(`https://api.frankfurter.app/latest?from=USD&to=${cur.code}`);
+    const r = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.min.json');
     if (!r.ok) throw new Error('fetch failed');
     const data = await r.json();
-    const rate = data.rates[cur.code];
+    const rate = data.usd[cur.code.toLowerCase()];
+    if (!rate) throw new Error('no rate');
     const result = { ...cur, rate, date: data.date };
     _currencyRateCache[cityId] = result;
     return result;
