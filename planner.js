@@ -1243,6 +1243,117 @@ function getCurrentCity() {
   return CITIES.find(c => c.id === currentTrip.cityId) || null;
 }
 
+// ══════════════════════════════════════════════════════════════
+// TIMELINE — time helpers & CRUD
+// ══════════════════════════════════════════════════════════════
+
+/** "14:30" → "2:30 PM" */
+function _fmt12h(timeStr) {
+  if (!timeStr) return '';
+  const [h, m] = timeStr.split(':').map(Number);
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  return `${h % 12 || 12}:${String(m).padStart(2, '0')} ${ampm}`;
+}
+
+/** Parse "2h", "1.5h", "90 min", "45m" → total minutes (0 if unknown) */
+function _parseDurationMins(dur) {
+  if (!dur) return 0;
+  const s = String(dur);
+  const hrMatch  = s.match(/(\d+(?:\.\d+)?)\s*h/i);
+  const minMatch = s.match(/(\d+)\s*m(?:in)?/i);
+  let mins = 0;
+  if (hrMatch)  mins += Math.round(parseFloat(hrMatch[1]) * 60);
+  if (minMatch) mins += parseInt(minMatch[1]);
+  return mins;
+}
+
+/** Given startTime "09:00" + duration string → end time "11:00 AM" */
+function _calcEndTime(startTime, duration) {
+  const durMins = _parseDurationMins(duration);
+  if (!durMins) return '';
+  const [h, m]   = startTime.split(':').map(Number);
+  const total    = h * 60 + m + durMins;
+  const endH     = Math.floor(total / 60) % 24;
+  const endM     = total % 60;
+  return _fmt12h(`${String(endH).padStart(2, '0')}:${String(endM).padStart(2, '0')}`);
+}
+
+/** Open the native time picker for a card */
+function openTimePicker(dayId, cardId) {
+  const input = document.getElementById(`tl-ti-${cardId}`);
+  if (!input) return;
+  // Make it briefly interactive so showPicker works
+  input.style.pointerEvents = 'auto';
+  try { input.showPicker(); } catch(e) { input.click(); }
+  setTimeout(() => { if (input) input.style.pointerEvents = 'none'; }, 2000);
+}
+
+/** Save a new startTime for a card; re-renders so timed cards sort to top */
+function updateCardTime(dayId, cardId, timeStr) {
+  if (!currentTrip) return;
+  const d    = getStore();
+  const trip = d.trips.find(t => t.id === currentTrip.id);
+  const day  = trip?.days.find(dy => dy.id === dayId);
+  const card = day?.cards.find(c => c.id === cardId);
+  if (!card) return;
+  card.startTime = timeStr || '';
+  currentTrip = trip;
+  saveStore(d);
+  renderItinCards();
+}
+
+/** Remove the startTime from a single card */
+function clearCardTime(dayId, cardId) {
+  updateCardTime(dayId, cardId, '');
+}
+
+/** Remove all startTimes from every card in a day */
+function clearDayTimes(dayId) {
+  if (!currentTrip) return;
+  const d    = getStore();
+  const trip = d.trips.find(t => t.id === currentTrip.id);
+  const day  = trip?.days.find(dy => dy.id === dayId);
+  if (!day) return;
+  day.cards.forEach(c => { c.startTime = ''; });
+  currentTrip = trip;
+  saveStore(d);
+  renderItinCards();
+  showToast('Times cleared');
+}
+
+/**
+ * Auto-schedule: assign start times beginning at 9 AM.
+ * Each slot = card duration + 30-min travel buffer.
+ * Meals get slotted at noon / 7 PM where possible.
+ */
+function autoScheduleDay(dayId) {
+  if (!currentTrip) return;
+  const d    = getStore();
+  const trip = d.trips.find(t => t.id === currentTrip.id);
+  const day  = trip?.days.find(dy => dy.id === dayId);
+  if (!day || !day.cards.length) return;
+
+  let cursor = 9 * 60; // 9:00 AM in minutes
+  day.cards.forEach((card, idx) => {
+    // Nudge food cards toward meal windows
+    const isFood = card.category === 'food';
+    if (isFood && cursor > 10 * 60 && cursor < 12 * 60) cursor = 12 * 60;      // lunch
+    if (isFood && cursor > 14 * 60 && cursor < 18 * 60) cursor = 18 * 60 + 30; // dinner-ish
+
+    const h = Math.floor(cursor / 60) % 24;
+    const m = cursor % 60;
+    card.startTime = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+
+    const durMins = _parseDurationMins(card.duration) || (isFood ? 60 : 90);
+    cursor += durMins + 30; // +30 min travel/transition
+  });
+
+  currentTrip = trip;
+  saveStore(d);
+  renderItinCards();
+  showToast('⚡ Day auto-scheduled from 9 AM!');
+}
+
 // ── Init ──────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
   // ?reset clears all stored data and reloads cleanly
@@ -1747,9 +1858,66 @@ function renderItinCards() {
   const healthHTML   = stats ? renderDayHealthBar(stats) : '';
   const insights     = getDayInsights(day);
   const insightHTML  = renderDayInsights(insights);
-  area.innerHTML     = healthHTML + insightHTML + cards.map((c, i) => renderPlacedCard(c, day.id, i + 1)).join('');
 
+  // Split into timed (sorted) + untimed
+  const timedCards   = cards.filter(c => c.startTime).sort((a, b) => a.startTime.localeCompare(b.startTime));
+  const untimedCards = cards.filter(c => !c.startTime);
+  const allSorted    = [...timedCards, ...untimedCards];
+
+  // Toolbar
+  const hasTimes   = timedCards.length > 0;
+  const totalMins  = allSorted.reduce((s, c) => s + _parseDurationMins(c.duration), 0);
+  const totalLabel = totalMins > 0 ? `~${Math.floor(totalMins/60)}h ${totalMins%60 ? (totalMins%60)+'m' : ''}`.trim() : '';
+  const toolbar = `
+    <div class="tl-toolbar">
+      <button class="tl-auto-btn" onclick="autoScheduleDay('${jsqApp(day.id)}')">⚡ Auto-schedule</button>
+      <span class="tl-summary">${totalLabel ? `${totalLabel} total` : 'Set times to plan your day'}${hasTimes ? `&nbsp;·&nbsp;<button class="tl-clear-all-btn" onclick="clearDayTimes('${jsqApp(day.id)}')">Clear times</button>` : ''}</span>
+    </div>`;
+
+  // Build timeline items
+  let tlItems = '';
+  timedCards.forEach((c, i) => {
+    tlItems += renderTimelineItem(c, day.id, i + 1, true);
+  });
+  if (untimedCards.length && timedCards.length) {
+    tlItems += `<div class="tl-no-time-header">Unscheduled</div>`;
+  }
+  untimedCards.forEach((c, i) => {
+    tlItems += renderTimelineItem(c, day.id, timedCards.length + i + 1, false);
+  });
+
+  area.innerHTML = healthHTML + insightHTML + toolbar + `<div class="tl-wrap">${tlItems}</div>`;
   setupCardDrag();
+}
+
+function renderTimelineItem(card, dayId, num, isConnected) {
+  const hasTime  = !!card.startTime;
+  const timeDisp = hasTime ? _fmt12h(card.startTime) : '';
+  const endDisp  = hasTime && card.duration ? _calcEndTime(card.startTime, card.duration) : '';
+  const cardHtml = renderPlacedCard(card, dayId, num);
+
+  return `<div class="tl-item">
+    <div class="tl-left">
+      <div class="tl-dot${hasTime ? ' has-time' : ''}"></div>
+      ${isConnected ? '<div class="tl-connector"></div>' : ''}
+    </div>
+    <div class="tl-content">
+      <div class="tl-time-row">
+        <button class="tl-time-btn${hasTime ? ' has-time' : ''}"
+          onclick="openTimePicker('${jsqApp(dayId)}','${jsqApp(card.id)}')">${
+          hasTime
+            ? `<span class="tl-time-icon">🕐</span>${escHtml(timeDisp)}`
+            : `<span class="tl-time-icon">＋</span>Set time`
+        }</button>
+        ${hasTime && endDisp ? `<span class="tl-arrow">→</span><span class="tl-end-time">${escHtml(endDisp)}</span>` : ''}
+        ${hasTime ? `<button class="tl-clear-time" onclick="clearCardTime('${jsqApp(dayId)}','${jsqApp(card.id)}')" title="Remove time">✕</button>` : ''}
+        <input type="time" id="tl-ti-${escHtml(card.id)}" class="tl-hidden-input"
+          value="${escHtml(card.startTime || '')}"
+          onchange="updateCardTime('${jsqApp(dayId)}','${jsqApp(card.id)}',this.value)" />
+      </div>
+      ${cardHtml}
+    </div>
+  </div>`;
 }
 
 function renderPlacedCard(card, dayId, num) {
@@ -1759,12 +1927,12 @@ function renderPlacedCard(card, dayId, num) {
   const price     = card.price === 0 ? '<span style="color:#34d399;font-weight:700">FREE</span>'
                   : card.price > 0   ? `<span style="color:#fb923c;font-weight:700">$${card.price}</span>` : '';
   const bestTime  = getBestTime(card);
-  const timeHTML  = bestTime
+  const suggestHTML = !card.startTime && bestTime
     ? `<span class="best-time-badge" style="color:${bestTime.color};border-color:${bestTime.color}33;background:${bestTime.color}11">${bestTime.icon} ${bestTime.label}</span>`
     : '';
 
   return `<div class="placed-card" draggable="true" data-card-id="${card.id}" data-day-id="${dayId}">
-    <div class="placed-num">${num}</div>
+    <div class="placed-num">⠿</div>
     <img class="placed-photo" src="${escHtml(photo)}" alt="${escHtml(card.name)}" loading="lazy"
       onerror="this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=80&q=70'" />
     <div class="placed-body">
@@ -1775,7 +1943,7 @@ function renderPlacedCard(card, dayId, num) {
         ${card.rating ? `<span class="placed-rating">${renderStars(card.rating)} ${card.rating}</span>` : ''}
         ${price}
         ${card.duration ? `<span class="placed-duration">⏱ ${escHtml(card.duration)}</span>` : ''}
-        ${timeHTML}
+        ${suggestHTML}
       </div>
       <input class="placed-note-input" placeholder="Add a note..."
         value="${escHtml(card.note || '')}"
@@ -1860,17 +2028,18 @@ function addCardToDay(dayId, place) {
   }
 
   day.cards.push({
-    id:       crypto.randomUUID(),
-    name:     place.name,
-    cityId:   place.cityId || '',
-    cityName: place.cityName || '',
-    category: place.category || 'activity',
-    rating:   place.rating || 0,
-    price:    place.price ?? null,
-    duration: place.duration || '',
-    tip:      place.tip || '',
-    note:     '',
-    fromSave: !!place.fromSave,
+    id:        crypto.randomUUID(),
+    name:      place.name,
+    cityId:    place.cityId || '',
+    cityName:  place.cityName || '',
+    category:  place.category || 'activity',
+    rating:    place.rating || 0,
+    price:     place.price ?? null,
+    duration:  place.duration || '',
+    tip:       place.tip || '',
+    note:      '',
+    startTime: '',
+    fromSave:  !!place.fromSave,
   });
 
   currentTrip = trip;

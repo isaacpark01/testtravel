@@ -244,6 +244,94 @@
 
     .saves-counter { font-size: 11px; color: #64748b; padding: 4px 14px 0; flex-shrink: 0; }
 
+    /* ── Day timeline ─────────────────────────────────────────── */
+    .tl-toolbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 4px 2px 10px; flex-shrink: 0;
+    }
+    .tl-auto-btn {
+      background: rgba(45,212,191,.1); border: 1px solid rgba(45,212,191,.22);
+      border-radius: 20px; padding: 5px 14px; font-size: 12px; font-weight: 700;
+      color: var(--teal); cursor: pointer; transition: background .15s;
+    }
+    .tl-auto-btn:hover { background: rgba(45,212,191,.2); }
+    .tl-clear-all-btn {
+      background: none; border: none; font-size: 11px; color: var(--text-dim);
+      cursor: pointer; text-decoration: underline; padding: 0;
+    }
+    .tl-clear-all-btn:hover { color: #f87171; }
+    .tl-summary { font-size: 11px; color: var(--text-dim); }
+    .tl-wrap { display: flex; flex-direction: column; }
+    .tl-item {
+      display: flex; gap: 0; position: relative;
+      animation: fadeInUp .25s cubic-bezier(.22,.68,0,1.2) both;
+    }
+    .tl-item:nth-child(1) { animation-delay: .03s; }
+    .tl-item:nth-child(2) { animation-delay: .07s; }
+    .tl-item:nth-child(3) { animation-delay: .11s; }
+    .tl-item:nth-child(4) { animation-delay: .15s; }
+    .tl-item:nth-child(5) { animation-delay: .19s; }
+    .tl-item:nth-child(n+6) { animation-delay: .22s; }
+    .tl-left {
+      width: 38px; flex-shrink: 0;
+      display: flex; flex-direction: column; align-items: center;
+      padding-top: 14px;
+    }
+    .tl-dot {
+      width: 13px; height: 13px; border-radius: 50%; flex-shrink: 0; z-index: 1;
+      background: rgba(255,255,255,.1); border: 2px solid rgba(255,255,255,.18);
+      transition: background .2s, box-shadow .2s;
+    }
+    .tl-dot.has-time {
+      background: var(--teal); border-color: var(--teal-dark);
+      box-shadow: 0 0 0 4px rgba(45,212,191,.15);
+    }
+    .tl-connector {
+      flex: 1; width: 2px; min-height: 20px;
+      background: linear-gradient(to bottom, rgba(45,212,191,.18), rgba(255,255,255,.05));
+      margin: 4px 0;
+    }
+    .tl-content { flex: 1; min-width: 0; padding-bottom: 12px; }
+    .tl-time-row {
+      display: flex; align-items: center; gap: 6px;
+      margin-bottom: 6px; min-height: 26px;
+    }
+    .tl-time-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(255,255,255,.05); border: 1px dashed rgba(255,255,255,.14);
+      border-radius: 20px; padding: 4px 11px 4px 9px;
+      font-size: 12px; color: var(--text-dim); cursor: pointer;
+      transition: all .15s; font-family: inherit; font-weight: 600;
+      white-space: nowrap;
+    }
+    .tl-time-btn:hover { border-color: rgba(45,212,191,.4); color: var(--teal); background: rgba(45,212,191,.06); }
+    .tl-time-btn.has-time {
+      background: rgba(45,212,191,.1); border: 1px solid rgba(45,212,191,.3);
+      color: var(--teal);
+    }
+    .tl-time-icon { font-size: 12px; }
+    .tl-end-time { font-size: 11px; color: var(--text-dim); white-space: nowrap; }
+    .tl-arrow { font-size: 11px; color: var(--text-muted); }
+    .tl-clear-time {
+      background: none; border: none; color: var(--text-muted); cursor: pointer;
+      font-size: 14px; line-height: 1; padding: 2px 4px; border-radius: 4px;
+      transition: color .12s;
+    }
+    .tl-clear-time:hover { color: #f87171; }
+    .tl-hidden-input {
+      position: absolute; opacity: 0; pointer-events: none;
+      width: 0; height: 0; top: 0; left: 0;
+    }
+    .tl-no-time-header {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 10px; font-weight: 700; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: .06em;
+      margin: 10px 0 6px; padding-left: 38px;
+    }
+    .tl-no-time-header::after {
+      content: ''; flex: 1; height: 1px; background: rgba(255,255,255,.06);
+    }
+
     /* Place card (itinerary) */
     .placed-card {
       background: #111827; border: 1px solid rgba(255,255,255,.07);
@@ -255,9 +343,9 @@
     .placed-card:active { cursor: grabbing; }
     .placed-card.dragging { opacity: .4; transform: scale(.97); }
     .placed-num {
-      font-size: 11px; font-weight: 800; color: #334155;
-      background: rgba(255,255,255,.05); border-radius: 6px;
-      padding: 3px 7px; flex-shrink: 0; margin-top: 1px;
+      font-size: 13px; color: rgba(255,255,255,.15);
+      flex-shrink: 0; margin-top: 2px; user-select: none; cursor: grab;
+      line-height: 1;
     }
     .placed-photo {
       width: 56px; height: 56px; border-radius: 8px;
