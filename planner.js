@@ -1649,12 +1649,13 @@ function renderBudgetRecs() {
   const el = document.getElementById('budget-recs');
   if (!el) return;
 
-  const budget = currentTrip?.budget;
-  const city   = getCurrentCity();
-  if (!budget || !city) { el.style.display = 'none'; return; }
+  const city = getCurrentCity();
+  if (!city) { el.style.display = 'none'; return; }
 
-  const days      = (currentTrip.days || []).length || 1;
-  const perDay    = budget / days;
+  const budget  = currentTrip?.budget || 0;
+  const days    = (currentTrip?.days || []).length || 1;
+  const perDay  = budget > 0 ? budget / days : Infinity;
+  const hasBudget = budget > 0;
 
   const scoreItem = (item, type) => ({
     name:   item.name,
@@ -1663,30 +1664,46 @@ function renderBudgetRecs() {
     type,
   });
 
-  const affordable = [
+  const pool = [
     ...(city.food       || []).filter(Boolean).map(i => scoreItem(i, 'food')),
     ...(city.activities || []).filter(Boolean).map(i => scoreItem(i, 'activity')),
   ].filter(i => i.price <= perDay);
 
-  if (!affordable.length) { el.style.display = 'none'; return; }
+  if (!pool.length) { el.style.display = 'none'; return; }
 
-  affordable.sort((a, b) => b.rating - a.rating || a.price - b.price);
-  const picks = affordable.slice(0, 8);
+  pool.sort((a, b) => b.rating - a.rating || a.price - b.price);
+  const picks = pool.slice(0, 10);
 
-  const emoji = type => type === 'food' ? '🍽' : '🎯';
-  const priceStr = p => p === 0 ? 'Free' : `$${p}`;
+  const emoji    = type => type === 'food' ? '🍽' : '🎯';
+  const priceStr = p => p === 0 ? '<span style="color:#34d399;font-weight:700">Free</span>' : `<span style="color:#34d399;font-weight:700">$${p}</span>`;
+  const title    = hasBudget
+    ? `Places within your budget ($${Math.round(perDay)}/day)`
+    : `Top picks — ${escHtml(city.name)}`;
 
   el.style.display = 'block';
   el.innerHTML = `
-    <div class="budget-recs-title">Places within your budget ($${Math.round(perDay)}/day)</div>
+    <div class="budget-recs-title">${title}</div>
     <div class="budget-recs-scroll">
       ${picks.map(p => `
-        <div class="budget-rec-chip">
+        <div class="budget-rec-chip" onclick="addBudgetRecToDay('${jsqApp(p.name)}','${jsqApp(p.type)}')" title="Add to itinerary">
           <div class="rec-emoji">${emoji(p.type)}</div>
           <div class="rec-name">${escHtml(p.name)}</div>
-          <span class="rec-price">${priceStr(p.price)}</span><span class="rec-rating">⭐ ${p.rating}</span>
+          ${priceStr(p.price)}<span class="rec-rating"> ⭐ ${p.rating}</span>
         </div>`).join('')}
     </div>`;
+}
+
+function addBudgetRecToDay(name, type) {
+  const city = getCurrentCity();
+  if (!city) return;
+  const source = type === 'food' ? city.food : city.activities;
+  const item   = (source || []).find(i => i && i.name === name);
+  if (!item) return;
+  const dayId = currentDayId || currentTrip?.days?.[0]?.id;
+  if (!dayId) { openNewTripModal(); return; }
+  addCardToDay(dayId, { ...item, cityId: city.id, cityName: city.name, category: type });
+  switchTab('itinerary');
+  showToast(`✓ ${name} added to itinerary`);
 }
 
 function handleHeroInvite() {

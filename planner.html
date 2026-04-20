@@ -1237,7 +1237,9 @@
     .budget-rec-chip {
       flex-shrink: 0; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
       border-radius: 10px; padding: 9px 12px; min-width: 130px; max-width: 160px;
+      cursor: pointer; transition: border-color .15s, background .15s;
     }
+    .budget-rec-chip:hover { border-color: rgba(45,212,191,.35); background: rgba(45,212,191,.07); }
     .budget-rec-chip .rec-emoji { font-size: 14px; }
     .budget-rec-chip .rec-name {
       font-size: 11px; font-weight: 700; color: #f0faf9;
