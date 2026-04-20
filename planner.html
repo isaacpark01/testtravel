@@ -762,10 +762,10 @@
       width: 100%; background: #111827; border: 1px solid rgba(255,255,255,.1);
       border-radius: 10px; color: #e2e8f0; font-size: 14px; padding: 10px 14px;
       outline: none; font-family: 'Inter', sans-serif; cursor: pointer;
-      transition: border-color .15s; appearance: none;
+      transition: border-color .15s; appearance: none; color-scheme: dark;
     }
     .modal-select:focus { border-color: rgba(45,212,191,.4); }
-    .modal-select option { background: #1a2742; }
+    .modal-select option { background: #1a2742; color: #e2e8f0; }
     .modal-row { display: flex; gap: 10px; }
     .modal-row > * { flex: 1; }
     .modal-error { font-size: 12px; color: #f87171; margin-top: 8px; min-height: 16px; }
@@ -790,9 +790,9 @@
     .board-header { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;padding:12px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px; }
     .add-idea-form { margin-bottom:16px; }
     .idea-form-row { display:flex;gap:8px;flex-wrap:wrap; }
-    .idea-form-row input,.idea-form-row select { flex:1;min-width:120px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#f0faf9;font-size:13px;padding:9px 12px;outline:none; }
+    .idea-form-row input,.idea-form-row select { flex:1;min-width:120px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#f0faf9;font-size:13px;padding:9px 12px;outline:none;color-scheme:dark; }
     .idea-form-row input:focus,.idea-form-row select:focus { border-color:rgba(45,212,191,.4); }
-    .idea-form-row select option { background:#1a2742; }
+    .idea-form-row select option { background:#1a2742;color:#f0faf9; }
     .ideas-list { display:flex;flex-direction:column;gap:10px; }
     .idea-card { background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:relative; }
     .idea-city-badge { font-size:11px;font-weight:700;color:#2dd4bf;background:rgba(45,212,191,.1);border-radius:20px;padding:3px 10px;white-space:nowrap; }
@@ -1020,8 +1020,9 @@
       width: 100%; background: #111827; border: 1px solid rgba(255,255,255,.1);
       border-radius: 10px; color: #e2e8f0; font-size: 14px; padding: 10px 14px;
       outline: none; font-family: 'Inter', sans-serif; cursor: pointer; appearance: none;
+      color-scheme: dark;
     }
-    .qa-select option { background: #1a2742; }
+    .qa-select option { background: #1a2742; color: #e2e8f0; }
     .social-pick-row { display: flex; gap: 8px; }
     .social-pick-btn {
       flex: 1; background: rgba(255,255,255,.04); border: 1.5px solid rgba(255,255,255,.1);
@@ -1358,8 +1359,9 @@
     .onb-city-select {
       width: 100%; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
       border-radius: 12px; padding: 12px 14px; font-size: 14px; color: var(--text);
-      outline: none; margin-bottom: 18px; font-family: inherit;
+      outline: none; margin-bottom: 18px; font-family: inherit; color-scheme: dark;
     }
+    .onb-city-select option { background: #1a2742; color: #e2e8f0; }
     .onb-btn-primary {
       width: 100%; padding: 14px; background: var(--grad-primary); border: none;
       border-radius: 14px; font-size: 15px; font-weight: 700; color: #fff;
