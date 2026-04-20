@@ -1005,11 +1005,38 @@ function speakPhrase(text, bcp47) {
 }
 
 /* ===================== CURRENCY RATE ===================== */
+// Inline fallback so currency section works even if travel-apps.js is cached without CITY_CURRENCY
+const _CURRENCY_FALLBACK = {
+  nyc:'USD',miami:'USD',losangeles:'USD',lasvegas:'USD',hawaii:'USD',austin:'USD',
+  nashville:'USD',orlando:'USD',seattle:'USD',sandiego:'USD',washingtondc:'USD',
+  boston:'USD',denver:'USD',portland:'USD',atlanta:'USD',philadelphia:'USD',phoenix:'USD',
+  chicago:'USD',neworleans:'USD',sanfrancisco:'USD',
+  paris:'EUR',rome:'EUR',amsterdam:'EUR',lisbon:'EUR',barcelona:'EUR',
+  tokyo:'JPY',seoul:'KRW',bangkok:'THB',singapore:'SGD',bali:'IDR',
+  london:'GBP',sydney:'AUD',dubai:'AED',mexicocity:'MXN',
+};
+const _CURRENCY_NAMES = {
+  USD:{name:'US Dollar',symbol:'$'}, EUR:{name:'Euro',symbol:'€'},
+  JPY:{name:'Japanese Yen',symbol:'¥'}, KRW:{name:'South Korean Won',symbol:'₩'},
+  THB:{name:'Thai Baht',symbol:'฿'}, SGD:{name:'Singapore Dollar',symbol:'S$'},
+  IDR:{name:'Indonesian Rupiah',symbol:'Rp'}, GBP:{name:'British Pound',symbol:'£'},
+  AUD:{name:'Australian Dollar',symbol:'A$'}, AED:{name:'UAE Dirham',symbol:'د.إ'},
+  MXN:{name:'Mexican Peso',symbol:'$'}, HKD:{name:'Hong Kong Dollar',symbol:'HK$'},
+};
+
+function _getCurrencyData(cityId) {
+  if (typeof CITY_CURRENCY !== 'undefined' && CITY_CURRENCY[cityId]) return CITY_CURRENCY[cityId];
+  const code = _CURRENCY_FALLBACK[cityId];
+  if (!code) return null;
+  const meta = _CURRENCY_NAMES[code] || { name: code, symbol: code };
+  return { code, ...meta };
+}
+
 async function fetchCurrencyRate(cityId) {
   if (_currencyRateCache[cityId]) return _currencyRateCache[cityId];
-  const cur = (typeof CITY_CURRENCY !== 'undefined') ? CITY_CURRENCY[cityId] : null;
+  const cur = _getCurrencyData(cityId);
   if (!cur) return null;
-  if (cur.code === 'USD') { _currencyRateCache[cityId] = { usd: true, ...cur }; return _currencyRateCache[cityId]; }
+  if (cur.code === 'USD') { _currencyRateCache[cityId] = { usd: true, code: 'USD' }; return _currencyRateCache[cityId]; }
   try {
     const r = await fetch(`https://api.frankfurter.app/latest?from=USD&to=${cur.code}`);
     if (!r.ok) throw new Error('fetch failed');
@@ -1022,7 +1049,7 @@ async function fetchCurrencyRate(cityId) {
 }
 
 function renderCurrencySection(cityId) {
-  const cur = (typeof CITY_CURRENCY !== 'undefined') ? CITY_CURRENCY[cityId] : null;
+  const cur = _getCurrencyData(cityId);
   if (!cur) return '';
   const cn = encodeURIComponent((currentCity || {}).name || cityId);
   const exchangeUrl = `https://www.google.com/maps/search/currency+exchange+in+${cn}`;
