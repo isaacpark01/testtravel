@@ -1390,11 +1390,15 @@ function populateNewTripCities() {
 function openNewTripModal() {
   document.getElementById('new-trip-modal').classList.remove('hidden');
   document.getElementById('nt-error').textContent = '';
+  const zoom = document.querySelector('.leaflet-control-zoom');
+  if (zoom) zoom.style.visibility = 'hidden';
   setTimeout(() => document.getElementById('nt-name').focus(), 60);
 }
 
 function closeNewTripModal() {
   document.getElementById('new-trip-modal').classList.add('hidden');
+  const zoom = document.querySelector('.leaflet-control-zoom');
+  if (zoom) zoom.style.visibility = '';
   document.getElementById('nt-name').value   = '';
   document.getElementById('nt-city').value   = '';
   document.getElementById('nt-date').value   = '';
