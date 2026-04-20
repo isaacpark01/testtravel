@@ -193,7 +193,7 @@
     },
   };
 
-  function cur() { return localStorage.getItem('roamly_lang') || 'en'; }
+  function cur() { return localStorage.getItem('pinly_lang') || 'en'; }
   function t(key) { const d = TR[cur()] || TR.en; return d[key] ?? TR.en[key] ?? key; }
 
   function applyTranslations() {
@@ -226,7 +226,7 @@
   };
 
   window.homeLangSet = function(code) {
-    localStorage.setItem('roamly_lang', code);
+    localStorage.setItem('pinly_lang', code);
     document.getElementById('home-lang-menu').classList.remove('open');
     renderMenu();
     applyTranslations();

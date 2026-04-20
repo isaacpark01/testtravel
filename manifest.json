@@ -1,6 +1,6 @@
 {
-  "name": "Roamly",
-  "short_name": "Roamly",
+  "name": "Pinly",
+  "short_name": "Pinly",
   "description": "Plan Smarter. Travel Better.",
   "start_url": "/planner.html",
   "display": "standalone",
