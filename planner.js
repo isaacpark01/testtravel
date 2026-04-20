@@ -1302,6 +1302,14 @@ window.addEventListener('DOMContentLoaded', () => {
       document.getElementById('lang-picker-menu')?.classList.remove('open');
     }
   });
+
+  // Onboarding — show on first visit
+  if (!localStorage.getItem('roamly_onboarded')) {
+    setTimeout(showOnboarding, 400);
+  }
+
+  // Swipe gestures
+  _initSwipe();
 });
 
 // ── Trip management ───────────────────────────────────────────
@@ -3178,4 +3186,310 @@ function renderRewardsTab() {
 function toggleBlogCard(index) {
   const el = document.getElementById(`blog-expanded-${index}`);
   if (el) el.classList.toggle('open');
+}
+
+// ══════════════════════════════════════════════════════════════
+// ONBOARDING FLOW
+// ══════════════════════════════════════════════════════════════
+let _onbStep = 0;
+let _onbTemplate = null; // { name, days, type }
+
+function showOnboarding() {
+  const modal = document.getElementById('onboarding-modal');
+  if (!modal) return;
+  _onbStep = 0;
+  _onbTemplate = null;
+  // Populate city select
+  const sel = document.getElementById('onb-city-select');
+  if (sel && typeof CITIES !== 'undefined') {
+    sel.innerHTML = '<option value="">Choose a destination…</option>' +
+      CITIES.map(c => `<option value="${escHtml(c.id)}">${escHtml(c.name)}, ${escHtml(c.country)}</option>`).join('');
+  }
+  modal.classList.remove('hidden');
+  _onbUpdateSteps();
+}
+
+function onbNext() {
+  _onbStep = Math.min(2, _onbStep + 1);
+  _onbUpdateSteps();
+}
+
+function onbSelectTemplate(el, name, days, type) {
+  document.querySelectorAll('.onb-tpl').forEach(t => t.classList.remove('selected'));
+  el.classList.add('selected');
+  _onbTemplate = { name, days, type };
+  document.getElementById('onb-create-btn').disabled = false;
+}
+
+function onbCreateTrip() {
+  if (!_onbTemplate) return;
+  onbNext(); // go to destination step
+}
+
+function onbFinish() {
+  const cityId = document.getElementById('onb-city-select').value;
+  if (!cityId) { showToast('Pick a destination first!'); return; }
+  const city   = (typeof CITIES !== 'undefined') ? CITIES.find(c => c.id === cityId) : null;
+  const tpl    = _onbTemplate || { name: 'My Trip', days: 3, type: 'explorer' };
+  _createTripFromTemplate(tpl, cityId, city?.name || '');
+  onbDismiss();
+}
+
+function onbDismiss() {
+  document.getElementById('onboarding-modal')?.classList.add('hidden');
+  localStorage.setItem('roamly_onboarded', '1');
+}
+
+function _onbUpdateSteps() {
+  [0, 1, 2].forEach(i => {
+    document.getElementById(`onb-pane-${i}`)?.style && (document.getElementById(`onb-pane-${i}`).style.display = i === _onbStep ? '' : 'none');
+    document.getElementById(`onb-dot-${i}`)?.classList.toggle('active', i === _onbStep);
+  });
+}
+
+// ══════════════════════════════════════════════════════════════
+// TRIP TEMPLATES  (also accessible via New Trip modal)
+// ══════════════════════════════════════════════════════════════
+const TRIP_TEMPLATES = {
+  weekend:   { name: 'Weekend Getaway',  days: 2, focusType: 'mix',      emoji: '🏙' },
+  explorer:  { name: '1-Week Explorer',  days: 7, focusType: 'mix',      emoji: '🗺' },
+  foodie:    { name: 'Foodie Trip',      days: 4, focusType: 'food',     emoji: '🍜' },
+  adventure: { name: 'Adventure Week',   days: 7, focusType: 'activity', emoji: '🧗' },
+};
+
+function _createTripFromTemplate(tpl, cityId, cityName) {
+  if (!cityId) return;
+  const d    = getStore();
+  const city = (typeof CITIES !== 'undefined') ? CITIES.find(c => c.id === cityId) : null;
+  const numDays = tpl.days || 3;
+
+  const days = Array.from({ length: numDays }, (_, i) => {
+    const cards = [];
+    if (city) {
+      const acts = [...(city.activities || [])].filter(Boolean).sort((a, b) => (b.rating || 0) - (a.rating || 0));
+      const food = [...(city.food || [])].filter(Boolean).sort((a, b) => (b.rating || 0) - (a.rating || 0));
+      const pool = tpl.focusType === 'food'     ? [...food.slice(i*3, i*3+3), ...acts.slice(i, i+1)]
+                 : tpl.focusType === 'activity' ? [...acts.slice(i*3, i*3+3)]
+                 : [...acts.slice(i*2, i*2+2), food[i]].filter(Boolean);
+      pool.slice(0, 3).forEach(item => {
+        const type = city.food?.includes(item) ? 'food' : 'activity';
+        cards.push({ id: crypto.randomUUID(), name: item.name, type, price: item.price || 0, rating: item.rating || 0, photo: item.photo || null, cityId, cityName, fromSave: false });
+      });
+    }
+    return { id: crypto.randomUUID(), num: i + 1, cards };
+  });
+
+  const trip = {
+    id: crypto.randomUUID(),
+    name: `${tpl.name}${cityName ? ' — ' + cityName : ''}`,
+    cityId, cityName,
+    startDate: '', budget: 0, days, saves: [],
+  };
+  d.trips.unshift(trip);
+  d.activeTrip = trip.id;
+  currentTrip  = trip;
+  saveStore(d);
+  renderAll();
+  switchTab('itinerary');
+  showToast(`${tpl.emoji || '✨'} ${tpl.name} trip created!`);
+}
+
+// ══════════════════════════════════════════════════════════════
+// SHARE CARD  (Canvas PNG export)
+// ══════════════════════════════════════════════════════════════
+function openShareCard() {
+  if (!currentTrip) { showToast('Create a trip first!'); return; }
+  const modal = document.getElementById('share-card-modal');
+  if (!modal) return;
+  modal.classList.remove('hidden');
+  setTimeout(() => _drawShareCard(), 100);
+}
+
+function closeShareCard() {
+  document.getElementById('share-card-modal')?.classList.add('hidden');
+}
+
+function _drawShareCard() {
+  const canvas = document.getElementById('share-canvas');
+  if (!canvas) return;
+  const W = 375, H = 500;
+  canvas.width  = W * 2;
+  canvas.height = H * 2;
+  canvas.style.width  = W + 'px';
+  canvas.style.height = H + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(2, 2);
+
+  // Background
+  const bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, '#0b1120');
+  bg.addColorStop(1, '#0f1929');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // Gradient overlay stripe
+  const stripe = ctx.createLinearGradient(0, 0, W, 0);
+  stripe.addColorStop(0, 'rgba(13,148,136,.15)');
+  stripe.addColorStop(1, 'rgba(99,102,241,.15)');
+  ctx.fillStyle = stripe;
+  ctx.fillRect(0, 0, W, 140);
+
+  // City hero image (if available)
+  const city = (typeof CITIES !== 'undefined') ? CITIES.find(c => c.id === currentTrip.cityId) : null;
+  const heroImg = city?.image;
+
+  const drawContent = () => {
+    // Logo
+    ctx.font = 'bold 13px "Plus Jakarta Sans", sans-serif';
+    ctx.fillStyle = 'rgba(45,212,191,1)';
+    ctx.fillText('✈ Roamly', 24, 30);
+
+    // Trip name
+    ctx.font = 'bold 26px "Plus Jakarta Sans", sans-serif';
+    ctx.fillStyle = '#f0faf9';
+    ctx.fillText(_shareEllipsis(ctx, currentTrip.name || 'My Trip', W - 48, '26px'), 24, 80);
+
+    // City
+    if (currentTrip.cityName) {
+      ctx.font = '15px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = 'rgba(45,212,191,.8)';
+      ctx.fillText(`📍 ${currentTrip.cityName}`, 24, 106);
+    }
+
+    // Stats row
+    const stats = [
+      { icon: '📅', val: `${currentTrip.days?.length || 0}`, label: 'days' },
+      { icon: '📌', val: `${(currentTrip.days||[]).reduce((s,d)=>s+(d.cards?.length||0),0)}`, label: 'places' },
+      { icon: '💾', val: `${currentTrip.saves?.length || 0}`, label: 'saved' },
+    ];
+    const sy = 150;
+    stats.forEach((s, i) => {
+      const x = 24 + i * 110;
+      ctx.fillStyle = 'rgba(255,255,255,.06)';
+      _roundRect(ctx, x, sy, 100, 64, 12);
+      ctx.fill();
+      ctx.font = 'bold 22px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#f0faf9';
+      ctx.fillText(s.icon + ' ' + s.val, x + 10, sy + 30);
+      ctx.font = '11px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = 'rgba(240,250,249,.45)';
+      ctx.fillText(s.label, x + 14, sy + 50);
+    });
+
+    // Top spots
+    const allCards = (currentTrip.days || []).flatMap(d => d.cards || []).slice(0, 5);
+    if (allCards.length) {
+      ctx.font = 'bold 13px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = 'rgba(240,250,249,.5)';
+      ctx.fillText('TOP SPOTS', 24, 245);
+      allCards.forEach((c, i) => {
+        const y = 262 + i * 40;
+        ctx.fillStyle = 'rgba(255,255,255,.05)';
+        _roundRect(ctx, 24, y, W - 48, 32, 8);
+        ctx.fill();
+        ctx.font = '13px "Plus Jakarta Sans", sans-serif';
+        ctx.fillStyle = '#f0faf9';
+        ctx.fillText(`${c.type === 'food' ? '🍽' : '🎯'} ${_shareEllipsis(ctx, c.name, W - 96, '13px')}`, 36, y + 21);
+        if (c.rating) {
+          ctx.font = '11px sans-serif';
+          ctx.fillStyle = '#fbbf24';
+          ctx.fillText(`⭐ ${c.rating}`, W - 68, y + 21);
+        }
+      });
+    }
+
+    // Footer
+    ctx.font = '11px "Plus Jakarta Sans", sans-serif';
+    ctx.fillStyle = 'rgba(240,250,249,.25)';
+    ctx.fillText('Made with Roamly · roamly.app', 24, H - 16);
+  };
+
+  if (heroImg) {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      // draw hero strip
+      ctx.globalAlpha = 0.18;
+      ctx.drawImage(img, 0, 0, W, 140);
+      ctx.globalAlpha = 1;
+      drawContent();
+    };
+    img.onerror = drawContent;
+    img.src = heroImg + '&w=750&q=60';
+  } else {
+    drawContent();
+  }
+}
+
+function _roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+function _shareEllipsis(ctx, text, maxWidth, _font) {
+  if (ctx.measureText(text).width <= maxWidth) return text;
+  while (text.length > 3 && ctx.measureText(text + '…').width > maxWidth) text = text.slice(0, -1);
+  return text + '…';
+}
+
+async function _shareCardNative() {
+  const canvas = document.getElementById('share-canvas');
+  if (!canvas) return;
+  try {
+    canvas.toBlob(async blob => {
+      if (!blob) return;
+      const file = new File([blob], 'roamly-trip.png', { type: 'image/png' });
+      if (navigator.share && navigator.canShare({ files: [file] })) {
+        await navigator.share({ title: currentTrip?.name || 'My Trip', files: [file] });
+      } else {
+        downloadShareCard();
+      }
+    }, 'image/png');
+  } catch(e) { downloadShareCard(); }
+}
+
+function downloadShareCard() {
+  const canvas = document.getElementById('share-canvas');
+  if (!canvas) return;
+  const link = document.createElement('a');
+  link.download = `roamly-${(currentTrip?.name || 'trip').replace(/\s+/g,'_').toLowerCase()}.png`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+  showToast('Trip card saved 🎉');
+}
+
+// ══════════════════════════════════════════════════════════════
+// SWIPE GESTURES
+// ══════════════════════════════════════════════════════════════
+function _initSwipe() {
+  let touchStartX = 0, touchStartY = 0, touchStartTime = 0;
+  const TABS = ['itinerary', 'saves', 'discover', 'map', 'flights', 'rewards', 'group'];
+
+  document.addEventListener('touchstart', e => {
+    touchStartX    = e.touches[0].clientX;
+    touchStartY    = e.touches[0].clientY;
+    touchStartTime = Date.now();
+  }, { passive: true });
+
+  document.addEventListener('touchend', e => {
+    const dx   = e.changedTouches[0].clientX - touchStartX;
+    const dy   = e.changedTouches[0].clientY - touchStartY;
+    const dt   = Date.now() - touchStartTime;
+    // Only count fast, mostly-horizontal swipes not on interactive elements
+    if (dt > 350 || Math.abs(dx) < 60 || Math.abs(dy) > Math.abs(dx) * 0.7) return;
+    const tag = e.target.closest('input,textarea,select,[contenteditable],canvas,.ai-panel,.modal-overlay') ;
+    if (tag) return;
+    const idx    = TABS.indexOf(currentTab);
+    if (dx < 0 && idx < TABS.length - 1) switchTab(TABS[idx + 1]); // swipe left → next tab
+    if (dx > 0 && idx > 0)               switchTab(TABS[idx - 1]); // swipe right → prev tab
+  }, { passive: true });
 }

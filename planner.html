@@ -1226,6 +1226,213 @@
     .pin-popup-name { font-size: 13px; font-weight: 700; color: #f0faf9; }
     .pin-popup-day { font-size: 11px; color: #2dd4bf; margin-top: 3px; font-weight: 600; }
     .pin-popup-city { font-size: 11px; color: #64748b; margin-top: 1px; }
+
+    /* ── Share Card ───────────────────────────────────────────── */
+    .share-card-box {
+      background: #0f1929; border-radius: 22px; padding: 22px;
+      width: min(90vw, 430px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.7);
+      animation: fadeInUp .35s cubic-bezier(.22,.68,0,1.2);
+    }
+    .share-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+
+    /* ── Onboarding ───────────────────────────────────────────── */
+    .onb-card {
+      background: #0f1929; border-radius: 24px; padding: 32px 28px;
+      width: min(92vw, 420px); max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,.7);
+      animation: fadeInUp .4s cubic-bezier(.22,.68,0,1.2);
+    }
+    .onb-steps { display: flex; gap: 6px; justify-content: center; margin-bottom: 28px; }
+    .onb-step { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.15); transition: all .3s; }
+    .onb-step.active { width: 24px; border-radius: 4px; background: var(--teal); }
+    .onb-hero { font-size: 52px; text-align: center; margin-bottom: 16px; animation: floatIcon 3s ease-in-out infinite; }
+    .onb-title { font-size: 22px; font-weight: 800; color: var(--text); text-align: center; margin-bottom: 8px; line-height: 1.3; }
+    .onb-sub { font-size: 14px; color: var(--text-sub); text-align: center; line-height: 1.6; margin-bottom: 22px; }
+    .onb-features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .onb-feat {
+      display: flex; gap: 12px; align-items: center;
+      background: rgba(255,255,255,.05); border-radius: 12px; padding: 10px 14px;
+      font-size: 13.5px; color: var(--text);
+    }
+    .onb-feat > span:first-child { font-size: 18px; flex-shrink: 0; }
+    .onb-templates { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+    .onb-tpl {
+      background: rgba(255,255,255,.05); border: 1.5px solid rgba(255,255,255,.08);
+      border-radius: 14px; padding: 14px 12px; cursor: pointer; text-align: center;
+      transition: border-color .2s, background .2s;
+    }
+    .onb-tpl:hover { border-color: rgba(45,212,191,.3); background: rgba(45,212,191,.06); }
+    .onb-tpl.selected { border-color: var(--teal); background: rgba(45,212,191,.1); }
+    .onb-tpl-icon { font-size: 26px; margin-bottom: 7px; }
+    .onb-tpl-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .onb-tpl-desc { font-size: 11px; color: var(--text-sub); line-height: 1.4; }
+    .onb-city-select {
+      width: 100%; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+      border-radius: 12px; padding: 12px 14px; font-size: 14px; color: var(--text);
+      outline: none; margin-bottom: 18px; font-family: inherit;
+    }
+    .onb-btn-primary {
+      width: 100%; padding: 14px; background: var(--grad-primary); border: none;
+      border-radius: 14px; font-size: 15px; font-weight: 700; color: #fff;
+      cursor: pointer; margin-bottom: 10px; transition: opacity .15s;
+    }
+    .onb-btn-primary:disabled { opacity: .4; cursor: not-allowed; }
+    .onb-btn-skip {
+      width: 100%; padding: 10px; background: transparent; border: none;
+      font-size: 13px; color: var(--text-dim); cursor: pointer;
+      transition: color .15s;
+    }
+    .onb-btn-skip:hover { color: var(--text-sub); }
+
+    /* ── AI Assistant ─────────────────────────────────────────── */
+    .ai-fab {
+      position: fixed; bottom: 24px; right: 20px; z-index: 900;
+      width: 54px; height: 54px; border-radius: 50%;
+      background: var(--grad-primary); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; box-shadow: 0 4px 20px rgba(13,148,136,.45);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .ai-fab:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(13,148,136,.6); }
+    .ai-panel {
+      position: fixed; bottom: 0; right: 0; left: 0; z-index: 950;
+      height: 0; max-height: 88vh; overflow: hidden;
+      background: #0f1929; border-top: 1px solid rgba(45,212,191,.18);
+      border-radius: 22px 22px 0 0;
+      display: flex; flex-direction: column;
+      transition: height .35s cubic-bezier(.22,.68,0,1.2);
+      box-shadow: 0 -8px 40px rgba(0,0,0,.55);
+    }
+    .ai-panel.open { height: 82vh; }
+    .ai-header {
+      display: flex; align-items: center; gap: 10px; padding: 16px 18px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.05); flex-shrink: 0;
+    }
+    .ai-avatar {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--grad-primary);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .ai-header-info { flex: 1; }
+    .ai-header-title { font-size: 15px; font-weight: 700; color: var(--text); }
+    .ai-header-sub { font-size: 11px; color: var(--text-sub); margin-top: 1px; }
+    .ai-header-actions { display: flex; gap: 6px; }
+    .ai-icon-btn {
+      background: rgba(255,255,255,.07); border: none; border-radius: 8px;
+      color: var(--text-sub); cursor: pointer; padding: 6px 9px; font-size: 14px;
+      transition: background .15s;
+    }
+    .ai-icon-btn:hover { background: rgba(255,255,255,.13); }
+    .ai-feed {
+      flex: 1; overflow-y: auto; padding: 14px 16px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .ai-msg { display: flex; }
+    .ai-msg-user { justify-content: flex-end; }
+    .ai-msg-assistant, .ai-msg-cards { justify-content: flex-start; }
+    .ai-bubble {
+      max-width: 82%; padding: 10px 14px; border-radius: 16px;
+      font-size: 13.5px; line-height: 1.6;
+    }
+    .ai-msg-user .ai-bubble {
+      background: var(--grad-primary); color: #fff; border-bottom-right-radius: 4px;
+    }
+    .ai-msg-assistant .ai-bubble {
+      background: rgba(255,255,255,.07); color: var(--text); border-bottom-left-radius: 4px;
+    }
+    .ai-typing-bubble { display: flex; gap: 5px; align-items: center; padding: 12px 16px; }
+    .ai-typing-bubble span {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--teal);
+      animation: aiDot .9s infinite;
+    }
+    .ai-typing-bubble span:nth-child(2) { animation-delay: .15s; }
+    .ai-typing-bubble span:nth-child(3) { animation-delay: .3s; }
+    @keyframes aiDot { 0%,60%,100% { transform: translateY(0); opacity:.5; } 30% { transform: translateY(-5px); opacity:1; } }
+    .ai-spot-cards { display: flex; flex-direction: column; gap: 7px; width: 100%; }
+    .ai-spot-card {
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 12px; padding: 10px 13px; cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+    .ai-spot-card:hover { border-color: var(--teal); background: rgba(45,212,191,.07); }
+    .ai-spot-name { font-size: 13px; font-weight: 700; color: var(--text); }
+    .ai-spot-meta { font-size: 11px; color: var(--text-sub); margin-top: 2px; }
+    .ai-spot-add { font-size: 11px; color: var(--teal); margin-top: 4px; font-weight: 600; }
+    .ai-itin-preview {
+      background: rgba(45,212,191,.06); border: 1px solid rgba(45,212,191,.18);
+      border-radius: 14px; padding: 12px 14px; width: 100%;
+    }
+    .ai-itin-day { display: flex; gap: 8px; margin-bottom: 8px; font-size: 12.5px; }
+    .ai-itin-day-label { color: var(--teal); font-weight: 700; flex-shrink: 0; }
+    .ai-itin-places { color: var(--text-sub); }
+    .ai-itin-apply {
+      width: 100%; margin-top: 8px; padding: 9px;
+      background: var(--grad-primary); border: none; border-radius: 10px;
+      color: #fff; font-size: 13px; font-weight: 700; cursor: pointer;
+    }
+    .ai-city-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+    .ai-city-chip {
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+      border-radius: 20px; padding: 6px 14px; font-size: 12.5px;
+      color: var(--text); cursor: pointer; font-weight: 600;
+      transition: border-color .15s, background .15s;
+    }
+    .ai-city-chip:hover { border-color: var(--teal); background: rgba(45,212,191,.1); }
+    .ai-input-row {
+      display: flex; gap: 8px; padding: 12px 14px;
+      border-top: 1px solid rgba(255,255,255,.05); flex-shrink: 0;
+    }
+    .ai-input {
+      flex: 1; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 12px; padding: 10px 14px; font-size: 14px;
+      color: var(--text); outline: none; resize: none; height: 44px;
+      font-family: inherit; transition: border-color .15s;
+    }
+    .ai-input:focus { border-color: rgba(45,212,191,.4); }
+    .ai-input::placeholder { color: var(--text-dim); }
+    .ai-send-btn {
+      width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+      background: var(--grad-primary); border: none; cursor: pointer;
+      color: #fff; font-size: 18px; display: flex; align-items: center; justify-content: center;
+      transition: opacity .15s;
+    }
+    .ai-send-btn:disabled { opacity: .4; }
+    .ai-settings {
+      max-height: 0; overflow: hidden; transition: max-height .3s ease;
+      border-top: 1px solid transparent;
+      background: rgba(255,255,255,.04);
+    }
+    .ai-settings.open {
+      max-height: 200px;
+      border-top-color: rgba(255,255,255,.06);
+    }
+    .ai-settings-inner { padding: 14px 16px; }
+    .ai-settings-label { font-size: 11px; color: var(--text-sub); margin-bottom: 6px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+    .ai-key-row { display: flex; gap: 8px; }
+    .ai-key-input {
+      flex: 1; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px; padding: 9px 12px; font-size: 13px; color: var(--text);
+      outline: none; font-family: monospace; transition: border-color .15s;
+    }
+    .ai-key-input:focus { border-color: rgba(45,212,191,.4); }
+    .ai-key-save {
+      background: var(--grad-primary); border: none; border-radius: 10px;
+      padding: 9px 16px; font-size: 13px; font-weight: 700; color: #fff; cursor: pointer;
+    }
+    .ai-settings-hint { font-size: 11px; color: var(--text-dim); margin-top: 7px; }
+    .ai-mode-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: rgba(45,212,191,.12); border: 1px solid rgba(45,212,191,.2);
+      border-radius: 20px; padding: 2px 10px; font-size: 11px;
+      color: var(--teal); font-weight: 600; flex-shrink: 0;
+    }
+    @media (min-width: 600px) {
+      .ai-panel { left: auto; width: 400px; bottom: 0; border-radius: 22px 22px 0 0; }
+      .ai-fab   { bottom: 28px; right: 28px; }
+    }
+
   </style>
 </head>
 <body>
@@ -1244,6 +1451,7 @@
       <div class="trips-dropdown-menu" id="trips-dropdown-menu"></div>
     </div>
     <button class="btn-primary" id="btn-new-trip" data-i18n="newTrip" onclick="openNewTripModal()">+ New Trip</button>
+    <button class="btn-ghost" onclick="openShareCard()" title="Share trip card">📲 Share</button>
     <button class="btn-ghost" onclick="exportItinerary()" title="Export / Print itinerary">📤 Export</button>
     <a href="index.html" class="btn-ghost" id="btn-explore" data-i18n="explore">← Explore</a>
     <div class="lang-picker-wrap" id="lang-picker-wrap">
@@ -1590,6 +1798,71 @@
   </div>
 </div>
 
+<!-- ── Onboarding Modal ───────────────────────────────────── -->
+<div id="onboarding-modal" class="modal-overlay hidden">
+  <div class="onb-card">
+    <!-- Step indicators -->
+    <div class="onb-steps">
+      <div class="onb-step active" id="onb-dot-0"></div>
+      <div class="onb-step" id="onb-dot-1"></div>
+      <div class="onb-step" id="onb-dot-2"></div>
+    </div>
+
+    <!-- Step 0: Welcome -->
+    <div class="onb-pane" id="onb-pane-0">
+      <div class="onb-hero">🌍</div>
+      <div class="onb-title">Plan trips that actually happen</div>
+      <div class="onb-sub">Roamly helps you discover, plan, and organize every detail of your next adventure — all in one place.</div>
+      <div class="onb-features">
+        <div class="onb-feat"><span>📅</span><span>Day-by-day itinerary builder</span></div>
+        <div class="onb-feat"><span>🔍</span><span>Discover hidden gems &amp; top spots</span></div>
+        <div class="onb-feat"><span>✨</span><span>AI assistant to plan for you</span></div>
+        <div class="onb-feat"><span>👥</span><span>Group trip planning + collab boards</span></div>
+      </div>
+      <button class="onb-btn-primary" onclick="onbNext()">Let's go →</button>
+    </div>
+
+    <!-- Step 1: Pick a template -->
+    <div class="onb-pane" id="onb-pane-1" style="display:none">
+      <div class="onb-title" style="font-size:20px">Start with a template</div>
+      <div class="onb-sub">Pick a style — we'll set up your first trip in seconds.</div>
+      <div class="onb-templates">
+        <div class="onb-tpl" onclick="onbSelectTemplate(this,'Weekend Getaway',2,'weekend')" data-tpl="weekend">
+          <div class="onb-tpl-icon">🏙</div>
+          <div class="onb-tpl-name">Weekend Getaway</div>
+          <div class="onb-tpl-desc">2-day city escape, top spots only</div>
+        </div>
+        <div class="onb-tpl" onclick="onbSelectTemplate(this,'1-Week Explorer',7,'explorer')" data-tpl="explorer">
+          <div class="onb-tpl-icon">🗺</div>
+          <div class="onb-tpl-name">1-Week Explorer</div>
+          <div class="onb-tpl-desc">7 days, mix of culture &amp; food</div>
+        </div>
+        <div class="onb-tpl" onclick="onbSelectTemplate(this,'Foodie Trip',4,'foodie')" data-tpl="foodie">
+          <div class="onb-tpl-icon">🍜</div>
+          <div class="onb-tpl-name">Foodie Trip</div>
+          <div class="onb-tpl-desc">4 days, restaurant-first itinerary</div>
+        </div>
+        <div class="onb-tpl" onclick="onbSelectTemplate(this,'Adventure Week',7,'adventure')" data-tpl="adventure">
+          <div class="onb-tpl-icon">🧗</div>
+          <div class="onb-tpl-name">Adventure Week</div>
+          <div class="onb-tpl-desc">7 days of outdoor &amp; active experiences</div>
+        </div>
+      </div>
+      <button class="onb-btn-primary" id="onb-create-btn" onclick="onbCreateTrip()" disabled>Create my trip →</button>
+      <button class="onb-btn-skip" onclick="onbNext()">I'll set it up manually</button>
+    </div>
+
+    <!-- Step 2: Destination pick -->
+    <div class="onb-pane" id="onb-pane-2" style="display:none">
+      <div class="onb-title">Where are you headed?</div>
+      <div class="onb-sub">Choose a destination and we'll build your trip.</div>
+      <select id="onb-city-select" class="onb-city-select"></select>
+      <button class="onb-btn-primary" id="onb-finish-btn" onclick="onbFinish()">Start planning ✨</button>
+      <button class="onb-btn-skip" onclick="onbDismiss()">Skip for now</button>
+    </div>
+  </div>
+</div>
+
 <!-- New Trip Modal -->
 <div id="new-trip-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeNewTripModal()">
   <div class="modal-box">
@@ -1714,6 +1987,62 @@
   </div>
 </div>
 
+<!-- ── Share Card Modal ──────────────────────────────────── -->
+<div id="share-card-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeShareCard()">
+  <div class="share-card-box">
+    <div class="share-card-header">
+      <span style="font-weight:800;font-size:16px">Share your trip ✈️</span>
+      <button class="ai-icon-btn" onclick="closeShareCard()">✕</button>
+    </div>
+    <canvas id="share-canvas" style="display:block;width:100%;border-radius:14px;margin:0 auto;max-width:375px"></canvas>
+    <div style="display:flex;gap:10px;margin-top:14px">
+      <button class="onb-btn-primary" style="margin:0;flex:1" onclick="downloadShareCard()">⬇ Save as PNG</button>
+      <button class="onb-btn-primary" style="margin:0;flex:1;background:rgba(255,255,255,.08);color:var(--text)" onclick="_shareCardNative()">↗ Share</button>
+    </div>
+    <div style="font-size:11px;color:var(--text-dim);text-align:center;margin-top:8px">Your trip card — share it anywhere 🌍</div>
+  </div>
+</div>
+
+<!-- ── AI Travel Assistant ────────────────────────────────── -->
+<button id="ai-fab" class="ai-fab" onclick="toggleAI()" title="AI Travel Assistant">🤖</button>
+
+<div id="ai-panel" class="ai-panel">
+  <!-- Header -->
+  <div class="ai-header">
+    <div class="ai-avatar">✨</div>
+    <div class="ai-header-info">
+      <div class="ai-header-title">AI Travel Assistant</div>
+      <div class="ai-header-sub" id="ai-mode-text">Smart mode · no key needed</div>
+    </div>
+    <div class="ai-header-actions">
+      <span class="ai-mode-badge" id="ai-mode-badge">🧠 Smart</span>
+      <button class="ai-icon-btn" onclick="openAISettings()" title="Settings">⚙️</button>
+      <button class="ai-icon-btn" onclick="closeAI()" title="Close">✕</button>
+    </div>
+  </div>
+
+  <!-- Settings (collapsible) -->
+  <div class="ai-settings" id="ai-settings">
+    <div class="ai-settings-inner">
+      <div class="ai-settings-label">Groq API Key (optional — enables full AI)</div>
+      <div class="ai-key-row">
+        <input id="ai-key-input" class="ai-key-input" type="password" placeholder="gsk_••••••••••••••••••••••" autocomplete="off" />
+        <button class="ai-key-save" onclick="saveAIKey()">Save</button>
+      </div>
+      <div class="ai-settings-hint">Free key at <strong>console.groq.com</strong> · stored locally, never sent to our servers · <a href="#" onclick="clearAIChat();return false" style="color:var(--teal)">Clear chat</a></div>
+    </div>
+  </div>
+
+  <!-- Message feed -->
+  <div id="ai-feed" class="ai-feed"></div>
+
+  <!-- Input row -->
+  <div class="ai-input-row">
+    <textarea id="ai-input" class="ai-input" placeholder="Ask me anything — find spots, build an itinerary…" rows="1" onkeydown="aiInputKeydown(event)"></textarea>
+    <button class="ai-send-btn" onclick="aiSend()" id="ai-send-btn">↑</button>
+  </div>
+</div>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -1722,5 +2051,6 @@
 <script src="travel-apps.js"></script>
 <script src="planner.js"></script>
 <script src="group.js"></script>
+<script src="ai.js"></script>
 </body>
 </html>
