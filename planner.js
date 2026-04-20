@@ -1804,6 +1804,7 @@ function addDay() {
   saveStore(d);
   renderDatePills();
   renderItinCards();
+  renderBudgetRecs();
   requestAnimationFrame(() => {
     const r = document.getElementById('date-pills-row');
     if (r) r.scrollLeft = r.scrollWidth;
@@ -1822,6 +1823,7 @@ function removeDay(dayId) {
   saveStore(d);
   renderDatePills();
   renderItinCards();
+  renderBudgetRecs();
   updateMapPins();
 }
 
