@@ -1059,7 +1059,7 @@ function renderCurrencySection(cityId) {
 function renderEssentialsTab() {
   if (!currentCity) return;
   const lang = CITY_LANGUAGES[currentCity.id];
-  let html = '';
+  let html = renderCurrencySection(currentCity.id);
   if (lang) html += `
     <div class="essentials-section">
       <div class="essentials-lang-header">
@@ -1115,8 +1115,6 @@ function renderEssentialsTab() {
       <div class="essentials-tip-box">${escHtml(tg.tip)}</div>
     </div>`;
   }
-
-  html += renderCurrencySection(currentCity.id);
 
   html += `
     <div class="essentials-section">
