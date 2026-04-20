@@ -1,4 +1,4 @@
-# PinTrip / Roamly — Claude Context
+# PinTrip / Pinly — Claude Context
 
 Travel itinerary PWA. Vanilla HTML/CSS/JS, no build step. Two surfaces: `index.html` (explore cities) and `planner.html` (plan a trip).
 
@@ -131,7 +131,7 @@ Used only for: group boards (index.html) and admin (admin.html). Credentials in 
 
 ## Known Gotchas
 
-- `planner.js` localStorage key is `roamly_v2` — wiping this resets all trips
+- `planner.js` localStorage key is `pinly_v2` — wiping this resets all trips
 - `supabaseClient` (not `supabase`) — the CDN declares `var supabase` globally; using that name causes a SyntaxError in strict mode
 - Photo fallback chain: `item.photo` → `getSpotPhoto(name)` → city hero image
 - `data.js` also contains `REWARDS_CARDS`, `CITY_REWARDS_TIPS`, `REWARDS_BLOG`, `REWARDS_CHECKLIST` after the city array
