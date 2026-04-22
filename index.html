@@ -490,7 +490,7 @@
     <h3 data-i18n="dealsBudget">💰 Trip Budget Estimator</h3>
     <div class="deal-form">
       <div class="idea-form-row">
-        <div class="form-field">
+        <div class="form-field" style="flex:1 1 180px;min-width:160px;max-width:320px">
           <label>Destination</label>
           <div class="est-city-wrap" style="flex:none;width:100%">
             <input id="est-city-input" type="text" placeholder="Search a city…" autocomplete="off"
@@ -501,7 +501,7 @@
             <div class="est-city-dropdown" id="est-city-dropdown" style="display:none"></div>
           </div>
         </div>
-        <div class="form-field" style="min-width:150px;flex:0 1 150px">
+        <div class="form-field" style="flex:1 1 140px;min-width:130px;max-width:200px">
           <label>Travel Style</label>
           <select id="est-style">
             <option value="budget">Budget traveler</option>
@@ -513,7 +513,7 @@
           <label>Days</label>
           <input id="est-days" type="number" min="1" max="30" value="7" />
         </div>
-        <div class="form-field" style="flex:0 0 auto;justify-content:flex-end">
+        <div class="form-field" style="flex:0 0 auto">
           <label style="visibility:hidden">Go</label>
           <button class="auth-btn-solid" onclick="estimateBudget()">Estimate</button>
         </div>
