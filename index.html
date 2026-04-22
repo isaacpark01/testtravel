@@ -8,28 +8,28 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>Pinly — Plan Your Next Adventure</title>
+  <title>Dropped — Plan Your Next Adventure</title>
   <meta name="description" content="Discover destinations, build day-by-day itineraries, and plan trips with friends — all in one place. Free travel planner with 50+ destinations." />
-  <link rel="canonical" href="https://pinly.app/" />
+  <link rel="canonical" href="https://dropped.app/" />
   <!-- Open Graph -->
   <meta property="og:type"        content="website" />
-  <meta property="og:url"         content="https://pinly.app/" />
-  <meta property="og:title"       content="Pinly — Plan Your Next Adventure" />
+  <meta property="og:url"         content="https://dropped.app/" />
+  <meta property="og:title"       content="Dropped — Plan Your Next Adventure" />
   <meta property="og:description" content="Discover destinations, build day-by-day itineraries, and plan group trips — all in one place. Free forever." />
-  <meta property="og:image"       content="https://pinly.app/og-image.jpg" />
-  <meta property="og:site_name"   content="Pinly" />
+  <meta property="og:image"       content="https://dropped.app/og-image.jpg" />
+  <meta property="og:site_name"   content="Dropped" />
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Pinly — Plan Your Next Adventure" />
+  <meta name="twitter:title"       content="Dropped — Plan Your Next Adventure" />
   <meta name="twitter:description" content="Discover destinations, build itineraries, compare flights and hotels — free travel planner." />
-  <meta name="twitter:image"       content="https://pinly.app/og-image.jpg" />
+  <meta name="twitter:image"       content="https://dropped.app/og-image.jpg" />
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Pinly",
-    "url": "https://pinly.app",
+    "name": "Dropped",
+    "url": "https://dropped.app",
     "description": "Discover destinations, build day-by-day itineraries, and plan trips with friends.",
     "applicationCategory": "TravelApplication",
     "operatingSystem": "Web",
@@ -41,15 +41,42 @@
   <link rel="manifest" href="manifest.json" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    @font-face {
+      font-family: 'Geist';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Regular.woff2') format('woff2');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Medium.woff2') format('woff2');
+      font-weight: 500; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-SemiBold.woff2') format('woff2');
+      font-weight: 600; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Bold.woff2') format('woff2');
+      font-weight: 700; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist';
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Black.woff2') format('woff2');
+      font-weight: 800; font-style: normal; font-display: swap;
+    }
+  </style>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
 <!-- ══ WIP BANNER ══════════════════════════════════════════════ -->
-<div id="wip-banner" style="background:#0f766e;color:#fff;text-align:center;padding:10px 16px;font-size:13px;font-family:Inter,sans-serif;display:flex;align-items:center;justify-content:center;gap:10px;position:relative;z-index:9999;">
+<div id="wip-banner" style="background:#0d2228;color:#fff;text-align:center;padding:10px 16px;font-size:13px;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px;position:relative;z-index:9999;border-bottom:1px solid rgba(82,206,206,.2);">
   <span>🚧</span>
-  <span>We're actively building Pinly — new features and improvements are dropping regularly. Thanks for your patience!</span>
+  <span>We're actively building Dropped — new features and improvements are dropping regularly. Thanks for your patience!</span>
   <button onclick="document.getElementById('wip-banner').style.display='none'" style="background:none;border:1px solid rgba(255,255,255,0.4);color:#fff;border-radius:4px;padding:2px 8px;cursor:pointer;font-size:12px;margin-left:8px;">Dismiss</button>
 </div>
 
@@ -246,7 +273,21 @@
 <!-- ══ HEADER ═══════════════════════════════════════════════════ -->
 <header class="site-header">
   <div class="header-inner">
-    <div class="logo">🌍 Pinly</div>
+    <div class="logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:6px">
+        <defs>
+          <linearGradient id="pinGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#52cece"/>
+            <stop offset="100%" stop-color="#2a9ab8"/>
+          </linearGradient>
+        </defs>
+        <!-- Pin body -->
+        <path d="M16 2C11.03 2 7 6.03 7 11c0 7 9 19 9 19s9-12 9-19c0-4.97-4.03-9-9-9z" fill="url(#pinGrad)"/>
+        <!-- Pin inner dot -->
+        <circle cx="16" cy="11" r="3.5" fill="#060d10"/>
+      </svg>
+      <span class="logo-text">dropped</span>
+    </div>
     <nav class="header-nav">
       <a href="#cities" data-i18n="navExplore" onclick="scrollToCities()">Explore</a>
       <a href="planner.html" data-i18n="navPlanner">Planner</a>
@@ -269,16 +310,17 @@
 
 <!-- ══ HERO ═════════════════════════════════════════════════════ -->
 <section class="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg" id="hero-bg-a"></div>
+  <div class="hero-bg hero-bg-b" id="hero-bg-b"></div>
   <div class="hero-content">
     <div class="hero-left">
-      <div class="hero-eyebrow" data-i18n="heroEyebrow">Plan Smarter. Travel Better.</div>
+      <div class="hero-eyebrow" data-i18n="heroEyebrow">Your World. Your Rules. Your Trip.</div>
       <h1 class="hero-title">
-        <span data-i18n="heroTitle1">Where will you</span><br>
-        <span class="teal-text" data-i18n="heroTitle2">go next?</span>
+        <span data-i18n="heroTitle1">Stop dreaming.</span><br>
+        <span class="teal-text" data-i18n="heroTitle2">Start going.</span>
       </h1>
       <p class="hero-sub" data-i18n="heroSub">
-        Discover destinations, build day-by-day itineraries, and plan trips with friends — all in one place.
+        Handpicked destinations. Effortless itineraries. Your crew, in sync — all in one place.
       </p>
       <div class="hero-cta-row">
         <button class="btn-book" data-i18n="heroCTA1" onclick="scrollToCities()">
@@ -292,29 +334,6 @@
         <input id="city-search" type="text" data-i18n-placeholder="heroSearch" placeholder="Search a destination…" autocomplete="off" onkeydown="if(event.key==='Enter')searchCity()" />
         <button data-i18n="heroSearchBtn" onclick="searchCity()">Search</button>
         <div id="search-suggestions" class="search-suggestions hidden" style="position:absolute;top:100%;left:0;right:0;z-index:200"></div>
-      </div>
-    </div>
-    <div class="hero-cards">
-      <div class="hero-card">
-        <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=400&q=80" alt="New York City" width="210" height="120" loading="lazy" />
-        <div class="hero-card-info">
-          <div class="hero-card-name">New York City</div>
-          <div class="hero-card-sub">⭐ 4.9 · Most Popular</div>
-        </div>
-      </div>
-      <div class="hero-card">
-        <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&q=80" alt="Tokyo" width="210" height="120" loading="lazy" />
-        <div class="hero-card-info">
-          <div class="hero-card-name">Tokyo, Japan</div>
-          <div class="hero-card-sub">⭐ 4.9 · Trending</div>
-        </div>
-      </div>
-      <div class="hero-card">
-        <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&q=80" alt="Paris" width="210" height="120" loading="lazy" />
-        <div class="hero-card-info">
-          <div class="hero-card-name">Paris, France</div>
-          <div class="hero-card-sub">⭐ 4.8 · Most Saved</div>
-        </div>
       </div>
     </div>
   </div>
@@ -346,8 +365,8 @@
 <!-- ══ HOW IT WORKS ══════════════════════════════════════════════ -->
 <section class="how-section">
   <div class="section-header reveal">
-    <h2>Plan any trip in three steps</h2>
-    <p>From inspiration to itinerary — Pinly does the heavy lifting</p>
+    <h2>Go from "where to?" to "let's go!" in four steps</h2>
+    <p>From inspiration to itinerary — Dropped does the heavy lifting</p>
   </div>
   <div class="how-grid">
     <div class="how-card reveal" data-step="1">
@@ -365,6 +384,11 @@
       <div class="how-title">Book</div>
       <p class="how-desc">Compare flights across Google Flights, Kayak, Skyscanner, and Expedia with one click. Search rental cars and estimate your full trip budget before you commit.</p>
     </div>
+    <div class="how-card reveal reveal-delay-3" data-step="4">
+      <span class="how-icon">🗳️</span>
+      <div class="how-title">Share &amp; Vote</div>
+      <p class="how-desc">Drop the link, let the chaos begin. Share your itinerary with the whole squad, have everyone vote on what's in, and co-create the trip of a lifetime — together.</p>
+    </div>
   </div>
 </section>
 
@@ -372,14 +396,18 @@
 <section id="cities" class="section cities-section">
   <div class="section-header reveal">
     <h2 data-i18n="citiesTitle">Explore Destinations</h2>
-    <p data-i18n="citiesSub">Tap any city to browse activities, food, transport and deals</p>
+    <p data-i18n="citiesSub">50+ cities. Infinite memories. Your next chapter starts here.</p>
   </div>
   <div class="region-filter">
     <button class="region-btn active" data-i18n="regionAll" onclick="filterRegion('all',this)">🌍 All</button>
-    <button class="region-btn" data-i18n="regionUSA" onclick="filterRegion('USA',this)">🇺🇸 USA</button>
+    <button class="region-btn" data-i18n="regionUSA" onclick="filterRegion('USA',this)">USA</button>
     <button class="region-btn" data-i18n="regionIntl" onclick="filterRegion('International',this)">✈ International</button>
   </div>
-  <div id="city-grid" class="city-grid"></div>
+  <div class="city-carousel-wrap">
+    <button class="carousel-btn carousel-btn-left" onclick="scrollCityCarousel(-1)" aria-label="Scroll left">&#8592;</button>
+    <div id="city-grid" class="city-grid"></div>
+    <button class="carousel-btn carousel-btn-right" onclick="scrollCityCarousel(1)" aria-label="Scroll right">&#8594;</button>
+  </div>
 </section>
 
 <!-- ══ DEALS ═════════════════════════════════════════════════════ -->
@@ -459,7 +487,19 @@
     <div class="footer-top">
       <!-- Brand -->
       <div>
-        <div class="footer-brand-logo">🌍 Pinly</div>
+        <div class="footer-brand-logo">
+          <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:6px">
+            <defs>
+              <linearGradient id="pinGrad2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#52cece"/>
+                <stop offset="100%" stop-color="#2a9ab8"/>
+              </linearGradient>
+            </defs>
+            <path d="M16 2C11.03 2 7 6.03 7 11c0 7 9 19 9 19s9-12 9-19c0-4.97-4.03-9-9-9z" fill="url(#pinGrad2)"/>
+            <circle cx="16" cy="11" r="3.5" fill="#060d10"/>
+          </svg>
+          <span>dropped</span>
+        </div>
         <p class="footer-brand-tagline">Discover destinations, build day-by-day itineraries, and plan trips with friends — all in one place. Free forever.</p>
         <div class="footer-socials">
           <a class="footer-social-btn" href="#" aria-label="Twitter / X" title="Twitter">𝕏</a>
@@ -481,15 +521,15 @@
         <h4>Legal</h4>
         <a href="/privacy.html">Privacy Policy</a>
         <a href="/terms.html">Terms of Service</a>
-        <a href="mailto:support@pinly.app">Contact Support</a>
+        <a href="mailto:support@dropped.app">Contact Support</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2026 Pinly. All rights reserved. Travel information is for guidance only — always verify with official sources.</p>
+      <p class="footer-copy">© 2026 Dropped. All rights reserved. Travel information is for guidance only — always verify with official sources.</p>
       <div class="footer-legal-links">
         <a href="/privacy.html">Privacy</a>
         <a href="/terms.html">Terms</a>
-        <a href="mailto:support@pinly.app">Contact</a>
+        <a href="mailto:support@dropped.app">Contact</a>
       </div>
     </div>
   </div>
@@ -527,7 +567,7 @@
 <script>
 /* ── Cookie consent ── */
 (function() {
-  var COOKIE_KEY = 'pinly_cookies';
+  var COOKIE_KEY = 'dropped_cookies';
   var banner = document.getElementById('cookie-banner');
   if (!banner) return;
   if (localStorage.getItem(COOKIE_KEY) !== null) return; // already decided

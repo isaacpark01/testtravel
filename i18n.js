@@ -18,13 +18,13 @@
     en: {
       navExplore:'Explore', navPlanner:'Planner', navDeals:'Deals',
       navLogin:'Log In', navSignup:'Sign Up',
-      heroEyebrow:'Plan Smarter. Travel Better.',
-      heroTitle1:'Where will you', heroTitle2:'go next?',
-      heroSub:'Discover destinations, build day-by-day itineraries, and plan trips with friends — all in one place.',
+      heroEyebrow:'Your World. Your Rules. Your Trip.',
+      heroTitle1:'Stop dreaming.', heroTitle2:'Start going.',
+      heroSub:'Handpicked destinations. Effortless itineraries. Your crew, in sync — all in one place.',
       heroCTA1:'Explore Destinations →', heroCTA2:'Open Planner',
       heroSearch:'Search a destination…', heroSearchBtn:'Search',
-      citiesTitle:'Explore Destinations', citiesSub:'Tap any city to browse activities, food, transport and deals',
-      regionAll:'🌍 All', regionUSA:'🇺🇸 USA', regionIntl:'✈ International',
+      citiesTitle:'Explore Destinations', citiesSub:'50+ cities. Infinite memories. Your next chapter starts here.',
+      regionAll:'🌍 All', regionUSA:'USA', regionIntl:'✈ International',
       groupTitle:'Group Trip Board', groupSub:'Vote on ideas with your travel crew in real time',
       modeSolo:'🗓 Solo Planner', modeGroup:'👥 Group Board',
       emptyTrip:'Create a trip to start planning your days', btnNewTrip:'+ New Trip',
@@ -193,7 +193,7 @@
     },
   };
 
-  function cur() { return localStorage.getItem('pinly_lang') || 'en'; }
+  function cur() { return localStorage.getItem('dropped_lang') || 'en'; }
   function t(key) { const d = TR[cur()] || TR.en; return d[key] ?? TR.en[key] ?? key; }
 
   function applyTranslations() {
@@ -226,7 +226,7 @@
   };
 
   window.homeLangSet = function(code) {
-    localStorage.setItem('pinly_lang', code);
+    localStorage.setItem('dropped_lang', code);
     document.getElementById('home-lang-menu').classList.remove('open');
     renderMenu();
     applyTranslations();
