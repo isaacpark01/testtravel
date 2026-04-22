@@ -1,17 +1,17 @@
 /* ── Home page i18n ── */
 (function() {
   const LANGS = [
-    { code:'en', native:'English',    flag:'🇺🇸', rtl:false },
-    { code:'es', native:'Español',    flag:'🇪🇸', rtl:false },
-    { code:'fr', native:'Français',   flag:'🇫🇷', rtl:false },
-    { code:'ja', native:'日本語',      flag:'🇯🇵', rtl:false },
-    { code:'ko', native:'한국어',      flag:'🇰🇷', rtl:false },
-    { code:'zh', native:'中文',        flag:'🇨🇳', rtl:false },
-    { code:'pt', native:'Português',  flag:'🇧🇷', rtl:false },
-    { code:'ar', native:'العربية',    flag:'🇸🇦', rtl:true  },
-    { code:'hi', native:'हिन्दी',     flag:'🇮🇳', rtl:false },
-    { code:'vi', native:'Tiếng Việt', flag:'🇻🇳', rtl:false },
-    { code:'tl', native:'Filipino',   flag:'🇵🇭', rtl:false },
+    { code:'en', native:'English',    label:'United States (English)',   flag:'🇺🇸', rtl:false },
+    { code:'es', native:'Español',    label:'España (Español)',          flag:'🇪🇸', rtl:false },
+    { code:'fr', native:'Français',   label:'France (Français)',         flag:'🇫🇷', rtl:false },
+    { code:'ja', native:'日本語',      label:'Japan (日本語)',             flag:'🇯🇵', rtl:false },
+    { code:'ko', native:'한국어',      label:'Korea (한국어)',             flag:'🇰🇷', rtl:false },
+    { code:'zh', native:'中文',        label:'China (中文)',               flag:'🇨🇳', rtl:false },
+    { code:'pt', native:'Português',  label:'Brazil (Português)',        flag:'🇧🇷', rtl:false },
+    { code:'ar', native:'العربية',    label:'Saudi Arabia (العربية)',    flag:'🇸🇦', rtl:true  },
+    { code:'hi', native:'हिन्दी',     label:'India (हिन्दी)',            flag:'🇮🇳', rtl:false },
+    { code:'vi', native:'Tiếng Việt', label:'Vietnam (Tiếng Việt)',     flag:'🇻🇳', rtl:false },
+    { code:'tl', native:'Filipino',   label:'Philippines (Filipino)',    flag:'🇵🇭', rtl:false },
   ];
 
   const TR = {
@@ -201,6 +201,9 @@
     const lang = LANGS.find(l => l.code === code);
     document.documentElement.dir  = lang?.rtl ? 'rtl' : 'ltr';
     document.documentElement.lang = code;
+    document.querySelectorAll('.lang-label').forEach(el => {
+      el.textContent = lang?.label || lang?.native || 'English';
+    });
     document.querySelectorAll('[data-i18n]').forEach(el => {
       el.textContent = t(el.dataset.i18n);
     });
