@@ -1146,3 +1146,24 @@ body.light-mode .theme-toggle::after {
   transform: translateX(24px);
   background: #f5f2ff;
 }
+
+/* ── Light mode text contrast fixes ── */
+body.light-mode .inline-deal-btn { background: rgba(106,154,184,.1); border-color: rgba(106,154,184,.25); color: #1a1830; }
+body.light-mode .inline-deal-btn:hover { background: rgba(106,154,184,.2); border-color: #6a9ab8; color: #5283a0; }
+body.light-mode .deal-form-card { background: #fff; border: 1px solid rgba(106,154,184,.2); }
+body.light-mode .deal-form-card h3 { color: #1a1830; }
+body.light-mode .deal-form-card label { color: rgba(26,24,48,.7); }
+body.light-mode .how-desc { color: rgba(26,24,48,.7); }
+body.light-mode .city-card-drag-hint { color: rgba(26,24,48,.35); }
+body.light-mode .city-card-stats { color: #b07820; }
+body.light-mode .modal-hero-text h2 { color: #1a1830; }
+body.light-mode .tab-btn { color: rgba(26,24,48,.5); border-color: rgba(106,154,184,.2); }
+body.light-mode .tab-btn.active { color: #5283a0; border-color: #6a9ab8; background: rgba(106,154,184,.1); }
+body.light-mode .item-card { background: rgba(255,255,255,.9); border-color: rgba(106,154,184,.15); color: #1a1830; }
+body.light-mode .item-name { color: #1a1830; }
+body.light-mode .item-meta { color: rgba(26,24,48,.55); }
+body.light-mode .item-tip { color: rgba(26,24,48,.5); background: rgba(106,154,184,.06); border-color: rgba(106,154,184,.15); }
+body.light-mode .section-header h2 { color: #1a1830; }
+body.light-mode .section-header p { color: rgba(26,24,48,.6); }
+body.light-mode p, body.light-mode span, body.light-mode label, body.light-mode li { color: inherit; }
+body.light-mode .wip-banner { background: #6a9ab8 !important; }
