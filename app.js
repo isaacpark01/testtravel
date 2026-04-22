@@ -1820,3 +1820,50 @@ function scrollCityCarousel(dir) {
   const grid = document.getElementById('city-grid');
   grid.scrollBy({ left: dir * 660, behavior: 'smooth' });
 }
+
+// Hero background slideshow — cycles through all city images
+(function initHeroSlideshow() {
+  const INTERVAL = 5000;
+  let current = 0;
+  let isA = true;
+
+  function getImages() {
+    return CITIES.map(c => c.image).filter(Boolean);
+  }
+
+  function crossfade() {
+    const images = getImages();
+    if (!images.length) return;
+    current = (current + 1) % images.length;
+    const next = images[current];
+    const bgA = document.getElementById('hero-bg-a');
+    const bgB = document.getElementById('hero-bg-b');
+    if (!bgA || !bgB) return;
+
+    if (isA) {
+      bgB.style.backgroundImage = `url('${next}')`;
+      bgA.style.opacity = '0';
+      bgB.style.opacity = '1';
+    } else {
+      bgA.style.backgroundImage = `url('${next}')`;
+      bgB.style.opacity = '0';
+      bgA.style.opacity = '1';
+    }
+    isA = !isA;
+  }
+
+  // seed first image from CITIES once data is ready
+  function start() {
+    const images = getImages();
+    if (!images.length) { setTimeout(start, 300); return; }
+    const bgA = document.getElementById('hero-bg-a');
+    if (bgA) bgA.style.backgroundImage = `url('${images[0]}')`;
+    setInterval(crossfade, INTERVAL);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+})();
