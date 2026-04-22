@@ -217,6 +217,37 @@ const CITY_COORDS = {
   edinburgh:    [55.9533,   -3.1883],
   copenhagen:   [55.6761,   12.5683],
   havana:       [23.1136,  -82.3666],
+  // Batch 3 — Europe & Asia
+  santorini:    [36.3932,   25.4615],
+  dubrovnik:    [42.6507,   18.0944],
+  venice:       [45.4408,   12.3155],
+  florence:     [43.7696,   11.2558],
+  milan:        [45.4654,    9.1859],
+  berlin:       [52.5200,   13.4050],
+  madrid:       [40.4168,   -3.7038],
+  cairo:        [30.0444,   31.2357],
+  osaka:        [34.6937,  135.5023],
+  hongkong:     [22.3193,  114.1694],
+  // Batch 4 — Asia & Americas
+  taipei:       [25.0330,  121.5654],
+  kualalumpur:  [ 3.1390,  101.6869],
+  hanoi:        [21.0278,  105.8342],
+  buenosaires:  [-34.6037, -58.3816],
+  toronto:      [43.6532,  -79.3832],
+  vancouver:    [49.2827, -123.1207],
+  stockholm:    [59.3293,   18.0686],
+  dublin:       [53.3498,   -6.2603],
+  // Batch 5 — More USA
+  dallas:       [32.7767,  -96.7970],
+  houston:      [29.7604,  -95.3698],
+  tampa:        [27.9506,  -82.4572],
+  charlotte:    [35.2271,  -80.8431],
+  memphis:      [35.1495,  -90.0490],
+  minneapolis:  [44.9778,  -93.2650],
+  kansascity:   [39.0997,  -94.5786],
+  baltimore:    [39.2904,  -76.6122],
+  pittsburgh:   [40.4406,  -79.9959],
+  saltlakecity: [40.7608, -111.8910],
 };
 
 // ── Jitter helper for place coords ───────────────────────────
