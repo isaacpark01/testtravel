@@ -246,7 +246,21 @@
 <!-- ══ HEADER ═══════════════════════════════════════════════════ -->
 <header class="site-header">
   <div class="header-inner">
-    <div class="logo">🌍 Dropped</div>
+    <div class="logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:6px">
+        <defs>
+          <linearGradient id="pinGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#2dd4bf"/>
+            <stop offset="100%" stop-color="#0d9488"/>
+          </linearGradient>
+        </defs>
+        <!-- Pin body -->
+        <path d="M16 2C11.03 2 7 6.03 7 11c0 7 9 19 9 19s9-12 9-19c0-4.97-4.03-9-9-9z" fill="url(#pinGrad)"/>
+        <!-- Pin inner dot -->
+        <circle cx="16" cy="11" r="3.5" fill="#071a17"/>
+      </svg>
+      <span class="logo-text">dropped</span>
+    </div>
     <nav class="header-nav">
       <a href="#cities" data-i18n="navExplore" onclick="scrollToCities()">Explore</a>
       <a href="planner.html" data-i18n="navPlanner">Planner</a>
@@ -446,7 +460,19 @@
     <div class="footer-top">
       <!-- Brand -->
       <div>
-        <div class="footer-brand-logo">🌍 Dropped</div>
+        <div class="footer-brand-logo">
+          <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:6px">
+            <defs>
+              <linearGradient id="pinGrad2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#2dd4bf"/>
+                <stop offset="100%" stop-color="#0d9488"/>
+              </linearGradient>
+            </defs>
+            <path d="M16 2C11.03 2 7 6.03 7 11c0 7 9 19 9 19s9-12 9-19c0-4.97-4.03-9-9-9z" fill="url(#pinGrad2)"/>
+            <circle cx="16" cy="11" r="3.5" fill="#071a17"/>
+          </svg>
+          <span>dropped</span>
+        </div>
         <p class="footer-brand-tagline">Discover destinations, build day-by-day itineraries, and plan trips with friends — all in one place. Free forever.</p>
         <div class="footer-socials">
           <a class="footer-social-btn" href="#" aria-label="Twitter / X" title="Twitter">𝕏</a>
