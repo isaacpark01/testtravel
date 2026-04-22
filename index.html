@@ -293,6 +293,7 @@
       <a href="planner.html" data-i18n="navPlanner">Planner</a>
       <a href="#deals" data-i18n="navDeals">Deals</a>
     </nav>
+    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode"></button>
     <div class="lang-picker-wrap" id="home-lang-wrap">
       <button class="lang-globe-btn" onclick="toggleHomeLang()" title="Language">🌐</button>
       <div class="lang-dropdown" id="home-lang-menu"></div>
@@ -582,5 +583,35 @@
 <script src="i18n.js"></script>
 <script src="reveal.js"></script>
 
+<script>
+(function() {
+  function isDaytime() {
+    const hour = new Date().getHours();
+    return hour >= 6 && hour < 19; // 6am–7pm = light, else dark
+  }
+
+  function applyTheme(mode) {
+    if (mode === 'light') {
+      document.body.classList.add('light-mode');
+    } else {
+      document.body.classList.remove('light-mode');
+    }
+    localStorage.setItem('dropped_theme', mode);
+  }
+
+  window.toggleTheme = function() {
+    const isLight = document.body.classList.contains('light-mode');
+    applyTheme(isLight ? 'dark' : 'light');
+  };
+
+  // On load: check saved preference, else use timezone
+  const saved = localStorage.getItem('dropped_theme');
+  if (saved) {
+    applyTheme(saved);
+  } else {
+    applyTheme(isDaytime() ? 'light' : 'dark');
+  }
+})();
+</script>
 </body>
 </html>
