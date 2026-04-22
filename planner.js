@@ -1,8 +1,8 @@
 /* ============================================================
-   Pinly — planner.js
+   Dropped — planner.js
    Five-tab travel planner: Saves | Itinerary | Discover | Rewards | Lang
    Map: Leaflet.js + OpenStreetMap
-   Storage: localStorage key "pinly_v2"
+   Storage: localStorage key "dropped_v2"
    i18n: 11 languages, RTL support for Arabic
    ============================================================ */
 
@@ -1068,7 +1068,7 @@ function exportItinerary() {
     lines.push('</ul>');
   }
 
-  lines.push(`<hr><p style="color:#888;font-size:12px">Planned spend: ~$${totalSpend} · Planned with Pinly</p>`);
+  lines.push(`<hr><p style="color:#888;font-size:12px">Planned spend: ~$${totalSpend} · Planned with Dropped</p>`);
 
   const w = window.open('', '_blank');
   w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${escHtml(currentTrip.name)}</title><style>body{font-family:Inter,sans-serif;max-width:720px;margin:40px auto;padding:0 24px;color:#111}@media print{body{margin:20px}}</style></head><body>${lines.join('\n')}<script>setTimeout(()=>window.print(),400)<\/script></body></html>`);
@@ -1111,7 +1111,7 @@ function shareTripPlan() {
   });
 
   if (totalSpend > 0) lines.push(`💰 Planned spend: ~$${totalSpend}`);
-  lines.push('✨ Planned with Pinly');
+  lines.push('✨ Planned with Dropped');
 
   const text = lines.join('\n');
 
@@ -1127,7 +1127,7 @@ function shareTripPlan() {
 }
 
 // ── Storage ───────────────────────────────────────────────────
-const STORAGE_KEY = 'pinly_v2';
+const STORAGE_KEY = 'dropped_v2';
 
 function getStore() {
   try {
@@ -1173,7 +1173,7 @@ let discoverSearch = '';
 let _discSearchTimer = null;
 
 // Active language (persisted to localStorage)
-let activeLang = localStorage.getItem('pinly_lang') || 'en';
+let activeLang = localStorage.getItem('dropped_lang') || 'en';
 
 // ── i18n helpers ──────────────────────────────────────────────
 function t(key) {
@@ -1226,7 +1226,7 @@ function renderLangMenu() {
 
 function setLang(code) {
   activeLang = code;
-  localStorage.setItem('pinly_lang', code);
+  localStorage.setItem('dropped_lang', code);
   applyTranslations();
   renderDiscoverTab();
   document.getElementById('lang-picker-menu').classList.remove('open');
@@ -1247,7 +1247,7 @@ function getCurrentCity() {
 window.addEventListener('DOMContentLoaded', () => {
   // ?reset clears all stored data and reloads cleanly
   if (new URLSearchParams(location.search).get('reset') !== null) {
-    localStorage.removeItem('pinly_v2');
+    localStorage.removeItem('dropped_v2');
     location.replace(location.pathname);
     return;
   }
@@ -1457,7 +1457,7 @@ function renderHero() {
 
   if (!currentTrip) {
     heroEl.style.backgroundImage = '';
-    cityEl.textContent     = 'Pinly';
+    cityEl.textContent     = 'Dropped';
     tripNameEl.textContent = 'Create or select a trip to begin planning';
     dateRangeEl.textContent = '';
     return;

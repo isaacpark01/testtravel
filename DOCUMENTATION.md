@@ -1,4 +1,4 @@
-# Pinly — Documentation
+# Dropped — Documentation
 
 **Live site:** https://pintrip.netlify.app *(link intentionally removed from UI — local dev only)*
 **Local dev:** `python -m http.server 9056` → http://localhost:9056
@@ -137,7 +137,7 @@ itinerary-app/
 
 ### localStorage
 - All `getStore()` / `savePlans()` calls are wrapped in `try/catch` — gracefully handles private browsing and storage quota errors
-- Storage key: `pinly_v2` (unified across `app.js` and `planner.js`)
+- Storage key: `dropped_v2` (unified across `app.js` and `planner.js`)
 
 ---
 
@@ -146,7 +146,7 @@ itinerary-app/
 - **Frontend:** Vanilla HTML + CSS + JS — no build step, no framework
 - **Audio:** Web Speech API (`window.speechSynthesis`) — built into all modern browsers
 - **Map:** [Leaflet.js](https://leafletjs.com) + OpenStreetMap
-- **Storage:** `localStorage` key `pinly_v2` (planner state persists across sessions)
+- **Storage:** `localStorage` key `dropped_v2` (planner state persists across sessions)
 - **Auth + Database:** [Supabase](https://supabase.com) (Postgres + RLS) — used by index.html group boards and admin.html
 - **Hosting:** [Netlify](https://netlify.com) (static deploy)
 - **Photos:** Local downloads in `/photos/` + Unsplash CDN (curated `PHOTO_MAP` 292 entries + keyword `CATEGORY_PHOTOS` 71 entries)
@@ -417,8 +417,8 @@ _maleVoiceKeys   = ['male','david','alex','daniel','fred','james','george','mark
 ### Helpers
 | Function | Purpose |
 |---|---|
-| `getPlans()` | Reads `pinly_v2` from localStorage (returns `{trips:[]}` default) |
-| `savePlans(data)` | Writes `pinly_v2` to localStorage |
+| `getPlans()` | Reads `dropped_v2` from localStorage (returns `{trips:[]}` default) |
+| `savePlans(data)` | Writes `dropped_v2` to localStorage |
 | `addCard(dayId, place)` | Adds a place card to a trip day (null-guarded) |
 | `removeCard(dayId, cardId)` | Removes a card from a trip day (null-guarded) |
 | `moveCard(cardId, fromDayId, toDayId)` | Moves a card between days (null-guarded) |
@@ -445,8 +445,8 @@ _maleVoiceKeys   = ['male','david','alex','daniel','fred','james','george','mark
 ### Storage
 | Function | Purpose |
 |---|---|
-| `getStore()` | Read `pinly_v2` from localStorage |
-| `saveStore(d)` | Write `pinly_v2` to localStorage |
+| `getStore()` | Read `dropped_v2` from localStorage |
+| `saveStore(d)` | Write `dropped_v2` to localStorage |
 
 ### Trip management
 | Function | Purpose |
@@ -620,7 +620,7 @@ Enforced via `_headers` (Netlify). Allows only required external domains:
 }
 ```
 
-When a user shares an Instagram or TikTok post to Pinly, the app opens at `planner.html?title=...&text=...&url=...`. `handleIncomingShare()` reads these params, detects the source, extracts the place name, and opens the Quick Add modal pre-filled.
+When a user shares an Instagram or TikTok post to Dropped, the app opens at `planner.html?title=...&text=...&url=...`. `handleIncomingShare()` reads these params, detects the source, extracts the place name, and opens the Quick Add modal pre-filled.
 
 **Note:** Share Target only works when installed as a PWA on a real device.
 

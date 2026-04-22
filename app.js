@@ -1543,10 +1543,10 @@ function switchPlannerMode(mode, btn) {
 }
 
 function getPlans() {
-  try { return JSON.parse(localStorage.getItem('pinly_v2') || '{"trips":[],"active":null}'); }
+  try { return JSON.parse(localStorage.getItem('dropped_v2') || '{"trips":[],"active":null}'); }
   catch { return { trips: [], active: null }; }
 }
-function savePlans(data) { localStorage.setItem('pinly_v2', JSON.stringify(data)); }
+function savePlans(data) { localStorage.setItem('dropped_v2', JSON.stringify(data)); }
 
 function loadPlanner() {
   const data = getPlans();
