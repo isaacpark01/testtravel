@@ -546,6 +546,8 @@ body.light-mode .btn-planner-outline:hover { background: rgba(255,255,255,.35); 
 .deal-form { display: flex; flex-direction: column; gap: 14px; }
 .form-row { display: flex; gap: 10px; flex-wrap: wrap; }
 .form-field { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 100px; }
+.idea-form-row .form-field input,
+.idea-form-row .form-field select { width: 100%; flex: none; }
 .form-field-sm { flex: 0 0 72px; min-width: 72px; }
 .form-field label { font-size: 9px; font-weight: 700; color: rgba(240,250,249,.3); text-transform: uppercase; letter-spacing: .1em; }
 .form-field input, .form-field select {
@@ -828,9 +830,19 @@ body.light-mode .btn-planner-outline:hover { background: rgba(255,255,255,.35); 
   position: absolute; top: -10px; right: 16px;
   font-family: 'Geist', sans-serif;
   font-size: 80px; font-weight: 800; line-height: 1;
-  color: rgba(151,172,224,.06); pointer-events: none;
+  color: rgba(151,172,224,.09); pointer-events: none;
   letter-spacing: -.04em;
 }
+.step-num {
+  display: block;
+  font-family: 'Geist', sans-serif;
+  font-size: 11px; font-weight: 800;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: #97ace0;
+  margin-bottom: 18px;
+  opacity: .75;
+}
+body.light-mode .step-num { color: #5283a0; }
 .how-icon {
   font-size: 36px; margin-bottom: 18px; display: block;
 }

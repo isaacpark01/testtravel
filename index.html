@@ -370,22 +370,26 @@
     <p>From inspiration to itinerary — Dropped does the heavy lifting</p>
   </div>
   <div class="how-grid">
-    <div class="how-card reveal" data-step="1">
+    <div class="how-card reveal" data-step="01">
+      <span class="step-num">01</span>
       <span class="how-icon">🔍</span>
       <div class="how-title">Discover</div>
       <p class="how-desc">Browse 50+ handpicked destinations with curated activities, restaurant picks, transport options, and local deals — filtered by price, rating, and your travel style.</p>
     </div>
-    <div class="how-card reveal reveal-delay-1" data-step="2">
+    <div class="how-card reveal reveal-delay-1" data-step="02">
+      <span class="step-num">02</span>
       <span class="how-icon">🗓</span>
       <div class="how-title">Plan</div>
       <p class="how-desc">Drag activities into a day-by-day kanban board for your solo trip, or spin up a shared Group Board and let your crew vote on ideas in real time.</p>
     </div>
-    <div class="how-card reveal reveal-delay-2" data-step="3">
+    <div class="how-card reveal reveal-delay-2" data-step="03">
+      <span class="step-num">03</span>
       <span class="how-icon">✈</span>
       <div class="how-title">Book</div>
       <p class="how-desc">Compare flights across Google Flights, Kayak, Skyscanner, and Expedia with one click. Search rental cars and estimate your full trip budget before you commit.</p>
     </div>
-    <div class="how-card reveal reveal-delay-3" data-step="4">
+    <div class="how-card reveal reveal-delay-3" data-step="04">
+      <span class="step-num">04</span>
       <span class="how-icon">🗳️</span>
       <div class="how-title">Share &amp; Vote</div>
       <p class="how-desc">Drop the link, let the chaos begin. Share your itinerary with the whole squad, have everyone vote on what's in, and co-create the trip of a lifetime — together.</p>
@@ -423,11 +427,26 @@
     <h3 data-i18n="dealsFlights">✈ Flights</h3>
     <div class="deal-form">
       <div class="idea-form-row">
-        <input id="flight-from"   type="text"    placeholder="From (city or airport)" />
-        <input id="flight-to"     type="text"    placeholder="To (city or airport)" />
-        <input id="flight-depart" type="date" />
-        <input id="flight-return" type="date" />
-        <input id="flight-pax"    type="number"  min="1" max="9" value="1" placeholder="Pax" style="max-width:80px" />
+        <div class="form-field">
+          <label>From</label>
+          <input id="flight-from" type="text" placeholder="City or airport" />
+        </div>
+        <div class="form-field">
+          <label>To</label>
+          <input id="flight-to" type="text" placeholder="City or airport" />
+        </div>
+        <div class="form-field" style="min-width:140px;flex:0 1 140px">
+          <label>Depart</label>
+          <input id="flight-depart" type="date" />
+        </div>
+        <div class="form-field" style="min-width:140px;flex:0 1 140px">
+          <label>Return</label>
+          <input id="flight-return" type="date" />
+        </div>
+        <div class="form-field" style="flex:0 0 80px;min-width:80px">
+          <label>Pax</label>
+          <input id="flight-pax" type="number" min="1" max="9" value="1" />
+        </div>
       </div>
     </div>
     <div class="deals-grid-mini" style="margin-top:14px">
@@ -443,9 +462,18 @@
     <h3 data-i18n="dealsCars">🚗 Rental Cars</h3>
     <div class="deal-form">
       <div class="idea-form-row">
-        <input id="car-location" type="text" placeholder="Pick-up location" />
-        <input id="car-pickup"   type="date" />
-        <input id="car-dropoff"  type="date" />
+        <div class="form-field">
+          <label>Pick-up Location</label>
+          <input id="car-location" type="text" placeholder="City or airport" />
+        </div>
+        <div class="form-field" style="min-width:140px;flex:0 1 140px">
+          <label>Pick-up Date</label>
+          <input id="car-pickup" type="date" />
+        </div>
+        <div class="form-field" style="min-width:140px;flex:0 1 140px">
+          <label>Drop-off Date</label>
+          <input id="car-dropoff" type="date" />
+        </div>
       </div>
     </div>
     <div class="deals-grid-mini" style="margin-top:14px">
@@ -461,21 +489,33 @@
     <h3 data-i18n="dealsBudget">💰 Trip Budget Estimator</h3>
     <div class="deal-form">
       <div class="idea-form-row">
-        <div class="est-city-wrap">
-          <input id="est-city-input" type="text" placeholder="Destination…" autocomplete="off"
-            oninput="filterEstCities(this.value)"
-            onfocus="showEstDropdown()"
-            onkeydown="estCityKeydown(event)" />
-          <button class="est-city-arrow" type="button" onclick="toggleEstDropdown()">▾</button>
-          <div class="est-city-dropdown" id="est-city-dropdown" style="display:none"></div>
+        <div class="form-field">
+          <label>Destination</label>
+          <div class="est-city-wrap" style="flex:none;width:100%">
+            <input id="est-city-input" type="text" placeholder="Search a city…" autocomplete="off"
+              oninput="filterEstCities(this.value)"
+              onfocus="showEstDropdown()"
+              onkeydown="estCityKeydown(event)" />
+            <button class="est-city-arrow" type="button" onclick="toggleEstDropdown()">▾</button>
+            <div class="est-city-dropdown" id="est-city-dropdown" style="display:none"></div>
+          </div>
         </div>
-        <select id="est-style">
-          <option value="budget">Budget traveler</option>
-          <option value="mid" selected>Mid-range</option>
-          <option value="luxury">Luxury</option>
-        </select>
-        <input id="est-days" type="number" min="1" max="30" value="7" placeholder="Days" style="max-width:80px" />
-        <button class="auth-btn-solid" onclick="estimateBudget()">Estimate</button>
+        <div class="form-field" style="min-width:150px;flex:0 1 150px">
+          <label>Travel Style</label>
+          <select id="est-style">
+            <option value="budget">Budget traveler</option>
+            <option value="mid" selected>Mid-range</option>
+            <option value="luxury">Luxury</option>
+          </select>
+        </div>
+        <div class="form-field" style="flex:0 0 80px;min-width:80px">
+          <label>Days</label>
+          <input id="est-days" type="number" min="1" max="30" value="7" />
+        </div>
+        <div class="form-field" style="flex:0 0 auto;justify-content:flex-end">
+          <label style="visibility:hidden">Go</label>
+          <button class="auth-btn-solid" onclick="estimateBudget()">Estimate</button>
+        </div>
       </div>
     </div>
     <div id="estimate-result" class="hidden" style="margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px"></div>
