@@ -1331,22 +1331,29 @@ body.light-mode .wip-banner-dismiss:hover { color: #fff; border-color: rgba(255,
 
 /* ── Hero Social Proof ── */
 .hero-trust {
-  display: flex; align-items: center; gap: 14px;
-  justify-content: center; margin-top: 28px; flex-wrap: wrap;
+  display: inline-flex; align-items: center; gap: 14px;
+  margin-top: 28px; flex-wrap: wrap; justify-content: center;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-radius: 100px; padding: 8px 18px 8px 8px;
 }
 .hero-trust-avatars { display: flex; flex-shrink: 0; }
 .hero-trust-avatar {
-  width: 30px; height: 30px; border-radius: 50%;
-  border: 2px solid rgba(8,12,20,.65); color: #fff;
-  font-size: 11px; font-weight: 800;
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 2px solid rgba(8,12,20,.5);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.12);
+  color: #fff; font-size: 12px; font-weight: 800; letter-spacing: -.3px;
   display: flex; align-items: center; justify-content: center;
-  margin-left: -9px; flex-shrink: 0;
+  margin-left: -10px; flex-shrink: 0;
+  text-shadow: 0 1px 3px rgba(0,0,0,.4);
 }
 .hero-trust-avatar:first-child { margin-left: 0; }
+.hero-trust-divider { width: 1px; height: 28px; background: rgba(255,255,255,.12); flex-shrink: 0; }
 .hero-trust-info { text-align: left; }
-.hero-trust-stars { color: #fbbf24; font-size: 12px; letter-spacing: 1.5px; display: block; margin-bottom: 2px; }
-.hero-trust-copy { font-size: 12px; color: rgba(240,250,249,.45); line-height: 1.35; }
-.hero-trust-copy strong { color: rgba(240,250,249,.78); font-weight: 600; }
+.hero-trust-stars { display: flex; gap: 2px; margin-bottom: 3px; }
+.hero-trust-stars svg { filter: drop-shadow(0 0 4px rgba(251,191,36,.5)); }
+.hero-trust-copy { font-size: 12px; color: rgba(240,250,249,.5); line-height: 1.35; white-space: nowrap; }
+.hero-trust-copy strong { color: #fff; font-weight: 700; }
 
 /* ── City Card: Rating Badge on Image ── */
 .city-card-img { overflow: hidden; height: 175px; }
@@ -1420,6 +1427,7 @@ body.light-mode .group-feature-desc { color: rgba(26,24,48,.55); }
   .deal-form-card { padding: 18px; border-radius: 14px; }
   .city-card { flex: 0 0 185px; min-width: 185px; }
   .city-card-img { height: 148px; }
-  .hero-trust { margin-top: 20px; }
-  .hero-trust-avatar { width: 26px; height: 26px; font-size: 10px; }
+  .hero-trust { margin-top: 20px; padding: 6px 14px 6px 6px; gap: 10px; }
+  .hero-trust-avatar { width: 28px; height: 28px; font-size: 10px; }
+  .hero-trust-copy { white-space: normal; }
 }
