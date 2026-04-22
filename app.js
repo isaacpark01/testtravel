@@ -1815,3 +1815,8 @@ function escHtml(s) {
 function jsqApp(s) {
   return String(s ?? '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 }
+
+function scrollCityCarousel(dir) {
+  const grid = document.getElementById('city-grid');
+  grid.scrollBy({ left: dir * 660, behavior: 'smooth' });
+}
