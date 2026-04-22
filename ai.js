@@ -21,12 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
   _aiUpdateModeBadge();
 });
 
+const _BOLT_SVG = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`;
+
 function _aiUpdateModeBadge() {
   const hasKey = !!localStorage.getItem(_AI_KEY_STORE);
   const badge  = document.getElementById('ai-mode-badge');
   const sub    = document.getElementById('ai-mode-text');
-  if (badge) badge.textContent = hasKey ? '🤖 AI' : '🧠 Smart';
-  if (sub)   sub.textContent   = hasKey ? 'AI mode · Groq LLM' : 'Smart mode · no key needed';
+  if (badge) badge.innerHTML = hasKey ? `${_BOLT_SVG} AI` : `${_BOLT_SVG} Smart`;
+  if (sub)   sub.textContent = hasKey ? 'AI mode · Groq LLM' : 'Smart mode · no key needed';
 }
 
 /* ── Panel open/close ───────────────────────────────────────── */
