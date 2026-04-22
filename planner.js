@@ -206,6 +206,17 @@ const CITY_COORDS = {
   atlanta:      [33.7490,  -84.3880],
   philadelphia: [39.9526,  -75.1652],
   phoenix:      [33.4484, -112.0740],
+  // New international cities
+  prague:       [50.0755,   14.4378],
+  budapest:     [47.4979,   19.0402],
+  istanbul:     [41.0082,   28.9784],
+  kyoto:        [35.0116,  135.7681],
+  capetown:     [-33.9249,  18.4241],
+  marrakech:    [31.6295,   -7.9811],
+  vienna:       [48.2082,   16.3738],
+  edinburgh:    [55.9533,   -3.1883],
+  copenhagen:   [55.6761,   12.5683],
+  havana:       [23.1136,  -82.3666],
 };
 
 // ── Jitter helper for place coords ───────────────────────────
