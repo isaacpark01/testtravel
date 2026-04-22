@@ -326,21 +326,23 @@ body.light-mode .btn-planner-outline:hover { background: rgba(255,255,255,.35); 
   z-index: 10;
   top: 50%;
   transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
+  width: 44px; height: 44px;
   border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.3);
-  background: rgba(8,12,20,0.85);
-  color: #f0eae4;
-  font-size: 18px;
+  border: 1px solid rgba(151,172,224,.2);
+  background: rgba(8,12,20,.7);
+  color: rgba(240,234,228,.7);
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background .2s, border-color .2s;
-  backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+  transition: color .2s, border-color .25s, box-shadow .25s, transform .25s;
 }
-.carousel-btn:hover { background: rgba(151,172,224,.2); border-color: #97ace0; }
+.carousel-btn:hover {
+  color: #fff;
+  border-color: rgba(151,172,224,.55);
+  box-shadow: 0 0 20px rgba(106,154,184,.35), 0 4px 20px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.1);
+  transform: translateY(-50%) scale(1.08);
+}
 .carousel-btn-left  { left: -22px; }
 .carousel-btn-right { right: -22px; }
 .city-grid {
@@ -1152,8 +1154,8 @@ body.light-mode .city-card-country { color: rgba(26,24,48,.45); }
 body.light-mode .city-card-tagline { color: rgba(26,24,48,.4); }
 body.light-mode .city-row-iata { color: #5283a0; background: rgba(106,154,184,.1); border-color: rgba(106,154,184,.2); }
 body.light-mode .city-card-gem { color: #5283a0; background: rgba(106,154,184,.1); }
-body.light-mode .carousel-btn { background: rgba(255,255,255,.9); border-color: rgba(106,154,184,.3); color: #1a1830; }
-body.light-mode .carousel-btn:hover { background: rgba(106,154,184,.15); border-color: #6a9ab8; }
+body.light-mode .carousel-btn { background: rgba(255,255,255,.82); border-color: rgba(106,154,184,.25); color: rgba(26,24,48,.6); box-shadow: 0 4px 20px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,.9); }
+body.light-mode .carousel-btn:hover { color: #1a1830; border-color: #6a9ab8; box-shadow: 0 0 18px rgba(106,154,184,.3), 0 4px 20px rgba(0,0,0,.1); }
 body.light-mode .deal-form-card { background: rgba(255,255,255,.85); border-color: rgba(106,154,184,.2); }
 body.light-mode .deal-form-card h3 { color: #1a1830; }
 body.light-mode .deal-input { background: rgba(237,232,248,.6); border-color: rgba(106,154,184,.2); color: #1a1830; }
