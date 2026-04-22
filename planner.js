@@ -1709,6 +1709,7 @@ function stopSplash() {
 }
 
 function getHeroBgUrl(tripName, city) {
+  if (city?.image) return city.image;
   if (tripName) {
     const lower = tripName.toLowerCase();
     for (const [theme, keywords] of Object.entries(THEME_IMAGES)) {
@@ -1717,7 +1718,6 @@ function getHeroBgUrl(tripName, city) {
       }
     }
   }
-  if (city?.image) return city.image;
   return DEFAULT_TRAVEL_URL;
 }
 
