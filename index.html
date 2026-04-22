@@ -427,7 +427,7 @@
   <div class="deal-form-card">
     <h3 data-i18n="dealsFlights">✈ Flights</h3>
     <div class="deal-form">
-      <div class="idea-form-row">
+      <div style="display:grid;grid-template-columns:1fr 1fr 150px 150px 70px;gap:10px">
         <div class="form-field">
           <label>From</label>
           <input id="flight-from" type="text" placeholder="City or airport" />
@@ -436,15 +436,15 @@
           <label>To</label>
           <input id="flight-to" type="text" placeholder="City or airport" />
         </div>
-        <div class="form-field" style="min-width:140px;flex:0 1 140px">
+        <div class="form-field">
           <label>Depart</label>
           <input id="flight-depart" type="date" />
         </div>
-        <div class="form-field" style="min-width:140px;flex:0 1 140px">
+        <div class="form-field">
           <label>Return</label>
           <input id="flight-return" type="date" />
         </div>
-        <div class="form-field" style="flex:0 0 80px;min-width:80px">
+        <div class="form-field">
           <label>Pax</label>
           <input id="flight-pax" type="number" min="1" max="9" value="1" />
         </div>
@@ -462,16 +462,16 @@
   <div class="deal-form-card" style="margin-top:20px">
     <h3 data-i18n="dealsCars">🚗 Rental Cars</h3>
     <div class="deal-form">
-      <div class="idea-form-row">
+      <div style="display:grid;grid-template-columns:1fr 160px 160px;gap:10px">
         <div class="form-field">
           <label>Pick-up Location</label>
           <input id="car-location" type="text" placeholder="City or airport" />
         </div>
-        <div class="form-field" style="min-width:140px;flex:0 1 140px">
+        <div class="form-field">
           <label>Pick-up Date</label>
           <input id="car-pickup" type="date" />
         </div>
-        <div class="form-field" style="min-width:140px;flex:0 1 140px">
+        <div class="form-field">
           <label>Drop-off Date</label>
           <input id="car-dropoff" type="date" />
         </div>
