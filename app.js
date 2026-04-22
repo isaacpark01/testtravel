@@ -197,6 +197,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupSearchInput();
   loadPlanner();
 
+  // Open a city directly from ?city=id (e.g. linked from globe)
+  const _cityParam = new URLSearchParams(window.location.search).get('city');
+  if (_cityParam) {
+    const _target = CITIES.find(c => c.id === _cityParam);
+    if (_target) {
+      document.getElementById('cities')?.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => openCity(_target.id), 300);
+    }
+  }
+
   if (IS_CONFIGURED) {
     const { data: { session } } = await supabaseClient.auth.getSession();
     if (session) await handleSession(session);

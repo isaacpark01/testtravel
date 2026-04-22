@@ -427,6 +427,22 @@
     .pointAltitude(0.016)
     .pointRadius(0.5)
     .pointResolution(12)
+    .pointLabel(d =>
+      `<div style="
+        background:rgba(8,16,24,.82);
+        backdrop-filter:blur(10px);
+        border:1px solid rgba(255,255,255,.12);
+        border-radius:20px;
+        padding:5px 13px 5px 10px;
+        display:flex;align-items:center;gap:7px;
+        font-family:Geist,Inter,system-ui,sans-serif;
+        white-space:nowrap;
+        box-shadow:0 4px 20px rgba(0,0,0,.45);
+      ">
+        <span style="width:7px;height:7px;border-radius:50%;background:${d.color};flex-shrink:0;display:inline-block"></span>
+        <span style="font-size:13px;font-weight:700;color:#fff;letter-spacing:-.01em">${d.name}</span>
+        <span style="font-size:11px;color:rgba(255,255,255,.38);font-weight:500">${d.country}</span>
+      </div>`)
     .onPointHover(d => {
       document.getElementById('globe-wrap').style.cursor = d ? 'pointer' : 'default';
     })
