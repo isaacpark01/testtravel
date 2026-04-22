@@ -333,19 +333,16 @@
       <p class="hero-sub" data-i18n="heroSub">
         Handpicked destinations. Effortless itineraries. Your crew, in sync — all in one place.
       </p>
-      <div class="hero-search" style="position:relative">
+      <div class="hero-search">
+        <span class="hero-search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
         <input id="city-search" type="text" data-i18n-placeholder="heroSearch" placeholder="Search a destination…" autocomplete="off" onkeydown="if(event.key==='Enter')searchCity()" />
-        <button data-i18n="heroSearchBtn" onclick="searchCity()">Search</button>
-        <div id="search-suggestions" class="search-suggestions hidden" style="position:absolute;top:100%;left:0;right:0;z-index:200"></div>
+        <button onclick="searchCity()">Search <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+        <div id="search-suggestions" class="search-suggestions hidden" style="position:absolute;top:calc(100% + 10px);left:0;right:0;z-index:200"></div>
       </div>
       <div class="hero-cta-row">
-        <button class="btn-secondary-link" data-i18n="heroCTA1" onclick="scrollToCities()">
-          Explore Destinations →
-        </button>
+        <button class="btn-secondary-link" onclick="scrollToCities()">Explore Destinations</button>
         <div class="hero-cta-sep"></div>
-        <a href="planner.html" class="btn-secondary-link" data-i18n="heroCTA2" style="text-decoration:none">
-          Open Planner
-        </a>
+        <a href="planner.html" class="btn-secondary-link" style="text-decoration:none">Open Planner</a>
       </div>
       <div class="hero-trust">
         <div class="hero-trust-avatars">
