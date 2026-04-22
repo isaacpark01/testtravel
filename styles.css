@@ -1053,7 +1053,7 @@ body.light-mode .lang-opt.active { background: rgba(106,154,184,.15); color: #52
 body.light-mode .bottom-nav { background: rgba(245,242,255,.97); border-top-color: rgba(106,154,184,.15); }
 body.light-mode .bnav-btn { color: rgba(26,24,48,.35); }
 body.light-mode .bnav-btn.active { color: #6a9ab8; }
-body.light-mode .hero-bg::after { background: linear-gradient(180deg, rgba(245,242,255,.55) 0%, rgba(245,242,255,.65) 50%, rgba(245,242,255,.55) 100%); }
+body.light-mode .hero-bg::after { background: linear-gradient(180deg, rgba(0,0,0,.18) 0%, rgba(0,0,0,.38) 60%, rgba(0,0,0,.55) 100%); }
 body.light-mode .hero-eyebrow { color: #5283a0; background: rgba(106,154,184,.1); border-color: rgba(106,154,184,.25); }
 body.light-mode .hero-eyebrow::before { background: #6a9ab8; }
 body.light-mode .hero-title { color: #1a1830; }
@@ -1113,6 +1113,30 @@ body.light-mode .stat-label { color: rgba(26,24,48,.5); }
 body.light-mode .search-suggestions { background: #fff; border-color: rgba(106,154,184,.2); }
 body.light-mode .search-suggestion-item:hover { background: rgba(106,154,184,.08); }
 body.light-mode .cookie-banner { background: #fff; border-color: rgba(106,154,184,.2); color: #1a1830; }
+body.light-mode input[type="date"],
+body.light-mode input[type="text"],
+body.light-mode input[type="number"],
+body.light-mode input[type="email"],
+body.light-mode select { color: #1a1830; }
+body.light-mode input[type="date"]::-webkit-datetime-edit { color: #1a1830; }
+body.light-mode input[type="date"]::-webkit-datetime-edit-fields-wrapper { color: #1a1830; }
+body.light-mode input[type="date"]::-webkit-input-placeholder { color: rgba(26,24,48,.45); }
+body.light-mode input::placeholder { color: rgba(26,24,48,.45); }
+body.light-mode select { background: rgba(255,255,255,.85); border-color: rgba(106,154,184,.25); }
+body.light-mode .filter-select { color: #1a1830; background: rgba(255,255,255,.85); border-color: rgba(106,154,184,.25); }
+body.light-mode .filter-select option { background: #fff; color: #1a1830; }
+body.light-mode #est-style { color: #1a1830; background: rgba(255,255,255,.85); border-color: rgba(106,154,184,.25); }
+body.light-mode #flight-depart,
+body.light-mode #flight-return,
+body.light-mode #car-pickup,
+body.light-mode #car-dropoff { color: #1a1830; background: rgba(255,255,255,.85); border-color: rgba(106,154,184,.25); }
+body.light-mode .form-field input,
+body.light-mode .form-field select { color: #1a1830; background: rgba(255,255,255,.85); border-color: rgba(106,154,184,.25); }
+body.light-mode .form-field label { color: rgba(26,24,48,.45); }
+body.light-mode .form-field input::placeholder { color: rgba(26,24,48,.4); }
+body.light-mode .est-field input,
+body.light-mode .est-field select { color: #1a1830; background: rgba(255,255,255,.85); border-color: rgba(106,154,184,.25); }
+body.light-mode .est-field input::placeholder { color: rgba(26,24,48,.4); }
 
 /* ── Theme Toggle Button ── */
 .theme-toggle {
