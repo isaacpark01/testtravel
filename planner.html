@@ -1430,15 +1430,19 @@
       border-top: 1px solid rgba(151,172,224,.22);
       border-radius: 24px 24px 0 0;
       display: flex; flex-direction: column;
-      transform: translateY(100%);
-      transition: transform .38s cubic-bezier(.22,.68,0,1.2), box-shadow .38s;
+      transform: translateY(110%);
+      visibility: hidden;
+      transition: transform .38s cubic-bezier(.22,.68,0,1.2),
+                  box-shadow .38s, visibility 0s linear .38s;
       box-shadow: none;
       pointer-events: none;
     }
     .ai-panel.open {
       transform: translateY(0);
+      visibility: visible;
       box-shadow: 0 -12px 60px rgba(0,0,0,.7);
       pointer-events: auto;
+      transition: transform .38s cubic-bezier(.22,.68,0,1.2), box-shadow .38s;
     }
     .ai-panel-accent {
       height: 3px; flex-shrink: 0; border-radius: 24px 24px 0 0;
@@ -1546,15 +1550,15 @@
     }
     .ai-city-chip:hover { border-color: rgba(151,172,224,.4); background: rgba(151,172,224,.1); }
     .ai-input-row {
-      display: flex; gap: 8px; padding: 12px 14px 16px;
-      border-top: 1px solid rgba(255,255,255,.05); flex-shrink: 0;
-      background: rgba(0,0,0,.15);
+      display: flex; gap: 8px; padding: 12px 14px 20px;
+      border-top: 1px solid rgba(255,255,255,.06); flex-shrink: 0;
     }
     .ai-input {
       flex: 1; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
-      border-radius: 14px; padding: 11px 15px; font-size: 13.5px;
+      border-radius: 14px; padding: 0 15px; font-size: 13.5px; line-height: 46px;
       color: var(--text); outline: none; resize: none; height: 46px;
       font-family: inherit; transition: border-color .2s, background .2s;
+      overflow: hidden;
     }
     .ai-input:focus { border-color: rgba(151,172,224,.45); background: rgba(255,255,255,.09); }
     .ai-input::placeholder { color: var(--text-dim); }
@@ -2264,7 +2268,7 @@
 
   <!-- Input row -->
   <div class="ai-input-row">
-    <textarea id="ai-input" class="ai-input" placeholder="Ask me anything — find spots, build an itinerary…" rows="1" onkeydown="aiInputKeydown(event)"></textarea>
+    <textarea id="ai-input" class="ai-input" placeholder="Ask me anything…" rows="1" onkeydown="aiInputKeydown(event)"></textarea>
     <button class="ai-send-btn" onclick="aiSend()" id="ai-send-btn">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
     </button>
