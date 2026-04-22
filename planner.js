@@ -25,7 +25,7 @@ const LANGS = [
 
 const TRANSLATIONS = {
   en: {
-    tabSaves:'♡ Saves', tabItinerary:'📅 Itinerary', tabDiscover:'🔍 Discover', tabRewards:'💳 Rewards', tabGroup:'👥 Group',
+    tabSaves:'Saves', tabItinerary:'Itinerary', tabDiscover:'Discover', tabRewards:'Rewards', tabGroup:'Group',
     filterAll:'All', filterActivities:'🎯 Activities', filterFood:'🍽 Food', filterFree:'✨ Free',
     sortRating:'⭐ Top Rated', sortPriceLow:'💸 Price: Low', sortPriceHigh:'💎 Price: High', sortAZ:'A → Z',
     vibeAll:'All Vibes', vibeHiddenGem:'💎 Hidden Gem', vibeBudget:'💸 Budget', vibeRomantic:'❤️ Romantic',
@@ -38,7 +38,7 @@ const TRANSLATIONS = {
     addPlacePlaceholder:'+ Add a place — search by name...',
   },
   es: {
-    tabSaves:'♡ Guardados', tabItinerary:'📅 Itinerario', tabDiscover:'🔍 Descubrir', tabRewards:'💳 Recompensas', tabGroup:'👥 Grupo',
+    tabSaves:'Guardados', tabItinerary:'Itinerario', tabDiscover:'Descubrir', tabRewards:'Recompensas', tabGroup:'Grupo',
     filterAll:'Todos', filterActivities:'🎯 Actividades', filterFood:'🍽 Comida', filterFree:'✨ Gratis',
     sortRating:'⭐ Mejor Valorado', sortPriceLow:'💸 Precio: Bajo', sortPriceHigh:'💎 Precio: Alto', sortAZ:'A → Z',
     vibeAll:'Todos los Vibes', vibeHiddenGem:'💎 Joya Oculta', vibeBudget:'💸 Económico', vibeRomantic:'❤️ Romántico',
@@ -51,7 +51,7 @@ const TRANSLATIONS = {
     addPlacePlaceholder:'+ Agregar un lugar — buscar por nombre...',
   },
   fr: {
-    tabSaves:'♡ Sauvegardes', tabItinerary:'📅 Itinéraire', tabDiscover:'🔍 Découvrir', tabRewards:'💳 Récompenses', tabGroup:'👥 Groupe',
+    tabSaves:'Sauvegardes', tabItinerary:'Itinéraire', tabDiscover:'Découvrir', tabRewards:'Récompenses', tabGroup:'Groupe',
     filterAll:'Tout', filterActivities:'🎯 Activités', filterFood:'🍽 Nourriture', filterFree:'✨ Gratuit',
     sortRating:'⭐ Mieux Notés', sortPriceLow:'💸 Prix : Bas', sortPriceHigh:'💎 Prix : Haut', sortAZ:'A → Z',
     vibeAll:'Tous les Vibes', vibeHiddenGem:'💎 Joyau Caché', vibeBudget:'💸 Budget', vibeRomantic:'❤️ Romantique',
@@ -64,7 +64,7 @@ const TRANSLATIONS = {
     addPlacePlaceholder:'+ Ajouter un lieu — rechercher par nom...',
   },
   ja: {
-    tabSaves:'♡ 保存済み', tabItinerary:'📅 旅程', tabDiscover:'🔍 発見', tabRewards:'💳 特典', tabGroup:'👥 グループ',
+    tabSaves:'保存済み', tabItinerary:'旅程', tabDiscover:'発見', tabRewards:'特典', tabGroup:'グループ',
     filterAll:'すべて', filterActivities:'🎯 アクティビティ', filterFood:'🍽 グルメ', filterFree:'✨ 無料',
     sortRating:'⭐ 評価順', sortPriceLow:'💸 価格：安い順', sortPriceHigh:'💎 価格：高い順', sortAZ:'A → Z',
     vibeAll:'すべてのバイブ', vibeHiddenGem:'💎 穴場スポット', vibeBudget:'💸 リーズナブル', vibeRomantic:'❤️ ロマンチック',
@@ -77,7 +77,7 @@ const TRANSLATIONS = {
     addPlacePlaceholder:'+ 場所を追加 — 名前で検索...',
   },
   ko: {
-    tabSaves:'♡ 저장됨', tabItinerary:'📅 일정', tabDiscover:'🔍 탐색', tabRewards:'💳 리워드', tabGroup:'👥 그룹',
+    tabSaves:'저장됨', tabItinerary:'일정', tabDiscover:'탐색', tabRewards:'리워드', tabGroup:'그룹',
     filterAll:'전체', filterActivities:'🎯 액티비티', filterFood:'🍽 음식', filterFree:'✨ 무료',
     sortRating:'⭐ 평점순', sortPriceLow:'💸 가격: 낮은순', sortPriceHigh:'💎 가격: 높은순', sortAZ:'A → Z',
     vibeAll:'모든 바이브', vibeHiddenGem:'💎 숨겨진 보석', vibeBudget:'💸 저렴한', vibeRomantic:'❤️ 로맨틱',
@@ -90,7 +90,7 @@ const TRANSLATIONS = {
     addPlacePlaceholder:'+ 장소 추가 — 이름으로 검색...',
   },
   zh: {
-    tabSaves:'♡ 已保存', tabItinerary:'📅 行程', tabDiscover:'🔍 发现', tabRewards:'💳 奖励', tabGroup:'👥 群组',
+    tabSaves:'已保存', tabItinerary:'行程', tabDiscover:'发现', tabRewards:'奖励', tabGroup:'群组',
     filterAll:'全部', filterActivities:'🎯 活动', filterFood:'🍽 美食', filterFree:'✨ 免费',
     sortRating:'⭐ 评分最高', sortPriceLow:'💸 价格：从低到高', sortPriceHigh:'💎 价格：从高到低', sortAZ:'A → Z',
     vibeAll:'全部氛围', vibeHiddenGem:'💎 隐秘宝藏', vibeBudget:'💸 实惠', vibeRomantic:'❤️ 浪漫',
@@ -103,7 +103,7 @@ const TRANSLATIONS = {
     addPlacePlaceholder:'+ 添加地点 — 按名称搜索...',
   },
   pt: {
-    tabSaves:'♡ Salvos', tabItinerary:'📅 Roteiro', tabDiscover:'🔍 Descobrir', tabRewards:'💳 Recompensas', tabGroup:'👥 Grupo',
+    tabSaves:'Salvos', tabItinerary:'Roteiro', tabDiscover:'Descobrir', tabRewards:'Recompensas', tabGroup:'Grupo',
     filterAll:'Todos', filterActivities:'🎯 Atividades', filterFood:'🍽 Comida', filterFree:'✨ Grátis',
     sortRating:'⭐ Melhor Avaliados', sortPriceLow:'💸 Preço: Baixo', sortPriceHigh:'💎 Preço: Alto', sortAZ:'A → Z',
     vibeAll:'Todos os Vibes', vibeHiddenGem:'💎 Joia Escondida', vibeBudget:'💸 Econômico', vibeRomantic:'❤️ Romântico',
@@ -116,7 +116,7 @@ const TRANSLATIONS = {
     addPlacePlaceholder:'+ Adicionar lugar — buscar pelo nome...',
   },
   ar: {
-    tabSaves:'♡ المحفوظات', tabItinerary:'📅 الجدول', tabDiscover:'🔍 استكشف', tabRewards:'💳 المكافآت', tabGroup:'👥 المجموعة',
+    tabSaves:'المحفوظات', tabItinerary:'الجدول', tabDiscover:'استكشف', tabRewards:'المكافآت', tabGroup:'المجموعة',
     filterAll:'الكل', filterActivities:'🎯 الأنشطة', filterFood:'🍽 الطعام', filterFree:'✨ مجاني',
     sortRating:'⭐ الأعلى تقييمًا', sortPriceLow:'💸 السعر: الأقل', sortPriceHigh:'💎 السعر: الأعلى', sortAZ:'أ → ي',
     vibeAll:'كل الأجواء', vibeHiddenGem:'💎 جوهرة مخفية', vibeBudget:'💸 اقتصادي', vibeRomantic:'❤️ رومانسي',
@@ -129,7 +129,7 @@ const TRANSLATIONS = {
     addPlacePlaceholder:'+ أضف مكانًا — ابحث بالاسم...',
   },
   hi: {
-    tabSaves:'♡ सेव किए', tabItinerary:'📅 यात्रा योजना', tabDiscover:'🔍 खोजें', tabRewards:'💳 पुरस्कार', tabGroup:'👥 ग्रुप',
+    tabSaves:'सेव किए', tabItinerary:'यात्रा योजना', tabDiscover:'खोजें', tabRewards:'पुरस्कार', tabGroup:'ग्रुप',
     filterAll:'सभी', filterActivities:'🎯 गतिविधियाँ', filterFood:'🍽 खाना', filterFree:'✨ मुफ्त',
     sortRating:'⭐ सर्वश्रेष्ठ', sortPriceLow:'💸 कीमत: कम', sortPriceHigh:'💎 कीमत: अधिक', sortAZ:'A → Z',
     vibeAll:'सभी वाइब्स', vibeHiddenGem:'💎 छुपा रत्न', vibeBudget:'💸 बजट', vibeRomantic:'❤️ रोमांटिक',
@@ -142,7 +142,7 @@ const TRANSLATIONS = {
     addPlacePlaceholder:'+ जगह जोड़ें — नाम से खोजें...',
   },
   vi: {
-    tabSaves:'♡ Đã lưu', tabItinerary:'📅 Lịch trình', tabDiscover:'🔍 Khám phá', tabRewards:'💳 Phần thưởng', tabGroup:'👥 Nhóm',
+    tabSaves:'Đã lưu', tabItinerary:'Lịch trình', tabDiscover:'Khám phá', tabRewards:'Phần thưởng', tabGroup:'Nhóm',
     filterAll:'Tất cả', filterActivities:'🎯 Hoạt động', filterFood:'🍽 Ẩm thực', filterFree:'✨ Miễn phí',
     sortRating:'⭐ Đánh giá cao', sortPriceLow:'💸 Giá: Thấp', sortPriceHigh:'💎 Giá: Cao', sortAZ:'A → Z',
     vibeAll:'Tất cả Vibes', vibeHiddenGem:'💎 Viên ngọc ẩn', vibeBudget:'💸 Tiết kiệm', vibeRomantic:'❤️ Lãng mạn',
@@ -155,7 +155,7 @@ const TRANSLATIONS = {
     addPlacePlaceholder:'+ Thêm địa điểm — tìm theo tên...',
   },
   tl: {
-    tabSaves:'♡ Naka-save', tabItinerary:'📅 Itinerary', tabDiscover:'🔍 Tuklasin', tabRewards:'💳 Rewards', tabGroup:'👥 Grupo',
+    tabSaves:'Naka-save', tabItinerary:'Itinerary', tabDiscover:'Tuklasin', tabRewards:'Rewards', tabGroup:'Grupo',
     filterAll:'Lahat', filterActivities:'🎯 Aktibidad', filterFood:'🍽 Pagkain', filterFree:'✨ Libre',
     sortRating:'⭐ Pinaka-rated', sortPriceLow:'💸 Presyo: Mababa', sortPriceHigh:'💎 Presyo: Mataas', sortAZ:'A → Z',
     vibeAll:'Lahat ng Vibes', vibeHiddenGem:'💎 Nakatagong Hiyas', vibeBudget:'💸 Budget', vibeRomantic:'❤️ Romantiko',
@@ -1423,6 +1423,16 @@ window.addEventListener('DOMContentLoaded', () => {
     renderTripsDropdown();
   });
 
+  let _heroDebounce = null;
+  document.getElementById('trip-name-input').addEventListener('input', e => {
+    clearTimeout(_heroDebounce);
+    _heroDebounce = setTimeout(() => {
+      const city = currentTrip && typeof CITIES !== 'undefined'
+        ? CITIES.find(c => c.id === currentTrip.cityId) : null;
+      setHeroBg(getHeroBgUrl(e.target.value.trim(), city));
+    }, 400);
+  });
+
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       closePlaceProfile();
@@ -1607,6 +1617,106 @@ function createTrip() {
   switchTab('itinerary');
 }
 
+// ── Hero background theme engine ──────────────────────────────
+const THEME_IMAGES = {
+  honeymoon:   ['honeymoon','anniversary','romantic','romance','couples','proposal','wedding'],
+  work:        ['work','business','conference','meeting','summit','offsite','corporate'],
+  bachelor:    ['bachelor','bachelorette','bachelorette party','bach','girls trip','guys trip'],
+  family:      ['family','kids','children','grandparents','relatives','reunion'],
+  solo:        ['solo','solo trip','solo travel','alone','me time','sabbatical'],
+  hiking:      ['hiking','hike','trek','trekking','trail','backpacking','camping','camp'],
+  beach:       ['beach','surf','ocean','tropical','island','resort','summer','pool'],
+  ski:         ['ski','skiing','snowboard','snow','winter','mountain','après'],
+  birthday:    ['birthday','bday','celebration','party','turning'],
+  graduation:  ['graduation','grad','graduate','college','university'],
+  food:        ['food','foodie','culinary','eating','restaurant','gastronomy','wine','tasting'],
+  roadtrip:    ['road trip','roadtrip','road-trip','drive','road','cross country'],
+  luxury:      ['luxury','luxe','first class','five star','five-star','spa','wellness'],
+  adventure:   ['adventure','extreme','thrill','bungee','skydive','whitewater'],
+};
+
+const THEME_URLS = {
+  honeymoon:  'https://images.unsplash.com/photo-1602002418816-5c0aeef426aa?w=1400&q=80',
+  work:       'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1400&q=80',
+  bachelor:   'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1400&q=80',
+  family:     'https://images.unsplash.com/photo-1511895426328-dc8714191011?w=1400&q=80',
+  solo:       'https://images.unsplash.com/photo-1501555088652-021faa106b9b?w=1400&q=80',
+  hiking:     'https://images.unsplash.com/photo-1551632811-561732d1e306?w=1400&q=80',
+  beach:      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400&q=80',
+  ski:        'https://images.unsplash.com/photo-1548942487-11a9e3d6bbba?w=1400&q=80',
+  birthday:   'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=1400&q=80',
+  graduation: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1400&q=80',
+  food:       'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&q=80',
+  roadtrip:   'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1400&q=80',
+  luxury:     'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1400&q=80',
+  adventure:  'https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=1400&q=80',
+};
+
+const DEFAULT_TRAVEL_URL = 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1400&q=80';
+
+const SPLASH_IMAGES = [
+  'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1400&q=80', // aerial ocean
+  'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=1400&q=80', // santorini sunset
+  'https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=1400&q=80', // passport wanderlust
+  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=80', // mountain lake
+  'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1400&q=80', // open road
+  'https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?w=1400&q=80', // tropical beach
+  'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1400&q=80', // japanese torii
+  'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=1400&q=80', // venice canal
+];
+
+let _splashIdx   = 0;
+let _splashTimer = null;
+
+let _activeBg = 'a';
+
+function setHeroBg(url) {
+  const bgA = document.getElementById('hero-bg-a');
+  const bgB = document.getElementById('hero-bg-b');
+  if (!bgA || !bgB) return;
+
+  if (!url) {
+    bgA.style.opacity = '0';
+    bgB.style.opacity = '0';
+    return;
+  }
+
+  const next = _activeBg === 'a' ? 'b' : 'a';
+  const incoming = next === 'b' ? bgB : bgA;
+  const outgoing = next === 'b' ? bgA : bgB;
+
+  incoming.style.backgroundImage = `url('${url}')`;
+  incoming.style.opacity = '1';
+  outgoing.style.opacity = '0';
+  _activeBg = next;
+}
+
+function startSplash() {
+  if (_splashTimer) return;
+  requestAnimationFrame(() => setHeroBg(SPLASH_IMAGES[_splashIdx]));
+  _splashTimer = setInterval(() => {
+    _splashIdx = (_splashIdx + 1) % SPLASH_IMAGES.length;
+    setHeroBg(SPLASH_IMAGES[_splashIdx]);
+  }, 5000);
+}
+
+function stopSplash() {
+  if (_splashTimer) { clearInterval(_splashTimer); _splashTimer = null; }
+}
+
+function getHeroBgUrl(tripName, city) {
+  if (tripName) {
+    const lower = tripName.toLowerCase();
+    for (const [theme, keywords] of Object.entries(THEME_IMAGES)) {
+      if (keywords.some(kw => lower.includes(kw))) {
+        return THEME_URLS[theme];
+      }
+    }
+  }
+  if (city?.image) return city.image;
+  return DEFAULT_TRAVEL_URL;
+}
+
 // ── Hero ──────────────────────────────────────────────────────
 function renderHero() {
   const heroEl     = document.getElementById('hero-band');
@@ -1617,21 +1727,21 @@ function renderHero() {
   document.getElementById('trip-name-input').value = currentTrip?.name || '';
 
   if (!currentTrip) {
-    heroEl.style.backgroundImage = '';
+    startSplash();
     cityEl.textContent     = 'Dropped';
     tripNameEl.textContent = 'Create or select a trip to begin planning';
     dateRangeEl.textContent = '';
     return;
   }
 
+  stopSplash();
   const city = typeof CITIES !== 'undefined' ? CITIES.find(c => c.id === currentTrip.cityId) : null;
   if (city) {
-    heroEl.style.backgroundImage = `url('${city.image}')`;
     cityEl.textContent = `${city.name}, ${city.country}`;
   } else {
-    heroEl.style.backgroundImage = '';
     cityEl.textContent = currentTrip.name;
   }
+  setHeroBg(getHeroBgUrl(currentTrip.name, city));
   tripNameEl.textContent = currentTrip.name;
 
   // Date range
