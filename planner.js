@@ -1636,33 +1636,33 @@ const THEME_IMAGES = {
 };
 
 const THEME_URLS = {
-  honeymoon:  'https://images.unsplash.com/photo-1602002418816-5c0aeef426aa?w=1400&q=80',
-  work:       'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1400&q=80',
-  bachelor:   'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1400&q=80',
-  family:     'https://images.unsplash.com/photo-1511895426328-dc8714191011?w=1400&q=80',
-  solo:       'https://images.unsplash.com/photo-1501555088652-021faa106b9b?w=1400&q=80',
-  hiking:     'https://images.unsplash.com/photo-1551632811-561732d1e306?w=1400&q=80',
-  beach:      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400&q=80',
-  ski:        'https://images.unsplash.com/photo-1548942487-11a9e3d6bbba?w=1400&q=80',
-  birthday:   'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=1400&q=80',
-  graduation: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1400&q=80',
-  food:       'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&q=80',
-  roadtrip:   'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1400&q=80',
-  luxury:     'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1400&q=80',
-  adventure:  'https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=1400&q=80',
+  honeymoon:  'https://images.unsplash.com/photo-1602002418816-5c0aeef426aa?w=2560&q=90&fm=webp&fit=crop',
+  work:       'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=2560&q=90&fm=webp&fit=crop',
+  bachelor:   'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=2560&q=90&fm=webp&fit=crop',
+  family:     'https://images.unsplash.com/photo-1511895426328-dc8714191011?w=2560&q=90&fm=webp&fit=crop',
+  solo:       'https://images.unsplash.com/photo-1501555088652-021faa106b9b?w=2560&q=90&fm=webp&fit=crop',
+  hiking:     'https://images.unsplash.com/photo-1551632811-561732d1e306?w=2560&q=90&fm=webp&fit=crop',
+  beach:      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=2560&q=90&fm=webp&fit=crop',
+  ski:        'https://images.unsplash.com/photo-1548942487-11a9e3d6bbba?w=2560&q=90&fm=webp&fit=crop',
+  birthday:   'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=2560&q=90&fm=webp&fit=crop',
+  graduation: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=2560&q=90&fm=webp&fit=crop',
+  food:       'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=2560&q=90&fm=webp&fit=crop',
+  roadtrip:   'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=2560&q=90&fm=webp&fit=crop',
+  luxury:     'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=2560&q=90&fm=webp&fit=crop',
+  adventure:  'https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=2560&q=90&fm=webp&fit=crop',
 };
 
-const DEFAULT_TRAVEL_URL = 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1400&q=80';
+const DEFAULT_TRAVEL_URL = 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=2560&q=90&fm=webp&fit=crop';
 
 const SPLASH_IMAGES = [
-  'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1400&q=80', // aerial ocean
-  'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=1400&q=80', // santorini sunset
-  'https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=1400&q=80', // passport wanderlust
-  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=80', // mountain lake
-  'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1400&q=80', // open road
-  'https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?w=1400&q=80', // tropical beach
-  'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1400&q=80', // japanese torii
-  'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=1400&q=80', // venice canal
+  'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=2560&q=90&fm=webp&fit=crop', // aerial ocean
+  'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=2560&q=90&fm=webp&fit=crop', // santorini sunset
+  'https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=2560&q=90&fm=webp&fit=crop', // passport wanderlust
+  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=2560&q=90&fm=webp&fit=crop', // mountain lake
+  'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=2560&q=90&fm=webp&fit=crop', // open road
+  'https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?w=2560&q=90&fm=webp&fit=crop', // tropical beach
+  'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=2560&q=90&fm=webp&fit=crop', // japanese torii
+  'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=2560&q=90&fm=webp&fit=crop', // venice canal
 ];
 
 let _splashIdx   = 0;
