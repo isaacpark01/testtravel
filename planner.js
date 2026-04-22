@@ -206,6 +206,17 @@ const CITY_COORDS = {
   atlanta:      [33.7490,  -84.3880],
   philadelphia: [39.9526,  -75.1652],
   phoenix:      [33.4484, -112.0740],
+  // New international cities
+  prague:       [50.0755,   14.4378],
+  budapest:     [47.4979,   19.0402],
+  istanbul:     [41.0082,   28.9784],
+  kyoto:        [35.0116,  135.7681],
+  capetown:     [-33.9249,  18.4241],
+  marrakech:    [31.6295,   -7.9811],
+  vienna:       [48.2082,   16.3738],
+  edinburgh:    [55.9533,   -3.1883],
+  copenhagen:   [55.6761,   12.5683],
+  havana:       [23.1136,  -82.3666],
 };
 
 // ── Jitter helper for place coords ───────────────────────────
@@ -1243,6 +1254,117 @@ function getCurrentCity() {
   return CITIES.find(c => c.id === currentTrip.cityId) || null;
 }
 
+// ══════════════════════════════════════════════════════════════
+// TIMELINE — time helpers & CRUD
+// ══════════════════════════════════════════════════════════════
+
+/** "14:30" → "2:30 PM" */
+function _fmt12h(timeStr) {
+  if (!timeStr) return '';
+  const [h, m] = timeStr.split(':').map(Number);
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  return `${h % 12 || 12}:${String(m).padStart(2, '0')} ${ampm}`;
+}
+
+/** Parse "2h", "1.5h", "90 min", "45m" → total minutes (0 if unknown) */
+function _parseDurationMins(dur) {
+  if (!dur) return 0;
+  const s = String(dur);
+  const hrMatch  = s.match(/(\d+(?:\.\d+)?)\s*h/i);
+  const minMatch = s.match(/(\d+)\s*m(?:in)?/i);
+  let mins = 0;
+  if (hrMatch)  mins += Math.round(parseFloat(hrMatch[1]) * 60);
+  if (minMatch) mins += parseInt(minMatch[1]);
+  return mins;
+}
+
+/** Given startTime "09:00" + duration string → end time "11:00 AM" */
+function _calcEndTime(startTime, duration) {
+  const durMins = _parseDurationMins(duration);
+  if (!durMins) return '';
+  const [h, m]   = startTime.split(':').map(Number);
+  const total    = h * 60 + m + durMins;
+  const endH     = Math.floor(total / 60) % 24;
+  const endM     = total % 60;
+  return _fmt12h(`${String(endH).padStart(2, '0')}:${String(endM).padStart(2, '0')}`);
+}
+
+/** Open the native time picker for a card */
+function openTimePicker(dayId, cardId) {
+  const input = document.getElementById(`tl-ti-${cardId}`);
+  if (!input) return;
+  // Make it briefly interactive so showPicker works
+  input.style.pointerEvents = 'auto';
+  try { input.showPicker(); } catch(e) { input.click(); }
+  setTimeout(() => { if (input) input.style.pointerEvents = 'none'; }, 2000);
+}
+
+/** Save a new startTime for a card; re-renders so timed cards sort to top */
+function updateCardTime(dayId, cardId, timeStr) {
+  if (!currentTrip) return;
+  const d    = getStore();
+  const trip = d.trips.find(t => t.id === currentTrip.id);
+  const day  = trip?.days.find(dy => dy.id === dayId);
+  const card = day?.cards.find(c => c.id === cardId);
+  if (!card) return;
+  card.startTime = timeStr || '';
+  currentTrip = trip;
+  saveStore(d);
+  renderItinCards();
+}
+
+/** Remove the startTime from a single card */
+function clearCardTime(dayId, cardId) {
+  updateCardTime(dayId, cardId, '');
+}
+
+/** Remove all startTimes from every card in a day */
+function clearDayTimes(dayId) {
+  if (!currentTrip) return;
+  const d    = getStore();
+  const trip = d.trips.find(t => t.id === currentTrip.id);
+  const day  = trip?.days.find(dy => dy.id === dayId);
+  if (!day) return;
+  day.cards.forEach(c => { c.startTime = ''; });
+  currentTrip = trip;
+  saveStore(d);
+  renderItinCards();
+  showToast('Times cleared');
+}
+
+/**
+ * Auto-schedule: assign start times beginning at 9 AM.
+ * Each slot = card duration + 30-min travel buffer.
+ * Meals get slotted at noon / 7 PM where possible.
+ */
+function autoScheduleDay(dayId) {
+  if (!currentTrip) return;
+  const d    = getStore();
+  const trip = d.trips.find(t => t.id === currentTrip.id);
+  const day  = trip?.days.find(dy => dy.id === dayId);
+  if (!day || !day.cards.length) return;
+
+  let cursor = 9 * 60; // 9:00 AM in minutes
+  day.cards.forEach((card, idx) => {
+    // Nudge food cards toward meal windows
+    const isFood = card.category === 'food';
+    if (isFood && cursor > 10 * 60 && cursor < 12 * 60) cursor = 12 * 60;      // lunch
+    if (isFood && cursor > 14 * 60 && cursor < 18 * 60) cursor = 18 * 60 + 30; // dinner-ish
+
+    const h = Math.floor(cursor / 60) % 24;
+    const m = cursor % 60;
+    card.startTime = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+
+    const durMins = _parseDurationMins(card.duration) || (isFood ? 60 : 90);
+    cursor += durMins + 30; // +30 min travel/transition
+  });
+
+  currentTrip = trip;
+  saveStore(d);
+  renderItinCards();
+  showToast('⚡ Day auto-scheduled from 9 AM!');
+}
+
 // ── Init ──────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
   // ?reset clears all stored data and reloads cleanly
@@ -1302,6 +1424,14 @@ window.addEventListener('DOMContentLoaded', () => {
       document.getElementById('lang-picker-menu')?.classList.remove('open');
     }
   });
+
+  // Onboarding — show on first visit
+  if (!localStorage.getItem('roamly_onboarded')) {
+    setTimeout(showOnboarding, 400);
+  }
+
+  // Swipe gestures
+  _initSwipe();
 });
 
 // ── Trip management ───────────────────────────────────────────
@@ -1530,12 +1660,13 @@ function renderBudgetRecs() {
   const el = document.getElementById('budget-recs');
   if (!el) return;
 
-  const budget = currentTrip?.budget;
-  const city   = getCurrentCity();
-  if (!budget || !city) { el.style.display = 'none'; return; }
+  const city = getCurrentCity();
+  if (!city) { el.style.display = 'none'; return; }
 
-  const days      = (currentTrip.days || []).length || 1;
-  const perDay    = budget / days;
+  const budget  = currentTrip?.budget || 0;
+  const days    = (currentTrip?.days || []).length || 1;
+  const perDay  = budget > 0 ? budget / days : Infinity;
+  const hasBudget = budget > 0;
 
   const scoreItem = (item, type) => ({
     name:   item.name,
@@ -1544,30 +1675,46 @@ function renderBudgetRecs() {
     type,
   });
 
-  const affordable = [
+  const pool = [
     ...(city.food       || []).filter(Boolean).map(i => scoreItem(i, 'food')),
     ...(city.activities || []).filter(Boolean).map(i => scoreItem(i, 'activity')),
   ].filter(i => i.price <= perDay);
 
-  if (!affordable.length) { el.style.display = 'none'; return; }
+  if (!pool.length) { el.style.display = 'none'; return; }
 
-  affordable.sort((a, b) => b.rating - a.rating || a.price - b.price);
-  const picks = affordable.slice(0, 8);
+  pool.sort((a, b) => b.rating - a.rating || a.price - b.price);
+  const picks = pool.slice(0, 10);
 
-  const emoji = type => type === 'food' ? '🍽' : '🎯';
-  const priceStr = p => p === 0 ? 'Free' : `$${p}`;
+  const emoji    = type => type === 'food' ? '🍽' : '🎯';
+  const priceStr = p => p === 0 ? '<span style="color:#34d399;font-weight:700">Free</span>' : `<span style="color:#34d399;font-weight:700">$${p}</span>`;
+  const title    = hasBudget
+    ? `Places within your budget ($${Math.round(perDay)}/day)`
+    : `Top picks — ${escHtml(city.name)}`;
 
   el.style.display = 'block';
   el.innerHTML = `
-    <div class="budget-recs-title">Places within your budget ($${Math.round(perDay)}/day)</div>
+    <div class="budget-recs-title">${title}</div>
     <div class="budget-recs-scroll">
       ${picks.map(p => `
-        <div class="budget-rec-chip">
+        <div class="budget-rec-chip" onclick="addBudgetRecToDay('${jsqApp(p.name)}','${jsqApp(p.type)}')" title="Add to itinerary">
           <div class="rec-emoji">${emoji(p.type)}</div>
           <div class="rec-name">${escHtml(p.name)}</div>
-          <span class="rec-price">${priceStr(p.price)}</span><span class="rec-rating">⭐ ${p.rating}</span>
+          ${priceStr(p.price)}<span class="rec-rating"> ⭐ ${p.rating}</span>
         </div>`).join('')}
     </div>`;
+}
+
+function addBudgetRecToDay(name, type) {
+  const city = getCurrentCity();
+  if (!city) return;
+  const source = type === 'food' ? city.food : city.activities;
+  const item   = (source || []).find(i => i && i.name === name);
+  if (!item) return;
+  const dayId = currentDayId || currentTrip?.days?.[0]?.id;
+  if (!dayId) { openNewTripModal(); return; }
+  addCardToDay(dayId, { ...item, cityId: city.id, cityName: city.name, category: type });
+  switchTab('itinerary');
+  showToast(`✓ ${name} added to itinerary`);
 }
 
 function handleHeroInvite() {
@@ -1668,6 +1815,7 @@ function addDay() {
   saveStore(d);
   renderDatePills();
   renderItinCards();
+  renderBudgetRecs();
   requestAnimationFrame(() => {
     const r = document.getElementById('date-pills-row');
     if (r) r.scrollLeft = r.scrollWidth;
@@ -1686,6 +1834,7 @@ function removeDay(dayId) {
   saveStore(d);
   renderDatePills();
   renderItinCards();
+  renderBudgetRecs();
   updateMapPins();
 }
 
@@ -1739,9 +1888,66 @@ function renderItinCards() {
   const healthHTML   = stats ? renderDayHealthBar(stats) : '';
   const insights     = getDayInsights(day);
   const insightHTML  = renderDayInsights(insights);
-  area.innerHTML     = healthHTML + insightHTML + cards.map((c, i) => renderPlacedCard(c, day.id, i + 1)).join('');
 
+  // Split into timed (sorted) + untimed
+  const timedCards   = cards.filter(c => c.startTime).sort((a, b) => a.startTime.localeCompare(b.startTime));
+  const untimedCards = cards.filter(c => !c.startTime);
+  const allSorted    = [...timedCards, ...untimedCards];
+
+  // Toolbar
+  const hasTimes   = timedCards.length > 0;
+  const totalMins  = allSorted.reduce((s, c) => s + _parseDurationMins(c.duration), 0);
+  const totalLabel = totalMins > 0 ? `~${Math.floor(totalMins/60)}h ${totalMins%60 ? (totalMins%60)+'m' : ''}`.trim() : '';
+  const toolbar = `
+    <div class="tl-toolbar">
+      <button class="tl-auto-btn" onclick="autoScheduleDay('${jsqApp(day.id)}')">⚡ Auto-schedule</button>
+      <span class="tl-summary">${totalLabel ? `${totalLabel} total` : 'Set times to plan your day'}${hasTimes ? `&nbsp;·&nbsp;<button class="tl-clear-all-btn" onclick="clearDayTimes('${jsqApp(day.id)}')">Clear times</button>` : ''}</span>
+    </div>`;
+
+  // Build timeline items
+  let tlItems = '';
+  timedCards.forEach((c, i) => {
+    tlItems += renderTimelineItem(c, day.id, i + 1, true);
+  });
+  if (untimedCards.length && timedCards.length) {
+    tlItems += `<div class="tl-no-time-header">Unscheduled</div>`;
+  }
+  untimedCards.forEach((c, i) => {
+    tlItems += renderTimelineItem(c, day.id, timedCards.length + i + 1, false);
+  });
+
+  area.innerHTML = healthHTML + insightHTML + toolbar + `<div class="tl-wrap">${tlItems}</div>`;
   setupCardDrag();
+}
+
+function renderTimelineItem(card, dayId, num, isConnected) {
+  const hasTime  = !!card.startTime;
+  const timeDisp = hasTime ? _fmt12h(card.startTime) : '';
+  const endDisp  = hasTime && card.duration ? _calcEndTime(card.startTime, card.duration) : '';
+  const cardHtml = renderPlacedCard(card, dayId, num);
+
+  return `<div class="tl-item">
+    <div class="tl-left">
+      <div class="tl-dot${hasTime ? ' has-time' : ''}"></div>
+      ${isConnected ? '<div class="tl-connector"></div>' : ''}
+    </div>
+    <div class="tl-content">
+      <div class="tl-time-row">
+        <button class="tl-time-btn${hasTime ? ' has-time' : ''}"
+          onclick="openTimePicker('${jsqApp(dayId)}','${jsqApp(card.id)}')">${
+          hasTime
+            ? `<span class="tl-time-icon">🕐</span>${escHtml(timeDisp)}`
+            : `<span class="tl-time-icon">＋</span>Set time`
+        }</button>
+        ${hasTime && endDisp ? `<span class="tl-arrow">→</span><span class="tl-end-time">${escHtml(endDisp)}</span>` : ''}
+        ${hasTime ? `<button class="tl-clear-time" onclick="clearCardTime('${jsqApp(dayId)}','${jsqApp(card.id)}')" title="Remove time">✕</button>` : ''}
+        <input type="time" id="tl-ti-${escHtml(card.id)}" class="tl-hidden-input"
+          value="${escHtml(card.startTime || '')}"
+          onchange="updateCardTime('${jsqApp(dayId)}','${jsqApp(card.id)}',this.value)" />
+      </div>
+      ${cardHtml}
+    </div>
+  </div>`;
 }
 
 function renderPlacedCard(card, dayId, num) {
@@ -1751,12 +1957,12 @@ function renderPlacedCard(card, dayId, num) {
   const price     = card.price === 0 ? '<span style="color:#34d399;font-weight:700">FREE</span>'
                   : card.price > 0   ? `<span style="color:#fb923c;font-weight:700">$${card.price}</span>` : '';
   const bestTime  = getBestTime(card);
-  const timeHTML  = bestTime
+  const suggestHTML = !card.startTime && bestTime
     ? `<span class="best-time-badge" style="color:${bestTime.color};border-color:${bestTime.color}33;background:${bestTime.color}11">${bestTime.icon} ${bestTime.label}</span>`
     : '';
 
   return `<div class="placed-card" draggable="true" data-card-id="${card.id}" data-day-id="${dayId}">
-    <div class="placed-num">${num}</div>
+    <div class="placed-num">⠿</div>
     <img class="placed-photo" src="${escHtml(photo)}" alt="${escHtml(card.name)}" loading="lazy"
       onerror="this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=80&q=70'" />
     <div class="placed-body">
@@ -1767,7 +1973,7 @@ function renderPlacedCard(card, dayId, num) {
         ${card.rating ? `<span class="placed-rating">${renderStars(card.rating)} ${card.rating}</span>` : ''}
         ${price}
         ${card.duration ? `<span class="placed-duration">⏱ ${escHtml(card.duration)}</span>` : ''}
-        ${timeHTML}
+        ${suggestHTML}
       </div>
       <input class="placed-note-input" placeholder="Add a note..."
         value="${escHtml(card.note || '')}"
@@ -1852,17 +2058,18 @@ function addCardToDay(dayId, place) {
   }
 
   day.cards.push({
-    id:       crypto.randomUUID(),
-    name:     place.name,
-    cityId:   place.cityId || '',
-    cityName: place.cityName || '',
-    category: place.category || 'activity',
-    rating:   place.rating || 0,
-    price:    place.price ?? null,
-    duration: place.duration || '',
-    tip:      place.tip || '',
-    note:     '',
-    fromSave: !!place.fromSave,
+    id:        crypto.randomUUID(),
+    name:      place.name,
+    cityId:    place.cityId || '',
+    cityName:  place.cityName || '',
+    category:  place.category || 'activity',
+    rating:    place.rating || 0,
+    price:     place.price ?? null,
+    duration:  place.duration || '',
+    tip:       place.tip || '',
+    note:      '',
+    startTime: '',
+    fromSave:  !!place.fromSave,
   });
 
   currentTrip = trip;
@@ -3178,4 +3385,310 @@ function renderRewardsTab() {
 function toggleBlogCard(index) {
   const el = document.getElementById(`blog-expanded-${index}`);
   if (el) el.classList.toggle('open');
+}
+
+// ══════════════════════════════════════════════════════════════
+// ONBOARDING FLOW
+// ══════════════════════════════════════════════════════════════
+let _onbStep = 0;
+let _onbTemplate = null; // { name, days, type }
+
+function showOnboarding() {
+  const modal = document.getElementById('onboarding-modal');
+  if (!modal) return;
+  _onbStep = 0;
+  _onbTemplate = null;
+  // Populate city select
+  const sel = document.getElementById('onb-city-select');
+  if (sel && typeof CITIES !== 'undefined') {
+    sel.innerHTML = '<option value="">Choose a destination…</option>' +
+      CITIES.map(c => `<option value="${escHtml(c.id)}">${escHtml(c.name)}, ${escHtml(c.country)}</option>`).join('');
+  }
+  modal.classList.remove('hidden');
+  _onbUpdateSteps();
+}
+
+function onbNext() {
+  _onbStep = Math.min(2, _onbStep + 1);
+  _onbUpdateSteps();
+}
+
+function onbSelectTemplate(el, name, days, type) {
+  document.querySelectorAll('.onb-tpl').forEach(t => t.classList.remove('selected'));
+  el.classList.add('selected');
+  _onbTemplate = { name, days, type };
+  document.getElementById('onb-create-btn').disabled = false;
+}
+
+function onbCreateTrip() {
+  if (!_onbTemplate) return;
+  onbNext(); // go to destination step
+}
+
+function onbFinish() {
+  const cityId = document.getElementById('onb-city-select').value;
+  if (!cityId) { showToast('Pick a destination first!'); return; }
+  const city   = (typeof CITIES !== 'undefined') ? CITIES.find(c => c.id === cityId) : null;
+  const tpl    = _onbTemplate || { name: 'My Trip', days: 3, type: 'explorer' };
+  _createTripFromTemplate(tpl, cityId, city?.name || '');
+  onbDismiss();
+}
+
+function onbDismiss() {
+  document.getElementById('onboarding-modal')?.classList.add('hidden');
+  localStorage.setItem('roamly_onboarded', '1');
+}
+
+function _onbUpdateSteps() {
+  [0, 1, 2].forEach(i => {
+    document.getElementById(`onb-pane-${i}`)?.style && (document.getElementById(`onb-pane-${i}`).style.display = i === _onbStep ? '' : 'none');
+    document.getElementById(`onb-dot-${i}`)?.classList.toggle('active', i === _onbStep);
+  });
+}
+
+// ══════════════════════════════════════════════════════════════
+// TRIP TEMPLATES  (also accessible via New Trip modal)
+// ══════════════════════════════════════════════════════════════
+const TRIP_TEMPLATES = {
+  weekend:   { name: 'Weekend Getaway',  days: 2, focusType: 'mix',      emoji: '🏙' },
+  explorer:  { name: '1-Week Explorer',  days: 7, focusType: 'mix',      emoji: '🗺' },
+  foodie:    { name: 'Foodie Trip',      days: 4, focusType: 'food',     emoji: '🍜' },
+  adventure: { name: 'Adventure Week',   days: 7, focusType: 'activity', emoji: '🧗' },
+};
+
+function _createTripFromTemplate(tpl, cityId, cityName) {
+  if (!cityId) return;
+  const d    = getStore();
+  const city = (typeof CITIES !== 'undefined') ? CITIES.find(c => c.id === cityId) : null;
+  const numDays = tpl.days || 3;
+
+  const days = Array.from({ length: numDays }, (_, i) => {
+    const cards = [];
+    if (city) {
+      const acts = [...(city.activities || [])].filter(Boolean).sort((a, b) => (b.rating || 0) - (a.rating || 0));
+      const food = [...(city.food || [])].filter(Boolean).sort((a, b) => (b.rating || 0) - (a.rating || 0));
+      const pool = tpl.focusType === 'food'     ? [...food.slice(i*3, i*3+3), ...acts.slice(i, i+1)]
+                 : tpl.focusType === 'activity' ? [...acts.slice(i*3, i*3+3)]
+                 : [...acts.slice(i*2, i*2+2), food[i]].filter(Boolean);
+      pool.slice(0, 3).forEach(item => {
+        const type = city.food?.includes(item) ? 'food' : 'activity';
+        cards.push({ id: crypto.randomUUID(), name: item.name, type, price: item.price || 0, rating: item.rating || 0, photo: item.photo || null, cityId, cityName, fromSave: false });
+      });
+    }
+    return { id: crypto.randomUUID(), num: i + 1, cards };
+  });
+
+  const trip = {
+    id: crypto.randomUUID(),
+    name: `${tpl.name}${cityName ? ' — ' + cityName : ''}`,
+    cityId, cityName,
+    startDate: '', budget: 0, days, saves: [],
+  };
+  d.trips.unshift(trip);
+  d.activeTrip = trip.id;
+  currentTrip  = trip;
+  saveStore(d);
+  renderAll();
+  switchTab('itinerary');
+  showToast(`${tpl.emoji || '✨'} ${tpl.name} trip created!`);
+}
+
+// ══════════════════════════════════════════════════════════════
+// SHARE CARD  (Canvas PNG export)
+// ══════════════════════════════════════════════════════════════
+function openShareCard() {
+  if (!currentTrip) { showToast('Create a trip first!'); return; }
+  const modal = document.getElementById('share-card-modal');
+  if (!modal) return;
+  modal.classList.remove('hidden');
+  setTimeout(() => _drawShareCard(), 100);
+}
+
+function closeShareCard() {
+  document.getElementById('share-card-modal')?.classList.add('hidden');
+}
+
+function _drawShareCard() {
+  const canvas = document.getElementById('share-canvas');
+  if (!canvas) return;
+  const W = 375, H = 500;
+  canvas.width  = W * 2;
+  canvas.height = H * 2;
+  canvas.style.width  = W + 'px';
+  canvas.style.height = H + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(2, 2);
+
+  // Background
+  const bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, '#0b1120');
+  bg.addColorStop(1, '#0f1929');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // Gradient overlay stripe
+  const stripe = ctx.createLinearGradient(0, 0, W, 0);
+  stripe.addColorStop(0, 'rgba(13,148,136,.15)');
+  stripe.addColorStop(1, 'rgba(99,102,241,.15)');
+  ctx.fillStyle = stripe;
+  ctx.fillRect(0, 0, W, 140);
+
+  // City hero image (if available)
+  const city = (typeof CITIES !== 'undefined') ? CITIES.find(c => c.id === currentTrip.cityId) : null;
+  const heroImg = city?.image;
+
+  const drawContent = () => {
+    // Logo
+    ctx.font = 'bold 13px "Plus Jakarta Sans", sans-serif';
+    ctx.fillStyle = 'rgba(45,212,191,1)';
+    ctx.fillText('✈ Roamly', 24, 30);
+
+    // Trip name
+    ctx.font = 'bold 26px "Plus Jakarta Sans", sans-serif';
+    ctx.fillStyle = '#f0faf9';
+    ctx.fillText(_shareEllipsis(ctx, currentTrip.name || 'My Trip', W - 48, '26px'), 24, 80);
+
+    // City
+    if (currentTrip.cityName) {
+      ctx.font = '15px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = 'rgba(45,212,191,.8)';
+      ctx.fillText(`📍 ${currentTrip.cityName}`, 24, 106);
+    }
+
+    // Stats row
+    const stats = [
+      { icon: '📅', val: `${currentTrip.days?.length || 0}`, label: 'days' },
+      { icon: '📌', val: `${(currentTrip.days||[]).reduce((s,d)=>s+(d.cards?.length||0),0)}`, label: 'places' },
+      { icon: '💾', val: `${currentTrip.saves?.length || 0}`, label: 'saved' },
+    ];
+    const sy = 150;
+    stats.forEach((s, i) => {
+      const x = 24 + i * 110;
+      ctx.fillStyle = 'rgba(255,255,255,.06)';
+      _roundRect(ctx, x, sy, 100, 64, 12);
+      ctx.fill();
+      ctx.font = 'bold 22px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#f0faf9';
+      ctx.fillText(s.icon + ' ' + s.val, x + 10, sy + 30);
+      ctx.font = '11px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = 'rgba(240,250,249,.45)';
+      ctx.fillText(s.label, x + 14, sy + 50);
+    });
+
+    // Top spots
+    const allCards = (currentTrip.days || []).flatMap(d => d.cards || []).slice(0, 5);
+    if (allCards.length) {
+      ctx.font = 'bold 13px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = 'rgba(240,250,249,.5)';
+      ctx.fillText('TOP SPOTS', 24, 245);
+      allCards.forEach((c, i) => {
+        const y = 262 + i * 40;
+        ctx.fillStyle = 'rgba(255,255,255,.05)';
+        _roundRect(ctx, 24, y, W - 48, 32, 8);
+        ctx.fill();
+        ctx.font = '13px "Plus Jakarta Sans", sans-serif';
+        ctx.fillStyle = '#f0faf9';
+        ctx.fillText(`${c.type === 'food' ? '🍽' : '🎯'} ${_shareEllipsis(ctx, c.name, W - 96, '13px')}`, 36, y + 21);
+        if (c.rating) {
+          ctx.font = '11px sans-serif';
+          ctx.fillStyle = '#fbbf24';
+          ctx.fillText(`⭐ ${c.rating}`, W - 68, y + 21);
+        }
+      });
+    }
+
+    // Footer
+    ctx.font = '11px "Plus Jakarta Sans", sans-serif';
+    ctx.fillStyle = 'rgba(240,250,249,.25)';
+    ctx.fillText('Made with Roamly · roamly.app', 24, H - 16);
+  };
+
+  if (heroImg) {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      // draw hero strip
+      ctx.globalAlpha = 0.18;
+      ctx.drawImage(img, 0, 0, W, 140);
+      ctx.globalAlpha = 1;
+      drawContent();
+    };
+    img.onerror = drawContent;
+    img.src = heroImg + '&w=750&q=60';
+  } else {
+    drawContent();
+  }
+}
+
+function _roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+function _shareEllipsis(ctx, text, maxWidth, _font) {
+  if (ctx.measureText(text).width <= maxWidth) return text;
+  while (text.length > 3 && ctx.measureText(text + '…').width > maxWidth) text = text.slice(0, -1);
+  return text + '…';
+}
+
+async function _shareCardNative() {
+  const canvas = document.getElementById('share-canvas');
+  if (!canvas) return;
+  try {
+    canvas.toBlob(async blob => {
+      if (!blob) return;
+      const file = new File([blob], 'roamly-trip.png', { type: 'image/png' });
+      if (navigator.share && navigator.canShare({ files: [file] })) {
+        await navigator.share({ title: currentTrip?.name || 'My Trip', files: [file] });
+      } else {
+        downloadShareCard();
+      }
+    }, 'image/png');
+  } catch(e) { downloadShareCard(); }
+}
+
+function downloadShareCard() {
+  const canvas = document.getElementById('share-canvas');
+  if (!canvas) return;
+  const link = document.createElement('a');
+  link.download = `roamly-${(currentTrip?.name || 'trip').replace(/\s+/g,'_').toLowerCase()}.png`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+  showToast('Trip card saved 🎉');
+}
+
+// ══════════════════════════════════════════════════════════════
+// SWIPE GESTURES
+// ══════════════════════════════════════════════════════════════
+function _initSwipe() {
+  let touchStartX = 0, touchStartY = 0, touchStartTime = 0;
+  const TABS = ['itinerary', 'saves', 'discover', 'map', 'flights', 'rewards', 'group'];
+
+  document.addEventListener('touchstart', e => {
+    touchStartX    = e.touches[0].clientX;
+    touchStartY    = e.touches[0].clientY;
+    touchStartTime = Date.now();
+  }, { passive: true });
+
+  document.addEventListener('touchend', e => {
+    const dx   = e.changedTouches[0].clientX - touchStartX;
+    const dy   = e.changedTouches[0].clientY - touchStartY;
+    const dt   = Date.now() - touchStartTime;
+    // Only count fast, mostly-horizontal swipes not on interactive elements
+    if (dt > 350 || Math.abs(dx) < 60 || Math.abs(dy) > Math.abs(dx) * 0.7) return;
+    const tag = e.target.closest('input,textarea,select,[contenteditable],canvas,.ai-panel,.modal-overlay') ;
+    if (tag) return;
+    const idx    = TABS.indexOf(currentTab);
+    if (dx < 0 && idx < TABS.length - 1) switchTab(TABS[idx + 1]); // swipe left → next tab
+    if (dx > 0 && idx > 0)               switchTab(TABS[idx - 1]); // swipe right → prev tab
+  }, { passive: true });
 }
