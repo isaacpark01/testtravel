@@ -694,26 +694,26 @@ function getPlacePhotos(name, cityImage) {
   // 2. Unsplash specific photo from PHOTO_MAP
   const unsplashKey = Object.keys(PHOTO_MAP).find(p => k.includes(p));
   if (unsplashKey) {
-    const url = `https://images.unsplash.com/${PHOTO_MAP[unsplashKey]}?w=600&q=80`;
+    const url = `https://images.unsplash.com/${PHOTO_MAP[unsplashKey]}?w=800&q=85`;
     if (!photos.includes(url)) photos.push(url);
   }
 
   // 3. Unsplash category photo
   const catMatch = CATEGORY_PHOTOS.find(([p]) => k.includes(p));
   if (catMatch) {
-    const catUrl = `https://images.unsplash.com/${catMatch[1]}?w=600&q=80`;
+    const catUrl = `https://images.unsplash.com/${catMatch[1]}?w=800&q=85`;
     if (!photos.includes(catUrl)) photos.push(catUrl);
   }
 
   // 4. City image as fallback
   if (cityImage) {
-    const cityUrl = cityImage.replace(/w=\d+/, 'w=600');
+    const cityUrl = cityImage.replace(/w=\d+(&q=\d+)?/, 'w=800&q=85');
     if (!photos.includes(cityUrl)) photos.push(cityUrl);
   }
 
   // 5. Always have at least one photo
   if (!photos.length) {
-    photos.push('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=70');
+    photos.push('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=85');
   }
 
   return photos;
