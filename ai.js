@@ -57,11 +57,18 @@ function _aiGreet() {
 }
 
 /* ── Send message ───────────────────────────────────────────── */
+function aiPrompt(btn) {
+  const input = document.getElementById('ai-input');
+  if (input) { input.value = btn.innerText; input.focus(); }
+}
+
 async function aiSend() {
   const input = document.getElementById('ai-input');
   const text  = (input?.value || '').trim();
   if (!text || _aiThinking) return;
   input.value = '';
+  const welcome = document.getElementById('ai-welcome');
+  if (welcome) welcome.remove();
   _aiPushMessage('user', text);
   _aiThinking = true;
   _aiShowTyping();
