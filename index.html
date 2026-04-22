@@ -489,8 +489,8 @@
   <div class="deal-form-card" style="margin-top:20px">
     <h3 data-i18n="dealsBudget">💰 Trip Budget Estimator</h3>
     <div class="deal-form">
-      <div class="idea-form-row">
-        <div class="form-field" style="flex:1 1 180px;min-width:160px;max-width:320px">
+      <div style="display:grid;grid-template-columns:1fr 160px 80px auto;gap:10px;align-items:end">
+        <div class="form-field">
           <label>Destination</label>
           <div class="est-city-wrap" style="flex:none;width:100%">
             <input id="est-city-input" type="text" placeholder="Search a city…" autocomplete="off"
@@ -501,7 +501,7 @@
             <div class="est-city-dropdown" id="est-city-dropdown" style="display:none"></div>
           </div>
         </div>
-        <div class="form-field" style="flex:1 1 140px;min-width:130px;max-width:200px">
+        <div class="form-field">
           <label>Travel Style</label>
           <select id="est-style">
             <option value="budget">Budget traveler</option>
@@ -509,14 +509,11 @@
             <option value="luxury">Luxury</option>
           </select>
         </div>
-        <div class="form-field" style="flex:0 0 80px;min-width:80px">
+        <div class="form-field">
           <label>Days</label>
           <input id="est-days" type="number" min="1" max="30" value="7" />
         </div>
-        <div class="form-field" style="flex:0 0 auto">
-          <label style="visibility:hidden">Go</label>
-          <button class="auth-btn-solid" onclick="estimateBudget()">Estimate</button>
-        </div>
+        <button class="auth-btn-solid" onclick="estimateBudget()">Estimate</button>
       </div>
     </div>
     <div id="estimate-result" class="hidden" style="margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px"></div>
