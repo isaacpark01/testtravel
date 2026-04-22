@@ -116,7 +116,7 @@ body {
   transition: color .2s; -webkit-tap-highlight-color: transparent;
 }
 .bnav-btn.active { color: #97ace0; }
-.bnav-icon { font-size: 20px; line-height: 1; }
+.bnav-icon { display: flex; align-items: center; justify-content: center; height: 22px; }
 .bnav-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
 
 /* ===================== HERO ===================== */
@@ -429,6 +429,7 @@ body.light-mode .btn-planner-outline:hover { background: rgba(255,255,255,.35); 
   cursor: pointer; font-family: inherit; border-bottom: 2px solid transparent;
   transition: all .2s; white-space: nowrap; min-height: 44px;
   -webkit-tap-highlight-color: transparent;
+  display: inline-flex; align-items: center; gap: 5px;
 }
 .tab-btn:hover { color: rgba(240,250,249,.7); }
 .tab-btn.active { color: #97ace0; border-bottom-color: #97ace0; }
@@ -721,7 +722,7 @@ body.light-mode .btn-planner-outline:hover { background: rgba(255,255,255,.35); 
 .kanban-add-col-btn:hover { background: rgba(106,154,184,.12); border-color: rgba(151,172,224,.45); }
 
 /* ===================== FOOTER ===================== */
-.site-footer { background: rgba(255,255,255,.02); border-top: 1px solid rgba(106,154,184,.08); text-align: center; padding: 36px 20px; }
+.site-footer { background: rgba(255,255,255,.02); border-top: 1px solid rgba(106,154,184,.08); text-align: left; padding: 36px 20px; }
 .footer-logo { font-family: 'Geist', sans-serif; font-size: 18px; color: #97ace0; margin-bottom: 10px; }
 .site-footer p { color: rgba(240,250,249,.2); font-size: 12px; }
 
@@ -844,8 +845,10 @@ body.light-mode .btn-planner-outline:hover { background: rgba(255,255,255,.35); 
 }
 body.light-mode .step-num { color: #5283a0; }
 .how-icon {
-  font-size: 36px; margin-bottom: 18px; display: block;
+  display: block; margin-bottom: 18px;
+  color: #97ace0;
 }
+.how-icon svg { display: block; }
 .how-title {
   font-size: 17px; font-weight: 700; color: #f0eae4; margin-bottom: 10px;
 }
