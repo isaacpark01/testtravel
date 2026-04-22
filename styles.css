@@ -1139,6 +1139,7 @@ body.light-mode .hero-scroll-hint { color: rgba(26,24,48,.3); }
 body.light-mode .section { background: transparent; }
 body.light-mode .how-section { background: rgba(237,232,248,.5); }
 body.light-mode .how-card { background: rgba(255,255,255,.85); border-color: rgba(106,154,184,.2); color: #1a1830; }
+body.light-mode .how-card::before { color: rgba(106,154,184,.18); }
 body.light-mode .how-card:hover { border-color: rgba(106,154,184,.5); box-shadow: 0 12px 40px rgba(106,154,184,.15); }
 body.light-mode .how-title { color: #1a1830; }
 body.light-mode .how-desc { color: rgba(26,24,48,.6); }
