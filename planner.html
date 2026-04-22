@@ -272,7 +272,7 @@
     .itin-cards-area.drag-over { outline: 2px dashed rgba(151,172,224,.3); outline-offset: -4px; border-radius: 4px; }
 
     .itin-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; gap: 12px; text-align: center; padding: 32px; }
-    .itin-empty .empty-icon { font-size: 48px; animation: floatIcon 3s ease-in-out infinite; }
+    .itin-empty .empty-icon { display: flex; align-items: center; justify-content: center; animation: floatIcon 3s ease-in-out infinite; }
     .itin-empty p { font-size: 13px; color: var(--text-dim); max-width: 240px; line-height: 1.7; }
     .itin-empty strong { color: var(--teal); }
     @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }

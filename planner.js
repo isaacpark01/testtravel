@@ -1986,8 +1986,18 @@ function renderItinCards() {
 
   if (!currentTrip) {
     area.innerHTML = `<div class="itin-empty">
-      <div class="empty-icon">✈️</div>
-      <p>Hit <strong>+ New Trip</strong> up top to start planning your next adventure 🌍</p>
+      <div class="empty-icon">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="url(#planeGrad)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <defs>
+            <linearGradient id="planeGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#b8cce8"/>
+              <stop offset="100%" stop-color="#6a9ab8"/>
+            </linearGradient>
+          </defs>
+          <path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 1 16.5 2.5L13 6 4.8 4.2c-.5-.1-.9.1-1.1.5L3 5.7c-.2.4-.1.9.2 1.2L8 11.7l-2.1 2.8c-.3.4-.2.9.1 1.3l.7.7c.4.4.9.4 1.3.1L10.5 14l5 5.1c.3.3.8.4 1.2.2l1-.7c.4-.3.5-.8.1-1.4z"/>
+        </svg>
+      </div>
+      <p>Your passport is gathering dust.<br>Hit <strong>+ New Trip</strong> and change that.</p>
     </div>`;
     ctr.textContent = '';
     return;
@@ -1996,8 +2006,26 @@ function renderItinCards() {
   const days = currentTrip.days || [];
   if (!days.length) {
     area.innerHTML = `<div class="itin-empty">
-      <div class="empty-icon">📅</div>
-      <p>Tap <strong>+ Day</strong> to add your first day — then drop some places in ✨</p>
+      <div class="empty-icon">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="url(#calGrad)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <defs>
+            <linearGradient id="calGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#b8cce8"/>
+              <stop offset="100%" stop-color="#6a9ab8"/>
+            </linearGradient>
+          </defs>
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+          <line x1="8" y1="14" x2="8" y2="14" stroke-width="2" stroke-linecap="round"/>
+          <line x1="12" y1="14" x2="12" y2="14" stroke-width="2" stroke-linecap="round"/>
+          <line x1="16" y1="14" x2="16" y2="14" stroke-width="2" stroke-linecap="round"/>
+          <line x1="8" y1="18" x2="8" y2="18" stroke-width="2" stroke-linecap="round"/>
+          <line x1="12" y1="18" x2="12" y2="18" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <p>A trip with no days is just a rumor.<br>Hit <strong>+ Day</strong> and make it real.</p>
     </div>`;
     ctr.textContent = '';
     return;
