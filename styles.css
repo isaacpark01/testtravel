@@ -304,15 +304,44 @@ body.light-mode .btn-planner-outline:hover { background: rgba(255,255,255,.35); 
 .region-filter { display: flex; gap: 8px; justify-content: center; margin-bottom: 36px; flex-wrap: wrap; }
 .region-btn {
   background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
-  color: rgba(240,250,249,.5); padding: 10px 24px; border-radius: 30px;
+  color: rgba(240,250,249,.5); padding: 10px 22px; border-radius: 30px;
   font-size: 13px; font-weight: 600; letter-spacing: .04em;
   cursor: pointer; font-family: inherit; transition: all .25s;
   -webkit-tap-highlight-color: transparent; min-height: 40px;
+  display: inline-flex; align-items: center; gap: 7px;
 }
 .region-btn:hover { background: rgba(151,172,224,.08); color: #f0eae4; border-color: rgba(151,172,224,.3); }
 .region-btn.active {
   background: #6a9ab8; border-color: #6a9ab8; color: #fff;
   box-shadow: 0 0 18px rgba(106,154,184,.45);
+}
+
+/* SVG icons via mask-image — survives i18n textContent rewrites */
+.region-btn::before {
+  content: '';
+  display: block;
+  width: 14px; height: 14px; flex-shrink: 0;
+  background-color: currentColor;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  opacity: .85;
+  transition: opacity .25s;
+}
+.region-btn[data-i18n="regionAll"]::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='2' y1='12' x2='22' y2='12'/%3E%3Cpath d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='2' y1='12' x2='22' y2='12'/%3E%3Cpath d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/%3E%3C/svg%3E");
+}
+.region-btn[data-i18n="regionUSA"]::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E");
+}
+.region-btn[data-i18n="regionIntl"]::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 2L11 13'/%3E%3Cpath d='M22 2L15 22 11 13 2 9l20-7z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 2L11 13'/%3E%3Cpath d='M22 2L15 22 11 13 2 9l20-7z'/%3E%3C/svg%3E");
 }
 
 /* ===================== CITY CARDS ===================== */
