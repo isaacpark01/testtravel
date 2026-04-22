@@ -28,7 +28,7 @@
       groupTitle:'Group Trip Board', groupSub:'Vote on ideas with your travel crew in real time',
       modeSolo:'🗓 Solo Planner', modeGroup:'👥 Group Board',
       emptyTrip:'Create a trip to start planning your days', btnNewTrip:'+ New Trip',
-      dealsTitle:'Find Deals', dealsSub:'Search flights, cars, and hotels — compare across platforms',
+      dealsTitle:'Find Deals', dealsSub:'Every platform. Every deal. One search.',
       dealsFlights:'✈ Flights', dealsCars:'🚗 Rental Cars', dealsBudget:'💰 Trip Budget Estimator',
     },
     es: {
