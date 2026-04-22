@@ -155,6 +155,37 @@ const CITY_LANGUAGES = {
   edinburgh:    { name: 'English (Scottish) 🏴󠁧󠁢󠁳󠁣󠁴󠁿', bcp47: 'en-GB', phrases: [{p:'Aye',m:'Yes — the standard Scottish affirmative'},{p:'Haud yer wheesht',m:'Be quiet / hold your tongue'},{p:'It\'s a wee bit cold',m:'Scottish understatement — it\'s probably freezing'},{p:'Where\'s the nearest chippy?',m:'Finding a fish and chip shop'},{p:'Is the castle open today?',m:'Checking Edinburgh Castle hours'},{p:'Slainte!',m:'Cheers! — the Gaelic toast',r:'SLAN-cha'}] },
   copenhagen:   { name: 'Danish 🇩🇰', bcp47: 'da-DK', phrases: [{p:'Hej',m:'Hello / Hi',r:'hi'},{p:'Tak',m:'Thank you',r:'tak'},{p:'Må jeg bede om regningen?',m:'Can I have the bill?',r:'mo yi bay om RY-nin-en'},{p:'Hvad koster det?',m:'How much does it cost?',r:'val KOS-der day'},{p:'Skål!',m:'Cheers!',r:'skawl'},{p:'Taler du engelsk?',m:'Do you speak English?',r:'TAY-ler doo ENG-elsk'}] },
   havana:       { name: 'Spanish (Cuban) 🇨🇺', bcp47: 'es-CU', phrases: [{p:'¡Asere, qué volá!',m:'Hey man, what\'s up! — the classic Cuban slang greeting'},{p:'¿Cuánto?',m:'How much?',r:'KWAN-toh'},{p:'Un mojito, por favor',m:'A mojito, please — essential'},{p:'¿Dónde está la Bodeguita?',m:'Where is La Bodeguita del Medio?'},{p:'Dame un peso',m:'Give me a peso — buying something small'},{p:'¡Qué rico!',m:'How delicious! / How great!',r:'keh REE-koh'}] },
+  // Batch 3
+  santorini:    { name: 'Greek 🇬🇷', bcp47: 'el-GR', phrases: [{p:'Γεια σας',m:'Hello (formal)',r:'YAH-sas'},{p:'Ευχαριστώ',m:'Thank you',r:'ef-ha-rees-TOH'},{p:'Παρακαλώ',m:'Please / You\'re welcome',r:'pa-ra-ka-LOH'},{p:'Πόσο κάνει;',m:'How much does it cost?',r:'POH-so KA-nee'},{p:'Τον λογαριασμό, παρακαλώ',m:'The bill, please',r:'ton lo-ga-ree-az-MOH'},{p:'Στην υγειά μας!',m:'Cheers! / To our health!',r:'stin ee-YEE-ah mas'}] },
+  dubrovnik:    { name: 'Croatian 🇭🇷', bcp47: 'hr-HR', phrases: [{p:'Dobar dan',m:'Good day / Hello',r:'DOH-bar dan'},{p:'Hvala',m:'Thank you',r:'HVAH-lah'},{p:'Molim',m:'Please / You\'re welcome',r:'MOH-leem'},{p:'Gdje je...?',m:'Where is...?',r:'gdyeh yeh'},{p:'Račun, molim',m:'The bill, please',r:'RAH-choon MOH-leem'},{p:'Živjeli!',m:'Cheers!',r:'ZHEE-vyeh-lee'}] },
+  venice:       { name: 'Italian 🇮🇹', bcp47: 'it-IT', phrases: [{p:'Buongiorno',m:'Good morning / Hello',r:'bwon-JOR-no'},{p:'Grazie mille',m:'Thank you very much',r:'GRAT-see-eh MEEL-leh'},{p:'Per favore',m:'Please',r:'pehr fah-VOH-reh'},{p:'Dov\'è...?',m:'Where is...?',r:'doh-VEH'},{p:'Il conto, per favore',m:'The bill, please',r:'eel KON-toh'},{p:'Salute!',m:'Cheers!',r:'sah-LOO-teh'}] },
+  florence:     { name: 'Italian 🇮🇹', bcp47: 'it-IT', phrases: [{p:'Buongiorno',m:'Good morning / Hello',r:'bwon-JOR-no'},{p:'Grazie',m:'Thank you',r:'GRAT-see-eh'},{p:'Scusi',m:'Excuse me',r:'SKOO-zee'},{p:'Dov\'è il Duomo?',m:'Where is the Duomo?'},{p:'Un caffè, per favore',m:'A coffee, please'},{p:'Quanto costa?',m:'How much does it cost?',r:'KWAN-toh KOS-tah'}] },
+  milan:        { name: 'Italian 🇮🇹', bcp47: 'it-IT', phrases: [{p:'Buongiorno',m:'Good morning / Hello',r:'bwon-JOR-no'},{p:'Grazie',m:'Thank you',r:'GRAT-see-eh'},{p:'Dov\'è la metropolitana?',m:'Where is the metro?'},{p:'Il conto, per favore',m:'The bill, please'},{p:'Quanto costa questa borsa?',m:'How much is this bag?'},{p:'Un Negroni, per favore',m:'A Negroni, please — the Milan aperitivo'}] },
+  berlin:       { name: 'German 🇩🇪', bcp47: 'de-DE', phrases: [{p:'Guten Tag',m:'Good day / Hello',r:'GOO-ten tahk'},{p:'Danke schön',m:'Thank you very much',r:'DAN-keh shurn'},{p:'Bitte',m:'Please / You\'re welcome',r:'BIT-teh'},{p:'Wo ist...?',m:'Where is...?',r:'voh ist'},{p:'Die Rechnung, bitte',m:'The bill, please',r:'dee RECK-noong BIT-teh'},{p:'Prost!',m:'Cheers!',r:'prohst'}] },
+  madrid:       { name: 'Spanish 🇪🇸', bcp47: 'es-ES', phrases: [{p:'Hola',m:'Hello',r:'OH-lah'},{p:'Gracias',m:'Thank you',r:'GRAH-see-ahs'},{p:'Por favor',m:'Please',r:'por fah-VOR'},{p:'¿Dónde está...?',m:'Where is...?',r:'DON-deh es-TAH'},{p:'La cuenta, por favor',m:'The bill, please',r:'lah KWEN-tah'},{p:'¡Salud!',m:'Cheers!',r:'sah-LOOD'}] },
+  cairo:        { name: 'Arabic (Egyptian) 🇪🇬', bcp47: 'ar-EG', phrases: [{p:'السلام عليكم',m:'Peace be upon you (Hello)',r:'as-salaamu alaikum'},{p:'شكراً',m:'Thank you',r:'SHUK-ran'},{p:'من فضلك',m:'Please',r:'min FAD-lak'},{p:'فين...؟',m:'Where is...?',r:'FAYN'},{p:'الحساب من فضلك',m:'The bill, please',r:'al-HI-saab min FAD-lak'},{p:'بكام ده؟',m:'How much is this?',r:'bi-KAM dah'}] },
+  osaka:        { name: 'Japanese 🇯🇵', bcp47: 'ja-JP', phrases: [{p:'おおきに',m:'Thank you (Osaka dialect)',r:'oh-OH-ki-ni'},{p:'まいど',m:'Welcome / Hello (Osaka shopkeeper greeting)',r:'MAI-do'},{p:'なんぼ？',m:'How much? (Osaka dialect)',r:'NAN-bo'},{p:'おいしい！',m:'Delicious!',r:'oh-EE-shee'},{p:'すみません',m:'Excuse me',r:'soo-mee-MA-sen'},{p:'たこやき、ください',m:'Takoyaki, please',r:'ta-ko-YA-ki ku-DA-sai'}] },
+  hongkong:     { name: 'Cantonese / English 🇭🇰', bcp47: 'zh-HK', phrases: [{p:'你好',m:'Hello',r:'nei HOH'},{p:'唔該',m:'Thank you (for a service)',r:'mm-GOI'},{p:'多謝',m:'Thank you (for a gift)',r:'doh-JEH'},{p:'幾多錢？',m:'How much?',r:'gay-doh CHIN'},{p:'唔該，埋單',m:'Bill, please',r:'mm-GOI, mai-DAN'},{p:'好食！',m:'Delicious!',r:'hou-SHIK'}] },
+  // Batch 4
+  taipei:       { name: 'Mandarin (Taiwanese) 🇹🇼', bcp47: 'zh-TW', phrases: [{p:'你好',m:'Hello',r:'nee HAO'},{p:'謝謝',m:'Thank you',r:'sheh-SHEH'},{p:'請',m:'Please',r:'ching'},{p:'多少錢？',m:'How much?',r:'dwoh-shao CHEN'},{p:'買單，謝謝',m:'Check, please',r:'my-DAN sheh-sheh'},{p:'好吃！',m:'Delicious!',r:'HAO-chr'}] },
+  kualalumpur:  { name: 'Malay 🇲🇾', bcp47: 'ms-MY', phrases: [{p:'Selamat datang',m:'Welcome',r:'seh-la-MAT da-TANG'},{p:'Terima kasih',m:'Thank you',r:'teh-REE-mah KAH-see'},{p:'Tolong',m:'Please / Help',r:'TOH-long'},{p:'Di mana...?',m:'Where is...?',r:'dee MA-na'},{p:'Berapa harganya?',m:'How much is it?',r:'beh-RAH-pah har-GA-nya'},{p:'Sedap!',m:'Delicious!',r:'SEH-dap'}] },
+  hanoi:        { name: 'Vietnamese 🇻🇳', bcp47: 'vi-VN', phrases: [{p:'Xin chào',m:'Hello',r:'sin CHOW'},{p:'Cảm ơn',m:'Thank you',r:'gam UHN'},{p:'Làm ơn',m:'Please',r:'lam UHN'},{p:'Bao nhiêu tiền?',m:'How much?',r:'BOW nyew tyen'},{p:'Tính tiền',m:'The bill, please',r:'TING tyen'},{p:'Ngon quá!',m:'So delicious!',r:'NGON kwah'}] },
+  buenosaires:  { name: 'Spanish (Rioplatense) 🇦🇷', bcp47: 'es-AR', phrases: [{p:'¿Cómo andás?',m:'How are you? (Argentine informal)',r:'KOH-mo an-DAS'},{p:'Che, boludo!',m:'Dude! (casual greeting between friends)'},{p:'¿Cuánto sale?',m:'How much is it?',r:'KWAN-toh SAH-leh'},{p:'La cuenta, por favor',m:'The bill, please'},{p:'¡Salud!',m:'Cheers!',r:'sah-LOOD'},{p:'Qué copado',m:'How cool / awesome',r:'keh co-PAH-do'}] },
+  toronto:      { name: 'English (Canadian) 🇨🇦', bcp47: 'en-CA', phrases: [{p:'How\'s it going, eh?',m:'Standard Canadian greeting with the iconic \'eh\''},{p:'Where\'s the nearest subway station?',m:'Finding the TTC metro'},{p:'Is this on the Aeroplan?',m:'Asking if Air Canada points apply'},{p:'Could I get that to go?',m:'Asking for takeout'},{p:'How do I get to the CN Tower?',m:'Finding Toronto\'s landmark'},{p:'Sorry!',m:'Universal Canadian response to any situation'}] },
+  vancouver:    { name: 'English (Canadian) 🇨🇦', bcp47: 'en-CA', phrases: [{p:'How\'s it going, eh?',m:'Standard Canadian greeting'},{p:'Where\'s the SkyTrain?',m:'Finding Vancouver\'s rapid transit'},{p:'Is the ferry running to Victoria?',m:'Asking about BC Ferries'},{p:'How far is Whistler?',m:'About 2 hours north by car on the Sea-to-Sky Highway'},{p:'Where can I see the mountains?',m:'They\'re visible from almost anywhere on a clear day'},{p:'Sorry!',m:'Even more Canadian than Toronto'}] },
+  stockholm:    { name: 'Swedish 🇸🇪', bcp47: 'sv-SE', phrases: [{p:'Hej',m:'Hello / Hi',r:'hey'},{p:'Tack',m:'Thank you',r:'tak'},{p:'Förlåt',m:'Sorry / Excuse me',r:'fur-LOHT'},{p:'Var är...?',m:'Where is...?',r:'var air'},{p:'Kan jag få notan?',m:'Can I have the bill?',r:'kan yah foh NOO-tan'},{p:'Skål!',m:'Cheers!',r:'skohl'}] },
+  dublin:       { name: 'English (Irish) 🇮🇪', bcp47: 'en-IE', phrases: [{p:'How\'s the craic?',m:'What\'s the craic? = What\'s going on? / How are things?'},{p:'Grand',m:'Everything is grand = everything is fine — Irish understatement'},{p:'Where\'s the nearest chipper?',m:'Finding a fish and chip shop'},{p:'A pint of Guinness, please',m:'Essential Dublin order — let it settle, don\'t rush it'},{p:'Is it far to walk?',m:'Irish distances are often longer than described'},{p:'Sláinte!',m:'Cheers! — the Irish toast',r:'SLAHN-cheh'}] },
+  // Batch 5 — More USA
+  dallas:       { name: 'English (Texan) 🤠', bcp47: 'en-US', phrases: [{p:'Howdy!',m:'Texas\'s universal greeting — more genuine than a simple hi'},{p:'Bless your heart',m:'A polite way to say many things, depending on tone'},{p:'Where\'s the nearest BBQ joint?',m:'The most important question in Texas'},{p:'How far is it? (in hours)',m:'Distances in Texas are measured in hours, not miles'},{p:'Do you validate parking?',m:'Asking about parking — Dallas is very car-dependent'},{p:'Go Cowboys!',m:'Or whichever team is playing — sports are religion here'}] },
+  houston:      { name: 'English / Spanish (Houston) 🚀', bcp47: 'en-US', phrases: [{p:'Houston, we have a problem',m:'The most famous phrase ever associated with this city — but say it to a local and they\'ll groan'},{p:'Where\'s the best crawfish?',m:'For Viet-Cajun crawfish spots'},{p:'¿Habla usted inglés?',m:'Do you speak English? — Houston is 45% Hispanic'},{p:'How far is Space Center?',m:'About 30 minutes south of downtown without traffic'},{p:'Is HEB open?',m:'Texas\'s beloved grocery chain — a cultural institution'},{p:'What\'s the traffic like on 610?',m:'The loop — always bad'}] },
+  tampa:        { name: 'English (Florida) 🌴', bcp47: 'en-US', phrases: [{p:'Is the water warm?',m:'Gulf of Mexico is warm year-round — usually yes'},{p:'Where\'s the best Cuban sandwich?',m:'Tampa takes this rivalry with Miami very seriously'},{p:'How far is the beach?',m:'Clearwater is 45 minutes, Siesta Key is an hour south'},{p:'Is it going to storm?',m:'Florida afternoon thunderstorms are legendary and sudden'},{p:'Where\'s Ybor City?',m:'The historic Cuban-Italian district east of downtown'},{p:'Go Bucs!',m:'The Tampa Bay Buccaneers — or Lightning, Rays, depending on season'}] },
+  charlotte:    { name: 'English (Carolina) 🏎', bcp47: 'en-US', phrases: [{p:'Y\'all',m:'The essential Southern second-person plural — used constantly'},{p:'Where\'s the nearest Publix?',m:'The beloved Florida-Carolina grocery chain'},{p:'How far is the racetrack?',m:'Charlotte Motor Speedway is 30 minutes northeast'},{p:'Is the white water center open?',m:'The US National Whitewater Center is a great day trip'},{p:'Bless your heart',m:'The Southern all-purpose response'},{p:'Go Panthers!',m:'NFL\'s Carolina Panthers or Charlotte FC soccer'}] },
+  memphis:      { name: 'English (Memphis) 🎸', bcp47: 'en-US', phrases: [{p:'Where\'s Beale Street?',m:'Finding Memphis\'s legendary blues strip'},{p:'Dry rub or wet?',m:'The eternal Memphis BBQ question — locals say dry rub'},{p:'Is Graceland worth it?',m:'Yes, without question — Elvis\'s estate is extraordinary'},{p:'Where\'s the best ribs?',m:'Rendezvous is legendary — order the dry rub'},{p:'Don\'t sleep on Memphis',m:'Local pride phrase — the city is often underrated'},{p:'We put it on everything',m:'BBQ sauce — Memphis cooks put it on everything'}] },
+  minneapolis:  { name: 'English (Minnesotan) ☃️', bcp47: 'en-US', phrases: [{p:'Uff da!',m:'Norwegian-origin exclamation — surprise, tiredness, or exasperation'},{p:'You betcha',m:'Absolutely / Of course — the ultimate Minnesota affirmative'},{p:'Oh, for cute!',m:'How adorable / delightful!'},{p:'Where can I rent a Nice Ride?',m:'Minneapolis\'s bike share system'},{p:'Is it cold out?',m:'Minnesotans are stoic about cold — -20°F is \'a little brisk\''},{p:'Skol Vikings!',m:'Minnesota Vikings chant — raised fists and all'}] },
+  kansascity:   { name: 'English (Kansas City) 🏈', bcp47: 'en-US', phrases: [{p:'Burnt ends or brisket?',m:'The eternal KC BBQ debate — get both'},{p:'Where\'s the best BBQ?',m:'Joe\'s, Arthur Bryant\'s, and Jack Stack will all be argued'},{p:'How far is Arrowhead?',m:'Chiefs stadium is 10 minutes south of downtown'},{p:'Is there jazz tonight?',m:'Checking 18th & Vine for live music'},{p:'Which side are you from?',m:'Kansas City straddles two states — KS vs MO is a thing'},{p:'Go Chiefs!',m:'Patrick Mahomes\'s city — football is everything here'}] },
+  baltimore:    { name: 'English (Baltimore) 🦀', bcp47: 'en-US', phrases: [{p:'Where\'re you from, hon?',m:'\'Hon\' is Baltimore\'s signature term of endearment'},{p:'Are the crabs good today?',m:'Blue crab season (May–October) is peak Baltimore'},{p:'Old Bay on everything',m:'The crab seasoning that Marylanders put on literally everything'},{p:'How\'s the O\'s doing?',m:'The Baltimore Orioles — baseball is very much alive here'},{p:'Bawlmer, hon',m:'The local pronunciation of Baltimore — a badge of authenticity'},{p:'Natty Boh',m:'National Bohemian beer — the unofficial beer of Baltimore'}] },
+  pittsburgh:   { name: 'English (Pittsburghese) 🌉', bcp47: 'en-US', phrases: [{p:'Yinz going to the game?',m:'\'Yinz\' = you all — Pittsburgh\'s version of y\'all'},{p:'Gumbands',m:'What Pittsburghers call rubber bands — completely unique'},{p:'Nebby',m:'Nosy / curious — \'don\'t be nebby\''},{p:'The \'Burgh',m:'What locals call the city — always with pride'},{p:'Primanti\'s or pierogies?',m:'The two Pittsburgh food touchstones — get both'},{p:'Go Stillers!',m:'The Pittsburgh Steelers — Black and Gold is a religion here'}] },
+  saltlakecity: { name: 'English (Utah) ⛷️', bcp47: 'en-US', phrases: [{p:'Greatest Snow on Earth',m:'Utah\'s official slogan — not an exaggeration for powder skiing'},{p:'Where\'s the nearest trailhead?',m:'SLC is surrounded by world-class hiking and biking'},{p:'Is this beer 4% or 5%?',m:'Utah has unusual alcohol laws — beer was capped at 3.2% until 2019'},{p:'How far is Park City?',m:'35 minutes up I-80 — one of the best ski towns in America'},{p:'Is the temple open to visitors?',m:'The grounds are open but the temple itself requires LDS membership'},{p:'Fry sauce?',m:'Utah\'s beloved ketchup-mayo condiment served with fries everywhere'}] },
 };
 
 /* ===================== INIT ===================== */
@@ -811,6 +842,25 @@ const GENRE_EMOJI = {
   'Donuts & Fried Chicken':'🍩','Craft Cocktails':'🍸','New American Wine Bar':'🍷',
   // Other
   'Chicken':'🍗','Pasta':'🍝',
+  // Batch 3-5 new cuisines
+  'Czech':'🇨🇿','Modern Czech':'🇨🇿','Hungarian':'🇭🇺','Turkish':'🇹🇷',
+  'Kaiseki':'🍽','Cape Malay':'🌶','South African BBQ':'🔥','Deli':'🥪',
+  'Moroccan':'🇲🇦','Austrian':'🇦🇹','Scottish':'🏴󠁧󠁢󠁳󠁣󠁴󠁿','Danish':'🇩🇰',
+  'Greek':'🇬🇷','Croatian':'🇭🇷','Venetian':'🍤','Florentine':'🌸',
+  'German':'🥨','French-German':'🍷','Spanish':'🇪🇸','Egyptian':'🇪🇬',
+  'International':'🌍','Hong Kong':'🥢','Hot Pot':'🍲','Malaysian Chinese':'🥢',
+  'Fruit':'🍓','Argentine':'🥩','Canadian':'🍁','French-Canadian':'🇨🇦',
+  'Asian':'🥢','Swedish':'🇸🇪','Irish':'🇮🇪',
+  'Italian Trattoria':'🍝','Italian Fine Dining':'🍷',
+  'Tex-Mex':'🌮','Vietnamese-Cajun':'🦞','Café Bakery':'☕',
+  'Cuban-Spanish':'🇨🇺','Cuban Sandwich':'🥪',
+  'Native American-Inspired':'🌽','Healthy American':'🥗',
+  'Mexican Street Food':'🌮','Korean-BBQ':'🔥','Southern Seafood':'🦞',
+  'American Diner':'🍳','Brewery-Restaurant':'🍺',
+  'Eastern European Deli':'🥪','Asian Fusion':'🥢',
+  'Pittsburgh Sandwich':'🥪','Polish-American':'🥟',
+  'Eastern European Vegan':'🌱','Belgian Street Food':'🍟',
+  'Japanese Sushi':'🍣','Vegetarian':'🥗','Indian':'🍛','French':'🥐','Pub':'🍺',
 };
 
 function renderFoodByGenre(items) {
@@ -1392,6 +1442,23 @@ const COL = {
   capetown:     {b:45,m:115,l:320}, marrakech:    {b:30,m:75,l:200},
   vienna:       {b:55,m:140,l:380}, edinburgh:    {b:55,m:135,l:360},
   copenhagen:   {b:65,m:165,l:450}, havana:       {b:25,m:60,l:150},
+  // Batch 3 — Europe & Asia
+  santorini:    {b:70,m:175,l:480}, dubrovnik:    {b:60,m:150,l:400},
+  venice:       {b:65,m:160,l:440}, florence:     {b:55,m:135,l:370},
+  milan:        {b:60,m:155,l:420}, berlin:       {b:55,m:135,l:360},
+  madrid:       {b:55,m:135,l:360}, cairo:        {b:25,m:60,l:160},
+  osaka:        {b:50,m:120,l:330}, hongkong:     {b:60,m:155,l:430},
+  // Batch 4 — Asia & Americas
+  taipei:       {b:35,m:85,l:240}, kualalumpur:  {b:30,m:75,l:210},
+  hanoi:        {b:25,m:60,l:170}, buenosaires:  {b:35,m:85,l:240},
+  toronto:      {b:65,m:160,l:430}, vancouver:    {b:70,m:175,l:460},
+  stockholm:    {b:70,m:180,l:490}, dublin:       {b:65,m:160,l:440},
+  // Batch 5 — More USA
+  dallas:       {b:55,m:140,l:380}, houston:      {b:55,m:135,l:360},
+  tampa:        {b:60,m:145,l:380}, charlotte:    {b:55,m:130,l:340},
+  memphis:      {b:50,m:120,l:310}, minneapolis:  {b:60,m:145,l:380},
+  kansascity:   {b:50,m:120,l:310}, baltimore:    {b:55,m:130,l:340},
+  pittsburgh:   {b:50,m:120,l:310}, saltlakecity: {b:55,m:135,l:360},
 };
 function estimateBudget() {
   const inputVal = (document.getElementById('est-city-input').value || '').trim().toLowerCase();
