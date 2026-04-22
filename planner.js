@@ -812,16 +812,16 @@ function renderStars(rating) {
 // ── Vibe Tags ─────────────────────────────────────────────────
 // The honest labels no travel site will give you (their ad model won't allow it)
 const VIBE_DEFS = [
-  { id: 'hidden-gem',     emoji: '💎', label: 'Hidden Gem',     color: '#34d399', bg: 'rgba(52,211,153,.13)'  },
-  { id: 'tourist-trap',  emoji: '⚠️', label: 'Tourist Trap',   color: '#fb923c', bg: 'rgba(251,146,60,.13)'  },
-  { id: 'budget',        emoji: '💸', label: 'Budget Find',    color: '#a78bfa', bg: 'rgba(167,139,250,.13)' },
-  { id: 'splurge',       emoji: '✨', label: 'Splurge',        color: '#fbbf24', bg: 'rgba(251,191,36,.13)'  },
-  { id: 'romantic',      emoji: '❤️', label: 'Romantic',       color: '#f472b6', bg: 'rgba(244,114,182,.13)' },
-  { id: 'outdoor',       emoji: '🌿', label: 'Outdoor',        color: '#4ade80', bg: 'rgba(74,222,128,.13)'  },
-  { id: 'foodie',        emoji: '🍜', label: 'Foodie Fave',    color: '#f97316', bg: 'rgba(249,115,22,.13)'  },
-  { id: 'instagrammable',emoji: '📸', label: 'Instagrammable', color: '#c084fc', bg: 'rgba(192,132,252,.13)' },
-  { id: 'local-fave',    emoji: '🌟', label: 'Local Fave',     color: '#2dd4bf', bg: 'rgba(45,212,191,.13)'  },
-  { id: 'worth-hype',    emoji: '🔥', label: 'Worth the Hype', color: '#ef4444', bg: 'rgba(239,68,68,.13)'   },
+  { id: 'hidden-gem',     svg: `<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;flex-shrink:0"><polygon points="6 3 18 3 22 9 12 22 2 9 6 3"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="12" y1="22" x2="6" y2="9"/><line x1="12" y1="22" x2="18" y2="9"/></svg>`,  label: 'Hidden Gem',     color: '#34d399', bg: 'rgba(52,211,153,.13)'  },
+  { id: 'tourist-trap',  svg: `<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;flex-shrink:0"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`, label: 'Tourist Trap',   color: '#fb923c', bg: 'rgba(251,146,60,.13)'  },
+  { id: 'budget',        svg: `<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;flex-shrink:0"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`,    label: 'Budget Find',    color: '#a78bfa', bg: 'rgba(167,139,250,.13)' },
+  { id: 'splurge',       svg: `<svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="vertical-align:-1px;flex-shrink:0"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,   label: 'Splurge',        color: '#fbbf24', bg: 'rgba(251,191,36,.13)'  },
+  { id: 'romantic',      svg: `<svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="vertical-align:-1px;flex-shrink:0"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,  label: 'Romantic',       color: '#f472b6', bg: 'rgba(244,114,182,.13)' },
+  { id: 'outdoor',       svg: `<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;flex-shrink:0"><polygon points="3 20 12 4 21 20"/><line x1="7" y1="20" x2="17" y2="20"/></svg>`,  label: 'Outdoor',        color: '#4ade80', bg: 'rgba(74,222,128,.13)'  },
+  { id: 'foodie',        svg: `<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;flex-shrink:0"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`,   label: 'Foodie Fave',    color: '#f97316', bg: 'rgba(249,115,22,.13)'  },
+  { id: 'instagrammable',svg: `<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;flex-shrink:0"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>`, label: 'Photo Worthy',   color: '#c084fc', bg: 'rgba(192,132,252,.13)' },
+  { id: 'local-fave',    svg: `<svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="vertical-align:-1px;flex-shrink:0"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,    label: 'Local Fave',     color: '#2dd4bf', bg: 'rgba(45,212,191,.13)'  },
+  { id: 'worth-hype',    svg: `<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;flex-shrink:0"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`, label: 'Worth the Hype', color: '#ef4444', bg: 'rgba(239,68,68,.13)'   },
 ];
 
 function getVibes(place) {
@@ -861,7 +861,7 @@ function renderVibeTags(vibes) {
   return '<div class="vibe-tags">' + vibes.map(id => {
     const d = VIBE_DEFS.find(v => v.id === id);
     if (!d) return '';
-    return `<span class="vibe-tag" style="color:${d.color};background:${d.bg}">${d.emoji} ${d.label}</span>`;
+    return `<span class="vibe-tag" style="color:${d.color};background:${d.bg};display:inline-flex;align-items:center;gap:3px">${d.svg}${d.label}</span>`;
   }).join('') + '</div>';
 }
 
@@ -951,7 +951,11 @@ function getDayInsights(day) {
 
 function renderDayInsights(insights) {
   if (!insights.length) return '';
-  const icons = { warn: '⚠️', tip: '💡', good: '✅' };
+  const icons = {
+    warn: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+    tip:  `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+    good: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+  };
   const colors = { warn: 'rgba(251,146,60,.12)', tip: 'rgba(45,212,191,.08)', good: 'rgba(52,211,153,.1)' };
   const textColors = { warn: '#fb923c', tip: '#2dd4bf', good: '#34d399' };
   return insights.map(i => `
@@ -1826,7 +1830,9 @@ function renderBudgetRecs() {
   pool.sort((a, b) => b.rating - a.rating || a.price - b.price);
   const picks = pool.slice(0, 10);
 
-  const emoji    = type => type === 'food' ? '🍽' : '🎯';
+  const emoji    = type => type === 'food'
+    ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`
+    : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>`;
   const priceStr = p => p === 0 ? '<span style="color:#34d399;font-weight:700">Free</span>' : `<span style="color:#34d399;font-weight:700">$${p}</span>`;
   const title    = hasBudget
     ? `Places within your budget ($${Math.round(perDay)}/day)`
@@ -2046,7 +2052,7 @@ function renderItinCards() {
 
   if (!cards.length) {
     area.innerHTML = `<div class="itin-empty">
-      <div class="empty-icon">📍</div>
+      <div class="empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#pinGrad)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="pinGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b8cce8"/><stop offset="100%" stop-color="#6a9ab8"/></linearGradient></defs><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
       <p>Drop your first spot here — search above or check out <strong style="color:var(--teal,#2dd4bf);cursor:pointer" onclick="switchTab('discover')">Discover →</strong></p>
     </div>`;
   
@@ -2105,8 +2111,8 @@ function renderTimelineItem(card, dayId, num, isConnected) {
         <button class="tl-time-btn${hasTime ? ' has-time' : ''}"
           onclick="openTimePicker('${jsqApp(dayId)}','${jsqApp(card.id)}')">${
           hasTime
-            ? `<span class="tl-time-icon">🕐</span>${escHtml(timeDisp)}`
-            : `<span class="tl-time-icon">＋</span>Set time`
+            ? `<span class="tl-time-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>${escHtml(timeDisp)}`
+            : `<span class="tl-time-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>Set time`
         }</button>
         ${hasTime && endDisp ? `<span class="tl-arrow">→</span><span class="tl-end-time">${escHtml(endDisp)}</span>` : ''}
         ${hasTime ? `<button class="tl-clear-time" onclick="clearCardTime('${jsqApp(dayId)}','${jsqApp(card.id)}')" title="Remove time">✕</button>` : ''}
@@ -2397,19 +2403,21 @@ function renderSavesTab(filterVal) {
     : saves;
 
   if (!currentTrip) {
-    grid.innerHTML = `<div class="itin-empty"><div class="empty-icon">✈️</div><p>Create a trip first — then heart the places you want to visit 💫</p></div>`;
+    grid.innerHTML = `<div class="itin-empty"><div class="empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#planeGrad2)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="planeGrad2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b8cce8"/><stop offset="100%" stop-color="#6a9ab8"/></linearGradient></defs><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 1 16.5 2.5L13 6 4.8 4.2c-.5-.1-.9.1-1.1.5L3 5.7c-.2.4-.1.9.2 1.2L8 11.7l-2.1 2.8c-.3.4-.2.9.1 1.3l.7.7c.4.4.9.4 1.3.1L10.5 14l5 5.1c.3.3.8.4 1.2.2l1-.7c.4-.3.5-.8.1-1.4z"/></svg></div><p>Create a trip first — then heart the places you want to visit.</p></div>`;
     return;
   }
 
   if (!filtered.length) {
-    grid.innerHTML = `<div class="itin-empty"><div class="empty-icon">♡</div><p>Nothing saved yet — explore <strong style="color:var(--teal,#2dd4bf);cursor:pointer" onclick="switchTab('discover')">Discover →</strong> and heart the spots you're feeling 🔥</p></div>`;
+    grid.innerHTML = `<div class="itin-empty"><div class="empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#heartGrad)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="heartGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f472b6"/><stop offset="100%" stop-color="#a855f7"/></linearGradient></defs><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><p>Nothing saved yet — explore <strong style="color:var(--teal,#2dd4bf);cursor:pointer" onclick="switchTab('discover')">Discover →</strong> and heart the spots you're feeling.</p></div>`;
     return;
   }
 
   const city = typeof CITIES !== 'undefined' ? CITIES.find(c => c.id === currentTrip.cityId) : null;
   grid.innerHTML = filtered.map(s => {
     const photo    = s.photo || getPhoto(s.name, city?.image, 400);
-    const catIcon  = s.category === 'food' ? '🍽' : '🎯';
+    const catIcon  = s.category === 'food'
+      ? `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`
+      : `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>`;
     const tag      = slug(s.name);
     const igUrl    = `https://www.instagram.com/explore/tags/${tag}/`;
     const ttUrl    = `https://www.tiktok.com/tag/${tag}`;
@@ -2424,17 +2432,17 @@ function renderSavesTab(filterVal) {
       </div>
       <div class="save-body">
         <div class="save-name">${escHtml(s.name)}</div>
-        ${s.socialSource === 'instagram' ? '<span class="social-badge badge-ig">📸 Instagram</span>' :
-          s.socialSource === 'tiktok'    ? '<span class="social-badge badge-tt">🎵 TikTok</span>'    :
-          s.socialSource === 'other'     ? '<span class="social-badge badge-oth">🔖 Saved</span>'    : ''}
+        ${s.socialSource === 'instagram' ? `<span class="social-badge badge-ig"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg> Instagram</span>` :
+          s.socialSource === 'tiktok'    ? `<span class="social-badge badge-tt"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="vertical-align:-1px"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.84 1.56V6.79a4.85 4.85 0 01-1.07-.1z"/></svg> TikTok</span>`    :
+          s.socialSource === 'other'     ? `<span class="social-badge badge-oth"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> Saved</span>`    : ''}
         ${vibeHTML}
         <div class="save-meta">
           ${s.rating ? `<span class="save-rating">${renderStars(s.rating)} ${s.rating}</span>` : ''}
           <span class="save-cat">${catIcon} ${escHtml(s.category || 'Activity')}</span>
         </div>
         <div class="save-footer">
-          <a class="save-social-btn save-ig" href="${igUrl}" target="_blank" rel="noopener">📸 IG</a>
-          <a class="save-social-btn save-tt" href="${ttUrl}" target="_blank" rel="noopener">🎵 TikTok</a>
+          <a class="save-social-btn save-ig" href="${igUrl}" target="_blank" rel="noopener"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>IG</a>
+          <a class="save-social-btn save-tt" href="${ttUrl}" target="_blank" rel="noopener"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="vertical-align:-1px;margin-right:3px"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.84 1.56V6.79a4.85 4.85 0 01-1.07-.1z"/></svg>TikTok</a>
           <button class="save-add-btn" onclick="addSaveToDay('${s.id}')">+ Plan It</button>
           <button class="save-del-btn" onclick="removeSave('${s.id}')" title="Remove">×</button>
         </div>
@@ -2531,7 +2539,7 @@ function renderTravelGuide(container, city) {
   const guide = typeof CITY_TRAVEL_APPS !== 'undefined' ? CITY_TRAVEL_APPS[city.id] : null;
 
   if (!guide) {
-    container.innerHTML = `<div class="itin-empty" style="grid-column:1/-1"><div class="empty-icon">✈</div><p>No travel guide yet for ${escHtml(city.name)}.</p></div>`;
+    container.innerHTML = `<div class="itin-empty" style="grid-column:1/-1"><div class="empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#planeGrad3)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="planeGrad3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b8cce8"/><stop offset="100%" stop-color="#6a9ab8"/></linearGradient></defs><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 1 16.5 2.5L13 6 4.8 4.2c-.5-.1-.9.1-1.1.5L3 5.7c-.2.4-.1.9.2 1.2L8 11.7l-2.1 2.8c-.3.4-.2.9.1 1.3l.7.7c.4.4.9.4 1.3.1L10.5 14l5 5.1c.3.3.8.4 1.2.2l1-.7c.4-.3.5-.8.1-1.4z"/></svg></div><p>No travel guide yet for ${escHtml(city.name)}.</p></div>`;
     return;
   }
 
@@ -2553,25 +2561,34 @@ function renderTravelGuide(container, city) {
       ${extra || ''}
     </div>`;
 
+  const _tgSvg = {
+    tip:   `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:5px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+    map:   `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>`,
+    train: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="16" rx="2"/><path d="M4 11h16"/><path d="M12 3v8"/><path d="M8 19l-2 3"/><path d="M18 22l-2-3"/><path d="M8 15h.01"/><path d="M16 15h.01"/></svg>`,
+    car:   `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-3"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>`,
+    fork:  `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`,
+    card:  `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>`,
+    phone: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`,
+  };
   const html = `<div class="travel-guide">
-    <div class="tg-tip-box"><strong>💡 Main tip:</strong> ${escHtml(guide.tip)}</div>
+    <div class="tg-tip-box"><strong>${_tgSvg.tip}Main tip:</strong> ${escHtml(guide.tip)}</div>
 
-    ${section('🗺', 'Maps & Navigation', `Best: ${escHtml(guide.bestMap)}`, appRows(guide.maps), '')}
+    ${section(_tgSvg.map, 'Maps & Navigation', `Best: ${escHtml(guide.bestMap)}`, appRows(guide.maps), '')}
 
-    ${section('🚇', 'Getting Around', guide.transit?.card || '', appRows((guide.transit?.apps || []).map(a => ({ n: a }))),
+    ${section(_tgSvg.train, 'Getting Around', guide.transit?.card || '', appRows((guide.transit?.apps || []).map(a => ({ n: a }))),
       `<div class="tg-tip-box">${escHtml(guide.transit?.tip || '')}</div>`)}
 
-    ${section('🚕', 'Ride-Hailing', '', appRows(guide.ride), '')}
+    ${section(_tgSvg.car, 'Ride-Hailing', '', appRows(guide.ride), '')}
 
-    ${section('🍽', 'Food & Reservations', '', appRows(guide.food), '')}
+    ${section(_tgSvg.fork, 'Food & Reservations', '', appRows(guide.food), '')}
 
     <div class="tg-section">
-      <div class="tg-section-head"><span class="tg-section-icon">💳</span><span class="tg-section-title">Payments</span></div>
+      <div class="tg-section-head"><span class="tg-section-icon">${_tgSvg.card}</span><span class="tg-section-title">Payments</span></div>
       <div class="tg-pay-box">${escHtml(guide.pay)}</div>
     </div>
 
     <div class="tg-section">
-      <div class="tg-section-head"><span class="tg-section-icon">📱</span><span class="tg-section-title">SIM / Connectivity</span></div>
+      <div class="tg-section-head"><span class="tg-section-icon">${_tgSvg.phone}</span><span class="tg-section-title">SIM / Connectivity</span></div>
       <div class="tg-sim-box">${escHtml(guide.sim)}</div>
     </div>
   </div>`;
@@ -2624,13 +2641,13 @@ function renderTrendingSection(city) {
 function renderDiscoverTab() {
   const grid = document.getElementById('discover-grid');
   if (!currentTrip) {
-    grid.innerHTML = `<div class="itin-empty" style="grid-column:1/-1"><div class="empty-icon">🔍</div><p>${escHtml(t('noTrip'))}</p></div>`;
+    grid.innerHTML = `<div class="itin-empty" style="grid-column:1/-1"><div class="empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#searchGrad)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="searchGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b8cce8"/><stop offset="100%" stop-color="#6a9ab8"/></linearGradient></defs><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><p>${escHtml(t('noTrip'))}</p></div>`;
     return;
   }
 
   const city = typeof CITIES !== 'undefined' ? CITIES.find(c => c.id === currentTrip.cityId) : null;
   if (!city) {
-    grid.innerHTML = `<div class="itin-empty" style="grid-column:1/-1"><div class="empty-icon">🌍</div><p>No city data found for this trip</p></div>`;
+    grid.innerHTML = `<div class="itin-empty" style="grid-column:1/-1"><div class="empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#globeGrad)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="globeGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b8cce8"/><stop offset="100%" stop-color="#6a9ab8"/></linearGradient></defs><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><p>No city data found for this trip</p></div>`;
     return;
   }
 
@@ -2684,7 +2701,7 @@ function renderDiscoverTab() {
 
   if (!items.length) {
     const label = escHtml(discoverSearch || (discoverVibe ? VIBE_DEFS.find(v => v.id === discoverVibe)?.label || discoverVibe : ''));
-    grid.innerHTML = `<div class="itin-empty" style="grid-column:1/-1"><div class="empty-icon">😔</div><p>${escHtml(t('noResults'))}${label ? ` — "${label}"` : ''}</p></div>`;
+    grid.innerHTML = `<div class="itin-empty" style="grid-column:1/-1"><div class="empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#compassGrad)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="compassGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b8cce8"/><stop offset="100%" stop-color="#6a9ab8"/></linearGradient></defs><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div><p>${escHtml(t('noResults'))}${label ? ` — "${label}"` : ''}</p></div>`;
     return;
   }
 
@@ -3416,14 +3433,14 @@ function renderRewardsTab() {
 
   // ── Hero ─────────────────────────────────────────────────────────────────
   html += `<div class="rewards-hero">
-    <div class="rewards-hero-icon">💳</div>
+    <div class="rewards-hero-icon"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="url(#cardGrad)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="cardGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#97ace0"/><stop offset="100%" stop-color="#5a87b0"/></linearGradient></defs><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/><line x1="6" y1="15" x2="9" y2="15"/><line x1="12" y1="15" x2="15" y2="15"/></svg></div>
     <div class="rewards-hero-title">Travel Rewards Hub</div>
     <div class="rewards-hero-sub">Best cards for every city, airline, and situation — maximize every point.</div>
   </div>`;
 
   // ── Best cards for THIS trip ──────────────────────────────────────────────
   if (tripCity) {
-    html += `<div class="rewards-section-title">📍 Best Cards for ${escHtml(tripCity.name)}</div>`;
+    html += `<div class="rewards-section-title"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Best Cards for ${escHtml(tripCity.name)}</div>`;
     html += `<div class="rewards-section-sub">Tailored to maximize points on your specific trip</div>`;
     html += `<div class="trip-card-grid">`;
     tripCity.tips.forEach((t, i) => {
@@ -3443,7 +3460,7 @@ function renderRewardsTab() {
     const cityAirlines = airlines.filter(a => a.hubs.includes(cityId));
     if (cityAirlines.length) {
       html += `<div style="margin-top:8px;padding:14px 16px;background:rgba(45,212,191,.06);border:1px solid rgba(45,212,191,.15);border-radius:10px">`;
-      html += `<div style="font-size:12px;font-weight:600;color:#2dd4bf;margin-bottom:8px;letter-spacing:.5px">✈ AIRLINES FLYING TO ${escHtml(tripCity.name.toUpperCase())}</div>`;
+      html += `<div style="font-size:12px;font-weight:600;color:#2dd4bf;margin-bottom:8px;letter-spacing:.5px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 1 16.5 2.5L13 6 4.8 4.2c-.5-.1-.9.1-1.1.5L3 5.7c-.2.4-.1.9.2 1.2L8 11.7l-2.1 2.8c-.3.4-.2.9.1 1.3l.7.7c.4.4.9.4 1.3.1L10.5 14l5 5.1c.3.3.8.4 1.2.2l1-.7c.4-.3.5-.8.1-1.4z"/></svg>AIRLINES FLYING TO ${escHtml(tripCity.name.toUpperCase())}</div>`;
       cityAirlines.forEach(a => {
         html += `<div style="margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.05)">
           <div style="font-size:13px;font-weight:600;color:#e2e8f0;margin-bottom:3px">${escHtml(a.airline)} (${escHtml(a.code)}) — Best: <span style="color:#2dd4bf">${escHtml(a.bestCard)}</span></div>
@@ -3455,7 +3472,7 @@ function renderRewardsTab() {
   }
 
   // ── All credit cards ──────────────────────────────────────────────────────
-  html += `<div class="rewards-section-title">🏆 Top Travel Credit Cards</div>`;
+  html += `<div class="rewards-section-title"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Top Travel Credit Cards</div>`;
   html += `<div class="rewards-section-sub">Ranked by signup bonus value and travel perks</div>`;
   html += `<div class="cc-city-cards">`;
   for (const c of cards) {
@@ -3480,7 +3497,7 @@ function renderRewardsTab() {
   html += `</div>`;
 
   // ── Airline Rewards ───────────────────────────────────────────────────────
-  html += `<div class="rewards-section-title">✈️ Airline Rewards Guide</div>`;
+  html += `<div class="rewards-section-title"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 1 16.5 2.5L13 6 4.8 4.2c-.5-.1-.9.1-1.1.5L3 5.7c-.2.4-.1.9.2 1.2L8 11.7l-2.1 2.8c-.3.4-.2.9.1 1.3l.7.7c.4.4.9.4 1.3.1L10.5 14l5 5.1c.3.3.8.4 1.2.2l1-.7c.4-.3.5-.8.1-1.4z"/></svg>Airline Rewards Guide</div>`;
   html += `<div class="rewards-section-sub">Which card to use for every major airline — and how to transfer points for maximum value</div>`;
   html += `<div class="airline-grid">`;
   for (const a of airlines) {
@@ -3493,7 +3510,7 @@ function renderRewardsTab() {
         </div>
       </div>
       <div class="airline-best">Best card: <strong style="color:#2dd4bf">${escHtml(a.bestCard)}</strong></div>
-      <div class="airline-earn">📊 ${escHtml(a.earn)}</div>
+      <div class="airline-earn"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>${escHtml(a.earn)}</div>
       <div class="airline-tip">${escHtml(a.tip)}</div>
       <div class="airline-partners">${a.partners.map(p => `<span class="partner-tag">${escHtml(p)}</span>`).join('')}</div>
     </div>`;
@@ -3505,7 +3522,7 @@ function renderRewardsTab() {
     ? [cityId, ...Object.keys(cityTips).filter(k => k !== cityId)]
     : Object.keys(cityTips);
 
-  html += `<div class="rewards-section-title">🗺 All Cities — Point Strategies</div>`;
+  html += `<div class="rewards-section-title"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>All Cities — Point Strategies</div>`;
   html += `<div class="rewards-section-sub">${tripCity ? 'Your trip city shown first' : 'Maximize earnings at every destination'}</div>`;
 
   for (const cid of tipCities) {
@@ -3514,17 +3531,17 @@ function renderRewardsTab() {
     const isTrip = cid === cityId;
     const highlight = isTrip ? ' style="border:1px solid rgba(45,212,191,.25);background:rgba(13,148,136,.05);border-radius:12px;padding:10px;margin-bottom:4px"' : '';
     html += `<div class="cc-city-block"${highlight}>`;
-    html += `<div class="cc-city-name">${isTrip ? '📍 ' : ''}${escHtml(ct.name)}</div>`;
+    html += `<div class="cc-city-name">${isTrip ? `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px;color:#2dd4bf"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>` : ''}${escHtml(ct.name)}</div>`;
     html += `<div class="cc-city-tips">`;
     ct.tips.forEach((t, i) => {
-      const label = i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉';
+      const label = i === 0 ? '<span style="color:#fbbf24;font-weight:800;font-size:11px">1st</span>' : i === 1 ? '<span style="color:#94a3b8;font-weight:800;font-size:11px">2nd</span>' : '<span style="color:#c07b3c;font-weight:800;font-size:11px">3rd</span>';
       html += `<div class="cc-city-tip"><span style="margin-right:4px">${label}</span><strong>${escHtml(t.card)}:</strong> ${escHtml(t.tip)}</div>`;
     });
     html += `</div></div>`;
   }
 
   // ── Checklist ─────────────────────────────────────────────────────────────
-  html += `<div class="rewards-section-title">✅ Points Maximizer Checklist</div>`;
+  html += `<div class="rewards-section-title"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Points Maximizer Checklist</div>`;
   html += `<div class="rewards-section-sub">Follow these steps to go from 0 to 100K+ points</div>`;
   html += `<div class="checklist-wrap">`;
   checklist.forEach((item, i) => {
@@ -3536,7 +3553,7 @@ function renderRewardsTab() {
   html += `</div>`;
 
   // ── Blog articles ─────────────────────────────────────────────────────────
-  html += `<div class="rewards-section-title">📖 Rewards Guides</div>`;
+  html += `<div class="rewards-section-title"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Rewards Guides</div>`;
   html += `<div class="rewards-section-sub">Deep dives on strategy, hacks, and city-specific tips</div>`;
   for (let i = 0; i < blogs.length; i++) {
     const b = blogs[i];

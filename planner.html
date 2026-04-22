@@ -344,7 +344,7 @@
       background: rgba(151,172,224,.1); border: 1px solid rgba(151,172,224,.3);
       color: var(--teal);
     }
-    .tl-time-icon { font-size: 12px; }
+    .tl-time-icon { display: inline-flex; align-items: center; }
     .tl-end-time { font-size: 11px; color: var(--text-dim); white-space: nowrap; }
     .tl-arrow { font-size: 11px; color: var(--text-muted); }
     .tl-clear-time {
@@ -770,7 +770,7 @@
       align-items: center; justify-content: center; gap: 10px;
       background: #0b1120; color: #475569; text-align: center; padding: 32px;
     }
-    .map-no-trip .empty-icon { font-size: 40px; }
+    .map-no-trip .empty-icon { display: flex; align-items: center; justify-content: center; }
     .map-no-trip p { font-size: 13px; max-width: 200px; line-height: 1.6; }
 
     /* ── Modal ─────────────────────────────────────────────────── */
@@ -852,7 +852,7 @@
       border: 1px solid rgba(129,140,248,.2); border-radius: 16px;
       padding: 20px; text-align: center;
     }
-    .rewards-hero-icon { font-size: 36px; margin-bottom: 6px; }
+    .rewards-hero-icon { margin-bottom: 6px; display: flex; align-items: center; justify-content: center; }
     .rewards-hero-title { font-size: 18px; font-weight: 800; color: #e0e7ff; }
     .rewards-hero-sub { font-size: 12px; color: #a5b4fc; margin-top: 4px; line-height: 1.5; }
 
@@ -1098,7 +1098,7 @@
       border-radius: 9px; padding: 8px 11px; margin-bottom: 5px;
       border: 1px solid; flex-shrink: 0;
     }
-    .insight-icon { font-size: 13px; flex-shrink: 0; line-height: 1.5; }
+    .insight-icon { flex-shrink: 0; display: flex; align-items: center; margin-top: 1px; }
     .insight-text { font-size: 12px; font-weight: 600; line-height: 1.5; }
 
     /* ── Packing List Modal ────────────────────────────────────── */
@@ -1198,7 +1198,7 @@
     .travel-guide { padding: 12px 14px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; }
     .tg-section { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); border-radius: 12px; overflow: hidden; }
     .tg-section-head { padding: 12px 14px 8px; display: flex; align-items: center; gap: 8px; }
-    .tg-section-icon { font-size: 18px; }
+    .tg-section-icon { display: inline-flex; align-items: center; flex-shrink: 0; }
     .tg-section-title { font-size: 13px; font-weight: 700; color: #f0faf9; }
     .tg-section-sub { font-size: 11px; color: #64748b; margin-left: auto; }
     .tg-row { display: flex; align-items: flex-start; gap: 10px; padding: 8px 14px; border-top: 1px solid rgba(255,255,255,.05); }
@@ -1275,7 +1275,7 @@
       cursor: pointer; transition: border-color .15s, background .15s;
     }
     .budget-rec-chip:hover { border-color: rgba(151,172,224,.35); background: rgba(151,172,224,.07); }
-    .budget-rec-chip .rec-emoji { font-size: 14px; }
+    .budget-rec-chip .rec-emoji { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .budget-rec-chip .rec-name {
       font-size: 11px; font-weight: 700; color: #f0faf9;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
@@ -1390,7 +1390,7 @@
     }
     .onb-tpl:hover { border-color: rgba(151,172,224,.3); background: rgba(151,172,224,.06); }
     .onb-tpl.selected { border-color: var(--teal); background: rgba(151,172,224,.1); }
-    .onb-tpl-icon { font-size: 26px; margin-bottom: 7px; }
+    .onb-tpl-icon { margin-bottom: 7px; display: flex; align-items: center; justify-content: center; }
     .onb-tpl-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
     .onb-tpl-desc { font-size: 11px; color: var(--text-sub); line-height: 1.4; }
     .onb-city-select {
@@ -2015,22 +2015,22 @@
       <div class="onb-sub">Pick a style — we'll set up your first trip in seconds.</div>
       <div class="onb-templates">
         <div class="onb-tpl" onclick="onbSelectTemplate(this,'Weekend Getaway',2,'weekend')" data-tpl="weekend">
-          <div class="onb-tpl-icon">🏙</div>
+          <div class="onb-tpl-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#tplGrad1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="tplGrad1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#97ace0"/><stop offset="100%" stop-color="#5a87b0"/></linearGradient></defs><rect x="2" y="10" width="20" height="12" rx="1"/><rect x="6" y="6" width="12" height="6" rx="1"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg></div>
           <div class="onb-tpl-name">Weekend Getaway</div>
           <div class="onb-tpl-desc">2-day city escape, top spots only</div>
         </div>
         <div class="onb-tpl" onclick="onbSelectTemplate(this,'1-Week Explorer',7,'explorer')" data-tpl="explorer">
-          <div class="onb-tpl-icon">🗺</div>
+          <div class="onb-tpl-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#tplGrad2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="tplGrad2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#97ace0"/><stop offset="100%" stop-color="#5a87b0"/></linearGradient></defs><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg></div>
           <div class="onb-tpl-name">1-Week Explorer</div>
           <div class="onb-tpl-desc">7 days, mix of culture &amp; food</div>
         </div>
         <div class="onb-tpl" onclick="onbSelectTemplate(this,'Foodie Trip',4,'foodie')" data-tpl="foodie">
-          <div class="onb-tpl-icon">🍜</div>
+          <div class="onb-tpl-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#tplGrad3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="tplGrad3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f97316"/><stop offset="100%" stop-color="#ea580c"/></linearGradient></defs><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
           <div class="onb-tpl-name">Foodie Trip</div>
           <div class="onb-tpl-desc">4 days, restaurant-first itinerary</div>
         </div>
         <div class="onb-tpl" onclick="onbSelectTemplate(this,'Adventure Week',7,'adventure')" data-tpl="adventure">
-          <div class="onb-tpl-icon">🧗</div>
+          <div class="onb-tpl-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#tplGrad4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="tplGrad4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#34d399"/><stop offset="100%" stop-color="#059669"/></linearGradient></defs><polygon points="3 20 12 4 21 20"/><polyline points="7 20 12 12 17 20"/></svg></div>
           <div class="onb-tpl-name">Adventure Week</div>
           <div class="onb-tpl-desc">7 days of outdoor &amp; active experiences</div>
         </div>
