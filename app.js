@@ -1828,7 +1828,8 @@ function scrollCityCarousel(dir) {
   let isA = true;
 
   function getImages() {
-    return CITIES.map(c => c.image).filter(Boolean);
+    return CITIES.map(c => c.image).filter(Boolean)
+      .map(url => url.replace(/[?&]w=\d+/, '?w=1920').replace(/[?&]q=\d+/, '&q=95'));
   }
 
   function crossfade() {
