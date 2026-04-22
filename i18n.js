@@ -23,7 +23,7 @@
       heroSub:'Handpicked destinations. Effortless itineraries. Your crew, in sync — all in one place.',
       heroCTA1:'Explore Destinations →', heroCTA2:'Open Planner',
       heroSearch:'Search a destination…', heroSearchBtn:'Search',
-      citiesTitle:'Explore Destinations', citiesSub:'Tap any city to browse activities, food, transport and deals',
+      citiesTitle:'Explore Destinations', citiesSub:'50+ cities. Infinite memories. Your next chapter starts here.',
       regionAll:'🌍 All', regionUSA:'USA', regionIntl:'✈ International',
       groupTitle:'Group Trip Board', groupSub:'Vote on ideas with your travel crew in real time',
       modeSolo:'🗓 Solo Planner', modeGroup:'👥 Group Board',
