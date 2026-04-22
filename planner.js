@@ -1842,12 +1842,21 @@ function renderBudgetRecs() {
   el.innerHTML = `
     <div class="budget-recs-title">${title}</div>
     <div class="budget-recs-scroll">
-      ${picks.map(p => `
-        <div class="budget-rec-chip" onclick="addBudgetRecToDay('${jsqApp(p.name)}','${jsqApp(p.type)}')" title="Add to itinerary">
-          <div class="rec-emoji">${emoji(p.type)}</div>
-          <div class="rec-name">${escHtml(p.name)}</div>
-          ${priceStr(p.price)}<span class="rec-rating"> ⭐ ${p.rating}</span>
-        </div>`).join('')}
+      ${picks.map(p => {
+        const photo = (getPhoto(p.name, city.image, 400) || [])[0] || city.image || '';
+        const bgStyle = photo ? `background-image:url('${photo}')` : '';
+        const priceLabel = p.price === 0 ? '<span class="rec-price">Free</span>' : `<span class="rec-price">$${p.price}</span>`;
+        const starSvg = `<svg width="9" height="9" viewBox="0 0 24 24" fill="#fbbf24" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+        return `
+        <div class="budget-rec-chip" onclick="addBudgetRecToDay('${jsqApp(p.name)}','${jsqApp(p.type)}')" title="Tap to add" style="${bgStyle}">
+          <div class="rec-img-overlay"></div>
+          <div class="rec-cat-badge">${emoji(p.type)}</div>
+          <div class="rec-info">
+            <div class="rec-name">${escHtml(p.name)}</div>
+            <div class="rec-meta">${priceLabel}<span class="rec-rating">${starSvg} ${p.rating}</span></div>
+          </div>
+        </div>`;
+      }).join('')}
     </div>`;
 }
 
