@@ -187,6 +187,17 @@ body {
   transition: background .2s, transform .2s; box-shadow: 0 8px 32px rgba(106,154,184,.4);
 }
 .btn-book:hover { background: #5283a0; transform: translateY(-2px); }
+.btn-planner-outline {
+  background: rgba(255,255,255,.18); border: 2px solid rgba(255,255,255,.75);
+  color: #fff; padding: 15px 32px; border-radius: 50px;
+  font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit;
+  display: flex; align-items: center; gap: 10px;
+  transition: background .2s, border-color .2s, transform .2s;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.btn-planner-outline:hover { background: rgba(255,255,255,.28); border-color: #fff; transform: translateY(-2px); }
+body.light-mode .btn-planner-outline { background: rgba(255,255,255,.22); border-color: rgba(255,255,255,.85); color: #fff; }
+body.light-mode .btn-planner-outline:hover { background: rgba(255,255,255,.35); }
 .btn-book .arrow {
   width: 32px; height: 32px; background: rgba(255,255,255,.2);
   border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px;
