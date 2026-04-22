@@ -115,9 +115,10 @@ body {
 .hero {
   position: relative; min-height: 100vh;
   display: flex; flex-direction: column;
-  align-items: flex-start; justify-content: center;
+  align-items: center; justify-content: center;
   padding: 100px 24px 80px;
   overflow: hidden;
+  text-align: center;
 }
 .hero-bg {
   position: absolute; inset: 0; z-index: 0;
@@ -131,7 +132,7 @@ body {
 }
 .hero-bg::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(105deg, rgba(7,26,23,.92) 0%, rgba(7,26,23,.75) 45%, rgba(7,26,23,.3) 100%);
+  background: linear-gradient(180deg, rgba(7,26,23,.6) 0%, rgba(7,26,23,.75) 50%, rgba(7,26,23,.6) 100%);
 }
 /* dot pattern */
 .hero-bg::before {
@@ -142,10 +143,10 @@ body {
 }
 .hero-content {
   position: relative; z-index: 2;
-  max-width: 1240px; width: 100%; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between; gap: 40px;
+  max-width: 700px; width: 100%; margin: 0 auto;
+  display: flex; flex-direction: column; align-items: center; gap: 0;
 }
-.hero-left { flex: 1; max-width: 600px; }
+.hero-left { width: 100%; }
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
   font-size: 12px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
@@ -167,9 +168,9 @@ body {
 .hero-title .teal-text { color: #2dd4bf; }
 .hero-sub {
   font-size: 15px; color: rgba(240,250,249,.6); line-height: 1.75;
-  max-width: 420px; margin-bottom: 36px;
+  max-width: 420px; margin: 0 auto 36px;
 }
-.hero-cta-row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 48px; }
+.hero-cta-row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 48px; justify-content: center; }
 .btn-book {
   background: #0d9488; border: none; color: #fff;
   padding: 15px 32px; border-radius: 50px;
