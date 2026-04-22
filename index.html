@@ -274,17 +274,21 @@
 <header class="site-header">
   <div class="header-inner">
     <div class="logo">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:6px">
+      <svg width="26" height="34" viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:7px">
         <defs>
           <linearGradient id="pinGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#97ace0"/>
-            <stop offset="100%" stop-color="#6a9ab8"/>
+            <stop offset="0%" stop-color="#b8cce8"/>
+            <stop offset="55%" stop-color="#7fa4cc"/>
+            <stop offset="100%" stop-color="#5a87b0"/>
           </linearGradient>
+          <filter id="navShadow">
+            <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(90,135,176,0.35)"/>
+          </filter>
         </defs>
-        <!-- Pin body -->
-        <path d="M16 2C11.03 2 7 6.03 7 11c0 7 9 19 9 19s9-12 9-19c0-4.97-4.03-9-9-9z" fill="url(#pinGrad)"/>
-        <!-- Pin inner dot -->
-        <circle cx="16" cy="11" r="3.5" fill="#080c14"/>
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M50 4 C27 4 10 21 10 44 C10 70 50 126 50 126 C50 126 90 70 90 44 C90 21 73 4 50 4 Z M50 20 C37 31 29 44 29 56 C29 69 38.5 78 50 78 C61.5 78 71 69 71 56 C71 44 63 31 50 20 Z"
+          fill="url(#pinGrad)" filter="url(#navShadow)"
+        />
       </svg>
       <span class="logo-text">dropped</span>
     </div>
@@ -541,15 +545,18 @@
       <!-- Brand -->
       <div>
         <div class="footer-brand-logo">
-          <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:6px">
+          <svg width="20" height="26" viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:7px">
             <defs>
               <linearGradient id="pinGrad2" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#97ace0"/>
-                <stop offset="100%" stop-color="#6a9ab8"/>
+                <stop offset="0%" stop-color="#b8cce8"/>
+                <stop offset="55%" stop-color="#7fa4cc"/>
+                <stop offset="100%" stop-color="#5a87b0"/>
               </linearGradient>
             </defs>
-            <path d="M16 2C11.03 2 7 6.03 7 11c0 7 9 19 9 19s9-12 9-19c0-4.97-4.03-9-9-9z" fill="url(#pinGrad2)"/>
-            <circle cx="16" cy="11" r="3.5" fill="#080c14"/>
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M50 4 C27 4 10 21 10 44 C10 70 50 126 50 126 C50 126 90 70 90 44 C90 21 73 4 50 4 Z M50 20 C37 31 29 44 29 56 C29 69 38.5 78 50 78 C61.5 78 71 69 71 56 C71 44 63 31 50 20 Z"
+              fill="url(#pinGrad2)"
+            />
           </svg>
           <span>dropped</span>
         </div>
