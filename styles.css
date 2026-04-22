@@ -186,7 +186,7 @@ body {
 .hero-search {
   display: flex; background: rgba(255,255,255,.08);
   border: 1px solid rgba(45,212,191,.2); border-radius: 14px; overflow: hidden;
-  max-width: 440px; backdrop-filter: blur(12px);
+  max-width: 440px; width: 100%; margin: 0 auto; backdrop-filter: blur(12px);
   transition: border-color .2s, box-shadow .2s;
 }
 .hero-search:focus-within { border-color: rgba(45,212,191,.5); box-shadow: 0 0 0 3px rgba(45,212,191,.1); }
