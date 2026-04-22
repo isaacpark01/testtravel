@@ -867,31 +867,48 @@ body.light-mode .btn-planner-outline:hover { background: rgba(255,255,255,.35); 
 
 /* ===================== STATS BAR ===================== */
 .stats-bar {
-  background: rgba(106,154,184,.06);
-  border-top: 1px solid rgba(106,154,184,.12);
-  border-bottom: 1px solid rgba(106,154,184,.12);
-  padding: 20px 24px;
+  padding: 0 24px 48px;
+  position: relative;
 }
 .stats-bar-inner {
-  max-width: 1240px; margin: 0 auto;
-  display: flex; justify-content: center; align-items: center;
+  max-width: 960px; margin: 0 auto;
+  display: flex; justify-content: center; align-items: stretch;
   gap: 0; flex-wrap: wrap;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 20px;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+  box-shadow: 0 1px 0 rgba(255,255,255,.06) inset, 0 20px 60px rgba(0,0,0,.25);
 }
 .stat-item {
-  display: flex; flex-direction: column; align-items: center;
-  padding: 8px 32px; flex: 1; min-width: 120px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 28px 24px; flex: 1; min-width: 140px; gap: 6px;
+  position: relative;
+  transition: background .25s;
 }
-.stat-item + .stat-item {
-  border-left: 1px solid rgba(255,255,255,.07);
+.stat-item:hover { background: rgba(255,255,255,.04); }
+.stat-sep {
+  width: 1px; align-self: stretch;
+  background: linear-gradient(to bottom, transparent 10%, rgba(255,255,255,.09) 40%, rgba(255,255,255,.09) 60%, transparent 90%);
+  flex-shrink: 0;
+}
+.stat-icon {
+  width: 32px; height: 32px; border-radius: 9px; margin-bottom: 2px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  background: rgba(90,135,176,.15); border: 1px solid rgba(90,135,176,.22);
+  color: #7aaac8;
 }
 .stat-num {
-  font-family: 'Geist', sans-serif;
-  font-size: 26px; font-weight: 700; color: #97ace0;
-  line-height: 1; letter-spacing: -.02em;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 28px; font-weight: 800; line-height: 1; letter-spacing: -.03em;
+  background: linear-gradient(135deg, #c8dff0 0%, #7aaac8 60%, #5a87b0 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 .stat-label {
-  font-size: 11px; font-weight: 600; color: rgba(240,250,249,.4);
-  text-transform: uppercase; letter-spacing: .1em; margin-top: 4px;
+  font-size: 10px; font-weight: 700; color: rgba(240,250,249,.38);
+  text-transform: uppercase; letter-spacing: .12em;
 }
 
 /* ===================== HOW IT WORKS ===================== */
@@ -1255,8 +1272,11 @@ body.light-mode .footer-col a:hover { color: #5283a0; }
 body.light-mode .footer-copy { color: rgba(26,24,48,.3); }
 body.light-mode .footer-legal-links a { color: rgba(26,24,48,.35); }
 body.light-mode .footer-legal-links a:hover { color: rgba(26,24,48,.7); }
-body.light-mode .stat-num { color: #5283a0; }
-body.light-mode .stat-label { color: rgba(26,24,48,.5); }
+body.light-mode .stats-bar-inner { background: rgba(255,255,255,.7); border-color: rgba(106,154,184,.18); box-shadow: 0 8px 32px rgba(90,135,176,.1); }
+body.light-mode .stat-icon { background: rgba(90,135,176,.1); border-color: rgba(90,135,176,.2); color: #5283a0; }
+body.light-mode .stat-num { background: linear-gradient(135deg, #2d5a7e 0%, #5283a0 60%, #6a9ab8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+body.light-mode .stat-label { color: rgba(26,24,48,.45); }
+body.light-mode .stat-sep { background: linear-gradient(to bottom, transparent 10%, rgba(90,135,176,.15) 40%, rgba(90,135,176,.15) 60%, transparent 90%); }
 body.light-mode .search-suggestions { background: #fff; border-color: rgba(106,154,184,.2); }
 body.light-mode .search-suggestion-item:hover { background: rgba(106,154,184,.08); }
 body.light-mode .cookie-banner { background: #fff; border-color: rgba(106,154,184,.2); color: #1a1830; }
@@ -1436,7 +1456,7 @@ body.light-mode .group-feature-title { color: #1a1830; }
 body.light-mode .group-feature-desc { color: rgba(26,24,48,.55); }
 
 /* ── Stats: bigger on desktop ── */
-@media (min-width: 641px) { .stat-num { font-size: 36px; } }
+@media (min-width: 641px) { .stat-num { font-size: 38px; } .stat-item { padding: 32px 36px; } }
 
 /* ── Mobile compaction ── */
 @media (max-width: 640px) {
