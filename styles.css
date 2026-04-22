@@ -1285,3 +1285,119 @@ body.light-mode .section-header h2 { color: #1a1830; }
 body.light-mode .section-header p { color: rgba(26,24,48,.6); }
 body.light-mode p, body.light-mode span, body.light-mode label, body.light-mode li { color: inherit; }
 body.light-mode .wip-banner { background: #6a9ab8 !important; }
+
+/* ================== UI ENHANCEMENTS v3 ================== */
+
+/* ── WIP Banner (class-based) ── */
+.wip-banner {
+  background: linear-gradient(90deg, rgba(8,16,36,.96) 0%, rgba(12,22,44,.98) 50%, rgba(8,16,36,.96) 100%);
+  color: rgba(240,250,249,.75);
+  text-align: center; padding: 9px 16px; font-size: 12.5px; line-height: 1.4;
+  display: flex; align-items: center; justify-content: center;
+  gap: 10px; position: relative; z-index: 9999;
+  border-bottom: 1px solid rgba(151,172,224,.15); letter-spacing: .01em;
+}
+.wip-banner-dismiss {
+  background: none; border: 1px solid rgba(151,172,224,.28);
+  color: rgba(240,250,249,.4); border-radius: 4px;
+  padding: 2px 10px; cursor: pointer; font-size: 11px;
+  transition: all .2s; flex-shrink: 0; font-family: inherit;
+}
+.wip-banner-dismiss:hover { border-color: rgba(151,172,224,.65); color: rgba(240,250,249,.85); }
+body.light-mode .wip-banner-dismiss { border-color: rgba(255,255,255,.38); color: rgba(255,255,255,.65); }
+body.light-mode .wip-banner-dismiss:hover { color: #fff; border-color: rgba(255,255,255,.85); }
+
+/* ── Hero Social Proof ── */
+.hero-trust {
+  display: flex; align-items: center; gap: 14px;
+  justify-content: center; margin-top: 28px; flex-wrap: wrap;
+}
+.hero-trust-avatars { display: flex; flex-shrink: 0; }
+.hero-trust-avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 2px solid rgba(8,12,20,.65); color: #fff;
+  font-size: 11px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  margin-left: -9px; flex-shrink: 0;
+}
+.hero-trust-avatar:first-child { margin-left: 0; }
+.hero-trust-info { text-align: left; }
+.hero-trust-stars { color: #fbbf24; font-size: 12px; letter-spacing: 1.5px; display: block; margin-bottom: 2px; }
+.hero-trust-copy { font-size: 12px; color: rgba(240,250,249,.45); line-height: 1.35; }
+.hero-trust-copy strong { color: rgba(240,250,249,.78); font-weight: 600; }
+
+/* ── City Card: Rating Badge on Image ── */
+.city-card-img { overflow: hidden; height: 175px; }
+.city-card-rating-badge {
+  position: absolute; top: 10px; right: 10px; z-index: 3;
+  background: rgba(8,12,20,.76); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(251,191,36,.22);
+  color: #fbbf24; font-size: 11px; font-weight: 700;
+  padding: 4px 9px; border-radius: 20px;
+  display: flex; align-items: center; gap: 3px;
+  pointer-events: none; line-height: 1;
+}
+body.light-mode .city-card-rating-badge {
+  background: rgba(255,248,220,.92); color: #92640c; border-color: rgba(191,159,36,.3);
+}
+/* Drag hint: invisible by default, fades in on desktop hover */
+.city-card-drag-hint { opacity: 0; transition: opacity .25s ease; margin-top: 5px; }
+@media (hover: hover) { .city-card:hover .city-card-drag-hint { opacity: 1; } }
+/* Place count (rating now on badge) */
+.city-card-stats { color: rgba(240,250,249,.4); font-weight: 500; }
+body.light-mode .city-card-stats { color: rgba(26,24,48,.4); }
+
+/* ── How-it-works: Per-step accent colors ── */
+.how-card:nth-child(1) { border-top: 2px solid rgba(151,172,224,.65); }
+.how-card:nth-child(2) { border-top: 2px solid rgba(20,184,166,.55); }
+.how-card:nth-child(3) { border-top: 2px solid rgba(251,191,36,.55); }
+.how-card:nth-child(4) { border-top: 2px solid rgba(167,139,250,.55); }
+.how-card:nth-child(1) .how-icon, .how-card:nth-child(1) .step-num { color: #97ace0; }
+.how-card:nth-child(2) .how-icon, .how-card:nth-child(2) .step-num { color: #14b8a6; }
+.how-card:nth-child(3) .how-icon, .how-card:nth-child(3) .step-num { color: #fbbf24; }
+.how-card:nth-child(4) .how-icon, .how-card:nth-child(4) .step-num { color: #a78bfa; }
+body.light-mode .how-card:nth-child(2) .how-icon,
+body.light-mode .how-card:nth-child(2) .step-num { color: #0d9488; }
+body.light-mode .how-card:nth-child(3) .how-icon,
+body.light-mode .how-card:nth-child(3) .step-num { color: #d97706; }
+body.light-mode .how-card:nth-child(4) .how-icon,
+body.light-mode .how-card:nth-child(4) .step-num { color: #7c3aed; }
+
+/* ── Group Travel Feature Section ── */
+.group-features-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;
+}
+.group-feature {
+  background: rgba(255,255,255,.03); border: 1px solid rgba(151,172,224,.1);
+  border-radius: 16px; padding: 28px 24px; text-align: center;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.group-feature:hover { border-color: rgba(151,172,224,.28); transform: translateY(-2px); box-shadow: 0 12px 36px rgba(0,0,0,.3); }
+.group-feature-icon { font-size: 34px; margin-bottom: 14px; }
+.group-feature-title { font-size: 16px; font-weight: 700; color: #f0eae4; margin-bottom: 8px; }
+.group-feature-desc { font-size: 14px; color: rgba(240,250,249,.5); line-height: 1.65; }
+.group-cta { text-align: center; margin-top: 40px; }
+body.light-mode .group-feature { background: rgba(255,255,255,.88); border-color: rgba(106,154,184,.18); }
+body.light-mode .group-feature:hover { border-color: rgba(106,154,184,.45); box-shadow: 0 8px 30px rgba(106,154,184,.12); }
+body.light-mode .group-feature-title { color: #1a1830; }
+body.light-mode .group-feature-desc { color: rgba(26,24,48,.55); }
+
+/* ── Stats: bigger on desktop ── */
+@media (min-width: 641px) { .stat-num { font-size: 36px; } }
+
+/* ── Mobile compaction ── */
+@media (max-width: 640px) {
+  .hero { min-height: 90vh; padding: 76px 20px 60px; }
+  .btn-book, .btn-planner-outline { padding: 13px 22px; font-size: 14px; }
+  .how-section { padding: 52px 20px; }
+  .how-grid { margin-top: 24px; gap: 14px; }
+  .how-card { padding: 22px 18px; border-radius: 16px; }
+  .how-card::before { font-size: 60px; top: -8px; }
+  .section { padding: 48px 20px; }
+  .section-header { margin-bottom: 32px; }
+  .deal-form-card { padding: 18px; border-radius: 14px; }
+  .city-card { flex: 0 0 185px; min-width: 185px; }
+  .city-card-img { height: 148px; }
+  .hero-trust { margin-top: 20px; }
+  .hero-trust-avatar { width: 26px; height: 26px; font-size: 10px; }
+}
