@@ -1053,12 +1053,12 @@ body.light-mode .lang-opt.active { background: rgba(106,154,184,.15); color: #52
 body.light-mode .bottom-nav { background: rgba(245,242,255,.97); border-top-color: rgba(106,154,184,.15); }
 body.light-mode .bnav-btn { color: rgba(26,24,48,.35); }
 body.light-mode .bnav-btn.active { color: #6a9ab8; }
-body.light-mode .hero-bg::after { background: linear-gradient(180deg, rgba(0,0,0,.18) 0%, rgba(0,0,0,.38) 60%, rgba(0,0,0,.55) 100%); }
-body.light-mode .hero-eyebrow { color: #5283a0; background: rgba(106,154,184,.1); border-color: rgba(106,154,184,.25); }
-body.light-mode .hero-eyebrow::before { background: #6a9ab8; }
-body.light-mode .hero-title { color: #1a1830; }
-body.light-mode .hero-title .teal-text { color: #5283a0; }
-body.light-mode .hero-sub { color: rgba(26,24,48,.65); }
+body.light-mode .hero-bg::after { background: linear-gradient(180deg, rgba(0,0,0,.08) 0%, rgba(0,0,0,.22) 60%, rgba(0,0,0,.38) 100%); }
+body.light-mode .hero-eyebrow { color: rgba(255,255,255,.9); background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.3); }
+body.light-mode .hero-eyebrow::before { background: #fff; }
+body.light-mode .hero-title { color: #fff; }
+body.light-mode .hero-title .teal-text { color: rgba(200,220,255,.9); }
+body.light-mode .hero-sub { color: rgba(255,255,255,.8); }
 body.light-mode .btn-book { background: #6a9ab8; box-shadow: 0 8px 32px rgba(106,154,184,.35); }
 body.light-mode .btn-book:hover { background: #5283a0; }
 body.light-mode .hero-search { background: rgba(255,255,255,.8); border-color: rgba(106,154,184,.3); }
