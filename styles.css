@@ -547,6 +547,7 @@ body.light-mode .btn-planner-outline:hover { background: rgba(255,255,255,.35); 
 .deal-form { display: flex; flex-direction: column; gap: 14px; }
 .form-row { display: flex; gap: 10px; flex-wrap: wrap; }
 .form-field { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 100px; }
+.deal-form [style*="display:grid"] > .form-field { min-width: 0; }
 .idea-form-row .form-field input,
 .idea-form-row .form-field select { width: 100%; flex: none; }
 .form-field-sm { flex: 0 0 72px; min-width: 72px; }
