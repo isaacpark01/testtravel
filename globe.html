@@ -8,147 +8,194 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { width: 100%; height: 100%; overflow: hidden; background: #07111a; font-family: 'Geist', 'Inter', system-ui, sans-serif; }
 
-    /* ── Canvas container ── */
     #globe-wrap { width: 100%; height: 100%; }
 
-    /* ── Top bar ── */
+    /* ── Header ── */
     .globe-header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; gap: 16px;
-      padding: 14px 24px;
-      background: linear-gradient(to bottom, rgba(7,17,26,.96) 0%, transparent 100%);
+      display: flex; align-items: center; gap: 14px;
+      padding: 13px 20px;
+      background: linear-gradient(to bottom, rgba(7,17,26,.97) 0%, transparent 100%);
       pointer-events: none;
     }
     .globe-logo {
-      font-family: 'Geist', 'Inter', sans-serif;
-      font-size: 18px; font-weight: 800; letter-spacing: -.4px;
+      font-size: 17px; font-weight: 800; letter-spacing: -.4px;
       background: linear-gradient(135deg, #38bdf8, #818cf8);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text; pointer-events: auto; cursor: pointer;
-      text-decoration: none;
+      background-clip: text; pointer-events: auto; text-decoration: none;
     }
-    .globe-hint {
-      font-size: 12px; color: rgba(255,255,255,.28);
-      pointer-events: none; display: none;
-    }
-    @media (min-width: 640px) { .globe-hint { display: block; } }
+    .globe-hint { font-size: 12px; color: rgba(255,255,255,.25); display: none; }
+    @media (min-width: 700px) { .globe-hint { display: block; } }
 
-    /* ── Search bar ── */
+    /* ── Search ── */
     .globe-search-wrap {
-      flex: 1; max-width: 320px; position: relative; pointer-events: auto;
+      flex: 1; max-width: 300px; position: relative; pointer-events: auto;
     }
     .globe-search {
-      width: 100%; padding: 8px 36px 8px 14px;
-      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.15);
-      border-radius: 24px; color: #fff; font-size: 13px;
-      font-family: 'Geist', 'Inter', sans-serif;
-      outline: none; transition: border-color .2s, background .2s;
+      width: 100%; padding: 7px 34px 7px 13px;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.13);
+      border-radius: 22px; color: #fff; font-size: 13px;
+      font-family: inherit; outline: none;
+      transition: border-color .18s, background .18s;
     }
-    .globe-search::placeholder { color: rgba(255,255,255,.35); }
-    .globe-search:focus {
-      border-color: rgba(56,189,248,.5);
-      background: rgba(255,255,255,.1);
-    }
-    .globe-search-icon {
-      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
-      font-size: 14px; pointer-events: none; opacity: .5;
-    }
+    .globe-search::placeholder { color: rgba(255,255,255,.32); }
+    .globe-search:focus { border-color: rgba(56,189,248,.45); background: rgba(255,255,255,.1); }
+    .globe-search-icon { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); font-size: 13px; pointer-events: none; opacity: .45; }
     .globe-search-results {
       position: absolute; top: calc(100% + 6px); left: 0; right: 0;
-      background: rgba(7,17,26,.96); border: 1px solid rgba(255,255,255,.12);
+      background: rgba(8,18,28,.97); border: 1px solid rgba(255,255,255,.1);
       border-radius: 14px; overflow: hidden; display: none;
-      box-shadow: 0 8px 32px rgba(0,0,0,.5);
+      box-shadow: 0 10px 40px rgba(0,0,0,.6);
     }
     .globe-search-results.show { display: block; }
     .globe-search-result {
-      padding: 10px 16px; font-size: 13px; color: rgba(255,255,255,.85);
-      cursor: pointer; display: flex; align-items: center; gap: 10px;
-      transition: background .15s;
-      border-bottom: 1px solid rgba(255,255,255,.05);
+      padding: 9px 14px; font-size: 13px; cursor: pointer;
+      display: flex; align-items: center; gap: 9px;
+      border-bottom: 1px solid rgba(255,255,255,.05); transition: background .12s;
     }
     .globe-search-result:last-child { border-bottom: none; }
-    .globe-search-result:hover { background: rgba(56,189,248,.12); }
-    .globe-search-result-city { font-weight: 700; }
-    .globe-search-result-country { font-size: 11px; color: rgba(255,255,255,.4); margin-left: auto; }
+    .globe-search-result:hover { background: rgba(56,189,248,.1); }
+    .globe-sr-name { font-weight: 700; color: #fff; }
+    .globe-sr-country { font-size: 11px; color: rgba(255,255,255,.38); margin-left: auto; }
 
-    .globe-nav-links {
-      margin-left: auto; pointer-events: auto;
-      display: flex; align-items: center; gap: 8px;
+    .globe-nav { margin-left: auto; pointer-events: auto; display: flex; gap: 8px; align-items: center; }
+    .globe-navbtn {
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.7); padding: 6px 14px; border-radius: 18px;
+      font-size: 12px; font-weight: 600; cursor: pointer; text-decoration: none;
+      transition: background .18s, color .18s;
     }
-    .globe-back {
-      background: rgba(56,189,248,.1); border: 1px solid rgba(56,189,248,.28);
-      color: #38bdf8; padding: 7px 16px; border-radius: 20px;
-      font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none;
-      transition: background .2s;
-    }
-    .globe-back:hover { background: rgba(56,189,248,.22); }
+    .globe-navbtn:hover { background: rgba(56,189,248,.15); color: #38bdf8; border-color: rgba(56,189,248,.3); }
 
-    /* ── City info panel ── */
+    /* ── City Panel ── */
     .city-panel {
       position: fixed; right: 0; top: 0; bottom: 0; z-index: 200;
-      width: 320px;
-      background: rgba(7,17,26,.93);
-      backdrop-filter: blur(24px);
-      border-left: 1px solid rgba(56,189,248,.15);
-      padding: 80px 24px 24px;
-      display: flex; flex-direction: column; gap: 0;
+      width: min(440px, 100vw);
+      background: #080f18;
+      border-left: 1px solid rgba(255,255,255,.08);
+      display: flex; flex-direction: column;
       transform: translateX(100%);
-      transition: transform .35s cubic-bezier(.22,.8,.25,1);
-      overflow-y: auto;
+      transition: transform .36s cubic-bezier(.22,.8,.25,1);
+      overflow: hidden;
     }
     .city-panel.open { transform: translateX(0); }
-    .city-panel-close {
-      position: absolute; top: 18px; right: 18px;
-      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.1);
-      color: rgba(255,255,255,.6); width: 32px; height: 32px; border-radius: 50%;
-      font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: all .2s;
-    }
-    .city-panel-close:hover { background: rgba(220,38,38,.4); color: #fff; }
 
-    .city-panel-img {
-      width: 100%; height: 160px; border-radius: 14px; object-fit: cover;
-      background: #0a1a20; margin-bottom: 18px; display: block;
+    /* hero */
+    .cp-hero {
+      position: relative; flex-shrink: 0; height: 200px; overflow: hidden;
     }
-    .city-panel-country {
-      font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-      color: #38bdf8; margin-bottom: 6px;
+    .cp-hero-img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(.65);
     }
-    .city-panel-name {
-      font-size: 26px; font-weight: 800; color: #fff;
-      letter-spacing: -.03em; line-height: 1.1; margin-bottom: 8px;
+    .cp-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,15,24,1) 0%, rgba(8,15,24,.2) 60%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 18px 20px 14px;
     }
-    .city-panel-tagline {
-      font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.6; margin-bottom: 20px;
+    .cp-country-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
+      margin-bottom: 5px; display: flex; align-items: center; gap: 6px;
     }
-    .city-panel-stats {
-      display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap;
+    .cp-country-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .cp-city-name {
+      font-size: 28px; font-weight: 800; color: #fff;
+      letter-spacing: -.04em; line-height: 1.05;
     }
-    .city-stat {
-      background: rgba(56,189,248,.08); border: 1px solid rgba(56,189,248,.18);
-      border-radius: 8px; padding: 8px 14px; text-align: center; flex: 1; min-width: 70px;
+    .cp-tagline {
+      font-size: 12px; color: rgba(255,255,255,.5); margin-top: 5px; line-height: 1.5;
     }
-    .city-stat-num { font-size: 18px; font-weight: 800; color: #38bdf8; display: block; }
-    .city-stat-label { font-size: 10px; color: rgba(255,255,255,.4); text-transform: uppercase; letter-spacing: .08em; }
-    .city-panel-btn {
+    .cp-close {
+      position: absolute; top: 14px; right: 14px;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(0,0,0,.45); border: 1px solid rgba(255,255,255,.15);
+      color: rgba(255,255,255,.7); font-size: 13px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .15s;
+    }
+    .cp-close:hover { background: rgba(220,38,38,.5); color: #fff; }
+
+    /* stats row */
+    .cp-stats {
+      display: flex; gap: 1px; flex-shrink: 0;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .cp-stat {
+      flex: 1; padding: 12px 8px; text-align: center;
+      background: rgba(255,255,255,.02);
+    }
+    .cp-stat-num { font-size: 17px; font-weight: 800; color: #fff; display: block; line-height: 1; }
+    .cp-stat-lbl { font-size: 10px; color: rgba(255,255,255,.35); text-transform: uppercase; letter-spacing: .08em; margin-top: 3px; display: block; }
+
+    /* tabs */
+    .cp-tabs {
+      display: flex; flex-shrink: 0;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      background: rgba(255,255,255,.02);
+    }
+    .cp-tab {
+      flex: 1; padding: 11px 6px; text-align: center;
+      font-size: 12px; font-weight: 600; color: rgba(255,255,255,.4);
+      cursor: pointer; border-bottom: 2px solid transparent;
+      transition: color .15s, border-color .15s;
+      user-select: none;
+    }
+    .cp-tab.active { color: #fff; border-bottom-color: #38bdf8; }
+
+    /* list */
+    .cp-list { flex: 1; overflow-y: auto; padding: 12px 14px 80px; }
+    .cp-list::-webkit-scrollbar { width: 4px; }
+    .cp-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 4px; }
+
+    /* item card */
+    .cp-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,.055);
+    }
+    .cp-item:last-child { border-bottom: none; }
+    .cp-item-thumb {
+      width: 62px; height: 62px; border-radius: 10px; object-fit: cover;
+      flex-shrink: 0; background: #101e2b;
+    }
+    .cp-item-body { flex: 1; min-width: 0; }
+    .cp-item-name {
+      font-size: 13px; font-weight: 700; color: #fff;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      margin-bottom: 3px;
+    }
+    .cp-item-meta {
+      display: flex; align-items: center; gap: 8px;
+      flex-wrap: wrap; margin-bottom: 5px;
+    }
+    .cp-tag {
+      font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 8px;
+      background: rgba(255,255,255,.07); color: rgba(255,255,255,.55);
+    }
+    .cp-tag.green { background: rgba(52,211,153,.12); color: #34d399; }
+    .cp-tag.blue  { background: rgba(56,189,248,.12); color: #38bdf8; }
+    .cp-tag.amber { background: rgba(251,191,36,.12); color: #fbbf24; }
+    .cp-item-tip {
+      font-size: 11px; color: rgba(255,255,255,.38); line-height: 1.5;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* plan btn */
+    .cp-footer {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 14px 16px; background: rgba(8,15,24,.95);
+      border-top: 1px solid rgba(255,255,255,.07);
+    }
+    .cp-plan-btn {
       display: flex; align-items: center; justify-content: center; gap: 8px;
-      background: linear-gradient(135deg, #0ea5e9, #6366f1); border: none; color: #fff;
-      padding: 14px 20px; border-radius: 12px;
+      width: 100%; background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      border: none; color: #fff; padding: 13px; border-radius: 12px;
       font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none;
       transition: opacity .2s, transform .15s;
     }
-    .city-panel-btn:hover { opacity: .88; transform: translateY(-1px); }
-
-    /* ── Country tooltip ── */
-    .country-tooltip {
-      position: fixed; z-index: 300; pointer-events: none;
-      background: rgba(7,17,26,.9); backdrop-filter: blur(12px);
-      border: 1px solid rgba(56,189,248,.25); border-radius: 10px;
-      padding: 8px 14px; font-size: 13px; font-weight: 600; color: #fff;
-      opacity: 0; transition: opacity .15s;
-      white-space: nowrap;
-    }
-    .country-tooltip.show { opacity: 1; }
+    .cp-plan-btn:hover { opacity: .88; transform: translateY(-1px); }
 
     /* ── Loading ── */
     .globe-loading {
@@ -157,21 +204,20 @@
       background: #07111a; gap: 16px;
     }
     .globe-loading-ring {
-      width: 48px; height: 48px; border-radius: 50%;
-      border: 3px solid rgba(56,189,248,.15);
-      border-top-color: #38bdf8;
+      width: 46px; height: 46px; border-radius: 50%;
+      border: 3px solid rgba(56,189,248,.12); border-top-color: #38bdf8;
       animation: spin .8s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .globe-loading-text { font-size: 13px; color: rgba(255,255,255,.4); }
+    .globe-loading-text { font-size: 13px; color: rgba(255,255,255,.38); }
 
-    /* ── City count badge ── */
+    /* ── Badge ── */
     .city-count-badge {
-      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
-      background: rgba(7,17,26,.8); backdrop-filter: blur(12px);
-      border: 1px solid rgba(56,189,248,.2); border-radius: 30px;
-      padding: 8px 20px; font-size: 13px; color: rgba(255,255,255,.5);
-      pointer-events: none; z-index: 100;
+      position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
+      background: rgba(7,17,26,.82); backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.1); border-radius: 28px;
+      padding: 7px 18px; font-size: 12px; color: rgba(255,255,255,.45);
+      pointer-events: none; z-index: 100; white-space: nowrap;
     }
     .city-count-badge span { color: #38bdf8; font-weight: 700; }
 
@@ -199,262 +245,257 @@
   <div class="globe-loading-text">Loading Earth…</div>
 </div>
 
-<!-- Header -->
 <div class="globe-header">
   <a href="/" class="globe-logo">🌍 Dropped</a>
   <span class="globe-hint">Click a pin · Drag to rotate · Scroll to zoom</span>
-  <!-- Search -->
   <div class="globe-search-wrap" id="search-wrap">
     <input id="globe-search" class="globe-search" type="text" placeholder="Search cities…" autocomplete="off" />
     <span class="globe-search-icon">🔍</span>
     <div class="globe-search-results" id="search-results"></div>
   </div>
-  <div class="globe-nav-links">
-    <a href="planner.html" class="globe-back">🗓 Planner</a>
-    <a href="/" class="globe-back">← Explore</a>
-  </div>
+  <nav class="globe-nav">
+    <a href="planner.html" class="globe-navbtn">🗓 Planner</a>
+    <a href="/" class="globe-navbtn">← Explore</a>
+  </nav>
 </div>
 
-<!-- Globe canvas -->
 <div id="globe-wrap"></div>
 
-<!-- City info panel -->
+<!-- City panel -->
 <div class="city-panel" id="city-panel">
-  <button class="city-panel-close" onclick="closePanel()">✕</button>
-  <img id="cp-img" class="city-panel-img" src="" alt="" />
-  <div id="cp-country" class="city-panel-country"></div>
-  <div id="cp-name"    class="city-panel-name"></div>
-  <div id="cp-tagline" class="city-panel-tagline"></div>
-  <div class="city-panel-stats">
-    <div class="city-stat">
-      <span id="cp-activities" class="city-stat-num">—</span>
-      <span class="city-stat-label">Activities</span>
+  <!-- Hero -->
+  <div class="cp-hero">
+    <img id="cp-img" class="cp-hero-img" src="" alt="" />
+    <div class="cp-hero-overlay">
+      <div id="cp-country" class="cp-country-tag">
+        <span id="cp-dot" class="cp-country-dot"></span>
+        <span id="cp-country-name"></span>
+      </div>
+      <div id="cp-name" class="cp-city-name"></div>
+      <div id="cp-tagline" class="cp-tagline"></div>
     </div>
-    <div class="city-stat">
-      <span id="cp-food" class="city-stat-num">—</span>
-      <span class="city-stat-label">Restaurants</span>
+    <button class="cp-close" onclick="closePanel()">✕</button>
+  </div>
+
+  <!-- Stats -->
+  <div class="cp-stats">
+    <div class="cp-stat">
+      <span id="cp-act-num" class="cp-stat-num">—</span>
+      <span class="cp-stat-lbl">Activities</span>
     </div>
-    <div class="city-stat">
-      <span id="cp-iata" class="city-stat-num">—</span>
-      <span class="city-stat-label">Airport</span>
+    <div class="cp-stat">
+      <span id="cp-food-num" class="cp-stat-num">—</span>
+      <span class="cp-stat-lbl">Restaurants</span>
+    </div>
+    <div class="cp-stat">
+      <span id="cp-iata" class="cp-stat-num">—</span>
+      <span class="cp-stat-lbl">Airport</span>
     </div>
   </div>
-  <a id="cp-link" class="city-panel-btn" href="/">
-    🗺 Explore this City
-  </a>
+
+  <!-- Tabs -->
+  <div class="cp-tabs">
+    <div class="cp-tab active" data-tab="activities" onclick="switchTab('activities')">🎯 Activities</div>
+    <div class="cp-tab" data-tab="food" onclick="switchTab('food')">🍽 Food</div>
+    <div class="cp-tab" data-tab="transport" onclick="switchTab('transport')">🚇 Getting Around</div>
+  </div>
+
+  <!-- List -->
+  <div class="cp-list" id="cp-list"></div>
+
+  <!-- Footer -->
+  <div class="cp-footer">
+    <a id="cp-plan-btn" class="cp-plan-btn" href="planner.html">
+      🗓 Plan a Trip Here
+    </a>
+  </div>
 </div>
 
-<!-- Country tooltip -->
-<div class="country-tooltip" id="country-tooltip"></div>
-
-<!-- City count -->
 <div class="city-count-badge">
   <span id="city-count">0</span> destinations on the globe
 </div>
 
 <script src="https://unpkg.com/globe.gl@2.32.0/dist/globe.gl.min.js"></script>
-<script src="data.js?v=4"></script>
+<script src="data.js?v=5"></script>
 <script>
 (function () {
-  /* ── City coordinates — all keys match data.js city IDs ── */
+  /* ── Coordinates ── */
   const COORDS = {
-    // USA (original)
-    nyc:          [40.7128,  -74.0060],
-    losangeles:   [34.0522, -118.2437],
-    chicago:      [41.8781,  -87.6298],
-    miami:        [25.7617,  -80.1918],
-    sanfrancisco: [37.7749, -122.4194],
-    lasvegas:     [36.1699, -115.1398],
-    seattle:      [47.6062, -122.3321],
-    austin:       [30.2672,  -97.7431],
-    neworleans:   [29.9511,  -90.0715],
-    denver:       [39.7392, -104.9903],
-    nashville:    [36.1627,  -86.7816],
-    orlando:      [28.5383,  -81.3792],
-    hawaii:       [20.7967, -156.3319],
-    sandiego:     [32.7157, -117.1611],
-    washingtondc: [38.9072,  -77.0369],
-    boston:       [42.3601,  -71.0589],
-    portland:     [45.5051, -122.6750],
-    atlanta:      [33.7490,  -84.3880],
-    philadelphia: [39.9526,  -75.1652],
-    phoenix:      [33.4484, -112.0740],
-    // Europe (original)
-    london:       [51.5074,   -0.1278],
-    paris:        [48.8566,    2.3522],
-    barcelona:    [41.3851,    2.1734],
-    amsterdam:    [52.3676,    4.9041],
-    rome:         [41.9028,   12.4964],
-    lisbon:       [38.7169,   -9.1399],
-    prague:       [50.0755,   14.4378],
-    budapest:     [47.4979,   19.0402],
-    istanbul:     [41.0082,   28.9784],
-    vienna:       [48.2082,   16.3738],
-    edinburgh:    [55.9533,   -3.1883],
-    copenhagen:   [55.6761,   12.5683],
-    // Asia & Pacific (original)
-    tokyo:        [35.6762,  139.6503],
-    kyoto:        [35.0116,  135.7681],
-    seoul:        [37.5665,  126.9780],
-    bangkok:      [13.7563,  100.5018],
-    singapore:    [ 1.3521,  103.8198],
-    bali:         [-8.4095,  115.1889],
-    sydney:       [-33.8688, 151.2093],
-    // Middle East & Africa (original)
-    dubai:        [25.2048,   55.2708],
-    marrakech:    [31.6295,   -7.9811],
-    capetown:     [-33.9249,  18.4241],
-    // Americas (original)
-    mexicocity:   [19.4326,  -99.1332],
-    havana:       [23.1136,  -82.3666],
-    // Batch 3 — Europe & Asia
-    santorini:    [36.3932,   25.4615],
-    dubrovnik:    [42.6507,   18.0944],
-    venice:       [45.4408,   12.3155],
-    florence:     [43.7696,   11.2558],
-    milan:        [45.4654,    9.1859],
-    berlin:       [52.5200,   13.4050],
-    madrid:       [40.4168,   -3.7038],
-    cairo:        [30.0444,   31.2357],
-    osaka:        [34.6937,  135.5023],
-    hongkong:     [22.3193,  114.1694],
-    // Batch 4 — Asia & Americas
-    taipei:       [25.0330,  121.5654],
-    kualalumpur:  [ 3.1390,  101.6869],
-    hanoi:        [21.0278,  105.8342],
-    buenosaires:  [-34.6037, -58.3816],
-    toronto:      [43.6532,  -79.3832],
-    vancouver:    [49.2827, -123.1207],
-    stockholm:    [59.3293,   18.0686],
-    dublin:       [53.3498,   -6.2603],
-    // Batch 5 — More USA
-    dallas:       [32.7767,  -96.7970],
-    houston:      [29.7604,  -95.3698],
-    tampa:        [27.9506,  -82.4572],
-    charlotte:    [35.2271,  -80.8431],
-    memphis:      [35.1495,  -90.0490],
-    minneapolis:  [44.9778,  -93.2650],
-    kansascity:   [39.0997,  -94.5786],
-    baltimore:    [39.2904,  -76.6122],
-    pittsburgh:   [40.4406,  -79.9959],
-    saltlakecity: [40.7608, -111.8910],
+    nyc:[40.7128,-74.0060], losangeles:[34.0522,-118.2437], chicago:[41.8781,-87.6298],
+    miami:[25.7617,-80.1918], sanfrancisco:[37.7749,-122.4194], lasvegas:[36.1699,-115.1398],
+    seattle:[47.6062,-122.3321], austin:[30.2672,-97.7431], neworleans:[29.9511,-90.0715],
+    denver:[39.7392,-104.9903], nashville:[36.1627,-86.7816], orlando:[28.5383,-81.3792],
+    hawaii:[20.7967,-156.3319], sandiego:[32.7157,-117.1611], washingtondc:[38.9072,-77.0369],
+    boston:[42.3601,-71.0589], portland:[45.5051,-122.6750], atlanta:[33.7490,-84.3880],
+    philadelphia:[39.9526,-75.1652], phoenix:[33.4484,-112.0740],
+    london:[51.5074,-0.1278], paris:[48.8566,2.3522], barcelona:[41.3851,2.1734],
+    amsterdam:[52.3676,4.9041], rome:[41.9028,12.4964], lisbon:[38.7169,-9.1399],
+    prague:[50.0755,14.4378], budapest:[47.4979,19.0402], istanbul:[41.0082,28.9784],
+    vienna:[48.2082,16.3738], edinburgh:[55.9533,-3.1883], copenhagen:[55.6761,12.5683],
+    tokyo:[35.6762,139.6503], kyoto:[35.0116,135.7681], seoul:[37.5665,126.9780],
+    bangkok:[13.7563,100.5018], singapore:[1.3521,103.8198], bali:[-8.4095,115.1889],
+    sydney:[-33.8688,151.2093], dubai:[25.2048,55.2708], marrakech:[31.6295,-7.9811],
+    capetown:[-33.9249,18.4241], mexicocity:[19.4326,-99.1332], havana:[23.1136,-82.3666],
+    santorini:[36.3932,25.4615], dubrovnik:[42.6507,18.0944], venice:[45.4408,12.3155],
+    florence:[43.7696,11.2558], milan:[45.4654,9.1859], berlin:[52.5200,13.4050],
+    madrid:[40.4168,-3.7038], cairo:[30.0444,31.2357], osaka:[34.6937,135.5023],
+    hongkong:[22.3193,114.1694], taipei:[25.0330,121.5654], kualalumpur:[3.1390,101.6869],
+    hanoi:[21.0278,105.8342], buenosaires:[-34.6037,-58.3816], toronto:[43.6532,-79.3832],
+    vancouver:[49.2827,-123.1207], stockholm:[59.3293,18.0686], dublin:[53.3498,-6.2603],
+    dallas:[32.7767,-96.7970], houston:[29.7604,-95.3698], tampa:[27.9506,-82.4572],
+    charlotte:[35.2271,-80.8431], memphis:[35.1495,-90.0490], minneapolis:[44.9778,-93.2650],
+    kansascity:[39.0997,-94.5786], baltimore:[39.2904,-76.6122], pittsburgh:[40.4406,-79.9959],
+    saltlakecity:[40.7608,-111.8910],
   };
 
-  /* ── Pin color by region ── */
-  const REGION_COLOR = {
-    usa:    '#f97316', // orange
-    europe: '#a78bfa', // violet
-    asia:   '#34d399', // emerald
-    mideast:'#fbbf24', // amber
-    africa: '#f87171', // red
-    americas:'#fb7185', // rose
-    pacific:'#22d3ee', // cyan
-  };
-  function getRegionColor(id) {
-    const usa = ['nyc','losangeles','chicago','miami','sanfrancisco','lasvegas','seattle','austin','neworleans','denver','nashville','orlando','hawaii','sandiego','washingtondc','boston','portland','atlanta','philadelphia','phoenix','dallas','houston','tampa','charlotte','memphis','minneapolis','kansascity','baltimore','pittsburgh','saltlakecity'];
-    const europe = ['london','paris','barcelona','amsterdam','rome','lisbon','prague','budapest','istanbul','vienna','edinburgh','copenhagen','santorini','dubrovnik','venice','florence','milan','berlin','madrid','stockholm','dublin'];
-    const asia = ['tokyo','kyoto','seoul','bangkok','singapore','bali','osaka','hongkong','taipei','kualalumpur','hanoi'];
-    const mideast = ['dubai'];
-    const africa = ['marrakech','capetown','cairo'];
-    const pacific = ['sydney'];
-    if (usa.includes(id))     return REGION_COLOR.usa;
-    if (europe.includes(id))  return REGION_COLOR.europe;
-    if (asia.includes(id))    return REGION_COLOR.asia;
-    if (mideast.includes(id)) return REGION_COLOR.mideast;
-    if (africa.includes(id))  return REGION_COLOR.africa;
-    if (pacific.includes(id)) return REGION_COLOR.pacific;
-    return REGION_COLOR.americas;
+  /* ── Region colors ── */
+  function pinColor(id) {
+    if (['nyc','losangeles','chicago','miami','sanfrancisco','lasvegas','seattle','austin','neworleans','denver','nashville','orlando','hawaii','sandiego','washingtondc','boston','portland','atlanta','philadelphia','phoenix','dallas','houston','tampa','charlotte','memphis','minneapolis','kansascity','baltimore','pittsburgh','saltlakecity'].includes(id)) return '#f97316';
+    if (['london','paris','barcelona','amsterdam','rome','lisbon','prague','budapest','istanbul','vienna','edinburgh','copenhagen','santorini','dubrovnik','venice','florence','milan','berlin','madrid','stockholm','dublin'].includes(id)) return '#a78bfa';
+    if (['tokyo','kyoto','seoul','bangkok','singapore','bali','osaka','hongkong','taipei','kualalumpur','hanoi'].includes(id)) return '#34d399';
+    if (id === 'dubai') return '#fbbf24';
+    if (['marrakech','capetown','cairo'].includes(id)) return '#f87171';
+    if (id === 'sydney') return '#22d3ee';
+    return '#fb7185';
   }
 
-  /* ── Build points from CITIES data ── */
-  const points = (typeof CITIES !== 'undefined' ? CITIES : []).map(city => {
-    const coord = COORDS[city.id];
-    if (!coord) return null;
-    return {
-      id:         city.id,
-      name:       city.name,
-      country:    city.country,
-      tagline:    city.tagline || '',
-      image:      city.image  || '',
-      iata:       city.iata   || '—',
-      activities: (city.activities || []).length,
-      food:       (city.food || []).length,
-      lat:        coord[0],
-      lng:        coord[1],
-      color:      getRegionColor(city.id),
+  /* ── Build points ── */
+  const CITY_MAP = {};
+  (typeof CITIES !== 'undefined' ? CITIES : []).forEach(c => { CITY_MAP[c.id] = c; });
+
+  const points = Object.entries(COORDS).map(([id, [lat, lng]]) => {
+    const city = CITY_MAP[id];
+    if (!city) return null;
+    return { id, lat, lng, color: pinColor(id),
+      name: city.name, country: city.country, tagline: city.tagline || '',
+      image: city.image || '', iata: city.iata || '—',
+      actCount: (city.activities||[]).length, foodCount: (city.food||[]).length,
     };
   }).filter(Boolean);
 
-  /* ── DOM refs ── */
-  const tooltip = document.getElementById('country-tooltip');
-  const panel   = document.getElementById('city-panel');
-  const loading = document.getElementById('globe-loading');
+  /* ── State ── */
+  let activeTab = 'activities';
+  let currentCity = null;
 
-  function openPanel(city) {
-    document.getElementById('cp-img').src                 = city.image;
-    document.getElementById('cp-img').alt                 = city.name;
-    document.getElementById('cp-country').textContent     = city.country;
-    document.getElementById('cp-name').textContent        = city.name;
-    document.getElementById('cp-tagline').textContent     = city.tagline || '';
-    document.getElementById('cp-activities').textContent  = city.activities;
-    document.getElementById('cp-food').textContent        = city.food;
-    document.getElementById('cp-iata').textContent        = city.iata;
-    document.getElementById('cp-link').href = '/?city=' + city.id + '#cities';
-    panel.classList.add('open');
+  /* ── Panel ── */
+  function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function renderList(tab) {
+    const city = currentCity;
+    if (!city) return;
+    const list = document.getElementById('cp-list');
+
+    if (tab === 'activities') {
+      const items = city.activities || [];
+      list.innerHTML = items.map(a => `
+        <div class="cp-item">
+          <img class="cp-item-thumb" src="${esc(a.photo||city.image)}" alt="" loading="lazy" onerror="this.src='${esc(city.image)}'" />
+          <div class="cp-item-body">
+            <div class="cp-item-name">${esc(a.name)}</div>
+            <div class="cp-item-meta">
+              ${a.price === 0 ? '<span class="cp-tag green">Free</span>' : `<span class="cp-tag blue">$${a.price}</span>`}
+              <span class="cp-tag amber">★ ${a.rating}</span>
+              ${a.duration ? `<span class="cp-tag">${esc(a.duration)}</span>` : ''}
+            </div>
+            <div class="cp-item-tip">${esc(a.tip||a.desc||'')}</div>
+          </div>
+        </div>`).join('');
+    } else if (tab === 'food') {
+      const items = city.food || [];
+      list.innerHTML = items.map(f => `
+        <div class="cp-item">
+          <img class="cp-item-thumb" src="${esc(f.photo||city.image)}" alt="" loading="lazy" onerror="this.src='${esc(city.image)}'" />
+          <div class="cp-item-body">
+            <div class="cp-item-name">${esc(f.name)}</div>
+            <div class="cp-item-meta">
+              <span class="cp-tag blue">$${f.price}</span>
+              <span class="cp-tag amber">★ ${f.rating}</span>
+              <span class="cp-tag">${esc(f.cuisine||'')}</span>
+            </div>
+            <div class="cp-item-tip">${esc(f.tip||f.desc||'')}</div>
+          </div>
+        </div>`).join('');
+    } else {
+      const items = city.transport || [];
+      list.innerHTML = items.map(t => `
+        <div class="cp-item">
+          <div class="cp-item-body" style="padding-left:4px">
+            <div class="cp-item-name">${esc(t.name)}</div>
+            <div class="cp-item-meta">
+              <span class="cp-tag blue">$${t.price}</span>
+              <span class="cp-tag amber">★ ${t.rating}</span>
+              <span class="cp-tag">${esc(t.type||'')}</span>
+            </div>
+            <div class="cp-item-tip">${esc(t.tip||'')}</div>
+          </div>
+        </div>`).join('');
+    }
+    list.scrollTop = 0;
   }
-  window.closePanel = function() { panel.classList.remove('open'); };
 
-  /* ── Globe init ── */
-  const globe = Globe({ animateIn: true })
-    (document.getElementById('globe-wrap'))
+  window.switchTab = function(tab) {
+    activeTab = tab;
+    document.querySelectorAll('.cp-tab').forEach(el => {
+      el.classList.toggle('active', el.dataset.tab === tab);
+    });
+    renderList(tab);
+  };
 
-    /* Earth textures — vibrant day texture */
+  function openPanel(pt) {
+    const city = CITY_MAP[pt.id];
+    if (!city) return;
+    currentCity = city;
+
+    document.getElementById('cp-img').src          = city.image;
+    document.getElementById('cp-img').alt          = city.name;
+    document.getElementById('cp-dot').style.background = pt.color;
+    document.getElementById('cp-country-name').textContent = city.country;
+    document.getElementById('cp-name').textContent     = city.name;
+    document.getElementById('cp-tagline').textContent  = city.tagline || '';
+    document.getElementById('cp-act-num').textContent  = pt.actCount;
+    document.getElementById('cp-food-num').textContent = pt.foodCount;
+    document.getElementById('cp-iata').textContent     = city.iata || '—';
+    document.getElementById('cp-plan-btn').href = `planner.html?city=${city.id}`;
+
+    activeTab = 'activities';
+    document.querySelectorAll('.cp-tab').forEach(el => {
+      el.classList.toggle('active', el.dataset.tab === 'activities');
+    });
+    renderList('activities');
+    document.getElementById('cp-list').scrollTop = 0;
+    document.getElementById('city-panel').classList.add('open');
+  }
+
+  window.closePanel = function() {
+    document.getElementById('city-panel').classList.remove('open');
+    currentCity = null;
+  };
+
+  /* ── Globe ── */
+  const globe = Globe({ animateIn: true })(document.getElementById('globe-wrap'))
     .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-day.jpg')
-    .bumpImageUrl ('https://unpkg.com/three-globe/example/img/earth-topology.png')
+    .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
     .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
-
-    /* Atmosphere */
     .showAtmosphere(true)
     .atmosphereColor('#60a5fa')
     .atmosphereAltitude(0.16)
-
-    /* City pins — colored by region */
     .pointsData(points)
-    .pointLat('lat')
-    .pointLng('lng')
-    .pointLabel(d => `<div style="background:rgba(7,17,26,.92);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:8px 12px;font-size:13px;font-weight:700;color:#fff;font-family:Geist,Inter,sans-serif">${d.name}<br><span style="font-size:11px;color:${d.color};font-weight:500">${d.country}</span></div>`)
+    .pointLat('lat').pointLng('lng')
     .pointColor(d => d.color)
     .pointAltitude(0.016)
     .pointRadius(0.5)
     .pointResolution(12)
     .pointLabel(d =>
-      `<div style="
-        background:rgba(8,16,24,.82);
-        backdrop-filter:blur(10px);
-        border:1px solid rgba(255,255,255,.12);
-        border-radius:20px;
-        padding:5px 13px 5px 10px;
-        display:flex;align-items:center;gap:7px;
-        font-family:Geist,Inter,system-ui,sans-serif;
-        white-space:nowrap;
-        box-shadow:0 4px 20px rgba(0,0,0,.45);
-      ">
-        <span style="width:7px;height:7px;border-radius:50%;background:${d.color};flex-shrink:0;display:inline-block"></span>
+      `<div style="background:rgba(8,16,24,.82);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.11);border-radius:20px;padding:5px 13px 5px 10px;display:flex;align-items:center;gap:7px;font-family:Geist,Inter,system-ui,sans-serif;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.4)">
+        <span style="width:7px;height:7px;border-radius:50%;background:${d.color};display:inline-block;flex-shrink:0"></span>
         <span style="font-size:13px;font-weight:700;color:#fff;letter-spacing:-.01em">${d.name}</span>
-        <span style="font-size:11px;color:rgba(255,255,255,.38);font-weight:500">${d.country}</span>
+        <span style="font-size:11px;color:rgba(255,255,255,.36);font-weight:500">${d.country}</span>
       </div>`)
-    .onPointHover(d => {
-      document.getElementById('globe-wrap').style.cursor = d ? 'pointer' : 'default';
-    })
-
-    /* Pulse rings */
+    .onPointHover(d => { document.getElementById('globe-wrap').style.cursor = d ? 'pointer' : 'default'; })
     .ringsData([])
     .ringColor(d => d.color || '#38bdf8')
-    .ringMaxRadius(3)
-    .ringPropagationSpeed(2)
-    .ringRepeatPeriod(700);
+    .ringMaxRadius(3).ringPropagationSpeed(2).ringRepeatPeriod(700);
 
-  /* ── Click: open panel + pulse + stop rotate ── */
   globe.onPointClick(d => {
     globe.controls().autoRotate = false;
     globe.ringsData([{ lat: d.lat, lng: d.lng, maxR: 4, propagationSpeed: 2, repeatPeriod: 800, color: d.color }]);
@@ -462,29 +503,16 @@
     openPanel(d);
   });
 
-  /* ── Auto-rotate ── */
   globe.controls().autoRotate = true;
   globe.controls().autoRotateSpeed = 0.35;
   globe.controls().enableDamping = true;
-
   globe.controls().addEventListener('start', () => { globe.controls().autoRotate = false; });
-  globe.controls().addEventListener('end',   () => {
-    setTimeout(() => { globe.controls().autoRotate = true; }, 2500);
-  });
+  globe.controls().addEventListener('end', () => { setTimeout(() => { globe.controls().autoRotate = true; }, 2500); });
 
-  /* ── Initial camera ── */
   globe.pointOfView({ lat: 20, lng: 10, altitude: 2.2 }, 0);
-
-  /* ── City count badge ── */
   document.getElementById('city-count').textContent = points.length;
-
-  /* ── Hide loading when ready ── */
-  setTimeout(() => { loading.style.display = 'none'; }, 1200);
-
-  /* ── Resize ── */
-  window.addEventListener('resize', () => {
-    globe.width(window.innerWidth).height(window.innerHeight);
-  });
+  setTimeout(() => { document.getElementById('globe-loading').style.display = 'none'; }, 1200);
+  window.addEventListener('resize', () => { globe.width(window.innerWidth).height(window.innerHeight); });
 
   /* ── Search ── */
   const searchInput   = document.getElementById('globe-search');
@@ -506,17 +534,14 @@
   searchInput.addEventListener('input', () => {
     const q = searchInput.value.trim().toLowerCase();
     if (!q) { searchResults.classList.remove('show'); return; }
-    const matches = points.filter(p =>
-      p.name.toLowerCase().includes(q) || p.country.toLowerCase().includes(q)
-    ).slice(0, 8);
-    if (!matches.length) { searchResults.classList.remove('show'); return; }
-    searchResults.innerHTML = matches.map(p =>
+    const hits = points.filter(p => p.name.toLowerCase().includes(q) || p.country.toLowerCase().includes(q)).slice(0, 8);
+    if (!hits.length) { searchResults.classList.remove('show'); return; }
+    searchResults.innerHTML = hits.map(p =>
       `<div class="globe-search-result" data-id="${p.id}">
-         <span style="width:8px;height:8px;border-radius:50%;background:${p.color};flex-shrink:0;display:inline-block"></span>
-         <span class="globe-search-result-city">${p.name}</span>
-         <span class="globe-search-result-country">${p.country}</span>
-       </div>`
-    ).join('');
+         <span style="width:7px;height:7px;border-radius:50%;background:${p.color};display:inline-block;flex-shrink:0"></span>
+         <span class="globe-sr-name">${p.name}</span>
+         <span class="globe-sr-country">${p.country}</span>
+       </div>`).join('');
     searchResults.classList.add('show');
     searchResults.querySelectorAll('.globe-search-result').forEach(el => {
       el.addEventListener('click', () => {
@@ -529,19 +554,14 @@
   searchInput.addEventListener('keydown', e => {
     if (e.key === 'Enter') {
       const q = searchInput.value.trim().toLowerCase();
-      const match = points.find(p => p.name.toLowerCase() === q || p.name.toLowerCase().startsWith(q));
-      if (match) flyToCity(match);
+      const m = points.find(p => p.name.toLowerCase().startsWith(q));
+      if (m) flyToCity(m);
     }
-    if (e.key === 'Escape') {
-      searchInput.value = '';
-      searchResults.classList.remove('show');
-    }
+    if (e.key === 'Escape') { searchInput.value = ''; searchResults.classList.remove('show'); }
   });
 
   document.addEventListener('click', e => {
-    if (!document.getElementById('search-wrap').contains(e.target)) {
-      searchResults.classList.remove('show');
-    }
+    if (!document.getElementById('search-wrap').contains(e.target)) searchResults.classList.remove('show');
   });
 })();
 </script>
