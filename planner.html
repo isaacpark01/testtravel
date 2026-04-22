@@ -1427,13 +1427,19 @@
       position: fixed; bottom: 0; right: 0; left: 0; z-index: 1005;
       height: 0; max-height: 88vh; overflow: hidden;
       background: #0b1120;
-      border-top: 1px solid rgba(151,172,224,.22);
-      border-radius: 24px 24px 0 0;
+      border-top: 1px solid transparent;
+      border-radius: 0;
       display: flex; flex-direction: column;
-      transition: height .38s cubic-bezier(.22,.68,0,1.2);
+      transition: height .38s cubic-bezier(.22,.68,0,1.2),
+                  border-radius .38s, border-color .38s, box-shadow .38s;
+      box-shadow: none;
+    }
+    .ai-panel.open {
+      height: 82vh;
+      border-top-color: rgba(151,172,224,.22);
+      border-radius: 24px 24px 0 0;
       box-shadow: 0 -12px 60px rgba(0,0,0,.7), 0 -1px 0 rgba(151,172,224,.1);
     }
-    .ai-panel.open { height: 82vh; }
     .ai-panel-accent {
       height: 3px; flex-shrink: 0; border-radius: 24px 24px 0 0;
       background: linear-gradient(90deg, #5a87b0 0%, #97ace0 50%, #5a87b0 100%);
