@@ -18,9 +18,9 @@
     en: {
       navExplore:'Explore', navPlanner:'Planner', navDeals:'Deals',
       navLogin:'Log In', navSignup:'Sign Up',
-      heroEyebrow:'Plan Smarter. Travel Better.',
-      heroTitle1:'Where will you', heroTitle2:'go next?',
-      heroSub:'Discover destinations, build day-by-day itineraries, and plan trips with friends — all in one place.',
+      heroEyebrow:'Your World. Your Rules. Your Trip.',
+      heroTitle1:'Stop dreaming.', heroTitle2:'Start going.',
+      heroSub:'Handpicked destinations. Effortless itineraries. Your crew, in sync — all in one place.',
       heroCTA1:'Explore Destinations →', heroCTA2:'Open Planner',
       heroSearch:'Search a destination…', heroSearchBtn:'Search',
       citiesTitle:'Explore Destinations', citiesSub:'Tap any city to browse activities, food, transport and deals',
