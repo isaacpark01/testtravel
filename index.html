@@ -367,6 +367,7 @@
 <!-- ══ HOW IT WORKS ══════════════════════════════════════════════ -->
 <section class="how-section">
   <div class="section-header reveal">
+    <span class="section-eyebrow">How It Works</span>
     <h2>Go from "where to?" to "let's go!" in four steps</h2>
     <p>From inspiration to itinerary — Dropped does the heavy lifting</p>
   </div>
@@ -401,6 +402,7 @@
 <!-- ══ CITIES ════════════════════════════════════════════════════ -->
 <section id="cities" class="section cities-section">
   <div class="section-header reveal">
+    <span class="section-eyebrow">Destinations</span>
     <h2 data-i18n="citiesTitle">Explore Destinations</h2>
     <p data-i18n="citiesSub">50+ cities. Infinite memories. Your next chapter starts here.</p>
   </div>
@@ -419,13 +421,14 @@
 <!-- ══ DEALS ═════════════════════════════════════════════════════ -->
 <section id="deals" class="section deals-section">
   <div class="section-header">
-    <h2 data-i18n="dealsTitle">Find Deals</h2>
+    <span class="section-eyebrow">Find Deals</span>
+    <h2 data-i18n="dealsTitle">Hunt Every Deal</h2>
     <p data-i18n="dealsSub">Every platform. Every deal. One search.</p>
   </div>
 
   <!-- Flight search -->
-  <div class="deal-form-card">
-    <h3 data-i18n="dealsFlights">✈ Flights</h3>
+  <div class="deal-form-card deal-card-flights">
+    <h3 data-i18n="dealsFlights" style="display:flex;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 00-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>Flights</h3>
     <div class="deal-form">
       <div style="display:grid;grid-template-columns:1fr 1fr 150px 150px 70px;gap:10px;overflow:hidden">
         <div class="form-field">
@@ -459,8 +462,8 @@
   </div>
 
   <!-- Car rental search -->
-  <div class="deal-form-card" style="margin-top:20px">
-    <h3 data-i18n="dealsCars">🚗 Rental Cars</h3>
+  <div class="deal-form-card deal-card-cars" style="margin-top:20px">
+    <h3 data-i18n="dealsCars" style="display:flex;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Rental Cars</h3>
     <div class="deal-form">
       <div style="display:grid;grid-template-columns:1fr 160px 160px;gap:10px">
         <div class="form-field">
@@ -486,8 +489,8 @@
   </div>
 
   <!-- Budget estimator -->
-  <div class="deal-form-card" style="margin-top:20px">
-    <h3 data-i18n="dealsBudget">💰 Trip Budget Estimator</h3>
+  <div class="deal-form-card deal-card-budget" style="margin-top:20px">
+    <h3 data-i18n="dealsBudget" style="display:flex;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Trip Budget Estimator</h3>
     <div class="deal-form">
       <div style="display:grid;grid-template-columns:1fr 160px 80px auto;gap:10px 16px;align-items:end">
         <div class="form-field">
@@ -635,6 +638,33 @@
 </script>
 <script src="i18n.js"></script>
 <script src="reveal.js"></script>
+<script>
+(function() {
+  var done = false;
+  var statsBar = document.querySelector('.stats-bar');
+  if (!statsBar) return;
+  function runCounters() {
+    if (done) return; done = true;
+    statsBar.querySelectorAll('[data-count]').forEach(function(el) {
+      var target = parseInt(el.dataset.count);
+      var suffix = el.dataset.suffix || '';
+      var duration = 1400;
+      var start = performance.now();
+      function tick(now) {
+        var p = Math.min((now - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.floor(eased * target) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+  var obs = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting) { runCounters(); obs.disconnect(); }
+  }, { threshold: 0.6 });
+  obs.observe(statsBar);
+})();
+</script>
 
 <script>
 (function() {
