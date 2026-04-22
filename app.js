@@ -1341,6 +1341,7 @@ function buildFlightLink(platform, anchor) {
     kayak:      `https://www.kayak.com/flights/${f}-${t}/${dep}/${ret}/${pax}adults`,
     skyscanner: `https://www.skyscanner.com/transport/flights/${f}/${t}/${depFmt}/${retFmt}/?adults=${pax}&currency=USD`,
     expedia:    `https://www.expedia.com/Flights-Search?trip=roundtrip&leg1=from:${f},to:${t},departure:${dep}TANYT&leg2=from:${t},to:${f},departure:${ret}TANYT&passengers=adults:${pax}&mode=search`,
+    priceline:  `https://www.priceline.com/flights/search?originAirportCode=${f}&destinationAirportCode=${t}&departDate=${dep}&returnDate=${ret}&numberOfAdults=${pax}`,
   };
   anchor.href = urls[platform] || '#';
   return true;
@@ -1355,7 +1356,26 @@ function buildCarLink(platform, anchor) {
     google:     `https://www.google.com/travel/search?q=rental+cars+${l}`,
     enterprise: `https://www.enterprise.com/en/car-rental/dexter.html?icid=ENUS.HOME.GLOBAL.RENTALCAR`,
     hertz:      `https://www.hertz.com/rentacar/reservation/`,
+    turo:       `https://turo.com/search?location=${l}&startDate=${pickup}&endDate=${drop}`,
     costco:     `https://www.costcotravel.com/Rental-Cars`,
+  };
+  anchor.href = urls[platform] || '#';
+  return true;
+}
+
+function buildHotelLink(platform, anchor) {
+  const dest    = document.getElementById('hotel-dest').value.trim();
+  const checkin = document.getElementById('hotel-checkin').value;
+  const checkout= document.getElementById('hotel-checkout').value;
+  const guests  = document.getElementById('hotel-guests').value || '2';
+  if (!dest) { showToast('Enter a destination first.'); return false; }
+  const d = encodeURIComponent(dest);
+  const urls = {
+    booking:  `https://www.booking.com/search.html?ss=${d}&checkin=${checkin}&checkout=${checkout}&group_adults=${guests}&no_rooms=1`,
+    hotels:   `https://www.hotels.com/search.do?q-destination=${d}&q-check-in-date=${checkin}&q-check-out-date=${checkout}&q-rooms=1&q-room-0-adults=${guests}`,
+    expedia:  `https://www.expedia.com/Hotel-Search?destination=${d}&startDate=${checkin}&endDate=${checkout}&adults=${guests}`,
+    google:   `https://www.google.com/travel/hotels?q=${d}+hotels&dates=${checkin},${checkout}`,
+    airbnb:   `https://www.airbnb.com/s/${d}/homes?checkin=${checkin}&checkout=${checkout}&adults=${guests}`,
   };
   anchor.href = urls[platform] || '#';
   return true;

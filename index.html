@@ -480,6 +480,39 @@
       <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildFlightLink('kayak',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FF690F"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 3c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm4 13H8v-2l2-3-2-3V8h2v1.5l2 3 2-3V8h2v2l-2 3 2 3v2z"/></svg>Kayak</a>
       <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildFlightLink('skyscanner',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#0770E3"><path d="M21.5 10.5c0 3.59-2.91 6.5-6.5 6.5a6.47 6.47 0 01-4.5-1.82L4 21.5 2.5 20l6.32-6.5A6.47 6.47 0 018 10.5C8 6.91 10.91 4 14.5 4S21.5 6.91 21.5 10.5zm-2 0C19.5 8.01 17.49 6 15 6s-4.5 2.01-4.5 4.5S12.51 15 15 15s4.5-2.01 4.5-4.5z"/></svg>Skyscanner</a>
       <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildFlightLink('expedia',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFC72C"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>Expedia</a>
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildFlightLink('priceline',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#003580" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" fill="#003580" stroke="none"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-size="10" font-weight="800" font-family="sans-serif">P</text></svg>Priceline</a>
+    </div>
+  </div>
+
+  <!-- Hotel search -->
+  <div class="deal-form-card deal-card-hotels" style="margin-top:20px">
+    <h3 style="display:flex;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14"/><path d="M3 22h18"/><path d="M9 22V12h6v10"/><rect x="9" y="2" width="6" height="4"/></svg>Hotels &amp; Stays</h3>
+    <div class="deal-form">
+      <div style="display:grid;grid-template-columns:1fr 150px 150px 70px;gap:10px;overflow:hidden">
+        <div class="form-field">
+          <label>Destination</label>
+          <input id="hotel-dest" type="text" placeholder="City or hotel name" />
+        </div>
+        <div class="form-field">
+          <label>Check-in</label>
+          <input id="hotel-checkin" type="date" />
+        </div>
+        <div class="form-field">
+          <label>Check-out</label>
+          <input id="hotel-checkout" type="date" />
+        </div>
+        <div class="form-field">
+          <label>Guests</label>
+          <input id="hotel-guests" type="number" min="1" max="16" value="2" />
+        </div>
+      </div>
+    </div>
+    <div class="deals-grid-mini" style="margin-top:14px">
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildHotelLink('booking',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#003580"><rect width="24" height="24" rx="4" fill="#003580"/><text x="12" y="17" text-anchor="middle" fill="#fff" font-size="13" font-weight="900" font-family="sans-serif">B</text></svg>Booking.com</a>
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildHotelLink('hotels',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#D32F2F"><rect width="24" height="24" rx="4" fill="#D32F2F"/><text x="12" y="17" text-anchor="middle" fill="#fff" font-size="11" font-weight="900" font-family="sans-serif">H</text></svg>Hotels.com</a>
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildHotelLink('expedia',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFC72C"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>Expedia</a>
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildHotelLink('google',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57C21.36 18.34 22.56 15.52 22.56 12.25z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google Hotels</a>
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildHotelLink('airbnb',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FF5A5F"><path d="M12 2C8.5 2 7 4.5 7 6.5c0 1.5.5 2.8 1.2 3.8C5 11.5 3 13.5 3 16c0 2.8 2.2 5 5 5 1.5 0 2.8-.6 3.8-1.6.3-.3.7-.4 1.2-.4.5 0 .9.1 1.2.4 1 1 2.3 1.6 3.8 1.6 2.8 0 5-2.2 5-5 0-2.5-2-4.5-5.2-5.7C18.5 9.3 19 8 19 6.5 19 4.5 17.5 2 14 2h-2zm0 2h2c2.3 0 3 1.5 3 2.5 0 1.5-1 3-3 3h-4c-2 0-3-1.5-3-3C7 3.5 7.7 4 10 4h2z"/></svg>Airbnb</a>
     </div>
   </div>
 
@@ -507,6 +540,7 @@
       <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildCarLink('google',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57C21.36 18.34 22.56 15.52 22.56 12.25z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google</a>
       <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildCarLink('enterprise',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#00A651"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15H7v-2h6v-2H9a2 2 0 01-2-2V9a2 2 0 012-2h6v2H9v2h4a2 2 0 012 2v2a2 2 0 01-2 2z"/></svg>Enterprise</a>
       <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildCarLink('hertz',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD100"><path d="M3 3h4v7h10V3h4v18h-4v-7H7v7H3z"/></svg>Hertz</a>
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildCarLink('turo',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#1a1a1a"/><text x="12" y="17" text-anchor="middle" fill="#fff" font-size="10" font-weight="800" font-family="sans-serif">turo</text></svg>Turo</a>
     </div>
   </div>
 
