@@ -1555,10 +1555,9 @@
     }
     .ai-input {
       flex: 1; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
-      border-radius: 14px; padding: 0 15px; font-size: 13.5px; line-height: 46px;
-      color: var(--text); outline: none; resize: none; height: 46px;
+      border-radius: 14px; padding: 0 15px; font-size: 13.5px;
+      color: var(--text); outline: none; height: 46px;
       font-family: inherit; transition: border-color .2s, background .2s;
-      overflow: hidden;
     }
     .ai-input:focus { border-color: rgba(151,172,224,.45); background: rgba(255,255,255,.09); }
     .ai-input::placeholder { color: var(--text-dim); }
@@ -2268,7 +2267,7 @@
 
   <!-- Input row -->
   <div class="ai-input-row">
-    <textarea id="ai-input" class="ai-input" placeholder="Ask me anything…" rows="1" onkeydown="aiInputKeydown(event)"></textarea>
+    <input id="ai-input" class="ai-input" type="text" placeholder="Ask me anything…" onkeydown="aiInputKeydown(event)" autocomplete="off" />
     <button class="ai-send-btn" onclick="aiSend()" id="ai-send-btn">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
     </button>
