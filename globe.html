@@ -227,6 +227,8 @@
     .cp-plan-btn:hover { opacity: .88; transform: translateY(-1px); }
 
     /* ── Map Pin Drops ── */
+    /* !important overrides globe.gl CSS2DRenderer inline pointer-events:none */
+    #globe-wrap .map-pin { pointer-events: auto !important; }
     .map-pin {
       display: flex; flex-direction: column; align-items: center;
       cursor: pointer; user-select: none;
@@ -268,6 +270,20 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
     .globe-loading-text { font-size: 13px; color: rgba(255,255,255,.38); }
+
+    /* ── Pause/Play Button ── */
+    .globe-pause-btn {
+      position: fixed; bottom: 70px; right: 20px; z-index: 100;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(7,17,26,.85); border: 1px solid rgba(255,255,255,.15);
+      color: rgba(255,255,255,.75); font-size: 15px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(12px);
+      transition: background .15s, color .15s, transform .15s, border-color .15s;
+      box-shadow: 0 4px 16px rgba(0,0,0,.4);
+    }
+    .globe-pause-btn:hover { background: rgba(56,189,248,.2); color: #38bdf8; border-color: rgba(56,189,248,.35); transform: scale(1.1); }
+    .globe-pause-btn.paused { background: rgba(56,189,248,.15); color: #38bdf8; border-color: rgba(56,189,248,.35); }
 
     /* ── Badge ── */
     .city-count-badge {
@@ -361,6 +377,8 @@
   </div>
 </div>
 
+<button class="globe-pause-btn" id="pause-btn" title="Pause rotation">⏸</button>
+
 <div class="city-count-badge">
   <span id="city-count">0</span> destinations on the globe
 </div>
@@ -438,6 +456,7 @@
   let currentCity = null;
   let selectedPt = null;
   let filterQ = '';
+  let isRotating = true;
 
   /* ── Escape helpers ── */
   function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
@@ -631,10 +650,16 @@
       pin.appendChild(circle);
       pin.appendChild(stem);
 
-      pin.addEventListener('click', () => {
-        globe.controls().autoRotate = false;
-        openPanel(d);
-        setTimeout(() => { globe.controls().autoRotate = true; }, 5000);
+      /* pointerdown+up is more reliable than click vs OrbitControls drag */
+      let _pdX, _pdY;
+      pin.addEventListener('pointerdown', e => { _pdX = e.clientX; _pdY = e.clientY; e.stopPropagation(); });
+      pin.addEventListener('pointerup', e => {
+        if (Math.abs(e.clientX - _pdX) < 6 && Math.abs(e.clientY - _pdY) < 6) {
+          e.stopPropagation();
+          if (globe) globe.controls().autoRotate = false;
+          openPanel(d);
+          if (isRotating) setTimeout(() => { if (globe) globe.controls().autoRotate = true; }, 5000);
+        }
       });
       pin.addEventListener('mouseover', () => {
         document.getElementById('tooltip-dot').style.background = d.color;
@@ -666,7 +691,7 @@
     globe.controls().enableDamping = true;
     globe.controls().dampingFactor = 0.08;
     globe.controls().addEventListener('start', () => { globe.controls().autoRotate = false; });
-    globe.controls().addEventListener('end',   () => { setTimeout(() => { globe.controls().autoRotate = true; }, 3000); });
+    globe.controls().addEventListener('end',   () => { if (isRotating) setTimeout(() => { globe.controls().autoRotate = true; }, 3000); });
   } catch(e) {}
 
   globe.pointOfView({ lat: 20, lng: 10, altitude: 2.2 }, 0);
@@ -685,17 +710,27 @@
     tip.style.top  = e.clientY + 'px';
   });
 
+  /* ── Pause / Play ── */
+  document.getElementById('pause-btn').addEventListener('click', () => {
+    isRotating = !isRotating;
+    const btn = document.getElementById('pause-btn');
+    btn.textContent = isRotating ? '⏸' : '▶';
+    btn.title = isRotating ? 'Pause rotation' : 'Resume rotation';
+    btn.classList.toggle('paused', !isRotating);
+    if (globe) globe.controls().autoRotate = isRotating;
+  });
+
   /* ── Search ── */
   const searchInput   = document.getElementById('globe-search');
   const searchResults = document.getElementById('search-results');
 
   function flyToCity(pt) {
-    globe.controls().autoRotate = false;
+    if (globe) globe.controls().autoRotate = false;
     globe.pointOfView({ lat: pt.lat, lng: pt.lng, altitude: 1.5 }, 1200);
     setTimeout(() => { openPanel(pt); }, 1200);
     searchInput.value = '';
     searchResults.classList.remove('show');
-    setTimeout(() => { globe.controls().autoRotate = true; }, 6000);
+    if (isRotating) setTimeout(() => { if (globe) globe.controls().autoRotate = true; }, 6000);
   }
 
   searchInput.addEventListener('input', () => {
