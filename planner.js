@@ -2182,7 +2182,7 @@ function renderPlacedCard(card, dayId, num) {
     ? `<span class="best-time-badge" style="color:${bestTime.color};border-color:${bestTime.color}33;background:${bestTime.color}11">${bestTime.icon} ${bestTime.label}</span>`
     : '';
 
-  return `<div class="placed-card" draggable="true" data-card-id="${card.id}" data-day-id="${dayId}">
+  return `<div class="placed-card" draggable="true" data-card-id="${card.id}" data-day-id="${dayId}" data-cat="${escHtml(card.category || 'activity')}">
     <div class="placed-num" title="Drag to reorder"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="5" r="1" fill="currentColor"/><circle cx="9" cy="12" r="1" fill="currentColor"/><circle cx="9" cy="19" r="1" fill="currentColor"/><circle cx="15" cy="5" r="1" fill="currentColor"/><circle cx="15" cy="12" r="1" fill="currentColor"/><circle cx="15" cy="19" r="1" fill="currentColor"/></svg></div>
     <img class="placed-photo" src="${escHtml(photo)}" alt="${escHtml(card.name)}" loading="lazy"
       onerror="this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=80&q=70'" />
@@ -2216,8 +2216,7 @@ function renderPlacedCard(card, dayId, num) {
 // ── Card drag & drop (reorder) ────────────────────────────────
 function clearDropLines() {
   document.querySelectorAll('.placed-card').forEach(c => {
-    c.removeAttribute('data-drop-before');
-    c.removeAttribute('data-drop-after');
+    c.removeAttribute('data-drop-before'); c.removeAttribute('data-drop-after');
   });
 }
 
