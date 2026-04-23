@@ -9082,7 +9082,3994 @@ const CITIES = [
       { name: "UTA Bus", price: 2.50, rating: 4.0, type: "Bus", tip: "Same pass works on bus, rail, and FrontRunner commuter rail. Covers most of Salt Lake Valley." },
       { name: "Rideshare (Uber/Lyft)", price: 16, rating: 4.5, type: "Rideshare", tip: "Essential for suburbs and Park City. Budget $40–50 for a round trip to the ski resorts from downtown SLC." },
     ],
-  },
+  },,
+{
+  "id": "riodejaneiro",
+  "name": "Rio de Janeiro",
+  "country": "Brazil",
+  "image": "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&auto=format&fit=crop",
+  "iata": "GIG",
+  "packType": "beach",
+  "activities": [
+    {
+      "name": "Christ the Redeemer",
+      "price": 30,
+      "rating": 4.9,
+      "duration": "3–4 hrs",
+      "tip": "Go at sunrise on a weekday — clouds often obscure the view by midday. Book the van from Cosme Velho, not the cog train.",
+      "desc": "Iconic 98-foot Art Deco statue atop Corcovado Mountain with 360° panoramic views of Rio.",
+      "photo": "https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Sugarloaf Mountain Cable Car",
+      "price": 28,
+      "rating": 4.8,
+      "duration": "2–3 hrs",
+      "tip": "Two-stage gondola. Catch the second summit at sunset for the best golden-hour views in all of Brazil.",
+      "desc": "Gondola rides to Morro da Urca then Pão de Açúcar — the most iconic vantage point in Rio.",
+      "photo": "https://images.unsplash.com/photo-1594498257676-9c5f3b7a8e8c?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Ipanema Beach",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "Half day",
+      "tip": "Post 9 is the LGBTQ+ beach; Post 8 is young and lively. Rent a chair and umbrella for ~$5. Watch the sunset toward Dois Irmãos.",
+      "desc": "The world's most famous urban beach — volleyball, caipirinha vendors, and legendary people-watching.",
+      "photo": "https://images.unsplash.com/photo-1518639192441-8fce0a366e2e?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Selarón Steps",
+      "price": 0,
+      "rating": 4.7,
+      "duration": "30 min",
+      "tip": "Go early morning for crowd-free photos. Chilean artist Selaron spent 23 years adding tiles from 60+ countries.",
+      "desc": "217 mosaic-tiled steps in Lapa — one of Rio's most photographed landmarks.",
+      "photo": "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Santa Teresa Neighborhood",
+      "price": 0,
+      "rating": 4.5,
+      "duration": "2–3 hrs",
+      "tip": "Take the yellow bonde tram up. Street art, bohemian cafés, and jaw-dropping views over the city below.",
+      "desc": "Bohemian hilltop neighborhood with colonial architecture, art galleries, and sweeping Rio views.",
+      "photo": "https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Tijuca Forest",
+      "price": 10,
+      "rating": 4.7,
+      "duration": "3–5 hrs",
+      "tip": "Hire a local guide for the Vista Chinesa trail — monkeys, waterfalls, and zero crowds.",
+      "desc": "One of the world's largest urban rainforests with hiking trails, waterfalls, and exotic wildlife.",
+      "photo": "https://images.unsplash.com/photo-1619546813926-a78fa6372cd2?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Lapa Arches & Nightlife",
+      "price": 0,
+      "rating": 4.6,
+      "duration": "Evening",
+      "tip": "Friday and Saturday nights are peak. The 1750 Roman-style aqueduct arches light up brilliantly — samba bars spill onto the streets.",
+      "desc": "Rio's nightlife epicenter — historic arches anchor a neighborhood packed with live samba and street parties.",
+      "photo": "https://images.unsplash.com/photo-1629652487043-fb2925bef521?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Brazilian",
+      "name": "Churrascaria Palace",
+      "price": 60,
+      "rating": 4.8,
+      "tip": "Rodízio-style — unlimited grilled meats brought tableside. Use the green/red coaster to control the flow.",
+      "desc": "Classic Rio churrascaria with 30+ cuts of meat and an extensive salad bar.",
+      "photo": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Brazilian",
+      "name": "Casa do Feijoada",
+      "price": 25,
+      "rating": 4.7,
+      "tip": "Saturday is traditional feijoada day in Rio. The full pot comes with rice, farofa, and orange slices — order it.",
+      "desc": "The best traditional feijoada in Ipanema — Brazil's iconic black bean stew.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Brazilian",
+      "name": "Aprazível",
+      "price": 80,
+      "rating": 4.8,
+      "tip": "Book a terrace table for the jungle canopy views. The moqueca fish stew is the signature dish.",
+      "desc": "Award-winning Santa Teresa restaurant with refined Brazilian cuisine in a tropical garden setting.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Seafood",
+      "name": "Azul Marinho",
+      "price": 55,
+      "rating": 4.7,
+      "tip": "Start with cold beer (chopp) and fresh oysters. Reserve beachside tables weeks ahead.",
+      "desc": "Right on Arpoador beach — the freshest seafood with an unbeatable ocean view.",
+      "photo": "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Seafood",
+      "name": "Olympe",
+      "price": 120,
+      "rating": 4.9,
+      "tip": "Claude Troisgros's Rio flagship — the seasonal tasting menu is unmissable. Book 2+ weeks ahead.",
+      "desc": "Michelin-starred French-Brazilian fusion in Jardim Botânico — Rio's finest dining experience.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Bar Urca",
+      "price": 12,
+      "rating": 4.6,
+      "tip": "Order the bolinhos de bacalhau (cod fritters) and a cold Brahma. The seawall fills with locals at sunset.",
+      "desc": "Legendary neighborhood bar with the best cod fritters in Rio and views of Guanabara Bay.",
+      "photo": "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Confeitaria Colombo",
+      "price": 15,
+      "rating": 4.6,
+      "tip": "Open since 1894 — the Belle Époque mirrored interior alone is worth the visit. Get the pão de queijo.",
+      "desc": "Rio's most historic café with Art Nouveau crystal chandeliers and century-old pastries.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Metro Rio",
+      "price": 2.3,
+      "rating": 4.2,
+      "type": "Metro",
+      "tip": "Lines 1, 2, and 4 cover Ipanema, Copacabana, and the airport. Rechargeable card at any station."
+    },
+    {
+      "name": "BRT (Bus Rapid Transit)",
+      "price": 2.3,
+      "rating": 3.8,
+      "type": "Bus",
+      "tip": "TransCarioca and TransOeste BRT lines are fast and cheap — same card as the metro."
+    },
+    {
+      "name": "Uber",
+      "price": 12,
+      "rating": 4.5,
+      "type": "Rideshare",
+      "tip": "Safer than flagging taxis for tourists. Always use the app — set pickup inside buildings when possible."
+    }
+  ]
+},
+{
+  "id": "saopaulo",
+  "name": "São Paulo",
+  "country": "Brazil",
+  "image": "https://images.unsplash.com/photo-1474181487882-5abf3f0ba6c2?w=800&auto=format&fit=crop",
+  "iata": "GRU",
+  "packType": "international_latam",
+  "activities": [
+    {
+      "name": "MASP — Museum of Art São Paulo",
+      "price": 20,
+      "rating": 4.8,
+      "duration": "2–3 hrs",
+      "tip": "Free on Tuesdays. The building itself — glass and concrete suspended over Avenida Paulista — is as impressive as the art inside.",
+      "desc": "Brazil's premier art museum with Latin America's largest collection of Western art, iconic suspended architecture.",
+      "photo": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Vila Madalena & Street Art",
+      "price": 0,
+      "rating": 4.7,
+      "duration": "2 hrs",
+      "tip": "Beco do Batman alley is the epicenter — new murals appear constantly. Go on weekend mornings for best light.",
+      "desc": "SP's bohemian neighborhood packed with the best street art in Latin America.",
+      "photo": "https://images.unsplash.com/photo-1555881400-74d7acaacd47?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Ibirapuera Park",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "2–4 hrs",
+      "tip": "Rent a bike inside the park. The Japanese Pavilion and the contemporary art MAC museum are both inside.",
+      "desc": "São Paulo's Central Park — 390 acres of green space with world-class museums and bike paths.",
+      "photo": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Mercadão (Municipal Market)",
+      "price": 0,
+      "rating": 4.6,
+      "duration": "1–2 hrs",
+      "tip": "The mortadella sandwich at Bar do Mané is legendary — order the 'giant' size. Go hungry.",
+      "desc": "A stunning 1933 Art Nouveau food hall with stained glass windows and the city's best market bites.",
+      "photo": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Liberdade Japanese Quarter",
+      "price": 0,
+      "rating": 4.5,
+      "duration": "2 hrs",
+      "tip": "Largest Japanese community outside Japan. Sunday street market is the highlight — arrive before noon.",
+      "desc": "Vibrant Japanese-Brazilian neighborhood with authentic restaurants, temples, and weekend bazaars.",
+      "photo": "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "SP Rooftop Bars",
+      "price": 15,
+      "rating": 4.7,
+      "duration": "Evening",
+      "tip": "Bar Numero at Hotel Unique and Skye at Hotel Unique both offer panoramic city views. Book ahead on weekends.",
+      "desc": "São Paulo's skyline is best experienced from one of its legendary rooftop bar scene.",
+      "photo": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Brazilian",
+      "name": "D.O.M.",
+      "price": 180,
+      "rating": 4.9,
+      "tip": "Alex Atala's flagship — one of the world's top 50 restaurants. Book 2 months ahead. Tasting menu only.",
+      "desc": "São Paulo's most celebrated restaurant using Amazonian ingredients in high-concept Brazilian cuisine.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Brazilian",
+      "name": "A Figueira Rubaiyat",
+      "price": 90,
+      "rating": 4.8,
+      "tip": "The 100-year-old fig tree shading the terrace is magical. Get the picanha cut — SP's signature beef.",
+      "desc": "Iconic steakhouse under a century-old fig tree — the most atmospheric dining in the city.",
+      "photo": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Japanese",
+      "name": "Kinoshita",
+      "price": 120,
+      "rating": 4.9,
+      "tip": "Best omakase in Brazil — chef Tsuyoshi Murakami's tasting menu is world-class. Reserve 3+ weeks ahead.",
+      "desc": "The finest Japanese restaurant in South America, serving omakase in the heart of Liberdade.",
+      "photo": "https://images.unsplash.com/photo-1553621042-f6e147245754?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Japanese",
+      "name": "Honto",
+      "price": 35,
+      "rating": 4.7,
+      "tip": "Cash only. The teishoku lunch sets are incredible value — get there by noon or there'll be a wait.",
+      "desc": "Beloved Liberdade lunch institution with authentic Japanese set meals at honest prices.",
+      "photo": "https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Pizza",
+      "name": "Leggera Pizza Napoletana",
+      "price": 28,
+      "rating": 4.8,
+      "tip": "SP has the best pizza outside Naples — this is the top Neapolitan spot. Try the margherita bufalina.",
+      "desc": "São Paulo is a serious pizza city — Leggera is the gold standard for authentic Neapolitan style.",
+      "photo": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Feira da Liberdade (Sunday Market)",
+      "price": 8,
+      "rating": 4.6,
+      "tip": "Sunday mornings only. Try takoyaki, pastel de atum, and fresh coxinha — all under $5 each.",
+      "desc": "The best street food market in SP — Japanese-Brazilian fusion bites in the middle of Liberdade square.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Metro & CPTM Trains",
+      "price": 2.2,
+      "rating": 4.3,
+      "type": "Metro",
+      "tip": "Best way around SP. Bilhete Único card covers metro, bus, and suburban rail. Download the SPTrans app."
+    },
+    {
+      "name": "Uber / 99",
+      "price": 10,
+      "rating": 4.5,
+      "type": "Rideshare",
+      "tip": "99 (Brazilian Uber rival) is often cheaper. SP traffic is brutal — ride-share beats taxis for reliability."
+    },
+    {
+      "name": "City Bus",
+      "price": 2.2,
+      "rating": 3.5,
+      "type": "Bus",
+      "tip": "Same Bilhete Único card. Hundreds of lines — Google Maps gives accurate directions."
+    }
+  ]
+},
+{
+  "id": "lima",
+  "name": "Lima",
+  "country": "Peru",
+  "image": "https://images.unsplash.com/photo-1526392060635-9d6019884377?w=800&auto=format&fit=crop",
+  "iata": "LIM",
+  "packType": "international_latam",
+  "activities": [
+    {
+      "name": "Historic Centre (Plaza Mayor)",
+      "price": 0,
+      "rating": 4.6,
+      "duration": "2–3 hrs",
+      "tip": "The changing of the guard at the Government Palace happens daily at noon — arrive 20 minutes early.",
+      "desc": "UNESCO-listed colonial heart of Lima with the Government Palace, Cathedral, and Archbishop's Palace.",
+      "photo": "https://images.unsplash.com/photo-1580619305218-8423a7ef79b4?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Miraflores Cliffside Parks",
+      "price": 0,
+      "rating": 4.7,
+      "duration": "1–2 hrs",
+      "tip": "Larcomar mall is built into the cliffs — great food court with Pacific views. Paragliding launches from Parque Raimondi.",
+      "desc": "Dramatic cliffs overlooking the Pacific Ocean with manicured parks, paragliding, and the Larcomar shopping complex.",
+      "photo": "https://images.unsplash.com/photo-1573296694312-7f94b4cb3028?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Larco Museum",
+      "price": 15,
+      "rating": 4.9,
+      "duration": "2–3 hrs",
+      "tip": "The 'secret' erotic gallery in the back is real and worth seeing. Pre-book tickets to skip lines.",
+      "desc": "World's finest pre-Columbian art collection in a 18th-century mansion — over 45,000 artifacts spanning 5,000 years.",
+      "photo": "https://images.unsplash.com/photo-1548013597-e94cb3c37a4b?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Barranco Neighborhood",
+      "price": 0,
+      "rating": 4.7,
+      "duration": "2–3 hrs",
+      "tip": "The Bridge of Sighs at sunset is magical. Bar Ayahuasca (in a colonial mansion) is the best pisco sour stop.",
+      "desc": "Lima's artsy, bohemian seaside district with colorful colonial mansions and buzzing nightlife.",
+      "photo": "https://images.unsplash.com/photo-1555993539-1732b0258235?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Huaca Pucllana Pyramid",
+      "price": 5,
+      "rating": 4.5,
+      "duration": "1.5 hrs",
+      "tip": "The evening guided tour is spectacular — the pyramid is lit up beautifully. Night tours run Fri–Sun.",
+      "desc": "Ancient adobe pyramid right in the middle of Miraflores — 1,500 years old and still being excavated.",
+      "photo": "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Paragliding over the Pacific",
+      "price": 75,
+      "rating": 4.8,
+      "duration": "15 min",
+      "tip": "Book through reputable operators at Parque Raimondi. Morning flights have better wind conditions.",
+      "desc": "Tandem paraglide off the Miraflores cliffs over the Pacific — one of the most unique urban flying spots in the world.",
+      "photo": "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Peruvian",
+      "name": "Central",
+      "price": 200,
+      "rating": 5,
+      "tip": "World's #1 restaurant (2023). Book 3+ months ahead — the 17-course altitude tasting menu is extraordinary.",
+      "desc": "Chef Virgilio Martínez's landmark restaurant exploring Peru's ecosystems from coast to Amazon to Andes.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Peruvian",
+      "name": "La Mar Cebichería",
+      "price": 45,
+      "rating": 4.8,
+      "tip": "Arrive when they open (noon) — no reservations taken and it fills immediately. The leche de tigre cocktail is mandatory.",
+      "desc": "The definitive Lima ceviche experience — Gastón Acurio's beloved seafood institution in Miraflores.",
+      "photo": "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Peruvian",
+      "name": "Maido",
+      "price": 160,
+      "rating": 4.9,
+      "tip": "Nikkei cuisine (Japanese-Peruvian fusion) perfected. The causa with tuna belly is exceptional. Book weeks ahead.",
+      "desc": "One of the world's 50 best restaurants — Mitsuharu Tsumura's Japanese-Peruvian culinary art.",
+      "photo": "https://images.unsplash.com/photo-1553621042-f6e147245754?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Peruvian",
+      "name": "El Mercado",
+      "price": 35,
+      "rating": 4.7,
+      "tip": "Rafael Osterling's casual ceviche spot — the tiradito is lighter and more delicate than ceviche. Lunch only.",
+      "desc": "Market-style ceviche bar in Miraflores serving Rafael Osterling's refined take on Peruvian seafood classics.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Isolina Taberna Peruana",
+      "price": 25,
+      "rating": 4.8,
+      "tip": "The chicharrón sandwich is a Lima institution. Come for lunch — the menu is comfort food Peru at its best.",
+      "desc": "Traditional 'taberna' bringing back Lima's grandmother-style cooking — the city's beloved comfort food spot.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Surquillo Market",
+      "price": 5,
+      "rating": 4.5,
+      "tip": "Locals' market — not touristy. Grab anticuchos (beef heart skewers), empanadas, and fresh ceviche for under $5.",
+      "desc": "Lima's best local market for street food — fresh produce, ceviche stalls, and grilled anticuchos.",
+      "photo": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Uber / Cabify",
+      "price": 6,
+      "rating": 4.5,
+      "type": "Rideshare",
+      "tip": "Uber is safe and reliable in Lima — always preferred over street taxis. Miraflores to Barranco is ~$3."
+    },
+    {
+      "name": "El Metropolitano BRT",
+      "price": 0.8,
+      "rating": 3.8,
+      "type": "Bus",
+      "tip": "Runs the length of the city from north to south. Useful for Miraflores–Centro route. Get a prepaid card."
+    },
+    {
+      "name": "Mototaxi (Barranco only)",
+      "price": 2,
+      "rating": 3.5,
+      "type": "Tuk-tuk",
+      "tip": "Mototaxis are fun for short hops around Barranco — agree on price before getting in."
+    }
+  ]
+},
+{
+  "id": "bogota",
+  "name": "Bogotá",
+  "country": "Colombia",
+  "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop",
+  "iata": "BOG",
+  "packType": "international_latam",
+  "activities": [
+    {
+      "name": "La Candelaria Historic District",
+      "price": 0,
+      "rating": 4.5,
+      "duration": "2–3 hrs",
+      "tip": "Hire a local guide — the street art and graffiti scene here rivals Berlin. Stay on main streets during the day.",
+      "desc": "Bogotá's colonial old town packed with colorful murals, plazas, and the Gold Museum.",
+      "photo": "https://images.unsplash.com/photo-1570168007204-ea39ae20a0b1?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Gold Museum (Museo del Oro)",
+      "price": 4,
+      "rating": 4.8,
+      "duration": "2 hrs",
+      "tip": "Arrive right when it opens. The Offering Room — where pre-Columbian rituals are recreated in darkness — is unforgettable.",
+      "desc": "One of the world's greatest museums with 55,000 pre-Columbian gold artifacts spanning 4,000 years.",
+      "photo": "https://images.unsplash.com/photo-1572029585890-6d0a3738a1e3?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Monserrate Mountain",
+      "price": 10,
+      "rating": 4.7,
+      "duration": "2–3 hrs",
+      "tip": "Take the teleférico (cable car) up — the hike is 1,500 steps and altitude hits hard at 10,000 ft. Incredible city panorama.",
+      "desc": "Cable car ride to 10,341 ft elevation with sweeping views over Colombia's vast capital city.",
+      "photo": "https://images.unsplash.com/photo-1548012670-fca36a11b6eb?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Botero Museum",
+      "price": 0,
+      "rating": 4.7,
+      "duration": "1.5 hrs",
+      "tip": "Free entry. Botero's famously 'fat' sculptures and paintings fill an entire colonial mansion — one of South America's best free museums.",
+      "desc": "Colombia's greatest artist Fernando Botero donated 208 of his works to the nation — free and world-class.",
+      "photo": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Zona Rosa & Parque 93",
+      "price": 0,
+      "rating": 4.5,
+      "duration": "Evening",
+      "tip": "Parque 93 has Bogotá's best outdoor restaurant scene. Thursday–Saturday nights are electric.",
+      "desc": "Bogotá's upscale entertainment district with chic restaurants, cocktail bars, and open-air nightlife.",
+      "photo": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Ciclovía Sunday Bike Ride",
+      "price": 0,
+      "rating": 4.9,
+      "duration": "2–4 hrs",
+      "tip": "Every Sunday 7 AM–2 PM, 75 miles of roads close to cars. Rent a bike near Parque Nacional — the entire city comes alive.",
+      "desc": "Every Sunday Bogotá closes 75 miles of roads to cars for cyclists, skaters, and runners — world famous.",
+      "photo": "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Colombian",
+      "name": "Leo Cocina y Cava",
+      "price": 90,
+      "rating": 4.9,
+      "tip": "Chef Leonor Espinosa's flagship — tasting menu explores Colombia's biodiversity. Book 3+ weeks ahead.",
+      "desc": "Latin America's best restaurant by consensus — Colombian regional ingredients elevated to world-class art.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Colombian",
+      "name": "La Puerta Falsa",
+      "price": 8,
+      "rating": 4.6,
+      "tip": "Open since 1816 — the oldest restaurant in Bogotá. Go for breakfast: hot chocolate with cheese and arepas.",
+      "desc": "Bogotá's oldest restaurant, a tiny gem in La Candelaria serving traditional Colombian breakfasts since 1816.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Colombian",
+      "name": "Mini-Mal",
+      "price": 35,
+      "rating": 4.7,
+      "tip": "The tasting menu changes with Colombia's seasons. The chicharrón with native potato and ají amarillo is remarkable.",
+      "desc": "Modern Colombian cuisine using forgotten indigenous ingredients — a pioneering farm-to-table restaurant.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Andrés Carne de Res (Chía)",
+      "price": 25,
+      "rating": 4.8,
+      "tip": "Worth the 30-minute drive to Chía. This legendary party restaurant-bar is a full sensory experience. Go late on weekends.",
+      "desc": "A Colombian institution — part BBQ restaurant, part nightclub, part carnival. Nothing like it anywhere.",
+      "photo": "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Café de la Peña",
+      "price": 5,
+      "rating": 4.7,
+      "tip": "Colombia produces world-class coffee and this is where to drink it. Order the pour-over single origin — specify your preferred region.",
+      "desc": "Bogotá's finest specialty coffee bar with Colombian single-origin pour-overs and a rotating selection.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "International",
+      "name": "Harry Sasson",
+      "price": 60,
+      "rating": 4.8,
+      "tip": "The octopus with chimichurri is the signature dish. Excellent wine list — ask the sommelier for Colombian wine recommendations.",
+      "desc": "Bogotá's most-loved upscale restaurant with an eclectic menu and one of the best wine lists in Colombia.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "TransMilenio BRT",
+      "price": 0.9,
+      "rating": 3.5,
+      "type": "Bus",
+      "tip": "World's largest BRT network — fast but crowded at rush hour. Use SITP buses for local routes. Rechargeable card at stations."
+    },
+    {
+      "name": "Uber / InDrive",
+      "price": 5,
+      "rating": 4.5,
+      "type": "Rideshare",
+      "tip": "Uber technically operates in a gray area but is widely used. InDrive lets you negotiate the fare — often cheaper."
+    },
+    {
+      "name": "Cable Car (Metrocable)",
+      "price": 0.9,
+      "rating": 4.6,
+      "type": "Cable Car",
+      "tip": "Aerial gondola connecting hillside comunas to the TransMilenio network. A unique urban transit experience."
+    }
+  ]
+},
+{
+  "id": "medellin",
+  "name": "Medellín",
+  "country": "Colombia",
+  "image": "https://images.unsplash.com/photo-1586500036057-f77ad5e1e9e4?w=800&auto=format&fit=crop",
+  "iata": "MDE",
+  "packType": "international_latam",
+  "activities": [
+    {
+      "name": "Comuna 13 Graffiti Tour",
+      "price": 15,
+      "rating": 4.9,
+      "duration": "2–3 hrs",
+      "tip": "Book a local guide from the neighborhood itself — the money goes directly to residents. The outdoor escalators are a must-see.",
+      "desc": "Once Medellín's most dangerous neighborhood, now a global street art phenomenon and symbol of transformation.",
+      "photo": "https://images.unsplash.com/photo-1619546952812-520e98064a52?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Metrocable & Parque Arví",
+      "price": 6,
+      "rating": 4.8,
+      "duration": "Half day",
+      "tip": "Take the Metro → Line K cable car → Line L to Parque Arví. The panoramic ride over the comunas is breathtaking.",
+      "desc": "Cable car ride over the city's hillside neighborhoods to a cloud forest nature park above the city.",
+      "photo": "https://images.unsplash.com/photo-1548012670-fca36a11b6eb?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "El Poblado & Parque Lleras",
+      "price": 0,
+      "rating": 4.6,
+      "duration": "Evening",
+      "tip": "Start with dinner in El Poblado, then walk to Parque Lleras where the bar scene runs until 4 AM on weekends.",
+      "desc": "Medellín's upscale neighborhood — the heart of the restaurant scene and a world-famous nightlife district.",
+      "photo": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Plaza Botero",
+      "price": 0,
+      "rating": 4.6,
+      "duration": "45 min",
+      "tip": "23 monumental Botero sculptures fill the plaza — free and outdoors. Combine with the adjacent Museum of Antioquia.",
+      "desc": "23 monumental bronze sculptures by Fernando Botero fill this pedestrian plaza in central Medellín.",
+      "photo": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Guatapé Day Trip",
+      "price": 40,
+      "rating": 4.9,
+      "duration": "Full day",
+      "tip": "Book a guided tour. Climb the 740 steps to the top of El Peñón rock for the most dramatic view in Colombia.",
+      "desc": "Day trip to a stunning reservoir town with colorful 'zócalos' facades and the iconic 740-step El Peñón rock monolith.",
+      "photo": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Jardín Botánico",
+      "price": 3,
+      "rating": 4.5,
+      "duration": "1.5 hrs",
+      "tip": "Free on Sundays. The Orquideorama (orchid pavilion) is a stunning wood-lattice structure — an architectural landmark.",
+      "desc": "Medellín's botanical garden with a world-famous hexagonal orchid pavilion and 4,500 plant species.",
+      "photo": "https://images.unsplash.com/photo-1619546813926-a78fa6372cd2?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Colombian",
+      "name": "El Cielo",
+      "price": 100,
+      "rating": 4.9,
+      "tip": "Chef Juan Manuel Barrientos's multi-sensory tasting menu is unlike anything else — chocolate 'spa' and liquid nitrogen desserts.",
+      "desc": "Medellín's most avant-garde restaurant — a Michelin-recognized sensory journey through Colombian cuisine.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Colombian",
+      "name": "Mondongos",
+      "price": 12,
+      "rating": 4.7,
+      "tip": "Order the bandeja paisa — the full Colombian platter with beans, rice, chicharrón, egg, and arepa. Massive and delicious.",
+      "desc": "Medellín's most beloved traditional restaurant serving the definitive bandeja paisa since 1959.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Colombian",
+      "name": "Criterion",
+      "price": 70,
+      "rating": 4.8,
+      "tip": "Refined Colombian-French cuisine in El Poblado. The wine list is impressive — ask for Colombian wine pairings.",
+      "desc": "Medellín's most elegant fine dining restaurant with Colombian-French influenced cuisine.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Mercado del Río",
+      "price": 12,
+      "rating": 4.6,
+      "tip": "Food hall with 40+ vendors — try the arepa de chócolo with hogao sauce and fresh Colombian cheeses.",
+      "desc": "Medellín's coolest food market with 40+ vendors serving everything from craft beer to arepas.",
+      "photo": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Pergamino Café",
+      "price": 6,
+      "rating": 4.8,
+      "tip": "Some of the best specialty coffee in Colombia. The flat white with Colombian gesha beans is extraordinary.",
+      "desc": "Medellín's premier specialty coffee roaster and café in the heart of El Poblado.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "International",
+      "name": "In Situ",
+      "price": 30,
+      "rating": 4.7,
+      "tip": "Rooftop with views of the Andes. Colombian craft cocktails are the highlight — try the guanábana sour.",
+      "desc": "Creative international kitchen with locally-sourced ingredients and stunning Medellín skyline views.",
+      "photo": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Metro de Medellín",
+      "price": 0.9,
+      "rating": 4.7,
+      "type": "Metro",
+      "tip": "Colombia's only metro — clean, fast, and safe. Lines A and B connect El Poblado, Centro, and the cable cars. Use the Cívica card."
+    },
+    {
+      "name": "Metrocable",
+      "price": 0.9,
+      "rating": 4.8,
+      "type": "Cable Car",
+      "tip": "Part of the metro system — same card. Six lines connect hillside barrios to the metro network. A world-famous urban innovation."
+    },
+    {
+      "name": "Uber",
+      "price": 4,
+      "rating": 4.5,
+      "type": "Rideshare",
+      "tip": "Essential for El Poblado and nightlife. Budget $2–6 for most trips within the city."
+    }
+  ]
+},
+{
+  "id": "cancun",
+  "name": "Cancún",
+  "country": "Mexico",
+  "image": "https://images.unsplash.com/photo-1552074284-a55b64efdb9e?w=800&auto=format&fit=crop",
+  "iata": "CUN",
+  "packType": "beach",
+  "activities": [
+    {
+      "name": "Chichén Itzá",
+      "price": 30,
+      "rating": 4.9,
+      "duration": "Full day",
+      "tip": "Leave by 7 AM — it's 2.5 hrs from Cancún and gets brutal by noon. Hire a guide at the site for context on the Kukulcán pyramid.",
+      "desc": "One of the New Seven Wonders of the World — the Maya pyramid of Kukulcán is an astro-engineering marvel.",
+      "photo": "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Isla Mujeres Day Trip",
+      "price": 25,
+      "rating": 4.8,
+      "duration": "Full day",
+      "tip": "Ferry from Puerto Juárez (not the hotel zone) saves 50%. Rent a golf cart to circle the island — takes 20 minutes.",
+      "desc": "A 5-mile Caribbean island with the clearest turquoise water and a car-free town of colorful buildings.",
+      "photo": "https://images.unsplash.com/photo-1518639192441-8fce0a366e2e?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Cenote Swimming",
+      "price": 20,
+      "rating": 4.9,
+      "duration": "Half day",
+      "tip": "Cenote Ik Kil (near Chichén Itzá) is touristy but gorgeous. For fewer crowds: Cenote Azul or Dos Ojos near Tulum.",
+      "desc": "Swim inside ancient Maya limestone sinkholes — the most magical natural swimming experience in Mexico.",
+      "photo": "https://images.unsplash.com/photo-1543039625-14cbd3802e7d?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Hotel Zone Beach Clubs",
+      "price": 30,
+      "rating": 4.7,
+      "duration": "Full day",
+      "tip": "Mandala Beach and Coco Bongo are peak party. For quieter beach clubs with better food: Omnia or the Westin strip.",
+      "desc": "Cancún's 14-mile hotel zone beach strip with all-inclusive resorts, beach clubs, and turquoise Caribbean water.",
+      "photo": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Playa del Carmen Day Trip",
+      "price": 10,
+      "rating": 4.7,
+      "duration": "Full day",
+      "tip": "ADO bus is cheap and reliable (45 min, $5 each way). 5th Avenue is pedestrianized — great for shopping and people-watching.",
+      "desc": "Vibrant beach town 45 minutes south — a walkable pedestrian street, boutique hotels, and great dining.",
+      "photo": "https://images.unsplash.com/photo-1596895111956-bf1cf5599571?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Underwater Museum (MUSA)",
+      "price": 55,
+      "rating": 4.7,
+      "duration": "2–3 hrs",
+      "tip": "Snorkel version is $55; dive is $85. The 500+ statues are coated to encourage coral growth — genuinely eerie and beautiful.",
+      "desc": "500+ life-size sculptures submerged in the Caribbean — the world's largest underwater art museum.",
+      "photo": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Mexican",
+      "name": "La Habichuela Downtown",
+      "price": 35,
+      "rating": 4.8,
+      "tip": "The cocobichuela (shrimp and lobster in coconut curry served in a coconut shell) is the signature — unmissable.",
+      "desc": "Cancún's most beloved fine dining institution in a tropical garden — classic Yucatecan cuisine since 1977.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Mexican",
+      "name": "Mocambo",
+      "price": 40,
+      "rating": 4.7,
+      "tip": "Best seafood in the hotel zone. The whole grilled huachinango (red snapper) and lobster tail are the standouts.",
+      "desc": "Premium Mexican seafood restaurant with fresh daily catches and an extensive aguachile menu.",
+      "photo": "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Mexican",
+      "name": "Mercado 28",
+      "price": 10,
+      "rating": 4.5,
+      "tip": "The local market area — cheap and authentic. Order cochinita pibil tacos and sopa de lima. No tourist prices here.",
+      "desc": "Local downtown market with authentic Yucatecan street food at a fraction of hotel zone prices.",
+      "photo": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Seafood",
+      "name": "El Fish Fritanga",
+      "price": 18,
+      "rating": 4.7,
+      "tip": "Hole-in-the-wall but the fried whole fish and ceviche are exceptional. Cash only. Lines form by 12:30 PM.",
+      "desc": "Cancún's best-kept secret for fried fish — a tiny local spot that consistently beats hotel zone seafood.",
+      "photo": "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Tacos de Canasta on Avenida Yaxchilán",
+      "price": 4,
+      "rating": 4.6,
+      "tip": "Steamed 'basket tacos' — try the papas con chorizo and frijoles. The vendors park at the same spots nightly.",
+      "desc": "The best $1 tacos in Cancún — late-night basket taco carts that feed locals after midnight.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "R-1 Bus (Hotel Zone)",
+      "price": 0.6,
+      "rating": 4.2,
+      "type": "Bus",
+      "tip": "Runs the full length of the hotel zone to downtown. Dirt cheap — exact change only. Runs until midnight."
+    },
+    {
+      "name": "ADO Bus (intercity)",
+      "price": 5,
+      "rating": 4.5,
+      "type": "Bus",
+      "tip": "Reliable, air-conditioned coaches to Playa del Carmen ($5), Tulum ($8), and Chichén Itzá ($15)."
+    },
+    {
+      "name": "Uber",
+      "price": 10,
+      "rating": 4.4,
+      "type": "Rideshare",
+      "tip": "Works in Cancún and is much safer than street taxis. Hotel zone to downtown is ~$8."
+    }
+  ]
+},
+{
+  "id": "cartagena",
+  "name": "Cartagena",
+  "country": "Colombia",
+  "image": "https://images.unsplash.com/photo-1565217289-30b2fb5e3c2b?w=800&auto=format&fit=crop",
+  "iata": "CTG",
+  "packType": "beach",
+  "activities": [
+    {
+      "name": "Walled City (Ciudad Amurallada)",
+      "price": 0,
+      "rating": 4.9,
+      "duration": "2–3 hrs",
+      "tip": "Walk the full 4-mile perimeter wall at sunset — the view over the Caribbean is extraordinary. The Baluarte del Reducto at dusk is magical.",
+      "desc": "UNESCO World Heritage colonial walled city — the most perfectly preserved Spanish colonial fortification in the Americas.",
+      "photo": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Castillo San Felipe de Barajas",
+      "price": 6,
+      "rating": 4.7,
+      "duration": "1.5 hrs",
+      "tip": "Hire a guide inside — the tunnel system is fascinating but confusing alone. Go early morning before it gets baking hot.",
+      "desc": "The largest Spanish colonial fortress in the Americas — a 17th-century hilltop castle with labyrinthine tunnels.",
+      "photo": "https://images.unsplash.com/photo-1548013597-e94cb3c37a4b?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Playa Blanca Day Trip",
+      "price": 35,
+      "rating": 4.6,
+      "duration": "Full day",
+      "tip": "Book a boat tour from the dock near the old city. Arrive by 9 AM for the clearest water before boat traffic kicks up.",
+      "desc": "One of Colombia's most beautiful white-sand beaches — a 2-hour boat ride through the Rosario Islands.",
+      "photo": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Getsemaní Neighborhood",
+      "price": 0,
+      "rating": 4.7,
+      "duration": "Evening",
+      "tip": "This former red-light district is now Cartagena's hippest barrio. The Sunday-night Plaza de la Trinidad block party is unmissable.",
+      "desc": "Cartagena's colorful, street-art-covered barrio — the city's creative pulse with great bars and nightlife.",
+      "photo": "https://images.unsplash.com/photo-1619546813926-a78fa6372cd2?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Volcán del Totumo Mud Volcano",
+      "price": 20,
+      "rating": 4.5,
+      "duration": "Half day",
+      "tip": "An hour north of the city. The 15-meter cone holds warm therapeutic mud — you float effortlessly. Bring a change of clothes.",
+      "desc": "Bathe inside a 15-meter volcanic cone filled with warm mineral mud — one of Colombia's strangest and most fun experiences.",
+      "photo": "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Rosario Islands Snorkeling",
+      "price": 40,
+      "rating": 4.7,
+      "duration": "Full day",
+      "tip": "Take the 8 AM ferry for the most time on the islands. The coral reefs are vibrant — bring an underwater camera.",
+      "desc": "Archipelago of 30 coral islands in a protected marine park with excellent snorkeling and clear Caribbean water.",
+      "photo": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Colombian",
+      "name": "El Santísimo",
+      "price": 55,
+      "rating": 4.8,
+      "tip": "Order the whole fried red snapper and the coconut rice — the quintessential Cartagena coastal meal in a colonial setting.",
+      "desc": "The definitive Cartagena fine dining experience in a restored 17th-century colonial house.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Colombian",
+      "name": "La Cevichería",
+      "price": 30,
+      "rating": 4.8,
+      "tip": "Anthony Bourdain ate here — the ceviche de mango verde is what made this place famous. Arrive before noon or wait 45+ minutes.",
+      "desc": "Cartagena's most famous seafood spot — world-class ceviche made famous by Anthony Bourdain's visit.",
+      "photo": "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Colombian",
+      "name": "Marea by Rausch",
+      "price": 70,
+      "rating": 4.7,
+      "tip": "Rooftop pool views over the walled city. The seafood tower is spectacular for sharing — pre-book the window table.",
+      "desc": "Upscale modern Colombian seafood with rooftop views over the old city and the Caribbean.",
+      "photo": "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Palenqueras (Street Fruit Sellers)",
+      "price": 3,
+      "rating": 4.6,
+      "tip": "The Afro-Colombian women in traditional dress sell fresh tropical fruits and coconut rice — a quintessential Cartagena sight.",
+      "desc": "Iconic street vendors in colorful traditional dress selling fresh coconut, mango, and tropical fruits around the old city.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Alma Restaurant (Casa San Agustín)",
+      "price": 65,
+      "rating": 4.8,
+      "tip": "Even if you're not staying here, the alfresco courtyard lunch is magical. The Caribbean lobster is the standout dish.",
+      "desc": "The most beautiful restaurant setting in Cartagena — a 17th-century colonial courtyard hotel restaurant.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Horse Carriage (Coche)",
+      "price": 20,
+      "rating": 4.4,
+      "type": "Carriage",
+      "tip": "For a romantic tour of the old city only — negotiate price before boarding. About 45 minutes for the full circuit."
+    },
+    {
+      "name": "Taxi",
+      "price": 4,
+      "rating": 3.8,
+      "type": "Taxi",
+      "tip": "Agree on fare before getting in — no meters. Most rides within the old city and Bocagrande are $3–5."
+    },
+    {
+      "name": "Uber / InDriver",
+      "price": 4,
+      "rating": 4.3,
+      "type": "Rideshare",
+      "tip": "More reliable than street taxis. InDriver lets you set your own price — usually cheaper than Uber in Cartagena."
+    }
+  ]
+},
+{
+  "id": "santiago",
+  "name": "Santiago",
+  "country": "Chile",
+  "image": "https://images.unsplash.com/photo-1601288496920-71b06a585d92?w=800&auto=format&fit=crop",
+  "iata": "SCL",
+  "packType": "international_latam",
+  "activities": [
+    {
+      "name": "Cerro San Cristóbal",
+      "price": 4,
+      "rating": 4.8,
+      "duration": "2–3 hrs",
+      "tip": "Take the funicular up; hike down through the forest paths. The view of the Andes on a clear winter morning is world-class.",
+      "desc": "880-meter hill inside the city with a giant Virgin Mary statue and sweeping Andes panoramas.",
+      "photo": "https://images.unsplash.com/photo-1548012670-fca36a11b6eb?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Bellavista Neighborhood",
+      "price": 0,
+      "rating": 4.6,
+      "duration": "2–3 hrs",
+      "tip": "Pablo Neruda's La Chascona house is here — a must-visit. The neighborhood comes alive from 8 PM on weekends.",
+      "desc": "Santiago's bohemian district — street art, Pablo Neruda's house, restaurants, and buzzing nightlife.",
+      "photo": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Mercado Central",
+      "price": 0,
+      "rating": 4.6,
+      "duration": "1–2 hrs",
+      "tip": "Eat at the interior restaurants, not the tourist-facing ones around the edges. Caldillo de congrio (conger eel soup) is Chilean essential.",
+      "desc": "Historic 1872 iron-frame market hall and the best place in the city for fresh Chilean seafood.",
+      "photo": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Valparaíso Day Trip",
+      "price": 10,
+      "rating": 4.9,
+      "duration": "Full day",
+      "tip": "Bus from Terminal Alameda is cheapest ($5 each way, 1.5 hrs). Take the funicular ascensores up the hills — each barrio has distinct murals.",
+      "desc": "Chile's most colorful city — a UNESCO port town of steep hills covered in street art and vintage funiculars.",
+      "photo": "https://images.unsplash.com/photo-1573296694312-7f94b4cb3028?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Maipo Valley Wine Tour",
+      "price": 60,
+      "rating": 4.8,
+      "duration": "Full day",
+      "tip": "Concha y Toro and Santa Rita are 30 minutes from downtown — easy half-day trip. Book harvest season (Feb–April) for the full experience.",
+      "desc": "Chile's premier wine region is right on Santiago's doorstep — world-class Cabernet Sauvignon estates with Andes backdrops.",
+      "photo": "https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Cerro Alegre & Cerro Concepción (Valpo)",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "2 hrs",
+      "tip": "These two Valparaíso hills have the most concentrated street art and the best boutique restaurants. Walk between them via the ridge.",
+      "desc": "Valparaíso's two most beautiful hillside neighborhoods — a riot of murals, sea views, and independent cafés.",
+      "photo": "https://images.unsplash.com/photo-1573296694312-7f94b4cb3028?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Chilean",
+      "name": "Boragó",
+      "price": 160,
+      "rating": 4.9,
+      "tip": "Chef Rodolfo Guzmán's 18-course tasting menu changes with Chile's seasons — all ingredients foraged or farmed in Chile. Book months ahead.",
+      "desc": "One of Latin America's finest restaurants — a deep dive into Chilean landscapes and indigenous ingredients.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Chilean",
+      "name": "El Hoyo",
+      "price": 15,
+      "rating": 4.7,
+      "tip": "Since 1912 — a classic downtown working-man's tavern. The cazuela and pastel de choclo are essential Chilean comfort food.",
+      "desc": "Santiago's most beloved traditional eatery — authentic Chilean home cooking since 1912 with zero pretension.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Chilean",
+      "name": "Astrid y Gastón Santiago",
+      "price": 80,
+      "rating": 4.8,
+      "tip": "The Peruvian-Chilean tasting menu is exceptional — the ceviche with Chilean ingredients is a revelation.",
+      "desc": "Gastón Acurio's Santiago outpost — refined Peruvian-influenced cuisine in the heart of Vitacura.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Seafood",
+      "name": "Divinus",
+      "price": 50,
+      "rating": 4.7,
+      "tip": "The erizos (sea urchin) and machas (Chilean razor clams) are peak Chilean seafood. Order the full seafood platter.",
+      "desc": "The best seafood in Santiago — exceptional Chilean coastal produce in an elegant Providencia setting.",
+      "photo": "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Fuente Alemana",
+      "price": 10,
+      "rating": 4.5,
+      "tip": "Since 1958 — the completo italiano (hot dog with mayo, tomato, and avocado) is a Chilean institution. Huge portions.",
+      "desc": "Santiago's most famous sandwich shop — home of the legendary completo and barros luco since 1958.",
+      "photo": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Café del Cerro",
+      "price": 8,
+      "rating": 4.6,
+      "tip": "Best coffee in Bellavista — the cortado with Chilean desserts like kuchen (German-influenced cake) is the move.",
+      "desc": "Bellavista's top specialty café — excellent Chilean single-origin coffee in a relaxed neighborhood setting.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Santiago Metro",
+      "price": 1.2,
+      "rating": 4.7,
+      "type": "Metro",
+      "tip": "One of the best metros in South America — clean, fast, and extensive. Bip! card works on metro and buses. Rush hour peak pricing applies."
+    },
+    {
+      "name": "Transantiago Bus",
+      "price": 1,
+      "rating": 3.8,
+      "type": "Bus",
+      "tip": "Same Bip! card as the metro. Comprehensive network filling gaps between metro lines."
+    },
+    {
+      "name": "Uber / Cabify",
+      "price": 7,
+      "rating": 4.5,
+      "type": "Rideshare",
+      "tip": "Both operate widely. Cabify tends to be slightly cheaper. Essential for late nights when metro stops running."
+    }
+  ]
+},
+{
+  "id": "porto",
+  "name": "Porto",
+  "country": "Portugal",
+  "image": "https://images.unsplash.com/photo-1555881400-74d7acaacd47?w=800&auto=format&fit=crop",
+  "iata": "OPO",
+  "packType": "international_europe",
+  "activities": [
+    {
+      "name": "Ribeira & Dom Luís Bridge",
+      "price": 0,
+      "rating": 4.9,
+      "duration": "2 hrs",
+      "tip": "Walk the lower level for the river view; cross the upper deck for the city panorama. At dusk both banks light up magnificently.",
+      "desc": "Porto's iconic iron bridge over the Douro with the UNESCO riverside Ribeira district stretching below.",
+      "photo": "https://images.unsplash.com/photo-1548681528-6a5c45b66063?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Port Wine Cellars (Vila Nova de Gaia)",
+      "price": 20,
+      "rating": 4.8,
+      "duration": "2 hrs",
+      "tip": "Graham's and Taylor's have the best hillside views. Book a tutored tasting — learn the difference between tawny, ruby, and vintage.",
+      "desc": "The south bank of the Douro is lined with historic port wine lodges — the birthplace of one of the world's great fortified wines.",
+      "photo": "https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Livraria Lello Bookshop",
+      "price": 5,
+      "rating": 4.8,
+      "duration": "30 min",
+      "tip": "Book the timed slot online (pre-paid, €5 redeemable on purchase) — only way to avoid the queue. The Art Nouveau interior inspired Harry Potter.",
+      "desc": "One of the world's most beautiful bookshops — a 1906 Art Nouveau masterpiece said to have inspired J.K. Rowling.",
+      "photo": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Azulejo Tile Hunting",
+      "price": 0,
+      "rating": 4.7,
+      "duration": "2 hrs",
+      "tip": "São Bento train station has the most impressive azulejos — 20,000 tiles depicting Portuguese history. Free to enter.",
+      "desc": "Porto is Portugal's tile capital — blue-and-white azulejo panels cover churches, train stations, and entire building facades.",
+      "photo": "https://images.unsplash.com/photo-1555993539-1732b0258235?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Douro Valley Wine Tour",
+      "price": 75,
+      "rating": 4.9,
+      "duration": "Full day",
+      "tip": "Take the scenic train from São Bento station ($15 round trip) — it winds through terraced vineyards along the river for 2 hours.",
+      "desc": "UNESCO World Heritage wine region 1.5 hrs east — dramatic terraced vineyards above the Douro River.",
+      "photo": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Fado Show (Tasca do Chico)",
+      "price": 25,
+      "rating": 4.8,
+      "duration": "Evening",
+      "tip": "Book well ahead — this tiny authentic venue fills immediately. Arrive hungry and order the petiscos (Portuguese tapas).",
+      "desc": "Experience authentic Portuguese fado music — mournful, beautiful songs of longing in an intimate setting.",
+      "photo": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Portuguese",
+      "name": "Cantinho do Avillez",
+      "price": 50,
+      "rating": 4.8,
+      "tip": "Chef José Avillez's Porto bistro — more relaxed than his Lisbon flagship. The bacalhau à brás and pastel de nata are both excellent.",
+      "desc": "Celebrity chef José Avillez's casual Porto restaurant with refined takes on Portuguese classics.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Portuguese",
+      "name": "Café Santiago",
+      "price": 12,
+      "rating": 4.7,
+      "tip": "The francesinha is Porto's signature dish — a meat-stuffed sandwich in spicy beer sauce with fries. Avoid tourist trap versions and come here.",
+      "desc": "The definitive francesinha in Porto — a cult-status beef and linguiça sandwich drenched in spicy tomato-beer sauce.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Portuguese",
+      "name": "DOP (Decorated Palaces)",
+      "price": 65,
+      "rating": 4.8,
+      "tip": "Located inside a beautiful palace — the wine list focuses on small Portuguese producers. The suckling pig is the signature main.",
+      "desc": "Fine dining in a restored Palácio das Artes — Rui Paula's creative take on Northern Portuguese gastronomy.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Seafood",
+      "name": "Pedro Lemos",
+      "price": 80,
+      "rating": 4.9,
+      "tip": "Michelin-starred with unbeatable Douro estuary views from the hilltop terrace. The grilled turbot is legendary.",
+      "desc": "Porto's Michelin-starred treasure — a hillside restaurant with spectacular river views and outstanding Portuguese seafood.",
+      "photo": "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Majestic Café",
+      "price": 15,
+      "rating": 4.6,
+      "tip": "Open since 1921 and one of Europe's most beautiful cafés. Worth the tourist premium for the Belle Époque gilt interior alone.",
+      "desc": "Porto's most historic and beautiful café — ornate Art Nouveau splendor open since 1921.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Mercado do Bolhão",
+      "price": 8,
+      "rating": 4.5,
+      "tip": "Recently restored 19th-century iron market — grab a bifana (pork sandwich), fresh cheese, and Portuguese wine. A local institution.",
+      "desc": "Porto's beloved 1850s covered market hall — fresh produce, local cheeses, seafood, and Porto street food.",
+      "photo": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Metro do Porto",
+      "price": 1.5,
+      "rating": 4.4,
+      "type": "Metro",
+      "tip": "6 lines — Line E goes direct from the airport to downtown in 40 minutes for €2. Andante card covers metro, bus, and tram."
+    },
+    {
+      "name": "Tram Line 1 (Ribeira)",
+      "price": 3.5,
+      "rating": 4.5,
+      "type": "Tram",
+      "tip": "Historic tram along the Douro riverfront — scenic rather than practical but a great tourist experience."
+    },
+    {
+      "name": "Uber",
+      "price": 8,
+      "rating": 4.5,
+      "type": "Rideshare",
+      "tip": "Works well and is cheap by Western European standards. Airport to downtown is ~€12."
+    }
+  ]
+},
+{
+  "id": "seville",
+  "name": "Seville",
+  "country": "Spain",
+  "image": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800&auto=format&fit=crop",
+  "iata": "SVQ",
+  "packType": "international_europe",
+  "activities": [
+    {
+      "name": "Real Alcázar Palace",
+      "price": 14,
+      "rating": 4.9,
+      "duration": "2–3 hrs",
+      "tip": "Book tickets months ahead — daily quota sells out fast. The Upper Royal Apartments (extra €5) show rooms still used by the Spanish royal family.",
+      "desc": "A UNESCO masterpiece — a working royal palace with Moorish architecture, lush gardens, and 14 centuries of history.",
+      "photo": "https://images.unsplash.com/photo-1555993539-1732b0258235?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Seville Cathedral & Giralda Tower",
+      "price": 12,
+      "rating": 4.8,
+      "duration": "2 hrs",
+      "tip": "Climb the Giralda via a ramp (no stairs) for panoramic views. Christopher Columbus's tomb is inside the Cathedral.",
+      "desc": "The world's largest Gothic cathedral and Christopher Columbus's burial place — with a former minaret tower offering city views.",
+      "photo": "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Flamenco Show (Casa de la Memoria)",
+      "price": 22,
+      "rating": 4.9,
+      "duration": "1.5 hrs",
+      "tip": "More intimate and authentic than the tourist dinner shows. Book the early 7:30 PM slot — it's even more atmospheric.",
+      "desc": "The most authentic flamenco experience in Seville — passionate dancing in a 15th-century palace courtyard.",
+      "photo": "https://images.unsplash.com/photo-1518076568534-87f03c2ca9c3?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Barrio Santa Cruz",
+      "price": 0,
+      "rating": 4.7,
+      "duration": "1.5 hrs",
+      "tip": "Get lost deliberately — the maze of whitewashed lanes is the point. Every hidden plaza has a different tapas bar. Best explored at golden hour.",
+      "desc": "Seville's enchanting Jewish quarter — a labyrinth of orange trees, hidden plazas, and whitewashed houses.",
+      "photo": "https://images.unsplash.com/photo-1584782611774-4c48c60e8c76?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Plaza de España",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "1 hr",
+      "tip": "Row a boat on the canal for €6 — best way to see the grand tiled semicircle from the water. Sunrise and sunset are magical here.",
+      "desc": "A breathtaking 1929 semicircular palace with tiled alcoves for every Spanish province and a canal with rowboats.",
+      "photo": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Triana Neighborhood",
+      "price": 0,
+      "rating": 4.6,
+      "duration": "2 hrs",
+      "tip": "Cross the Triana Bridge at sunset. The Mercado de Triana has the best jamón and cheese in the city — and great ceramics workshops.",
+      "desc": "Seville's most authentic working-class barrio — birthplace of flamenco with ceramic workshops and riverside tapas bars.",
+      "photo": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Spanish",
+      "name": "Bar El Comercio",
+      "price": 15,
+      "rating": 4.7,
+      "tip": "Standing only, cash only — the most authentic tapas experience in Seville. The montaditos and salmorejo are extraordinary.",
+      "desc": "Seville's most beloved traditional tapas bar — packed, loud, delicious, and completely unpretentious.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Spanish",
+      "name": "Eslava",
+      "price": 25,
+      "rating": 4.8,
+      "tip": "Won Seville's best tapa award multiple times. The huevo roto con chistorra and slow-cooked pork belly are what the awards were for.",
+      "desc": "Award-winning tapas in the Alameda — creative modern dishes that made Seville's tapa scene internationally famous.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Spanish",
+      "name": "Taberna El Alabardero",
+      "price": 60,
+      "rating": 4.8,
+      "tip": "Run by a culinary school — the service is excellent and the traditional Sevillano cuisine is refined. The gazpacho is the best in the city.",
+      "desc": "Grand 19th-century mansion restaurant serving refined Andalusian cuisine in the heart of Seville.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Tapas",
+      "name": "Vinería San Telmo",
+      "price": 30,
+      "rating": 4.8,
+      "tip": "Creative modern tapas with an excellent sherry list. The 'half portions' are ideal for sharing 5–6 dishes between two people.",
+      "desc": "Trendy modern tapas bar in Santa Cruz with an outstanding Andalusian wine and sherry selection.",
+      "photo": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Mercado de Triana",
+      "price": 10,
+      "rating": 4.6,
+      "tip": "Best for lunch — get the pescaíto frito (mixed fried fish), ibérico jamón sliced to order, and a glass of manzanilla.",
+      "desc": "Seville's most authentic covered market with fresh pescaíto frito, jamón ibérico, and local produce.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Bar Quijote",
+      "price": 5,
+      "rating": 4.5,
+      "tip": "Locals' breakfast spot — the tostada con tomate y jamón (toast with tomato and cured ham) and café solo is the Seville morning ritual.",
+      "desc": "Classic Sevillano breakfast bar serving the essential tostada con tomate and strong cortado since the 1960s.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "TUSSAM City Bus",
+      "price": 1.4,
+      "rating": 4,
+      "type": "Bus",
+      "tip": "Comprehensive network — the No. 34 circular route connects all major sights. 1-day pass is €5."
+    },
+    {
+      "name": "Seville Metro",
+      "price": 1.35,
+      "rating": 4.2,
+      "type": "Metro",
+      "tip": "Only 1 useful line for tourists — runs from the University area southwest. Limited but clean and fast."
+    },
+    {
+      "name": "Sevici Bike Share",
+      "price": 1.5,
+      "rating": 4.6,
+      "type": "Bike",
+      "tip": "Seville has 180 km of protected bike lanes — one of Europe's best cycling cities. Sevici day pass is €13.33; use the app."
+    },
+    {
+      "name": "Uber / Cabify",
+      "price": 8,
+      "rating": 4.4,
+      "type": "Rideshare",
+      "tip": "Both work reliably. Center to any sight is under €10. Good for late nights when buses stop."
+    }
+  ]
+},
+{
+  "id": "athens",
+  "name": "Athens",
+  "country": "Greece",
+  "image": "https://images.unsplash.com/photo-1555993539-1732b0258235?w=800&auto=format&fit=crop",
+  "iata": "ATH",
+  "packType": "international_europe",
+  "activities": [
+    {
+      "name": "Acropolis & Parthenon",
+      "price": 20,
+      "rating": 4.9,
+      "duration": "2–3 hrs",
+      "tip": "Go at 8 AM when it opens — the site is far less crowded and the morning light on the marble is stunning. Combo ticket covers 5 other sites.",
+      "desc": "The pinnacle of ancient Greek civilization — a 2,500-year-old temple complex that defined Western architecture.",
+      "photo": "https://images.unsplash.com/photo-1555993539-1732b0258235?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Acropolis Museum",
+      "price": 10,
+      "rating": 4.9,
+      "duration": "2 hrs",
+      "tip": "Go after your Acropolis visit — you'll appreciate the sculptures far more with the context. The Parthenon Gallery on floor 3 is extraordinary.",
+      "desc": "World-class museum at the foot of the Acropolis housing the original Parthenon sculptures with a glass floor over ancient ruins.",
+      "photo": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Plaka & Monastiraki Neighborhoods",
+      "price": 0,
+      "rating": 4.7,
+      "duration": "2 hrs",
+      "tip": "Monastiraki flea market is best Sunday mornings. Eat souvlaki at Kostas in Monastiraki — a tiny legendary hole-in-the-wall.",
+      "desc": "Athens' atmospheric old town district — Byzantine churches, neoclassical mansions, and the sprawling flea market.",
+      "photo": "https://images.unsplash.com/photo-1580619305218-8423a7ef79b4?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Cape Sounion Day Trip",
+      "price": 15,
+      "rating": 4.8,
+      "duration": "Half day",
+      "tip": "Take the KTEL bus from Pedion Areos (€6.50 each way). Arrive for sunset — the Temple of Poseidon on the cliff edge at dusk is otherworldly.",
+      "desc": "2,500-year-old Temple of Poseidon perched dramatically on a cliff above the Aegean Sea, 70 km from Athens.",
+      "photo": "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Syntagma Square & Changing of Guard",
+      "price": 0,
+      "rating": 4.5,
+      "duration": "30 min",
+      "tip": "The full ceremony happens every hour on the hour. The elaborate choreographed routine by the Evzones in traditional costumes is genuinely impressive.",
+      "desc": "Athens' central square in front of the Parliament with the hourly changing of the Evzone guards ceremony.",
+      "photo": "https://images.unsplash.com/photo-1570168007204-ea39ae20a0b1?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Lycabettus Hill Sunset",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "1–2 hrs",
+      "tip": "Take the funicular (€7 round trip) or hike the 30-min trail through pine trees. The 360° view of Athens and the Acropolis at sunset is stunning.",
+      "desc": "Athens' highest hill with a tiny white chapel at the top offering the best panoramic city view in Greece.",
+      "photo": "https://images.unsplash.com/photo-1548013597-e94cb3c37a4b?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Greek",
+      "name": "Varoulko Seaside",
+      "price": 90,
+      "rating": 4.9,
+      "tip": "Lefteris Lazarou's Michelin-starred seafood restaurant with Piraeus marina views. The raw bar and red mullet are unmissable.",
+      "desc": "Athens' finest Greek seafood — Michelin-starred with a harbor view and legendary fresh fish dishes.",
+      "photo": "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Greek",
+      "name": "Kostas (Souvlaki)",
+      "price": 3,
+      "rating": 4.8,
+      "tip": "This tiny stall in Monastiraki has a line out the door since 1950. Pork souvlaki in pita with tomato and tzatziki — the best €3 meal in Greece.",
+      "desc": "Athens' most legendary souvlaki — a hole-in-the-wall institution serving perfect pork pita since 1950.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Greek",
+      "name": "Diporto",
+      "price": 20,
+      "rating": 4.7,
+      "tip": "No menu, no sign — just walk into the underground taverna and eat what's on the stove. Cash only. A true Athenian institution.",
+      "desc": "A hidden underground taverna in the Central Market — no menu, no sign, just whatever the cook made that day.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Greek",
+      "name": "Thanasis (Kebab)",
+      "price": 8,
+      "rating": 4.6,
+      "tip": "The best doner kebab in Athens — the lamb is hand-carved and the pita is freshly baked. Sit outside with an Acropolis view.",
+      "desc": "Monastiraki's most beloved kebab house — perfectly seasoned lamb carved fresh and served in warm pita.",
+      "photo": "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Couleur Locale",
+      "price": 10,
+      "rating": 4.7,
+      "tip": "Rooftop café in Monastiraki with a jaw-dropping Acropolis view from the terrace. Arrive right at opening for the quietest tables.",
+      "desc": "Athens' most photogenic rooftop café — Greek coffee and pastries with a direct Acropolis view.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Mezze",
+      "name": "Melilotos",
+      "price": 35,
+      "rating": 4.8,
+      "tip": "The all-vegetable mezze menu changes weekly. The gigantes (giant baked beans) and spanakopita are exceptional.",
+      "desc": "Creative vegetarian-forward Greek mezze in Exarcheia — modern takes on ancient recipes using seasonal Greek ingredients.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Athens Metro",
+      "price": 1.2,
+      "rating": 4.5,
+      "type": "Metro",
+      "tip": "3 lines — Line 3 (blue) goes direct from the airport to Syntagma Square in 40 min (€9). 24-hr pass is €4.10."
+    },
+    {
+      "name": "OASA Bus & Trolley",
+      "price": 1.2,
+      "rating": 3.8,
+      "type": "Bus",
+      "tip": "Same ticket as metro. Trolleys run in the city center — slower but iconic. Validate in the machine on board."
+    },
+    {
+      "name": "Uber / BEAT",
+      "price": 8,
+      "rating": 4.4,
+      "type": "Rideshare",
+      "tip": "BEAT (FreeNow) is the dominant rideshare app in Athens and is often cheaper than Uber. Both are reliable."
+    }
+  ]
+},
+{
+  "id": "reykjavik",
+  "name": "Reykjavik",
+  "country": "Iceland",
+  "image": "https://images.unsplash.com/photo-1516496636080-14fb876e029d?w=800&auto=format&fit=crop",
+  "iata": "KEF",
+  "packType": "international_europe",
+  "activities": [
+    {
+      "name": "Northern Lights (Sep–Mar)",
+      "price": 0,
+      "rating": 5,
+      "duration": "Evening",
+      "tip": "Check the Aurora Forecast app — a KP index of 3+ gives good viewing. Drive 20 minutes outside the city for dark skies.",
+      "desc": "The greatest natural light show on Earth — dancing green and purple curtains across Iceland's dark sky.",
+      "photo": "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Blue Lagoon",
+      "price": 80,
+      "rating": 4.7,
+      "duration": "3–4 hrs",
+      "tip": "Book months ahead — especially for summer. Go late afternoon for golden light on the steam. The silica mud mask is included.",
+      "desc": "Milky-blue geothermal lagoon in a lava field — Iceland's most iconic wellness experience.",
+      "photo": "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Golden Circle Day Tour",
+      "price": 65,
+      "rating": 4.8,
+      "duration": "Full day",
+      "tip": "Self-drive is more flexible than tours. Geysir erupts every 5–10 minutes. Gullfoss waterfall is double-tiered — walk to the lower platform.",
+      "desc": "Iceland's classic route: Þingvellir National Park, Geysir hot springs, and Gullfoss waterfall.",
+      "photo": "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Hallgrímskirkja Church",
+      "price": 0,
+      "rating": 4.7,
+      "duration": "45 min",
+      "tip": "Elevator to the top tower is €8 — worth it for the panoramic city view. The interior is strikingly minimalist for such an iconic exterior.",
+      "desc": "Reykjavik's iconic rocket-shaped Lutheran church — the city's most recognizable landmark with views over the rooftops.",
+      "photo": "https://images.unsplash.com/photo-1516496636080-14fb876e029d?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Snæfellsnes Peninsula Day Trip",
+      "price": 90,
+      "rating": 4.9,
+      "duration": "Full day",
+      "tip": "The glacier-topped volcano inspired Jules Verne's 'Journey to the Center of the Earth.' The black sand beach at Djúpalónssandur is dramatic.",
+      "desc": "Dramatic peninsula with a glacier volcano, black sand beaches, sea cliffs, and basalt sea stacks.",
+      "photo": "https://images.unsplash.com/photo-1591981912258-1ab0d5a11e34?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Reykjavik Old Harbour",
+      "price": 0,
+      "rating": 4.5,
+      "duration": "1–2 hrs",
+      "tip": "Whale watching tours depart from here (€80, Apr–Oct). The Saga Museum nearby is excellent for understanding Viking history.",
+      "desc": "Reykjavik's colorful working harbour with whale watching, puffin tours, and the best seafood restaurants.",
+      "photo": "https://images.unsplash.com/photo-1507479869835-80f06b31d1c3?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Icelandic",
+      "name": "Dill",
+      "price": 160,
+      "rating": 4.9,
+      "tip": "Iceland's only Michelin-starred restaurant — the Nordic tasting menu uses exclusively Icelandic ingredients. Book 2+ months ahead.",
+      "desc": "Iceland's flagship fine dining destination — a Michelin-starred celebration of Nordic ingredients and Icelandic terroir.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Seafood",
+      "name": "Sægreifinn (Sea Baron)",
+      "price": 25,
+      "rating": 4.8,
+      "tip": "The lobster soup is the reason people queue — €9 for a rich, creamy bowl with bread. Also try the grilled langoustine skewers.",
+      "desc": "Legendary harbour shack famous for the best lobster soup in Iceland — a local institution since 1997.",
+      "photo": "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Icelandic",
+      "name": "Skál!",
+      "price": 70,
+      "rating": 4.8,
+      "tip": "Nordic-Icelandic small plates in the harbour — the skyr dessert with crowberries and the hákarl (fermented shark) tasting are both excellent.",
+      "desc": "Modern Icelandic small plates at the harbour — creative Nordic cooking with strong local sourcing.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Hot Dog",
+      "name": "Bæjarins Beztu Pylsur",
+      "price": 4,
+      "rating": 4.7,
+      "tip": "Order 'eina með öllu' (one with everything) — that's the classic: ketchup, brown mustard, remoulade, raw and fried onions.",
+      "desc": "Bill Clinton's favourite hot dog stand — Iceland's most famous street food since 1937.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Reykjavik Roasters",
+      "price": 7,
+      "rating": 4.7,
+      "tip": "Iceland's best specialty coffee roastery — pour-overs and espresso from Nordic-roasted beans. Cozy interior for rainy Reykjavik days.",
+      "desc": "Reykjavik's premier specialty coffee roaster and café — the city's top spot for Nordic-style coffee culture.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Ice Cream",
+      "name": "Ísbúð Vesturbæjar",
+      "price": 5,
+      "rating": 4.8,
+      "tip": "Icelanders eat ice cream year-round even in -10°C — this is the most beloved local parlour. The skyr ice cream is uniquely Icelandic.",
+      "desc": "Iceland's most loved ice cream parlour — locals eat here all year, regardless of snow and wind outside.",
+      "photo": "https://images.unsplash.com/photo-1560008581-09826d1de69e?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Strætó City Bus",
+      "price": 3.7,
+      "rating": 3.8,
+      "type": "Bus",
+      "tip": "Covers central Reykjavik only — exact change or app payment. Limited coverage means you'll need supplementary options."
+    },
+    {
+      "name": "Car Rental (recommended)",
+      "price": 80,
+      "rating": 4.8,
+      "type": "Car",
+      "tip": "Essential for Golden Circle, Blue Lagoon, and any road trip. Book well ahead for summer. 4WD recommended for F-roads."
+    },
+    {
+      "name": "Flybus (airport)",
+      "price": 30,
+      "rating": 4.5,
+      "type": "Shuttle",
+      "tip": "Runs from Keflavík Airport (50 km away) to central Reykjavik. Pre-book return — last bus is timed to last flights."
+    }
+  ]
+},
+{
+  "id": "brussels",
+  "name": "Brussels",
+  "country": "Belgium",
+  "image": "https://images.unsplash.com/photo-1549144514-d90f0be5b09d?w=800&auto=format&fit=crop",
+  "iata": "BRU",
+  "packType": "international_europe",
+  "activities": [
+    {
+      "name": "Grand Place",
+      "price": 0,
+      "rating": 4.9,
+      "duration": "1 hr",
+      "tip": "Come at dusk when the gold facades are lit — it's one of Europe's most stunning squares at any time. Every 2 years a floral carpet covers it in August.",
+      "desc": "UNESCO-listed medieval square ringed by Gothic guildhalls and the ornate Town Hall — Victor Hugo called it 'the most beautiful square in the world'.",
+      "photo": "https://images.unsplash.com/photo-1549144514-d90f0be5b09d?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Manneken Pis & Surroundings",
+      "price": 0,
+      "rating": 4.2,
+      "duration": "30 min",
+      "tip": "He's tinier than expected — that's the joke. Check if he's in a costume (he has 1,000+ outfits). The Musée du Costume nearby shows them all.",
+      "desc": "Brussels' most famous (and surprising) landmark — the beloved 61cm bronze boy statue dressed in rotating costumes.",
+      "photo": "https://images.unsplash.com/photo-1572029585890-6d0a3738a1e3?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Atomium",
+      "price": 16,
+      "rating": 4.7,
+      "duration": "1.5 hrs",
+      "tip": "Buy combined Atomium + Mini-Europe ticket for better value. The central sphere has a restaurant — book the panoramic lunch in advance.",
+      "desc": "A 102-meter steel atom model from the 1958 World's Fair — one of Europe's most surreal and iconic structures.",
+      "photo": "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Belgian Comic Strip Museum",
+      "price": 12,
+      "rating": 4.7,
+      "duration": "1.5 hrs",
+      "tip": "Tintin, Smurfs, Lucky Luke — all Belgian. The museum is housed in a spectacular Art Nouveau building designed by Victor Horta.",
+      "desc": "The world capital of comic art in a stunning Art Nouveau building — celebrating Tintin, the Smurfs, and Belgium's comic heritage.",
+      "photo": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Bruges Day Trip",
+      "price": 15,
+      "rating": 4.9,
+      "duration": "Full day",
+      "tip": "Direct train from Brussels Midi takes 60 minutes (€7.50). Avoid weekends — Bruges is tiny and gets overwhelmed. Hire a bike from the station.",
+      "desc": "Medieval fairytale city 1 hour from Brussels — canals, belfries, chocolate shops, and world-class beer.",
+      "photo": "https://images.unsplash.com/photo-1507479869835-80f06b31d1c3?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Horta Museum",
+      "price": 10,
+      "rating": 4.8,
+      "duration": "1 hr",
+      "tip": "Book in advance — very limited daily entry. Victor Horta's own house is the purest example of Belgian Art Nouveau ever built.",
+      "desc": "Victor Horta's own home — the most perfect Art Nouveau house in the world, a UNESCO masterpiece of organic design.",
+      "photo": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Belgian",
+      "name": "Chez Léon",
+      "price": 30,
+      "rating": 4.6,
+      "tip": "Open since 1893 — this is the reference for moules-frites. Order the marinière (white wine and cream) and Belgian abbey beer.",
+      "desc": "Brussels' most iconic moules-frites institution near Grand Place — mussels and frites done perfectly since 1893.",
+      "photo": "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Belgian",
+      "name": "In 't Spinnekopke",
+      "price": 35,
+      "rating": 4.8,
+      "tip": "Cooking exclusively with Belgian beers — the carbonnade flamande (beer-braised beef) is the legendary dish. Excellent local brew selection.",
+      "desc": "Brussels' most celebrated traditional tavern using Belgian beer in every recipe — since 1762.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Belgian",
+      "name": "Comme Chez Soi",
+      "price": 150,
+      "rating": 4.9,
+      "tip": "Three Michelin stars — one of Belgium's finest restaurants. The Art Nouveau dining room is a masterpiece in itself. Book 3+ months ahead.",
+      "desc": "Two-Michelin-starred Belgian grand dame — the pinnacle of classic Belgian haute cuisine since 1926.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Waffles",
+      "name": "Maison Dandoy",
+      "price": 6,
+      "rating": 4.8,
+      "tip": "The Brussels waffle (light, rectangular, pearl sugar) not the Liège waffle (dense, caramelised) — know the difference. Both are here.",
+      "desc": "Brussels' most revered waffle house since 1829 — the definitive Belgian waffle and speculoos biscuit.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Chocolate",
+      "name": "Pierre Marcolini",
+      "price": 20,
+      "rating": 4.9,
+      "tip": "Belgium's finest chocolatier — born-again Belgian high-end chocolate. The single-origin ganaches are extraordinary.",
+      "desc": "Pierre Marcolini's couture chocolate boutique — the world's finest Belgian pralines and single-origin bars.",
+      "photo": "https://images.unsplash.com/photo-1511381939415-e44015466834?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Fritland",
+      "price": 4,
+      "rating": 4.6,
+      "tip": "Belgian fries are twice-cooked in beef fat — they are genuinely different from everywhere else. Order with andalouse sauce and a beer.",
+      "desc": "Brussels' busiest friture — the Belgian fries are thicker, crispier, and twice-fried in beef fat.",
+      "photo": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "STIB/MIVB Metro & Tram",
+      "price": 2.1,
+      "rating": 4.3,
+      "type": "Metro",
+      "tip": "4 metro lines plus extensive tram network. 24-hr pass is €8. Validate before boarding or risk a €100 fine."
+    },
+    {
+      "name": "SNCB Train (intercity)",
+      "price": 7,
+      "rating": 4.5,
+      "type": "Train",
+      "tip": "Bruges, Ghent, and Antwerp are all under 60 minutes. Weekend rail pass covers unlimited domestic travel for €14."
+    },
+    {
+      "name": "Uber",
+      "price": 12,
+      "rating": 4.4,
+      "type": "Rideshare",
+      "tip": "Works reliably. Airport to Grand Place is ~€35 — comparable to the train but door to door."
+    }
+  ]
+},
+{
+  "id": "zurich",
+  "name": "Zurich",
+  "country": "Switzerland",
+  "image": "https://images.unsplash.com/photo-1603379016822-e7e9a0ca1b36?w=800&auto=format&fit=crop",
+  "iata": "ZRH",
+  "packType": "international_europe",
+  "activities": [
+    {
+      "name": "Old Town (Altstadt)",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "2 hrs",
+      "tip": "Cross Rathausbrücke at golden hour — the church spires reflect in the Limmat River. Climb Grossmünster's tower for city views (€5).",
+      "desc": "Zurich's medieval old town with twin Romanesque towers, cobblestone lanes, and the Limmat River running through.",
+      "photo": "https://images.unsplash.com/photo-1584782611774-4c48c60e8c76?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Lake Zurich Promenade",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "2 hrs",
+      "tip": "Rent a paddleboard or kayak from Mythenquai. On clear days the Alps visible from the south shore are extraordinary.",
+      "desc": "Gorgeous Swiss lake with mountain backdrop — swimming in summer, scenic boat cruises, and lakeshore walks year-round.",
+      "photo": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Kunsthaus Zurich",
+      "price": 26,
+      "rating": 4.8,
+      "duration": "2–3 hrs",
+      "tip": "The new Chipperfield extension doubles the museum size and has Switzerland's largest collection. Free first Wednesday evening of each month.",
+      "desc": "Switzerland's leading art museum with one of the finest collections of Modernist and contemporary art in Europe.",
+      "photo": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Uetliberg Mountain",
+      "price": 8,
+      "rating": 4.7,
+      "duration": "Half day",
+      "tip": "S10 train to the summit takes 25 minutes from Hauptbahnhof. Hike the ridge walk to Felsenegg for cable car down to Lake Zurich.",
+      "desc": "Zurich's local mountain with panoramic views over the city, lake, and Alps — reachable in 25 minutes by train.",
+      "photo": "https://images.unsplash.com/photo-1548012670-fca36a11b6eb?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Bahnhofstrasse Shopping",
+      "price": 0,
+      "rating": 4.5,
+      "duration": "1–2 hrs",
+      "tip": "One of the world's most expensive shopping streets. Window shop here but buy Swiss watches and chocolate at Airport Duty Free on departure.",
+      "desc": "The world's most expensive shopping street — luxury watches, high fashion, and Swiss chocolate boutiques.",
+      "photo": "https://images.unsplash.com/photo-1523492397093-e77c31ab8fac?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Rhine Falls Day Trip",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "Half day",
+      "tip": "40 minutes by train to Schaffhausen. Buy the boat ticket to the rock in the middle — unforgettable spray-soaked view.",
+      "desc": "Europe's largest waterfall by volume — 25,000 cubic feet per second thundering down, a 40-minute train ride from Zurich.",
+      "photo": "https://images.unsplash.com/photo-1591981912258-1ab0d5a11e34?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Swiss",
+      "name": "Restaurant Kronenhalle",
+      "price": 90,
+      "rating": 4.8,
+      "tip": "Established 1924 — the walls are covered in original Picasso, Matisse, and Chagall works. The Zürcher Geschnetzeltes (veal in cream sauce) is the signature.",
+      "desc": "Zurich's most storied restaurant — original modern art masters on the walls and classic Swiss cuisine since 1924.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Swiss",
+      "name": "Zeughauskeller",
+      "price": 30,
+      "rating": 4.7,
+      "tip": "A 500-year-old armoury converted to a beer hall. The wurst platter with rösti and a litre of Swiss lager is the ideal order.",
+      "desc": "Historic 1487 armoury turned beer hall — the most atmospheric place in Zurich for traditional Swiss bratwurst and rösti.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Swiss",
+      "name": "Hiltl (Vegetarian)",
+      "price": 35,
+      "rating": 4.8,
+      "tip": "The world's oldest vegetarian restaurant (1898) — the all-you-can-eat buffet is incredible and surprisingly good value for Zurich.",
+      "desc": "The world's oldest vegetarian restaurant (est. 1898) — an institution with a legendary global buffet spread.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Fondue",
+      "name": "Swiss Chuchi (Hotel Adler)",
+      "price": 45,
+      "rating": 4.7,
+      "tip": "Cheese fondue in the Old Town — the half Gruyère / half Appenzeller blend is the gold standard. Don't skimp on the white wine.",
+      "desc": "Old Town fondue specialist with the definitive Swiss cheese and raclette experience in a cozy Alpine setting.",
+      "photo": "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Café Odeon",
+      "price": 12,
+      "rating": 4.6,
+      "tip": "Art Nouveau landmark dating to 1911 — Lenin and Einstein both drank here. The Zurich café culture is best experienced over a morning newspaper.",
+      "desc": "Zurich's most historic café — a 1911 Art Nouveau institution where Lenin planned the revolution and Einstein drank coffee.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Chocolate",
+      "name": "Sprüngli (Confiserie)",
+      "price": 10,
+      "rating": 4.8,
+      "tip": "The Luxemburgerli (mini macarons) are Sprüngli's creation — not sold anywhere else. They expire in 3 days so eat immediately.",
+      "desc": "Zurich's most famous confiserie — inventor of the Luxemburgerli macaron and Switzerland's finest pralines since 1836.",
+      "photo": "https://images.unsplash.com/photo-1511381939415-e44015466834?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "ZVV Tram & Bus",
+      "price": 4.4,
+      "rating": 4.8,
+      "type": "Tram",
+      "tip": "Zurich has one of the world's best public transit systems — buy a 24-hr zone 110 pass (€9) for unlimited city trams, buses, and lake boats."
+    },
+    {
+      "name": "Swiss Federal Railway (SBB)",
+      "price": 8,
+      "rating": 4.9,
+      "type": "Train",
+      "tip": "The Swiss rail system is absurdly punctual and efficient. Day passes to Lucerne, Bern, or Geneva are worth the price."
+    },
+    {
+      "name": "ZVV Airport Train",
+      "price": 7,
+      "rating": 4.9,
+      "type": "Train",
+      "tip": "Direct train from Zurich Airport to Hauptbahnhof (HB) runs every 10 minutes and takes 10 minutes. Absolutely no need for taxis."
+    }
+  ]
+},
+{
+  "id": "oslo",
+  "name": "Oslo",
+  "country": "Norway",
+  "image": "https://images.unsplash.com/photo-1558992993-0e76b7f5f9a0?w=800&auto=format&fit=crop",
+  "iata": "OSL",
+  "packType": "international_europe",
+  "activities": [
+    {
+      "name": "Vigeland Sculpture Park",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "1.5 hrs",
+      "tip": "Gustav Vigeland's 212 bronze sculptures are disturbing, beautiful, and free. Go at dawn in winter for the fog — impossibly atmospheric.",
+      "desc": "The world's largest sculpture park by a single artist — 212 bronze and granite works exploring the human condition.",
+      "photo": "https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Fram Museum",
+      "price": 20,
+      "rating": 4.9,
+      "duration": "2 hrs",
+      "tip": "Board the actual Fram — the world's strongest wooden ship, which reached both the North and South Poles. The polar exploration story is gripping.",
+      "desc": "The world's strongest wooden ship in its own museum — the vessel that reached farther north and south than any ship in history.",
+      "photo": "https://images.unsplash.com/photo-1507479869835-80f06b31d1c3?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Bryggen Wharf & Aker Brygge",
+      "price": 0,
+      "rating": 4.7,
+      "duration": "1.5 hrs",
+      "tip": "Oslo's reborn waterfront — the old shipyard is now filled with restaurants and bars. Walk from the Opera House along the rooftop promenade.",
+      "desc": "Oslo's renovated harbour district with rooftop walks over the Opera House and Aker Brygge's restaurants and bars.",
+      "photo": "https://images.unsplash.com/photo-1535957998253-26ae1ef29506?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Holmenkollen Ski Jump",
+      "price": 15,
+      "rating": 4.8,
+      "duration": "1.5 hrs",
+      "tip": "The view from the top of the jump is vertiginous even in summer. The ski simulator at the bottom is excellent for kids and adults.",
+      "desc": "The world-famous ski jump with a glass elevator to the observation deck — dramatic views over Oslo Fjord and the city.",
+      "photo": "https://images.unsplash.com/photo-1548013597-e94cb3c37a4b?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Oslo Fjord Islands",
+      "price": 8,
+      "rating": 4.8,
+      "duration": "Half day",
+      "tip": "Ferry from Aker Brygge to Hovedøya or Bygdøy islands — swimming and hiking right on Oslo's doorstep. Run every 30 minutes in summer.",
+      "desc": "Archipelago of forested islands in Oslo Fjord, reachable by public ferry — swimming, walking, and Viking burial mounds.",
+      "photo": "https://images.unsplash.com/photo-1507479869835-80f06b31d1c3?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "National Gallery (Nasjonalmuseet)",
+      "price": 20,
+      "rating": 4.8,
+      "duration": "2 hrs",
+      "tip": "Munch's 'The Scream' lives here. The new 2022 building is one of Europe's best — the collection is world-class. Free on Thursdays after 4 PM.",
+      "desc": "Norway's premier art museum housing Edvard Munch's 'The Scream' in Europe's largest purpose-built gallery.",
+      "photo": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Norwegian",
+      "name": "Maaemo",
+      "price": 400,
+      "rating": 5,
+      "tip": "Three Michelin stars — the definitive modern Nordic restaurant. The 20-course menu is a meditation on Norwegian nature. Book 6 months ahead.",
+      "desc": "Norway's only three-Michelin-starred restaurant — a transcendent experience of Norwegian ingredients and Nordic philosophy.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Norwegian",
+      "name": "Fiskeriet Youngstorget",
+      "price": 30,
+      "rating": 4.7,
+      "tip": "Working fish market and restaurant — the fish and chips, seared salmon, and shrimp sandwiches are superb at fair (for Oslo) prices.",
+      "desc": "Oslo's best fish market lunch spot — outstanding Norwegian seafood at some of the city's most honest prices.",
+      "photo": "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Norwegian",
+      "name": "Kontrast",
+      "price": 140,
+      "rating": 4.9,
+      "tip": "Michelin-starred seasonal Norwegian tasting menu — the reindeeer tartare and cloudberry desserts are extraordinary.",
+      "desc": "Michelin-starred modern Norwegian cuisine — an ode to local producers, wild foraging, and Nordic seasons.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Tim Wendelboe",
+      "price": 8,
+      "rating": 4.9,
+      "tip": "One of the world's most influential specialty coffee roasters — the shop on Grünerløkka is tiny and the pour-overs are extraordinary.",
+      "desc": "A pilgrimage destination for coffee lovers worldwide — Tim Wendelboe helped define the modern third-wave coffee movement.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Mathallen Oslo",
+      "price": 15,
+      "rating": 4.7,
+      "tip": "Indoor food hall with 30 vendors — try the rakfisk (fermented trout), Norwegian brown cheese, and reindeer sausage. Weekends are liveliest.",
+      "desc": "Oslo's most vibrant food hall with Norwegian artisan producers, international street food, and craft beer.",
+      "photo": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Brunch",
+      "name": "Smalhans",
+      "price": 25,
+      "rating": 4.8,
+      "tip": "The daily changing seasonal menu is written on a chalkboard — the community table brunch on Sundays is unmissable Oslo dining culture.",
+      "desc": "Oslo's most beloved neighbourhood restaurant — rotating seasonal menu, community table, and the city's best brunch.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Oslo T-Bane (Metro)",
+      "price": 4,
+      "rating": 4.5,
+      "type": "Metro",
+      "tip": "6 metro lines radiating from Majorstuen — connects fjord, ski jump, and city center. 24-hr pass is NOK 125 (~€11). Use Ruter app."
+    },
+    {
+      "name": "Tram & Bus",
+      "price": 4,
+      "rating": 4.4,
+      "type": "Tram",
+      "tip": "Same ticket as metro. Tram 12 runs through the city center and is the most useful line for sightseeing."
+    },
+    {
+      "name": "Flytoget Airport Express",
+      "price": 30,
+      "rating": 4.9,
+      "type": "Train",
+      "tip": "Train from Oslo Gardermoen Airport to the city center in 19 minutes — the fastest and most reliable airport link in Scandinavia."
+    }
+  ]
+},
+{
+  "id": "warsaw",
+  "name": "Warsaw",
+  "country": "Poland",
+  "image": "https://images.unsplash.com/photo-1553254665-cd81c5f95aad?w=800&auto=format&fit=crop",
+  "iata": "WAW",
+  "packType": "international_europe",
+  "activities": [
+    {
+      "name": "Old Town (Stare Miasto)",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "2 hrs",
+      "tip": "Entirely rebuilt after WWII destroyed 85% of Warsaw — the reconstruction is so precise it's now a UNESCO site. The Royal Castle interior is worth €12.",
+      "desc": "A UNESCO-listed miracle of reconstruction — Warsaw's Old Town was rebuilt brick by brick from wartime rubble.",
+      "photo": "https://images.unsplash.com/photo-1553254665-cd81c5f95aad?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "POLIN Museum of the History of Polish Jews",
+      "price": 15,
+      "rating": 4.9,
+      "duration": "3 hrs",
+      "tip": "One of Europe's finest museums — the interactive multimedia exhibition spans 1,000 years of Jewish life in Poland. Allow at least 3 hours.",
+      "desc": "Award-winning museum tracing 1,000 years of Jewish life in Poland — a landmark of European cultural memory.",
+      "photo": "https://images.unsplash.com/photo-1572029585890-6d0a3738a1e3?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Warsaw Rising Museum",
+      "price": 25,
+      "rating": 4.9,
+      "duration": "3 hrs",
+      "tip": "Emotionally intense — the story of the 1944 Warsaw Uprising against Nazi occupation. The replica B-24 Liberator bomber suspended inside is stunning.",
+      "desc": "Powerfully moving museum dedicated to the 1944 Warsaw Uprising — Poland's most emotionally charged memorial experience.",
+      "photo": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Łazienki Royal Park",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "2 hrs",
+      "tip": "Free outdoor concerts at the Chopin monument on Sundays (June–September). The Palace on the Water reflected in the lake at sunset is beautiful.",
+      "desc": "Warsaw's most beautiful royal park with a neoclassical Palace on the Water and free Chopin concerts on Sundays.",
+      "photo": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Palace of Culture & Science",
+      "price": 20,
+      "rating": 4.6,
+      "duration": "1 hr",
+      "tip": "The 30th-floor observation deck gives the only view of Warsaw without the Stalinist skyscraper in it — which says everything.",
+      "desc": "Stalin's 1955 'gift' to Warsaw — a controversial Stalinist skyscraper with a public observation deck and city panoramas.",
+      "photo": "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Praga District",
+      "price": 0,
+      "rating": 4.6,
+      "duration": "2 hrs",
+      "tip": "The only district that survived WWII intact — a raw, authentic contrast to rebuilt Old Town. Street art, indie bars, and brilliant flea markets on weekends.",
+      "desc": "Warsaw's gritty, authentic pre-war district — artists, street art, craft beer, and the city's most honest neighbourhood vibe.",
+      "photo": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Polish",
+      "name": "Atelier Amaro",
+      "price": 130,
+      "rating": 4.9,
+      "tip": "Poland's only Michelin-starred restaurant — Wojciech Modest Amaro's seasonal tasting menu is a journey through Polish forests and seasons.",
+      "desc": "Poland's culinary milestone — a Michelin-starred modern Polish restaurant using foraged and seasonal Polish ingredients.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Polish",
+      "name": "Zapiecek",
+      "price": 12,
+      "rating": 4.6,
+      "tip": "Traditional Polish dumplings (pierogi) in 20+ varieties — try the ruskie (potato and cheese) and the sauerkraut-mushroom. Very generous portions.",
+      "desc": "Warsaw's most beloved pierogi restaurant — handmade Polish dumplings in every variety, unpretentious and excellent.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Polish",
+      "name": "Kieliszki na Próżnej",
+      "price": 40,
+      "rating": 4.8,
+      "tip": "Wine bar and modern Polish kitchen — the beet tartare with horseradish and the duck with cherry sauce are the standouts.",
+      "desc": "Modern Polish wine bar with refined takes on Polish classics — the city's best wine list meets excellent local cuisine.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Bazar Różyckiego",
+      "price": 6,
+      "rating": 4.5,
+      "tip": "The oldest surviving market in Warsaw in Praga — the zapiekanka (open-faced baguette with mushrooms and cheese) here is legendary.",
+      "desc": "Warsaw's oldest market in Praga — street food, local produce, and the iconic zapiekanka baguettes.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Charlotte Menora",
+      "price": 10,
+      "rating": 4.7,
+      "tip": "French-inspired café in the Jewish district with the best croissants in Warsaw and strong espresso. The courtyard is lovely in summer.",
+      "desc": "Warsaw's finest French-style café in the historic Jewish quarter — outstanding pastries and specialty coffee.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Warsaw Metro",
+      "price": 1.7,
+      "rating": 4.4,
+      "type": "Metro",
+      "tip": "2 lines — Line 2 is most useful, running east-west across the city. 24-hr pass is 15 PLN (~€3.50). Very clean and modern."
+    },
+    {
+      "name": "ZTM Tram & Bus",
+      "price": 1.7,
+      "rating": 4.2,
+      "type": "Tram",
+      "tip": "Same ticket as metro. Trams are fast and comprehensive — download the Jakdojade app for real-time routing."
+    },
+    {
+      "name": "Uber / Bolt",
+      "price": 6,
+      "rating": 4.5,
+      "type": "Rideshare",
+      "tip": "Bolt is cheaper than Uber in Warsaw. Most rides in the city are under €8."
+    }
+  ]
+},
+{
+  "id": "mumbai",
+  "name": "Mumbai",
+  "country": "India",
+  "image": "https://images.unsplash.com/photo-1570168007204-ea39ae20a0b1?w=800&auto=format&fit=crop",
+  "iata": "BOM",
+  "packType": "international_asia",
+  "activities": [
+    {
+      "name": "Gateway of India",
+      "price": 0,
+      "rating": 4.6,
+      "duration": "1 hr",
+      "tip": "Best at sunrise before crowds arrive. Take a boat to Elephanta Caves from here (₹200 round trip, 1 hr each way) — the rock-cut Shiva temples are extraordinary.",
+      "desc": "Iconic 1924 basalt arch on Mumbai's waterfront — the city's most recognizable monument and gateway to the sea.",
+      "photo": "https://images.unsplash.com/photo-1570168007204-ea39ae20a0b1?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Dharavi & Local Neighbourhood Walk",
+      "price": 20,
+      "rating": 4.7,
+      "duration": "2 hrs",
+      "tip": "Book a guided tour with Reality Tours — they employ local guides and direct profits back to the community. Eye-opening and respectful.",
+      "desc": "Guided community walk through Asia's most productive urban neighbourhood — a revelation about Mumbai's real economy.",
+      "photo": "https://images.unsplash.com/photo-1587474165487-ff9e3ee5c960?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Dabbawala Experience",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "2 hrs",
+      "tip": "Join the 9 AM sorting at Churchgate station — watch 5,000 dabbawalas sort 200,000 lunch boxes with 99.9999% accuracy. This is a genuine management marvel.",
+      "desc": "Watch Mumbai's legendary lunch-box delivery network in action — 120-year-old supply chain with Six Sigma accuracy.",
+      "photo": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Colaba Causeway & CST",
+      "price": 0,
+      "rating": 4.5,
+      "duration": "2 hrs",
+      "tip": "Chhatrapati Shivaji Maharaj Terminus (CST) is a UNESCO-listed Gothic-Victorian railway station — step inside to see the extraordinary architecture.",
+      "desc": "Mumbai's colonial heart — from the UNESCO Gothic CST railway station to the bohemian Colaba market strip.",
+      "photo": "https://images.unsplash.com/photo-1580619305218-8423a7ef79b4?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Marine Drive Sunset",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "1 hr",
+      "tip": "Walk the full 3km 'Queen's Necklace' at sunset — the Arabian Sea turns orange and the promenade fills with locals. Best free view in the city.",
+      "desc": "Mumbai's 3km art deco seafront promenade nicknamed the 'Queen's Necklace' — the city's most romantic sunset walk.",
+      "photo": "https://images.unsplash.com/photo-1573296694312-7f94b4cb3028?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Elephanta Caves",
+      "price": 15,
+      "rating": 4.8,
+      "duration": "Half day",
+      "tip": "Take the ferry from Gateway of India (1 hr) — arrive early to beat the crowds. The cave of Shiva is a masterpiece of 6th-century rock sculpture.",
+      "desc": "UNESCO World Heritage rock-cut cave temples on an island — 6th-century Shiva sculptures of extraordinary power.",
+      "photo": "https://images.unsplash.com/photo-1548013597-e94cb3c37a4b?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Indian",
+      "name": "Trishna",
+      "price": 30,
+      "rating": 4.8,
+      "tip": "The butter pepper garlic crab is legendary — get it with butter naan. Cash preferred. Reserve for dinner on weekends.",
+      "desc": "Mumbai's most beloved seafood restaurant — the butter garlic crab here is a city landmark since 1981.",
+      "photo": "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Indian",
+      "name": "Britannia & Co.",
+      "price": 10,
+      "rating": 4.8,
+      "tip": "Open since 1923 — the Irani café owner is a character. Order the berry pulao (with imported barberries) and the sali boti. Closed Sundays.",
+      "desc": "Mumbai's most cherished Irani café since 1923 — legendary berry pulao and the ghost of a colonial-era Bombay.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Indian",
+      "name": "Khyber",
+      "price": 35,
+      "rating": 4.8,
+      "tip": "Best North Indian and Mughlai cuisine in Mumbai. The nihari (slow-cooked beef shank) and dal makhani are outstanding. Reserve ahead.",
+      "desc": "Mumbai's premier North Indian restaurant — renowned for Mughlai cooking with a stunning Mughal mural-covered interior.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Mohammed Ali Road (Ramadan)",
+      "price": 5,
+      "rating": 4.9,
+      "tip": "Goes into overdrive during Ramadan — seekh kebabs, nalli nihari, and falooda at midnight. Year-round the street food here is exceptional.",
+      "desc": "Mumbai's legendary Muslim food street — the best seekh kebabs, nihari, and falooda in the city.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Juhu Beach Bhelpuri",
+      "price": 2,
+      "rating": 4.6,
+      "tip": "The bhelpuri (puffed rice chaat) at Juhu Beach is the classic Mumbai street experience. Let the vendor make it fresh in front of you.",
+      "desc": "Mumbai's most iconic street snack eaten on the beach — puffed rice tossed with tamarind chutney, onion, and sev.",
+      "photo": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Leopold Café",
+      "price": 12,
+      "rating": 4.4,
+      "tip": "Open since 1871 — this colonial-era Colaba institution featured in Shantaram. The bullet holes from 2008 are still in the walls.",
+      "desc": "Colaba's legendary colonial café — a Bollywood and backpacker institution since 1871, now part of Mumbai history.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Mumbai Local Train",
+      "price": 0.4,
+      "rating": 4.3,
+      "type": "Train",
+      "tip": "The lifeline of Mumbai — 7.5 million passengers daily. Avoid rush hour (8–10 AM, 5–8 PM). Buy a tourist pass at CST for unlimited travel."
+    },
+    {
+      "name": "BEST Bus",
+      "price": 0.3,
+      "rating": 3.8,
+      "type": "Bus",
+      "tip": "Extensive network — use Google Maps for routes. Air-conditioned 'AC' buses are worth the premium."
+    },
+    {
+      "name": "Uber / Ola",
+      "price": 5,
+      "rating": 4.4,
+      "type": "Rideshare",
+      "tip": "Both work well. Mumbai traffic is extreme — always factor in double the expected time. Auto-rickshaws only run in the suburbs."
+    },
+    {
+      "name": "Ferry (Gateway to Elephanta)",
+      "price": 4,
+      "rating": 4.5,
+      "type": "Ferry",
+      "tip": "Government ferries are cheaper than private — both take 1 hour to Elephanta Island. Buy return ticket on arrival."
+    }
+  ]
+},
+{
+  "id": "delhi",
+  "name": "New Delhi",
+  "country": "India",
+  "image": "https://images.unsplash.com/photo-1587474165487-ff9e3ee5c960?w=800&auto=format&fit=crop",
+  "iata": "DEL",
+  "packType": "international_asia",
+  "activities": [
+    {
+      "name": "Taj Mahal Day Trip (Agra)",
+      "price": 50,
+      "rating": 5,
+      "duration": "Full day",
+      "tip": "Take the 6 AM Gatimaan Express train (2 hrs, ₹1500). Arrive before 8 AM — fewer tourists and the morning light on the marble is transcendent.",
+      "desc": "The world's most beautiful building is 2 hours from Delhi — a non-negotiable day trip from the capital.",
+      "photo": "https://images.unsplash.com/photo-1548013597-e94cb3c37a4b?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Old Delhi & Jama Masjid",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "Half day",
+      "tip": "Hire a cycle rickshaw from Chandni Chowk — the spice market, silver street, and Kinari Bazaar are best navigated with a guide. Go hungry.",
+      "desc": "India's most chaotic and magnificent old city quarter — Mughal mosques, spice markets, and century-old food alleys.",
+      "photo": "https://images.unsplash.com/photo-1570168007204-ea39ae20a0b1?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Qutub Minar",
+      "price": 8,
+      "rating": 4.7,
+      "duration": "2 hrs",
+      "tip": "The 73-meter minaret is the world's tallest brick minaret — UNESCO-listed. Come at opening (7 AM) for perfect light and minimal crowds.",
+      "desc": "UNESCO World Heritage 13th-century minaret — the finest example of Indo-Islamic architecture and Delhi's oldest monument.",
+      "photo": "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Humayun's Tomb",
+      "price": 8,
+      "rating": 4.8,
+      "duration": "1.5 hrs",
+      "tip": "The prototype for the Taj Mahal — built 60 years earlier. Less crowded and equally magnificent. The charbagh garden design is a masterpiece.",
+      "desc": "The Mughal architectural prototype for the Taj Mahal — a UNESCO garden tomb of transcendent symmetry and beauty.",
+      "photo": "https://images.unsplash.com/photo-1580619305218-8423a7ef79b4?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Red Fort",
+      "price": 8,
+      "rating": 4.5,
+      "duration": "2 hrs",
+      "tip": "Most impressive from the outside — the interior is partially under restoration. The Sound and Light show at night tells its Mughal history dramatically.",
+      "desc": "Massive 17th-century Mughal fortress where India's Prime Minister delivers the Independence Day address every August.",
+      "photo": "https://images.unsplash.com/photo-1587474165487-ff9e3ee5c960?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Lodhi Garden",
+      "price": 0,
+      "rating": 4.7,
+      "duration": "1 hr",
+      "tip": "Free entry — the 15th-century Mughal tombs scattered across a manicured park are hauntingly beautiful. Best early morning for the misty atmosphere.",
+      "desc": "15th-century Mughal tombs scattered across a city park — Delhi's most atmospheric and peaceful free attraction.",
+      "photo": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Indian",
+      "name": "Indian Accent",
+      "price": 100,
+      "rating": 4.9,
+      "tip": "Delhi's finest restaurant — the tasting menu with chef Manish Mehrotra's Indian-international fusion is extraordinary. Book weeks ahead.",
+      "desc": "Consistently ranked one of Asia's best restaurants — inventive Indian cuisine reimagined with global technique.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Indian",
+      "name": "Karim's (Old Delhi)",
+      "price": 8,
+      "rating": 4.8,
+      "tip": "Open since 1913 — the best Mughlai cuisine in Delhi. The mutton korma, seekh kebabs, and nalli nihari are extraordinary. Cash only.",
+      "desc": "Old Delhi's legendary Mughlai kitchen since 1913 — the city's most beloved historic restaurant for rich northern Indian cooking.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Paranthe Wali Gali",
+      "price": 3,
+      "rating": 4.7,
+      "tip": "A narrow Old Delhi lane serving nothing but stuffed parathas (pan-fried flatbreads) since the 1870s. The aloo and paneer parathas are unmissable.",
+      "desc": "A 150-year-old Old Delhi lane entirely devoted to stuffed parathas — Delhi's most iconic street food alley.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Indian",
+      "name": "Bukhara (ITC Maurya)",
+      "price": 80,
+      "rating": 4.9,
+      "tip": "Bill Clinton and Putin have both eaten here. The dal bukhara (slow-cooked for 18 hours) and tandoori dishes are justifiably famous worldwide.",
+      "desc": "India's most celebrated restaurant for 40+ years — the 18-hour slow-cooked dal bukhara is a Delhi institution.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Dilli Haat",
+      "price": 5,
+      "rating": 4.5,
+      "tip": "Curated crafts market with regional food stalls from every Indian state — a great overview of India's culinary diversity in one place.",
+      "desc": "Open-air craft and food market with stalls from every Indian state — the best pan-India street food introduction.",
+      "photo": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "The Big Chill",
+      "price": 15,
+      "rating": 4.7,
+      "tip": "Delhi's most loved café-diner for 25+ years — the pasta, tiramisu, and all-day breakfast are comfort food gold for locals and expats alike.",
+      "desc": "Delhi's cult café with consistently excellent Italian-influenced food and the best tiramisu in the city.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Delhi Metro",
+      "price": 0.5,
+      "rating": 4.6,
+      "type": "Metro",
+      "tip": "One of Asia's best metro systems — 10 lines cover the entire city. Airport Express Line runs from T3 to New Delhi station in 20 minutes."
+    },
+    {
+      "name": "Auto-Rickshaw",
+      "price": 2,
+      "rating": 3.8,
+      "type": "Tuk-tuk",
+      "tip": "Always use the meter or agree on price before — say 'meter chalao' (run the meter). Uber and Ola auto options are safer for tourists."
+    },
+    {
+      "name": "Uber / Ola",
+      "price": 5,
+      "rating": 4.5,
+      "type": "Rideshare",
+      "tip": "Most reliable option. Delhi traffic is severe — build in 50% extra time. Prime cab is AC and comfortable."
+    }
+  ]
+},
+{
+  "id": "hochiminh",
+  "name": "Ho Chi Minh City",
+  "country": "Vietnam",
+  "image": "https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=800&auto=format&fit=crop",
+  "iata": "SGN",
+  "packType": "international_asia",
+  "activities": [
+    {
+      "name": "War Remnants Museum",
+      "price": 2,
+      "rating": 4.7,
+      "duration": "2 hrs",
+      "tip": "Prepare to be moved — the photography is extraordinarily powerful. Not for the faint-hearted. The photo collection by Tim Page and others is invaluable.",
+      "desc": "One of Southeast Asia's most powerful museums — documenting the Vietnam War through photographs and war relics.",
+      "photo": "https://images.unsplash.com/photo-1548013597-e94cb3c37a4b?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Củ Chi Tunnels Day Trip",
+      "price": 25,
+      "rating": 4.7,
+      "duration": "Half day",
+      "tip": "Book the Ben Duoc tunnel site — less touristy than Ben Dinh. Crawling through the tunnels gives you visceral insight into the war.",
+      "desc": "250km of wartime tunnels used by Viet Cong fighters — claustrophobic and essential for understanding Vietnam's history.",
+      "photo": "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Ben Thanh Market",
+      "price": 0,
+      "rating": 4.4,
+      "duration": "1–2 hrs",
+      "tip": "The night market extension (6 PM–midnight) around the market is the better experience — street food stalls rather than tourist trinkets.",
+      "desc": "Ho Chi Minh City's most famous market — silk, lacquerware, and the surrounding street food stalls are the highlights.",
+      "photo": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Mekong Delta Day Trip",
+      "price": 35,
+      "rating": 4.8,
+      "duration": "Full day",
+      "tip": "Book a small-group tour to My Tho or Can Tho — the floating markets and stilted houses on the delta are extraordinary. Sunrise is the best time.",
+      "desc": "Vietnam's vast rice basket — floating markets, coconut candy factories, and stilted villages on the Mekong River.",
+      "photo": "https://images.unsplash.com/photo-1619546813926-a78fa6372cd2?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Reunification Palace",
+      "price": 4,
+      "rating": 4.6,
+      "duration": "1.5 hrs",
+      "tip": "The war room and command bunker in the basement are extraordinary — totally frozen in 1975 with the original maps and communications equipment.",
+      "desc": "The palace where the Vietnam War ended on April 30, 1975 — perfectly preserved with its Cold War-era war room intact.",
+      "photo": "https://images.unsplash.com/photo-1570168007204-ea39ae20a0b1?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "District 1 & Bùi Viện Street",
+      "price": 0,
+      "rating": 4.5,
+      "duration": "Evening",
+      "tip": "Bùi Viện is the pedestrianized backpacker street — chaotic, cheap, and fun on weekends. The rooftop bars on Bùi Viện Alley have great city views.",
+      "desc": "HCMC's vibrant downtown with rooftop bars, night markets, and the legendary pedestrianized party street.",
+      "photo": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Vietnamese",
+      "name": "Phở Hòa Pasteur",
+      "price": 4,
+      "rating": 4.8,
+      "tip": "The oldest pho restaurant in HCMC (since 1960) — the bone broth simmers for 12 hours. Order the 'tái nạm' (rare beef + brisket) with extra bean sprouts.",
+      "desc": "HCMC's most legendary pho restaurant since 1960 — 12-hour bone broth in a no-frills lunch hall.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Vietnamese",
+      "name": "Cục Gạch Quán",
+      "price": 18,
+      "rating": 4.8,
+      "tip": "In a converted house with antique décor — the Vietnamese home cooking here (canh chua, thit kho, braised pork) is the best in the city.",
+      "desc": "The finest traditional Vietnamese home cooking in a beautifully restored colonial house in District 3.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Vietnamese",
+      "name": "Bánh Mì Huynh Hoa",
+      "price": 2,
+      "rating": 4.9,
+      "tip": "The legendary bánh mì shop with queues out the door from 3 PM. The 'special' with all fillings — pâté, mayo, cold cuts, pickled daikon — is incredible.",
+      "desc": "HCMC's most celebrated bánh mì — the Vietnamese baguette sandwich that changed the world's understanding of street food.",
+      "photo": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Seafood",
+      "name": "Quan Bui",
+      "price": 20,
+      "rating": 4.7,
+      "tip": "Excellent Southern Vietnamese cooking — the canh chua cá (sweet and sour fish soup) and gỏi cuốn (fresh spring rolls) are the highlights.",
+      "desc": "Refined Southern Vietnamese cuisine in a beautiful colonial setting — the city's go-to for upscale traditional food.",
+      "photo": "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "The Workshop Coffee",
+      "price": 5,
+      "rating": 4.7,
+      "tip": "Third-wave coffee in a renovated colonial building — the Vietnamese cold brew with sweetened condensed milk is a must-try local adaptation.",
+      "desc": "HCMC's finest specialty coffee — Vietnamese-grown single origins served in a stunning renovated colonial space.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Bún Bò Huế Đồng Khánh",
+      "price": 3,
+      "rating": 4.7,
+      "tip": "Spicier and richer than pho — the Huế-style beef noodle soup with lemongrass and shrimp paste is extraordinary. Best breakfast in the city.",
+      "desc": "The best bún bò Huế in HCMC — the spicy, aromatic central Vietnamese beef noodle soup at its finest.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Grab (rideshare)",
+      "price": 2,
+      "rating": 4.6,
+      "type": "Rideshare",
+      "tip": "Grab is the dominant rideshare app across Southeast Asia — reliable, safe, and cheap. GrabBike (motorbike) is fastest in traffic."
+    },
+    {
+      "name": "Xe Ôm (Motorbike Taxi)",
+      "price": 1,
+      "rating": 4,
+      "type": "Motorbike",
+      "tip": "Negotiate price first. Grab motorbike is the safer booked option. Riding through Saigon traffic is a quintessential experience."
+    },
+    {
+      "name": "Taxi (Vinasun / Mai Linh)",
+      "price": 3,
+      "rating": 4.2,
+      "type": "Taxi",
+      "tip": "Only use Vinasun or Mai Linh branded taxis — they have meters and are reliable. Avoid unmarked taxis."
+    }
+  ]
+},
+{
+  "id": "beijing",
+  "name": "Beijing",
+  "country": "China",
+  "image": "https://images.unsplash.com/photo-1523931089553-46b88e837c16?w=800&auto=format&fit=crop",
+  "iata": "PEK",
+  "packType": "international_asia",
+  "activities": [
+    {
+      "name": "Forbidden City",
+      "price": 15,
+      "rating": 4.9,
+      "duration": "3–4 hrs",
+      "tip": "Book online months ahead — daily tickets are capped. Enter from the Meridian Gate south. The inner palace galleries are far less crowded than the main courtyards.",
+      "desc": "The world's largest imperial palace complex — 980 buildings behind 9,999 rooms of Ming and Qing dynasty history.",
+      "photo": "https://images.unsplash.com/photo-1523931089553-46b88e837c16?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Great Wall (Mutianyu)",
+      "price": 20,
+      "rating": 5,
+      "duration": "Full day",
+      "tip": "Mutianyu is better-restored and less crowded than Badaling. Take the cable car up; toboggan slide down. Hire a private driver from the city (¥500).",
+      "desc": "One of the world's greatest engineering feats — 2,000 years of stone fortification climbing over spectacular mountain ridges.",
+      "photo": "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Temple of Heaven",
+      "price": 10,
+      "rating": 4.8,
+      "duration": "2 hrs",
+      "tip": "Arrive at 7 AM to see locals practicing tai chi, dancing, and playing erhu in the park — a genuinely moving snapshot of Beijing daily life.",
+      "desc": "A 15th-century complex of ceremonial altars where Ming and Qing emperors prayed for good harvests — the city's most beautiful park.",
+      "photo": "https://images.unsplash.com/photo-1586500036057-f77ad5e1e9e4?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Hutong Rickshaw Tour",
+      "price": 30,
+      "rating": 4.7,
+      "duration": "2 hrs",
+      "tip": "The preserved alleyways around Shichahai Lake and Drum Tower are the best — centuries-old courtyard houses and tiny neighbourhood restaurants.",
+      "desc": "Cycle-rickshaw tour through Beijing's ancient alleyways — 700 years of neighbourhood life preserved between skyscrapers.",
+      "photo": "https://images.unsplash.com/photo-1555993539-1732b0258235?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Summer Palace",
+      "price": 15,
+      "rating": 4.8,
+      "duration": "3 hrs",
+      "tip": "The Long Corridor (728m of painted pavilions) and Kunming Lake are the highlights. Rent a rowboat on the lake for the best views of the Marble Boat.",
+      "desc": "Imperial garden and pleasure palace on Kunming Lake — the finest example of Chinese landscape design and garden architecture.",
+      "photo": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Tiananmen Square",
+      "price": 0,
+      "rating": 4.5,
+      "duration": "1 hr",
+      "tip": "The flag-raising ceremony at sunrise is powerful. Passport required to enter the square. Visit Mao's Mausoleum (free, Tue–Sun) for a unique historical moment.",
+      "desc": "The world's largest public square — a vast expanse of Chinese history at the heart of the capital.",
+      "photo": "https://images.unsplash.com/photo-1523931089553-46b88e837c16?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Beijing",
+      "name": "Da Dong Roast Duck",
+      "price": 50,
+      "rating": 4.9,
+      "tip": "Beijing roast duck is the city's signature dish — Da Dong's ultra-crispy skin is world-famous. Order the half duck with pancakes, hoisin, and scallions.",
+      "desc": "Beijing's most celebrated Peking Duck restaurant — the lacquered skin is extraordinarily crispy with paper-thin fat.",
+      "photo": "https://images.unsplash.com/photo-1553621042-f6e147245754?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Beijing",
+      "name": "Wangfujing Snack Street",
+      "price": 8,
+      "rating": 4.5,
+      "tip": "The scorpion-on-a-stick is a tourist stunt — skip it. The real food here is jianbing (egg crêpes), tanghulu (candied fruit), and lamb skewers.",
+      "desc": "Beijing's most famous food street — try the jianbing crêpes, lamb skewers, and tanghulu candied hawthorn.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Chinese",
+      "name": "Siji Minfu",
+      "price": 30,
+      "rating": 4.7,
+      "tip": "Modern Chinese cuisine in a beautiful traditional courtyard setting — the kung pao chicken and mapo tofu are benchmark versions.",
+      "desc": "Refined modern Beijing cuisine in a beautiful courtyard restaurant — the gold standard for classic Chinese dishes.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Dim Sum",
+      "name": "Capital M",
+      "price": 60,
+      "rating": 4.8,
+      "tip": "Rooftop terrace with the most dramatic Tiananmen Square view in the city — come for weekend brunch and the peking duck eggs benedict.",
+      "desc": "Spectacular rooftop restaurant overlooking Tiananmen Square — international cuisine with Beijing's most iconic view.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Ghost Street (Guijie) Hot Pot",
+      "price": 20,
+      "rating": 4.8,
+      "tip": "This 2km neon-lit restaurant strip runs midnight-only restaurants. The spicy mala hot pot and crayfish are the specialties of Beijing nightlife.",
+      "desc": "Beijing's legendary restaurant strip — 2km of open-all-night restaurants lit with red lanterns, famous for hot pot and crayfish.",
+      "photo": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "The Bookworm",
+      "price": 12,
+      "rating": 4.5,
+      "tip": "Café, library, event space in one — thousands of English books to borrow while eating. A Sanlitun institution popular with expats and locals.",
+      "desc": "Beijing's beloved expat café and library — a Sanlitun institution with excellent coffee, food, and English books.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Beijing Subway",
+      "price": 0.45,
+      "rating": 4.6,
+      "type": "Metro",
+      "tip": "27 lines — remarkably cheap and efficient. Airport Express Line runs from Terminal 3 to Dongzhimen in 16 minutes (¥35). Get a Yikatong card."
+    },
+    {
+      "name": "DiDi (Chinese Rideshare)",
+      "price": 4,
+      "rating": 4.5,
+      "type": "Rideshare",
+      "tip": "Uber doesn't operate in China — DiDi is the equivalent. Download before arrival. The international version accepts foreign cards."
+    },
+    {
+      "name": "City Bus",
+      "price": 0.15,
+      "rating": 3.8,
+      "type": "Bus",
+      "tip": "Extraordinarily cheap but slow. Same Yikatong card as metro. Useful for areas between metro stops."
+    }
+  ]
+},
+{
+  "id": "shanghai",
+  "name": "Shanghai",
+  "country": "China",
+  "image": "https://images.unsplash.com/photo-1474181487882-5abf3f0ba6c2?w=800&auto=format&fit=crop",
+  "iata": "PVG",
+  "packType": "international_asia",
+  "activities": [
+    {
+      "name": "The Bund at Night",
+      "price": 0,
+      "rating": 4.9,
+      "duration": "1–2 hrs",
+      "tip": "The Pudong skyline lights up at 6:30 PM — the view from the Bund is stunning. Walk south to the pedestrian bridge for the best angle.",
+      "desc": "Shanghai's iconic 1.5km waterfront promenade with 52 Art Deco buildings facing the futuristic Pudong skyline.",
+      "photo": "https://images.unsplash.com/photo-1474181487882-5abf3f0ba6c2?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Yu Garden",
+      "price": 6,
+      "rating": 4.7,
+      "duration": "1.5 hrs",
+      "tip": "Go on weekday mornings to avoid the weekend crush. The pavilions, rockeries, and koi ponds are 450 years old — extraordinary urban survival.",
+      "desc": "A 16th-century Ming dynasty classical garden of pavilions, rockeries, and goldfish ponds in the heart of Old Shanghai.",
+      "photo": "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "French Concession",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "2–3 hrs",
+      "tip": "Rent a bike and explore the plane tree-lined streets — Wukang Road is the most beautiful. Weekend brunches in the area are excellent.",
+      "desc": "Tree-lined streets of former French-governed Shanghai — the city's most atmospheric neighbourhood with chic cafés and boutiques.",
+      "photo": "https://images.unsplash.com/photo-1555881400-74d7acaacd47?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Shanghai Tower Observation Deck",
+      "price": 30,
+      "rating": 4.8,
+      "duration": "1 hr",
+      "tip": "The observation deck is on the 118th floor — the world's highest in a twisted tower. Faster elevators than the Empire State Building.",
+      "desc": "The world's second-tallest building with a 118th-floor observation deck and breathtaking views over Shanghai.",
+      "photo": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Tianzifang Art District",
+      "price": 0,
+      "rating": 4.7,
+      "duration": "2 hrs",
+      "tip": "Best in the morning before noon. The narrow alleyways hide independent galleries, handmade jewellery shops, and excellent dumpling stalls.",
+      "desc": "A former residential shikumen lane converted into a bohemian arts and crafts quarter — Old Shanghai preserved.",
+      "photo": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Acrobatics Show (ERA)",
+      "price": 50,
+      "rating": 4.9,
+      "duration": "1.5 hrs",
+      "tip": "ERA is the best acrobatics show in China — the motorcycles-in-a-globe finale is extraordinary. Book a centre-tier seat.",
+      "desc": "World-class Chinese acrobatics — contortion, aerial silks, and the iconic motorcycles-in-globe stunt.",
+      "photo": "https://images.unsplash.com/photo-1518639192441-8fce0a366e2e?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Chinese",
+      "name": "Din Tai Fung Shanghai",
+      "price": 30,
+      "rating": 4.8,
+      "tip": "The original Shanghai chain — XLB (xiaolongbao soup dumplings) are the star. 18 folds required per dumpling by brand standard. Queue or book early.",
+      "desc": "Shanghai's most beloved soup dumpling restaurant — delicate xiaolongbao with 18 folds and a burst of rich broth inside.",
+      "photo": "https://images.unsplash.com/photo-1553621042-f6e147245754?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Chinese",
+      "name": "Ultraviolet by Paul Pairet",
+      "price": 900,
+      "rating": 5,
+      "tip": "10 seats, 20-course theatrical dinner with synchronized projection, sound, and scent. One of the world's most exclusive restaurants. Book 2+ months ahead.",
+      "desc": "The world's most theatrical restaurant — 20-course dinner for 10 people with full room immersion in sound, light, and scent.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Shanghai",
+      "name": "Jesse Restaurant",
+      "price": 25,
+      "rating": 4.8,
+      "tip": "The best traditional Shanghai cuisine in the city — braised pork belly (hongshao rou), sweet and sour river fish, and Shanghainese drunken chicken.",
+      "desc": "The definitive traditional Shanghai cuisine restaurant — red-braised pork and other Shanghainese classics done perfectly.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Chenghuangmiao Snack Street",
+      "price": 6,
+      "rating": 4.5,
+      "tip": "The nanxiang steamed buns here are the famous original — order the crab roe variety in season (October–December). Also try the stinky tofu.",
+      "desc": "Shanghai's oldest snack street beside the City God Temple — the original nanxiang soup dumplings and crab roe buns.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Rooftop",
+      "name": "Sir Elly's (Peninsula Hotel)",
+      "price": 80,
+      "rating": 4.8,
+      "tip": "13th-floor terrace bar with the best Bund view in Shanghai. Signature cocktail is the 'Peninsula G&T' — worth the premium pricing.",
+      "desc": "Shanghai's most glamorous rooftop bar — direct Bund view, Peninsula service, and exceptional cocktails.",
+      "photo": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Percentage (% Arabica)",
+      "price": 8,
+      "rating": 4.7,
+      "tip": "Japanese specialty coffee chain with a stunning heritage villa location in the French Concession. The matcha latte and single-origin pour-overs are excellent.",
+      "desc": "World-renowned Japanese coffee chain in a stunning Concession-era villa — outstanding specialty coffee in a beautiful setting.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Shanghai Metro",
+      "price": 0.6,
+      "rating": 4.8,
+      "type": "Metro",
+      "tip": "20 lines — one of the world's largest and most efficient metro systems. Maglev from Pudong Airport to Longyang Rd (7 minutes at 430 km/h) is an experience."
+    },
+    {
+      "name": "DiDi",
+      "price": 5,
+      "rating": 4.5,
+      "type": "Rideshare",
+      "tip": "Download DiDi before arrival with a Chinese number or international version. Maglev + metro beats DiDi for airport trips."
+    },
+    {
+      "name": "Maglev Train (Airport)",
+      "price": 7,
+      "rating": 4.9,
+      "type": "Maglev",
+      "tip": "World's first commercial maglev — Pudong Airport to Longyang metro in 8 minutes at 430 km/h. Run it once for the experience alone."
+    }
+  ]
+},
+{
+  "id": "manila",
+  "name": "Manila",
+  "country": "Philippines",
+  "image": "https://images.unsplash.com/photo-1588734234-8f0d2d41c8f7?w=800&auto=format&fit=crop",
+  "iata": "MNL",
+  "packType": "international_tropical",
+  "activities": [
+    {
+      "name": "Intramuros Walled City",
+      "price": 5,
+      "rating": 4.7,
+      "duration": "2–3 hrs",
+      "tip": "Rent a bamboo bike inside the walls — the most enjoyable way to explore. Fort Santiago at sunset is the highlight. The Night at the Museum runs on Fridays.",
+      "desc": "16th-century Spanish walled city — the historic heart of Manila with cobblestoned streets and the Fort Santiago citadel.",
+      "photo": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Palawan Island Hop (El Nido)",
+      "price": 50,
+      "rating": 5,
+      "duration": "Full day",
+      "tip": "Book a Tour A island-hopping package from El Nido town — lagoons, beaches, and limestone karsts that don't look real.",
+      "desc": "The Philippines' crown jewel — electric-blue lagoons and dramatic limestone cliffs on one of the world's most beautiful islands.",
+      "photo": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "National Museum of the Philippines",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "2 hrs",
+      "tip": "Free entry — three buildings cover Fine Arts, Natural History, and Anthropology. The 'Spoliarium' by Juan Luna is the centrepiece of Filipino art.",
+      "desc": "The finest collection of Filipino art and cultural history — a grand neoclassical building housing Juan Luna's masterwork.",
+      "photo": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Rizal Park (Luneta)",
+      "price": 0,
+      "rating": 4.4,
+      "duration": "1 hr",
+      "tip": "The site where national hero José Rizal was executed by the Spanish in 1896 — the monument and surrounding park are an important national pilgrimage site.",
+      "desc": "Manila's central park and the site of national hero José Rizal's 1896 execution — the Philippines' most significant public space.",
+      "photo": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "BGC (Bonifacio Global City)",
+      "price": 0,
+      "rating": 4.6,
+      "duration": "Evening",
+      "tip": "The cleanest, safest district in Metro Manila — pedestrian-friendly with excellent restaurants and the 'Mind Museum' for science exhibits.",
+      "desc": "Manila's modern city-within-a-city — gleaming walkable streets, world-class dining, and contemporary art installations.",
+      "photo": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Jeepney Ride",
+      "price": 0.3,
+      "rating": 4.5,
+      "duration": "30 min",
+      "tip": "The Philippine jeepney is a rolling art gallery — elaborately decorated and the most authentic way to navigate the city. Just flag one down.",
+      "desc": "The iconic colourfully decorated jeepneys are the Philippines' most beloved and chaotic form of public transport.",
+      "photo": "https://images.unsplash.com/photo-1584782611774-4c48c60e8c76?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Filipino",
+      "name": "Toyo Eatery",
+      "price": 40,
+      "rating": 4.9,
+      "tip": "The finest modern Filipino restaurant — chef Jordy Navarra reinterprets Filipino classics with extraordinary ingredients. Book weeks ahead.",
+      "desc": "The Philippines' finest restaurant — modern Filipino cuisine drawing on indigenous ingredients and regional traditions.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Filipino",
+      "name": "Lechon de Leyte (Lydia's)",
+      "price": 25,
+      "rating": 4.8,
+      "tip": "Filipino lechon (roasted whole pig) is a celebration food — the crispy skin is extraordinary. Cebu-style (herbed) vs Manila-style is a genuine debate.",
+      "desc": "Manila's most celebrated lechon — whole-roasted pig with perfectly crackling skin, the centrepiece of Filipino feasts.",
+      "photo": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Filipino",
+      "name": "Dampa Seafood Market",
+      "price": 30,
+      "rating": 4.7,
+      "tip": "Buy fresh seafood at the market stalls then have the adjacent restaurant cook it for you. The laing (taro leaves in coconut milk) and sinigang are outstanding.",
+      "desc": "Choose your live seafood at the market, then have it cooked fresh — the ultimate Manila seafood feast experience.",
+      "photo": "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Mercato Centrale BGC",
+      "price": 5,
+      "rating": 4.7,
+      "tip": "Friday–Sunday nights only — the best collection of Filipino street food innovators in one place. The adobo flakes rice bowl and dirty ice cream are iconic.",
+      "desc": "BGC's celebrated weekend night market — the best artisan Filipino street food, from balut to creative fusion dishes.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Café Adriatico",
+      "price": 12,
+      "rating": 4.5,
+      "tip": "Iconic Malate café-restaurant that has hosted everyone from politicians to artists for 40 years. The ensaymada (brioche pastry) and tsokolate are essential.",
+      "desc": "Manila's most beloved traditional café — open since 1979, famous for ensaymada pastries and thick Filipino hot chocolate.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Grab",
+      "price": 3,
+      "rating": 4.5,
+      "type": "Rideshare",
+      "tip": "Grab is essential in Manila — traffic is legendary. GrabCar beats taxis for reliability and pricing. Book at least 15 min ahead during rush hours."
+    },
+    {
+      "name": "LRT & MRT Trains",
+      "price": 0.5,
+      "rating": 3.5,
+      "type": "Train",
+      "tip": "3 lines — severely overcrowded but cheap. Avoid rush hour (7–9 AM, 5–8 PM). Useful for long north-south routes in Metro Manila."
+    },
+    {
+      "name": "Jeepney",
+      "price": 0.3,
+      "rating": 4,
+      "type": "Jeepney",
+      "tip": "The iconic Filipino transport — cheap and culturally essential. Pass your fare forward to the driver. Route signs are handpainted on the side."
+    }
+  ]
+},
+{
+  "id": "kathmandu",
+  "name": "Kathmandu",
+  "country": "Nepal",
+  "image": "https://images.unsplash.com/photo-1548013597-e94cb3c37a4b?w=800&auto=format&fit=crop",
+  "iata": "KTM",
+  "packType": "international_asia",
+  "activities": [
+    {
+      "name": "Pashupatinath Temple",
+      "price": 15,
+      "rating": 4.9,
+      "duration": "2 hrs",
+      "tip": "The Hindu cremation ghats on the banks of the Bagmati River are extraordinary — respectful observation from the east bank is permitted. Sunset is most atmospheric.",
+      "desc": "Nepal's holiest Hindu temple with open-air cremation ghats on the sacred Bagmati River — a profound spiritual experience.",
+      "photo": "https://images.unsplash.com/photo-1548013597-e94cb3c37a4b?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Boudhanath Stupa",
+      "price": 5,
+      "rating": 4.9,
+      "duration": "1.5 hrs",
+      "tip": "The largest stupa outside Tibet — circumambulate clockwise with prayer beads turning prayer wheels. The rooftop cafés surrounding the stupa give the best view.",
+      "desc": "The world's largest spherical stupa and centre of Tibetan Buddhism in Nepal — prayer flags and butter lamps fill the air.",
+      "photo": "https://images.unsplash.com/photo-1619546813926-a78fa6372cd2?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Swayambhunath (Monkey Temple)",
+      "price": 3,
+      "rating": 4.8,
+      "duration": "1.5 hrs",
+      "tip": "The 365-step climb is worth every step — the monkeys are bold but harmless. The views over Kathmandu Valley from the top are spectacular.",
+      "desc": "Ancient Buddhist stupa on a hilltop — home to hundreds of rhesus macaques and all-seeing Buddha eyes painted on the spire.",
+      "photo": "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Durbar Squares (Kathmandu, Bhaktapur, Patan)",
+      "price": 15,
+      "rating": 4.8,
+      "duration": "Half day",
+      "tip": "Bhaktapur's Durbar Square is the best preserved — Pottery Square and 55-Window Palace are stunning. One fee covers Kathmandu's entire Durbar area.",
+      "desc": "Three royal medieval city squares packed with intricate carved pagoda temples — the finest Newari architecture in the world.",
+      "photo": "https://images.unsplash.com/photo-1580619305218-8423a7ef79b4?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Everest Mountain Flight",
+      "price": 180,
+      "rating": 4.9,
+      "duration": "1 hr",
+      "tip": "Book direct with Buddha Air or Yeti Airlines. Morning flights only — clouds build by 10 AM. Every passenger gets a window seat in rotation.",
+      "desc": "A one-hour scenic flight at 29,000 ft with direct views of Mount Everest and the Himalayan range — the ultimate Nepal experience.",
+      "photo": "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Trekking in Langtang Valley",
+      "price": 30,
+      "rating": 4.9,
+      "duration": "4–7 days",
+      "tip": "Closer to Kathmandu than Everest Base Camp — teahouse trek with no technical climbing. The Kyanjin Gompa monastery is breathtaking.",
+      "desc": "Nepal's most accessible Himalayan trek from Kathmandu — a valley of glaciers, yak herders, and Buddhist monasteries.",
+      "photo": "https://images.unsplash.com/photo-1548013597-e94cb3c37a4b?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Nepali",
+      "name": "Krishnarpan (Dwarika's Hotel)",
+      "price": 60,
+      "rating": 4.9,
+      "tip": "The most authentic traditional Nepali set meal — up to 22 courses of regional Nepalese cuisine served in traditional brass vessels. Book ahead.",
+      "desc": "Nepal's most celebrated restaurant serving traditional multi-course Nepali cuisine in a beautiful heritage hotel.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Nepali",
+      "name": "Thakali Kitchen",
+      "price": 8,
+      "rating": 4.7,
+      "tip": "Thakali dal bhat (lentil soup with rice, curries, and pickles) is the definitive Nepali meal — the unlimited refills are the local custom.",
+      "desc": "Authentic Thakali cuisine from the Kali Gandaki river valley — the finest dal bhat set meal in Kathmandu.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Tibetan",
+      "name": "Thamel House Restaurant",
+      "price": 15,
+      "rating": 4.7,
+      "tip": "Set in a 300-year-old Newari house — the traditional Newari feast (samay baji) with beaten rice, dried meat, and local spirits is extraordinary.",
+      "desc": "Traditional Newari and Tibetan cuisine in a historic 300-year-old building in the heart of Thamel.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Tibetan",
+      "name": "Momos (Everywhere)",
+      "price": 2,
+      "rating": 4.8,
+      "tip": "Tibetan steamed dumplings are Nepal's favourite street food — the jhol momo (in spiced tomato broth) is Kathmandu's current obsession.",
+      "desc": "Tibetan steamed dumplings are Nepal's iconic street food — filled with buffalo meat, vegetables, or cheese, served with spicy sauce.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "OR2K Restaurant",
+      "price": 10,
+      "rating": 4.6,
+      "tip": "Israeli-influenced café in Thamel with the best coffee and fresh pastries in the backpacker district. The shakshuka is excellent.",
+      "desc": "Thamel's most loved café — a global travellers' meeting point with excellent coffee, fresh juices, and Israeli-inspired food.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Taxi",
+      "price": 3,
+      "rating": 3.8,
+      "type": "Taxi",
+      "tip": "Always negotiate fare before getting in — insist on the meter or agree a fixed price. From the airport to Thamel is ~₹500 (€3.50)."
+    },
+    {
+      "name": "Tempos (Electric Three-Wheelers)",
+      "price": 0.3,
+      "rating": 4,
+      "type": "Tempo",
+      "tip": "Shared electric three-wheelers on fixed routes — cheap, slow, and a local experience. Good for Patan and Bhaktapur routes."
+    },
+    {
+      "name": "Local Bus",
+      "price": 0.2,
+      "rating": 3.2,
+      "type": "Bus",
+      "tip": "The cheapest option but crowded and slow. Useful for Bhaktapur (No. 20 from Bagh Bazar) and other valley destinations."
+    }
+  ]
+},
+{
+  "id": "auckland",
+  "name": "Auckland",
+  "country": "New Zealand",
+  "image": "https://images.unsplash.com/photo-1507479869835-80f06b31d1c3?w=800&auto=format&fit=crop",
+  "iata": "AKL",
+  "packType": "international_pacific",
+  "activities": [
+    {
+      "name": "Sky Tower",
+      "price": 32,
+      "rating": 4.8,
+      "duration": "1–2 hrs",
+      "tip": "The SkyJump (bungee jump off the tower) is $225 but unforgettable. The observation deck gives 82km views to the Coromandel Peninsula on clear days.",
+      "desc": "The 328-metre Sky Tower dominates Auckland's skyline — observation deck, revolving restaurant, and optional bungee jump.",
+      "photo": "https://images.unsplash.com/photo-1507479869835-80f06b31d1c3?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Waiheke Island Day Trip",
+      "price": 40,
+      "rating": 4.9,
+      "duration": "Full day",
+      "tip": "Ferry from Auckland CBD takes 35 minutes. Rent a bike to visit 3 wineries in a day — the island's Syrah and Bordeaux blends are world-class.",
+      "desc": "35 minutes from Auckland — a beautiful island of world-class wineries, olive groves, and stunning beaches.",
+      "photo": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Rangitoto Island Volcanic Walk",
+      "price": 15,
+      "rating": 4.8,
+      "duration": "Half day",
+      "tip": "Ferry from downtown takes 25 minutes. The 1.5-hour summit walk through lava fields to the crater rim gives a 360° harbour view.",
+      "desc": "Auckland's volcanic icon — a 600-year-old shield volcano with a 1.5-hour lava field walk to the summit crater.",
+      "photo": "https://images.unsplash.com/photo-1591981912258-1ab0d5a11e34?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Auckland Harbour Bridge Climb",
+      "price": 130,
+      "rating": 4.8,
+      "duration": "1.5 hrs",
+      "tip": "The guided bridge climb reaches 64m above the Waitemata Harbour — spectacular views of the harbour, Rangitoto, and the North Shore.",
+      "desc": "Guided climb across the top of Auckland's iconic harbour bridge — panoramic views of the city and the Hauraki Gulf.",
+      "photo": "https://images.unsplash.com/photo-1507479869835-80f06b31d1c3?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Te Papa Museum (Wellington via flight)",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "3 hrs",
+      "tip": "If you have an extra day, the 55-minute flight to Wellington is worth it for Te Papa alone — New Zealand's outstanding national museum with free entry.",
+      "desc": "New Zealand's national museum in Wellington — free entry, extraordinary Māori taonga, and the giant squid specimen.",
+      "photo": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Piha Beach & Karekare",
+      "price": 0,
+      "rating": 4.9,
+      "duration": "Half day",
+      "tip": "40 minutes west of Auckland through the Waitakere Ranges — black sand surf beaches with the Piha rockpools and Lion Rock walk.",
+      "desc": "Auckland's wild West Coast beaches — dramatic black sand surf, The Piano filming location, and towering sea stacks.",
+      "photo": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "New Zealand",
+      "name": "Clooney",
+      "price": 140,
+      "rating": 4.9,
+      "tip": "Auckland's finest tasting menu — New Zealand produce elevated to world-class. The green-lipped mussel with kawakawa is the signature dish.",
+      "desc": "Auckland's most acclaimed fine dining restaurant — a New Zealand produce-focused tasting menu of extraordinary quality.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Seafood",
+      "name": "The Oyster Inn (Waiheke)",
+      "price": 55,
+      "rating": 4.9,
+      "tip": "Take the Waiheke ferry and walk 5 minutes from the dock. The oysters are flown in fresh daily, and the wine list is all Waiheke island producers.",
+      "desc": "Waiheke Island's iconic oyster bar — fresh New Zealand oysters with exceptional island Syrah on a terrace above the sea.",
+      "photo": "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "New Zealand",
+      "name": "Depot Eatery",
+      "price": 45,
+      "rating": 4.8,
+      "tip": "Al Brown's legendary oyster and seafood bar — the $1 oysters at happy hour (3–6 PM) are famous. The lamb ribs are equally legendary.",
+      "desc": "Auckland's most beloved oyster bar and all-day eatery — famous for $1 happy-hour oysters and New Zealand lamb ribs.",
+      "photo": "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Kingsland & Ponsonby Cafes",
+      "price": 15,
+      "rating": 4.7,
+      "tip": "New Zealand has extraordinary flat white culture — the Ponsonby café strip on Ponsonby Road has the best concentration of specialty coffee in the city.",
+      "desc": "New Zealand's café culture is world-class — Ponsonby Road hosts Auckland's most beloved specialty coffee strip.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Asian Fusion",
+      "name": "Sid at the French Café",
+      "price": 120,
+      "rating": 4.8,
+      "tip": "Chef Sid Sahrawat's tasting menu blends New Zealand produce with his Indian heritage — the spiced lamb with kumara is extraordinary.",
+      "desc": "French Café heritage, Indian influences, New Zealand produce — a truly unique Auckland fine dining experience.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Night Markets (various)",
+      "price": 8,
+      "rating": 4.6,
+      "tip": "Auckland has outstanding Asian night markets — the Papatoetoe Night Market (Friday) and Glenfield (Saturday) have the most variety and best value.",
+      "desc": "Auckland's Asian-influenced night markets — some of the best Asian street food in the Southern Hemisphere.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Auckland One Bus / Train",
+      "price": 2.5,
+      "rating": 3.8,
+      "type": "Bus",
+      "tip": "Use the AT HOP card (pick up at airports or Britomart) for discounted fares. Trains to West Auckland and South are the most useful."
+    },
+    {
+      "name": "Ferry (Waiheke / North Shore)",
+      "price": 8,
+      "rating": 4.8,
+      "type": "Ferry",
+      "tip": "Waiheke Island ferry from downtown is the must-do. Devonport and Birkenhead ferries are a beautiful way to cross the harbour."
+    },
+    {
+      "name": "Uber",
+      "price": 15,
+      "rating": 4.4,
+      "type": "Rideshare",
+      "tip": "Works reliably. Auckland is very spread out — Uber is often the only practical option for restaurants outside the CBD."
+    }
+  ]
+},
+{
+  "id": "lagos",
+  "name": "Lagos",
+  "country": "Nigeria",
+  "image": "https://images.unsplash.com/photo-1577218941-5a70be15e89a?w=800&auto=format&fit=crop",
+  "iata": "LOS",
+  "packType": "international_tropical",
+  "activities": [
+    {
+      "name": "Lekki Conservation Centre",
+      "price": 5,
+      "rating": 4.7,
+      "duration": "2 hrs",
+      "tip": "The canopy walkway is 401 metres long and 22 metres high — the longest in Africa. Home to crocodiles, monitor lizards, and green monkeys.",
+      "desc": "Africa's longest canopy walkway through a 78-hectare urban nature reserve — crocodiles and wildlife in the heart of Lagos.",
+      "photo": "https://images.unsplash.com/photo-1619546813926-a78fa6372cd2?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Nike Art Gallery",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "1.5 hrs",
+      "tip": "Free entry — 8,000+ works of art across 4 floors in a pink colonial mansion. The founder Nike Davies-Okundaye is often present and will greet visitors.",
+      "desc": "West Africa's largest contemporary art gallery — 8,000 works of Nigerian art in an extraordinary pink colonial building.",
+      "photo": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Eko Atlantic City",
+      "price": 0,
+      "rating": 4.4,
+      "duration": "1 hr",
+      "tip": "A new city built on reclaimed land — the seafront promenade gives the most dramatic view of Lagos Island. Best at sunset.",
+      "desc": "A futuristic new city rising from the Atlantic — Lagos's boldest architectural statement and most dramatic waterfront.",
+      "photo": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Bar Beach & Victoria Island",
+      "price": 0,
+      "rating": 4.3,
+      "duration": "Evening",
+      "tip": "Victoria Island is Lagos's most sophisticated district — the restaurant and nightlife scene rivals any African city. Eko Hotel strip is the epicentre.",
+      "desc": "Lagos's upscale island district with world-class restaurants, rooftop bars, and a vibrant Afrobeats nightlife scene.",
+      "photo": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Balogun Market",
+      "price": 0,
+      "rating": 4.5,
+      "duration": "2 hrs",
+      "tip": "The largest market in West Africa — hire a local guide to navigate. Stunning Ankara fabrics, beads, and everything you didn't know you needed.",
+      "desc": "West Africa's largest market — a sensory overload of Ankara fabrics, food, spices, and the pulse of Lagos commerce.",
+      "photo": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Nollywood Studio Tour",
+      "price": 25,
+      "rating": 4.5,
+      "duration": "2 hrs",
+      "tip": "Book through Nollywood Tourism — the world's second-largest film industry produces 50 films a week. The sets are exuberant and fascinating.",
+      "desc": "Behind the scenes of Nollywood — Africa's Hollywood produces more films per year than anyone except Bollywood.",
+      "photo": "https://images.unsplash.com/photo-1584782611774-4c48c60e8c76?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Nigerian",
+      "name": "Nok by Alara",
+      "price": 50,
+      "rating": 4.8,
+      "tip": "Chef Nok's modern Nigerian cuisine in a stunning design space — the suya lamb chops and egusi-inspired seafood are extraordinary.",
+      "desc": "Lagos's finest modern Nigerian restaurant — West African ingredients elevated to world-class in a magnificent design setting.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Nigerian",
+      "name": "Buka Restaurant",
+      "price": 15,
+      "rating": 4.7,
+      "tip": "A traditional Nigerian buka (canteen) with the real Lagos street-food experience — the pepper soup, egusi, and jollof rice are outstanding.",
+      "desc": "The authentic Lagos buka experience — traditional Nigerian stews, jollof rice, and pepper soup served canteen-style.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Nigerian",
+      "name": "The Place",
+      "price": 12,
+      "rating": 4.6,
+      "tip": "A Lagos institution — the pepper soup, pounded yam with egusi, and suya are all excellent. Multiple locations across the city.",
+      "desc": "Lagos's most popular casual Nigerian restaurant chain — consistent, delicious, and a great introduction to local cuisine.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Jollof Rice (Buka Stalls)",
+      "price": 3,
+      "rating": 4.9,
+      "tip": "The best jollof rice is at roadside bukas — smoky, perfectly seasoned 'party jollof' from a wood fire is a Nigerian religious experience.",
+      "desc": "Nigeria's national dish — smoky wood-fire jollof rice from Lagos street vendors is an unmissable cultural experience.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Terrakulture",
+      "price": 10,
+      "rating": 4.5,
+      "tip": "Art gallery, bookshop, and café in one — the rooftop is the best place in Lagos for a quiet coffee. Nigerian art shows rotate monthly.",
+      "desc": "Lagos's premier art-café hybrid — a rooftop terrace above a rotating gallery of Nigeria's finest contemporary art.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "BRT (Bus Rapid Transit)",
+      "price": 0.3,
+      "rating": 3.5,
+      "type": "Bus",
+      "tip": "Runs on dedicated lanes on Lagos Island and the mainland — faster than regular buses but still slow in traffic. Buy a card at stations."
+    },
+    {
+      "name": "Uber / Bolt",
+      "price": 5,
+      "rating": 4.3,
+      "type": "Rideshare",
+      "tip": "Essential for getting around Lagos safely. Both work well — Bolt is often cheaper. Traffic can mean rides take 2-3x the expected time."
+    },
+    {
+      "name": "Danfo (Yellow Bus)",
+      "price": 0.15,
+      "rating": 3,
+      "type": "Bus",
+      "tip": "The iconic yellow minibuses are the local way to travel — chaotic, cheap, and a genuine Lagos experience. Not recommended for first-time visitors."
+    },
+    {
+      "name": "Ferry (Lagoon)",
+      "price": 1.5,
+      "rating": 4.4,
+      "type": "Ferry",
+      "tip": "The fastest way between the island and the mainland — Lagos Lagoon ferries dodge all the infamous traffic. Routes from CMS to Ikorodu."
+    }
+  ]
+},
+{
+  "id": "nairobi",
+  "name": "Nairobi",
+  "country": "Kenya",
+  "image": "https://images.unsplash.com/photo-1544735716-c9b08e9a3af6?w=800&auto=format&fit=crop",
+  "iata": "NBO",
+  "packType": "international_tropical",
+  "activities": [
+    {
+      "name": "Nairobi National Park",
+      "price": 30,
+      "rating": 4.9,
+      "duration": "Half day",
+      "tip": "The only national park bordering a capital city — lions, rhinos, and giraffes with skyscrapers in the background. Dawn safari is best.",
+      "desc": "The world's only wildlife park within a capital city — lions and rhinos roam with Nairobi's skyline as backdrop.",
+      "photo": "https://images.unsplash.com/photo-1544735716-c9b08e9a3af6?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Giraffe Centre",
+      "price": 12,
+      "rating": 4.8,
+      "duration": "1 hr",
+      "tip": "Hand-feed the endangered Rothschild giraffes — they take pellets directly from your lips if you're brave enough. Book the accommodation to see them at dawn.",
+      "desc": "Hand-feed endangered Rothschild giraffes from an elevated platform — an intimate wildlife experience 10 minutes from the city.",
+      "photo": "https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "David Sheldrick Elephant Orphanage",
+      "price": 8,
+      "rating": 4.9,
+      "duration": "1 hr",
+      "tip": "The public visit is 11 AM–noon only. Baby orphan elephants are mud-bathed and bottle-fed in front of visitors — deeply moving.",
+      "desc": "Watch orphaned baby elephants being hand-raised — the world's most successful elephant orphanage with remarkable conservation results.",
+      "photo": "https://images.unsplash.com/photo-1582498083773-0a1d91a4c5bc?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Maasai Mara (Safari)",
+      "price": 300,
+      "rating": 5,
+      "duration": "2–4 days",
+      "tip": "The Great Migration (July–October) is one of Earth's greatest spectacles. Fly from Wilson Airport — 45-minute flight vs 8-hour drive.",
+      "desc": "The world's greatest wildlife spectacle — the Great Migration and year-round Big Five game viewing in Kenya's premier reserve.",
+      "photo": "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Nairobi National Museum",
+      "price": 8,
+      "rating": 4.6,
+      "duration": "2 hrs",
+      "tip": "The prehistoric human skull collection (Turkana Boy) is world-famous — Kenya's fossil record is the richest in Africa.",
+      "desc": "Kenya's national museum with prehistoric human fossils, tribal artefacts, and exceptional natural history collections.",
+      "photo": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Westlands Restaurant & Bar Scene",
+      "price": 0,
+      "rating": 4.6,
+      "duration": "Evening",
+      "tip": "Nairobi has one of Africa's most sophisticated restaurant scenes — the Westlands district has everything from Kikuyu nyama choma to world-class sushi.",
+      "desc": "Nairobi's upscale entertainment district — an unexpectedly world-class dining scene that rivals any African capital.",
+      "photo": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Kenyan",
+      "name": "Carnivore Restaurant",
+      "price": 40,
+      "rating": 4.7,
+      "tip": "All-you-can-eat game meats on Maasai swords — ostrich, crocodile, and bush pig alongside standard beef and chicken. A Nairobi institution since 1980.",
+      "desc": "Nairobi's legendary game-meat barbecue restaurant — Maasai warriors serve exotic meats on swords since 1980.",
+      "photo": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Kenyan",
+      "name": "Nyama Mama",
+      "price": 15,
+      "rating": 4.7,
+      "tip": "Modern Kenyan comfort food — the nyama choma (roasted goat) with ugali and sukuma wiki is the classic order. Lively atmosphere with live music on weekends.",
+      "desc": "Modern Kenyan kitchen celebrating traditional nyama choma, ugali, and sukuma wiki in a vibrant contemporary setting.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Kenyan",
+      "name": "Talisman Restaurant",
+      "price": 50,
+      "rating": 4.8,
+      "tip": "Beautiful garden restaurant in Karen — the African fusion menu draws from Kenya, Ethiopia, and North Africa. The game meat dishes are exceptional.",
+      "desc": "Karen's garden restaurant institution — African fusion cuisine in a beautiful tropical garden setting.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Githeri & Mandazi (Street Stalls)",
+      "price": 1,
+      "rating": 4.5,
+      "tip": "Githeri (beans and corn) with a mandazi (fried doughnut) is the Kenyan street breakfast — filling, delicious, and under 100 shillings.",
+      "desc": "Kenya's beloved street food — githeri bean stew and fresh-fried mandazi doughnuts at roadside mama stalls.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Java House",
+      "price": 8,
+      "rating": 4.5,
+      "tip": "East Africa's most beloved café chain — the Kenyan single-origin coffee is extraordinary. The full breakfast and freshly baked mandazi are the go-to order.",
+      "desc": "East Africa's favourite café — Kenyan single-origin coffee done properly with excellent breakfast and fresh juices.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Uber / Bolt",
+      "price": 4,
+      "rating": 4.5,
+      "type": "Rideshare",
+      "tip": "Safest and most reliable — always use apps rather than street taxis in Nairobi. Bolt is often 20% cheaper than Uber."
+    },
+    {
+      "name": "Matatu (Minibus)",
+      "price": 0.3,
+      "rating": 3.2,
+      "type": "Minibus",
+      "tip": "Nairobi's iconic minibuses — cheap but chaotic. Downtown routes are useful; best avoided during peak hours."
+    },
+    {
+      "name": "Nairobi Commuter Rail",
+      "price": 0.5,
+      "rating": 3.8,
+      "type": "Train",
+      "tip": "Runs from Nairobi CBD to Syokimau and Ruiru — limited but clean and safe. Useful for Nairobi Railway Museum trips."
+    }
+  ]
+},
+{
+  "id": "telaviv",
+  "name": "Tel Aviv",
+  "country": "Israel",
+  "image": "https://images.unsplash.com/photo-1596445836561-c14e12c0b5c4?w=800&auto=format&fit=crop",
+  "iata": "TLV",
+  "packType": "international_mideast",
+  "activities": [
+    {
+      "name": "Old Jaffa (Yafo)",
+      "price": 0,
+      "rating": 4.9,
+      "duration": "Half day",
+      "tip": "Take the port staircase for the best panoramic view back over Tel Aviv at golden hour. The flea market on Friday mornings is the best in Israel.",
+      "desc": "Ancient port city dating back 4,000 years — a bohemian neighbourhood of galleries, seafood restaurants, and dramatic sea views.",
+      "photo": "https://images.unsplash.com/photo-1596445836561-c14e12c0b5c4?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Bauhaus White City Architecture",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "2 hrs",
+      "tip": "Pick up the free walking map from the UNESCO visitor centre on Rothschild Blvd. Friday morning is the best time — the street life is extraordinary.",
+      "desc": "UNESCO World Heritage — the largest collection of Bauhaus architecture in the world, built by European Jewish immigrants in the 1930s.",
+      "photo": "https://images.unsplash.com/photo-1580619305218-8423a7ef79b4?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Carmel Market (Shuk HaCarmel)",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "1.5 hrs",
+      "tip": "Best on Friday mornings when it's most vibrant before Shabbat. The sabich (pita with fried eggplant and egg) from the stalls is the essential snack.",
+      "desc": "Tel Aviv's main outdoor market — spices, fresh produce, sabich sandwiches, and the pulse of the city.",
+      "photo": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Jerusalem Day Trip",
+      "price": 10,
+      "rating": 5,
+      "duration": "Full day",
+      "tip": "Bus or sherut (shared taxi) from Central Bus Station (1 hr, 16 NIS). Old City: Armenian, Jewish, Muslim, and Christian quarters in 1 km². Western Wall at dawn.",
+      "desc": "An hour from Tel Aviv — one of the world's most spiritually charged cities with 4,000 years of living history.",
+      "photo": "https://images.unsplash.com/photo-1544735716-c9b08e9a3af6?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Tel Aviv Beach & Promenade",
+      "price": 0,
+      "rating": 4.8,
+      "duration": "Half day",
+      "tip": "The 13km promenade from Herzliya to Jaffa is world-class. Banana Beach and Gordon Beach are the most popular. Sunrise swimmers are a daily ritual.",
+      "desc": "Tel Aviv's magnificent 13km Mediterranean beach strip — one of the best urban beach cultures in the world.",
+      "photo": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Sarona Market",
+      "price": 0,
+      "rating": 4.7,
+      "duration": "2 hrs",
+      "tip": "A restored Templar colony converted to an upmarket food market — 90+ vendors of artisan Israeli food. The halva bar and fresh hummus stalls are unmissable.",
+      "desc": "A converted 19th-century Templar village now housing 90+ artisan food vendors — Israel's finest gourmet food market.",
+      "photo": "https://images.unsplash.com/photo-1565294109800-c9d06c0f78aa?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Israeli",
+      "name": "Miznon",
+      "price": 15,
+      "rating": 4.8,
+      "tip": "Chef Eyal Shani's legendary pita sandwich restaurant — the cauliflower in pita (whole roasted) and the rump steak sandwich are extraordinary.",
+      "desc": "The pita sandwich that changed the world — Eyal Shani's creative Israeli stuffed pittas are now globally famous.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Israeli",
+      "name": "HaBasta",
+      "price": 40,
+      "rating": 4.9,
+      "tip": "Behind the Carmel Market — the daily changing menu is 100% market-driven. The lamb chops with tahini and the whole fish are remarkable.",
+      "desc": "Tel Aviv's best farm-to-table Israeli restaurant — a changing daily menu behind the Carmel Market.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Israeli",
+      "name": "Hummus Abu Hassan (Jaffa)",
+      "price": 8,
+      "rating": 4.9,
+      "tip": "The most famous hummus in Israel — arrive when it opens (8 AM). When the hummus runs out, they close. Order masabacha (chunky warm hummus with whole chickpeas).",
+      "desc": "Israel's most legendary hummus institution in Jaffa — a pilgrimage for hummus lovers who queue before it opens.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Israeli",
+      "name": "Claro",
+      "price": 70,
+      "rating": 4.8,
+      "tip": "Israeli wine-driven cuisine — the wine list focuses on Israeli boutique producers. The whole roasted chicken and the shakshuka are signature dishes.",
+      "desc": "Tel Aviv's premier Israeli wine restaurant — a celebration of local wines paired with refined Israeli cuisine.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Sabich Frishman",
+      "price": 5,
+      "rating": 4.8,
+      "tip": "The best sabich (fried eggplant and hard-boiled egg in pita) in Tel Aviv — a secret Thursday night ritual for locals since the Iraqi Jewish community invented it.",
+      "desc": "Tel Aviv's most celebrated sabich stand — the Iraqi Jewish fried eggplant pita sandwich at its most authentic.",
+      "photo": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Rothschild 12",
+      "price": 12,
+      "rating": 4.7,
+      "tip": "Rothschild Boulevard's best café — the Israeli breakfast (shakshuka, labneh, fresh salad, and rugelach) is an extraordinary experience.",
+      "desc": "Tel Aviv's iconic café strip — the Israeli breakfast culture on Rothschild Boulevard at its finest.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Dan & Egged Bus",
+      "price": 1.8,
+      "rating": 4,
+      "type": "Bus",
+      "tip": "Extensive network — Rav-Kav card covers all buses. Line 5 on Rothschild is the main tourist route. Buses stop Friday at sunset for Shabbat."
+    },
+    {
+      "name": "Train (to Jerusalem)",
+      "price": 5,
+      "rating": 4.6,
+      "type": "Train",
+      "tip": "High-speed train from Ben Gurion Airport to Jerusalem takes 30 minutes — the most spectacular rail journey in Israel."
+    },
+    {
+      "name": "Uber / Gett",
+      "price": 10,
+      "rating": 4.4,
+      "type": "Rideshare",
+      "tip": "Gett is the local rideshare app — often cheaper than Uber. Both work during Shabbat when buses stop."
+    },
+    {
+      "name": "Tel-O-Fun Bike Share",
+      "price": 3,
+      "rating": 4.6,
+      "type": "Bike",
+      "tip": "250km of bike lanes in Tel Aviv — the promenade and White City are best by bike. 24-hour pass is 17 NIS (~€4)."
+    }
+  ]
+},
+{
+  "id": "doha",
+  "name": "Doha",
+  "country": "Qatar",
+  "image": "https://images.unsplash.com/photo-1590760475226-33a1d90d2fb8?w=800&auto=format&fit=crop",
+  "iata": "DOH",
+  "packType": "international_mideast",
+  "activities": [
+    {
+      "name": "Museum of Islamic Art",
+      "price": 0,
+      "rating": 4.9,
+      "duration": "2–3 hrs",
+      "tip": "Free entry — the I.M. Pei-designed building alone is worth coming for. The collection spans 1,400 years of Islamic art from 3 continents.",
+      "desc": "One of the world's finest Islamic art collections in an I.M. Pei masterpiece on its own island in Doha Bay.",
+      "photo": "https://images.unsplash.com/photo-1590760475226-33a1d90d2fb8?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Souq Waqif",
+      "price": 0,
+      "rating": 4.7,
+      "duration": "2–3 hrs",
+      "tip": "The falcon souq is extraordinary — falconry is Qatar's national sport and the birds are worth more than luxury cars. Visit at sunset when the souq fills with locals.",
+      "desc": "Doha's beautifully restored traditional market — spices, Qatari robes, live falcons, and atmospheric restaurants.",
+      "photo": "https://images.unsplash.com/photo-1548013597-e94cb3c37a4b?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "The Pearl-Qatar",
+      "price": 0,
+      "rating": 4.6,
+      "duration": "2 hrs",
+      "tip": "An artificial island modelled on the French Riviera — the Porto Arabia marina has the most beautiful yachts and waterfront restaurants in the Gulf.",
+      "desc": "A stunning artificial island with Mediterranean architecture, luxury boutiques, and a Ferrari-lined marina promenade.",
+      "photo": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Qatar National Museum",
+      "price": 20,
+      "rating": 4.8,
+      "duration": "2 hrs",
+      "tip": "The Ateliers Jean Nouvel-designed building (inspired by desert rose crystals) is as remarkable as the exhibits inside. Allow 2 hours minimum.",
+      "desc": "Jean Nouvel's desert rose-shaped museum — Qatar's entire cultural history from the Bedouin past to the oil boom.",
+      "photo": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Inland Sea (Khor Al Adaid)",
+      "price": 80,
+      "rating": 4.9,
+      "duration": "Full day",
+      "tip": "4WD desert safari to the UNESCO Inland Sea — the turquoise sea surrounded by golden dunes is breathtaking. Sunset dune bashing is the highlight.",
+      "desc": "UNESCO-recognized inland sea surrounded by massive sand dunes — Qatar's most dramatic natural landscape.",
+      "photo": "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=400&auto=format&fit=crop"
+    },
+    {
+      "name": "Al Corniche Waterfront",
+      "price": 0,
+      "rating": 4.7,
+      "duration": "1–2 hrs",
+      "tip": "The 7km Corniche gives the best view of the West Bay skyline. Rent a bicycle (Aiwa Bike app) and ride it at golden hour for the most spectacular city view.",
+      "desc": "Doha's 7km waterfront promenade with the dramatic West Bay skyline of glittering towers reflected in the Gulf.",
+      "photo": "https://images.unsplash.com/photo-1573296694312-7f94b4cb3028?w=400&auto=format&fit=crop"
+    }
+  ],
+  "food": [
+    {
+      "cuisine": "Qatari",
+      "name": "Jiwan (Museum of Islamic Art)",
+      "price": 70,
+      "rating": 4.8,
+      "tip": "Alain Ducasse's restaurant inside the MIA — the panoramic sea view from the terrace is extraordinary. The mezze selection and grilled fish are outstanding.",
+      "desc": "Alain Ducasse's refined Middle Eastern restaurant inside the Museum of Islamic Art with stunning bay views.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Qatari",
+      "name": "Parisa (Souq Waqif)",
+      "price": 35,
+      "rating": 4.7,
+      "tip": "Persian-Qatari fusion in an ornate Souq Waqif courtyard restaurant — the lamb ouzi (slow-roasted whole lamb) and saffron rice are spectacular.",
+      "desc": "The most atmospheric restaurant in Doha — Persian cuisine in a stunning courtyard inside the historic souq.",
+      "photo": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Qatari",
+      "name": "Argan (InterContinental)",
+      "price": 80,
+      "rating": 4.8,
+      "tip": "The finest Moroccan cuisine outside Marrakech — the lamb pastilla and chicken tagine with preserved lemon are extraordinary.",
+      "desc": "Doha's finest North African restaurant — Moroccan and Qatari-influenced cuisine in a palatial setting.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Street Food",
+      "name": "Madrouba & Harees (Souq stalls)",
+      "price": 4,
+      "rating": 4.6,
+      "tip": "Madrouba (spiced rice porridge with chicken) and harees (wheat and meat porridge) are Qatar's traditional breakfast — available at souq food stalls each morning.",
+      "desc": "Qatar's most beloved traditional foods — thick, warming porridge dishes that define local breakfast culture.",
+      "photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "International",
+      "name": "IDAM by Alain Ducasse (Mondrian)",
+      "price": 150,
+      "rating": 4.9,
+      "tip": "Rooftop restaurant with the best view of Doha's skyline. The 'Arab Spirit' cocktails (non-alcoholic — Qatar is dry) are actually outstanding.",
+      "desc": "Alain Ducasse's rooftop fine dining above Doha — international cuisine with the Gulf's most spectacular skyline view.",
+      "photo": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop"
+    },
+    {
+      "cuisine": "Café",
+      "name": "Café Bateel",
+      "price": 12,
+      "rating": 4.6,
+      "tip": "Qatar's finest luxury date brand with an attached café — the date coffee and date-filled pastries are unique to the Gulf region.",
+      "desc": "Qatar's premier date brand as a café — 200 varieties of premium dates paired with Arabic coffee in a sophisticated setting.",
+      "photo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop"
+    }
+  ],
+  "transport": [
+    {
+      "name": "Doha Metro",
+      "price": 1.5,
+      "rating": 4.8,
+      "type": "Metro",
+      "tip": "Qatar's new metro (opened 2019) is world-class — immaculately clean with first-class gold carriages. Covers MIA, The Pearl, and West Bay. Get a Qatar Card."
+    },
+    {
+      "name": "Uber / Karwa",
+      "price": 8,
+      "rating": 4.5,
+      "type": "Rideshare",
+      "tip": "Karwa is the official Qatar taxi app — reliable and metered. Doha is very spread out so rideshare is essential for most sightseeing."
+    },
+    {
+      "name": "Aiwa Bike (Corniche)",
+      "price": 2,
+      "rating": 4.5,
+      "type": "Bike",
+      "tip": "Docked bike share along the Corniche — perfect for the 7km waterfront promenade. Download the app and unlock by QR code."
+    }
+  ]
+}
 ];
 
 // ── Credit Card Rewards Data ──────────────────────────────────

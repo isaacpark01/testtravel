@@ -336,15 +336,31 @@
     charlotte:[35.2271,-80.8431], memphis:[35.1495,-90.0490], minneapolis:[44.9778,-93.2650],
     kansascity:[39.0997,-94.5786], baltimore:[39.2904,-76.6122], pittsburgh:[40.4406,-79.9959],
     saltlakecity:[40.7608,-111.8910],
+    riodejaneiro:[-22.9068,-43.1729],saopaulo:[-23.5505,-46.6333],
+    lima:[-12.0464,-77.0428],bogota:[4.7110,-74.0721],
+    medellin:[6.2442,-75.5812],cancun:[21.1743,-86.8466],
+    cartagena:[10.3910,-75.4794],santiago:[-33.4489,-70.6693],
+    porto:[41.1579,-8.6291],seville:[37.3891,-5.9845],
+    athens:[37.9838,23.7275],reykjavik:[64.1466,-21.9426],
+    brussels:[50.8503,4.3517],zurich:[47.3769,8.5417],
+    oslo:[59.9139,10.7522],warsaw:[52.2297,21.0122],
+    mumbai:[19.0760,72.8777],delhi:[28.6139,77.2090],
+    hochiminh:[10.8231,106.6297],beijing:[39.9042,116.4074],
+    shanghai:[31.2304,121.4737],manila:[14.5995,120.9842],
+    kathmandu:[27.7172,85.3240],auckland:[-36.8509,174.7645],
+    lagos:[6.5244,3.3792],nairobi:[-1.2921,36.8219],
+    telaviv:[32.0853,34.7818],doha:[25.2854,51.5310],
   };
 
   function pinColor(id) {
     if (['nyc','losangeles','chicago','miami','sanfrancisco','lasvegas','seattle','austin','neworleans','denver','nashville','orlando','hawaii','sandiego','washingtondc','boston','portland','atlanta','philadelphia','phoenix','dallas','houston','tampa','charlotte','memphis','minneapolis','kansascity','baltimore','pittsburgh','saltlakecity'].includes(id)) return '#f97316';
-    if (['london','paris','barcelona','amsterdam','rome','lisbon','prague','budapest','istanbul','vienna','edinburgh','copenhagen','santorini','dubrovnik','venice','florence','milan','berlin','madrid','stockholm','dublin'].includes(id)) return '#a78bfa';
-    if (['tokyo','kyoto','seoul','bangkok','singapore','bali','osaka','hongkong','taipei','kualalumpur','hanoi'].includes(id)) return '#34d399';
-    if (id === 'dubai') return '#fbbf24';
-    if (['marrakech','capetown','cairo'].includes(id)) return '#f87171';
-    if (id === 'sydney') return '#22d3ee';
+    if (['london','paris','barcelona','amsterdam','rome','lisbon','prague','budapest','istanbul','vienna','edinburgh','copenhagen','santorini','dubrovnik','venice','florence','milan','berlin','madrid','stockholm','dublin','porto','seville','athens','reykjavik','brussels','zurich','oslo','warsaw'].includes(id)) return '#a78bfa';
+    if (['tokyo','kyoto','seoul','bangkok','singapore','bali','osaka','hongkong','taipei','kualalumpur','hanoi','mumbai','delhi','hochiminh','beijing','shanghai','manila','kathmandu'].includes(id)) return '#34d399';
+    if (['dubai','doha'].includes(id)) return '#fbbf24';
+    if (['marrakech','capetown','cairo','lagos','nairobi'].includes(id)) return '#f87171';
+    if (['sydney','auckland'].includes(id)) return '#22d3ee';
+    if (['buenosaires','mexicocity','toronto','vancouver','havana','riodejaneiro','saopaulo','lima','bogota','medellin','cancun','cartagena','santiago'].includes(id)) return '#fb923c';
+    if (id === 'telaviv') return '#60a5fa';
     return '#fb7185';
   }
 
@@ -475,7 +491,7 @@
 
   /* ── Globe ── */
   const globe = Globe({ animateIn: true })(document.getElementById('globe-wrap'))
-    .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-day.jpg')
+    .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
     .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
     .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
     .showAtmosphere(true)
@@ -518,6 +534,7 @@
     .ringColor(d => d.color || '#38bdf8')
     .ringMaxRadius(3).ringPropagationSpeed(2).ringRepeatPeriod(700);
 
+  globe.renderer().setPixelRatio(Math.min(window.devicePixelRatio, 2));
   globe.controls().autoRotate = true;
   globe.controls().autoRotateSpeed = 0.35;
   globe.controls().enableDamping = true;
