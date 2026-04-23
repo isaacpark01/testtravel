@@ -570,7 +570,9 @@
   };
 
   /* ── Globe — WebGL points (no DOM lag) ── */
-  const globe = Globe({ animateIn: true })(document.getElementById('globe-wrap'))
+  let globe;
+  try {
+  globe = Globe({ animateIn: true })(document.getElementById('globe-wrap'))
     .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
     .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
     .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
@@ -616,23 +618,28 @@
     .labelDotRadius(0)
     .labelColor('color')
     .labelResolution(2)
-    .labelAltitude(0.018)
-    .labelIncludeDots(false);
+    .labelAltitude(0.018);
 
   /* Better renderer quality */
-  globe.renderer().setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  try { globe.renderer().setPixelRatio(Math.min(window.devicePixelRatio, 2)); } catch(e) {}
 
-  globe.controls().autoRotate = true;
-  globe.controls().autoRotateSpeed = 0.3;
-  globe.controls().enableDamping = true;
-  globe.controls().dampingFactor = 0.08;
-  globe.controls().addEventListener('start', () => { globe.controls().autoRotate = false; });
-  globe.controls().addEventListener('end',   () => { setTimeout(() => { globe.controls().autoRotate = true; }, 3000); });
+  try {
+    globe.controls().autoRotate = true;
+    globe.controls().autoRotateSpeed = 0.3;
+    globe.controls().enableDamping = true;
+    globe.controls().dampingFactor = 0.08;
+    globe.controls().addEventListener('start', () => { globe.controls().autoRotate = false; });
+    globe.controls().addEventListener('end',   () => { setTimeout(() => { globe.controls().autoRotate = true; }, 3000); });
+  } catch(e) {}
 
   globe.pointOfView({ lat: 20, lng: 10, altitude: 2.2 }, 0);
   document.getElementById('city-count').textContent = points.length;
-  setTimeout(() => { document.getElementById('globe-loading').style.display = 'none'; }, 1000);
+  document.getElementById('globe-loading').style.display = 'none';
   window.addEventListener('resize', () => { globe.width(window.innerWidth).height(window.innerHeight); });
+  } catch(globeErr) {
+    console.error('Globe init error:', globeErr);
+    document.getElementById('globe-loading').style.display = 'none';
+  }
 
   /* Move tooltip with mouse */
   document.addEventListener('mousemove', e => {
