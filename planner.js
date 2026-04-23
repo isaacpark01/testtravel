@@ -1854,8 +1854,13 @@ function renderBudgetRecs() {
           const bgStyle = photo ? `background-image:url('${photo}')` : `background:rgba(255,255,255,.06)`;
           const priceLabel = p.price === 0 ? '<span class="rec-price">Free</span>' : `<span class="rec-price">$${p.price}</span>`;
           return `
-          <div class="budget-rec-chip" onclick="addBudgetRecToDay('${jsqApp(p.name)}','${jsqApp(p.type)}')" title="Tap to add" style="${bgStyle}">
+          <div class="budget-rec-chip" draggable="true"
+            ondragstart="startPickDrag('${jsqApp(p.name)}','${jsqApp(p.type)}',event)"
+            ondragend="endPickDrag()"
+            onclick="addBudgetRecToDay('${jsqApp(p.name)}','${jsqApp(p.type)}')"
+            title="Drag to itinerary or tap to add" style="${bgStyle}">
             <div class="rec-img-overlay"></div>
+            <div class="rec-drag-hint"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
             <div class="rec-cat-badge">${emoji(p.type)}</div>
             <div class="rec-info">
               <div class="rec-name">${escHtml(p.name)}</div>
@@ -1884,6 +1889,25 @@ function addBudgetRecToDay(name, type) {
 function scrollRecs(dir) {
   const el = document.getElementById('budget-recs-scroll');
   if (el) el.scrollBy({ left: dir * 480, behavior: 'smooth' });
+}
+
+function startPickDrag(name, type, e) {
+  const city = getCurrentCity();
+  if (!city) return;
+  const source = type === 'food' ? city.food : city.activities;
+  const item = (source || []).find(i => i && i.name === name);
+  if (!item) return;
+  _dragCardId = null;
+  _dragPlace  = { ...item, cityId: city.id, cityName: city.name, category: type };
+  e.dataTransfer.effectAllowed = 'copy';
+  switchTab('itinerary');
+  setTimeout(() => document.getElementById('itin-cards-area')?.classList.add('pick-drag-over'), 50);
+}
+
+function endPickDrag() {
+  document.getElementById('itin-cards-area')?.classList.remove('pick-drag-over');
+  if (!_dragPlace) return;
+  _dragPlace = null;
 }
 
 function handleHeroInvite() {
@@ -2159,7 +2183,7 @@ function renderPlacedCard(card, dayId, num) {
     : '';
 
   return `<div class="placed-card" draggable="true" data-card-id="${card.id}" data-day-id="${dayId}">
-    <div class="placed-num">⠿</div>
+    <div class="placed-num" title="Drag to reorder"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="5" r="1" fill="currentColor"/><circle cx="9" cy="12" r="1" fill="currentColor"/><circle cx="9" cy="19" r="1" fill="currentColor"/><circle cx="15" cy="5" r="1" fill="currentColor"/><circle cx="15" cy="12" r="1" fill="currentColor"/><circle cx="15" cy="19" r="1" fill="currentColor"/></svg></div>
     <img class="placed-photo" src="${escHtml(photo)}" alt="${escHtml(card.name)}" loading="lazy"
       onerror="this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=80&q=70'" />
     <div class="placed-body">
@@ -2178,11 +2202,25 @@ function renderPlacedCard(card, dayId, num) {
         onclick="event.stopPropagation()" />
       <button class="placed-dir-btn" onclick="getDirectionsTo('${jsqApp(card.name)}')" title="Get directions">📍 Get there</button>
     </div>
-    <button class="placed-del" title="Remove" onclick="removeCard('${jsqApp(dayId)}','${jsqApp(card.id)}')">···</button>
+    <button class="placed-del" title="Remove from itinerary" onclick="removeCard('${jsqApp(dayId)}','${jsqApp(card.id)}')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="3 6 5 6 21 6"/>
+        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+        <path d="M10 11v6"/><path d="M14 11v6"/>
+        <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+      </svg>
+    </button>
   </div>`;
 }
 
 // ── Card drag & drop (reorder) ────────────────────────────────
+function clearDropLines() {
+  document.querySelectorAll('.placed-card').forEach(c => {
+    c.removeAttribute('data-drop-before');
+    c.removeAttribute('data-drop-after');
+  });
+}
+
 function setupCardDrag() {
   document.querySelectorAll('.placed-card').forEach(card => {
     card.addEventListener('dragstart', e => {
@@ -2192,23 +2230,22 @@ function setupCardDrag() {
       e.dataTransfer.effectAllowed = 'move';
       e.stopPropagation();
     });
-    card.addEventListener('dragend', () => card.classList.remove('dragging'));
+    card.addEventListener('dragend', () => {
+      card.classList.remove('dragging');
+      clearDropLines();
+    });
     card.addEventListener('dragover', e => {
       e.preventDefault();
       if (!_dragCardId || _dragCardId === card.dataset.cardId) return;
+      clearDropLines();
       const after = e.clientY > card.getBoundingClientRect().top + card.getBoundingClientRect().height / 2;
-      card.style.borderTopColor    = after ? '' : 'rgba(45,212,191,.6)';
-      card.style.borderBottomColor = after ? 'rgba(45,212,191,.6)' : '';
+      card.setAttribute(after ? 'data-drop-after' : 'data-drop-before', '1');
     });
-    card.addEventListener('dragleave', () => {
-      card.style.borderTopColor    = '';
-      card.style.borderBottomColor = '';
-    });
+    card.addEventListener('dragleave', () => clearDropLines());
     card.addEventListener('drop', e => {
       e.preventDefault();
       e.stopPropagation();
-      card.style.borderTopColor    = '';
-      card.style.borderBottomColor = '';
+      clearDropLines();
       if (!_dragCardId || _dragCardId === card.dataset.cardId) return;
       const after = e.clientY > card.getBoundingClientRect().top + card.getBoundingClientRect().height / 2;
       reorderCard(_dragCardId, card.dataset.cardId, card.dataset.dayId, after);
