@@ -1379,6 +1379,10 @@ body.light-mode .section-header p { color: rgba(26,24,48,.6); }
 body.light-mode p, body.light-mode span, body.light-mode label, body.light-mode li { color: inherit; }
 body.light-mode .wip-banner { background: #6a9ab8 !important; }
 
+/* ── Logo light-mode adaptation ── */
+body.light-mode .logo svg { filter: brightness(0.82) saturate(1.2) drop-shadow(0 1px 2px rgba(0,0,0,.15)); }
+body.light-mode .footer-logo svg { filter: brightness(0.82) saturate(1.2) drop-shadow(0 1px 2px rgba(0,0,0,.1)); }
+
 /* ================== UI ENHANCEMENTS v3 ================== */
 
 /* ── WIP Banner (class-based) ── */

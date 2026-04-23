@@ -1806,6 +1806,163 @@
       .ai-fab   { bottom: 28px; right: 28px; }
     }
 
+    /* ── Theme Toggle Button ─────────────────────────────────────── */
+    .theme-toggle {
+      width: 52px; height: 28px;
+      background: rgba(151,172,224,.15); border: 1px solid rgba(151,172,224,.28);
+      border-radius: 30px; cursor: pointer; position: relative; flex-shrink: 0;
+      display: flex; align-items: center; padding: 0 3px;
+      transition: background .35s ease, border-color .35s ease;
+    }
+    .theme-toggle:hover { background: rgba(151,172,224,.25); border-color: rgba(151,172,224,.5); }
+    .toggle-knob {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(151,172,224,.35);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .38s cubic-bezier(.34,1.56,.64,1), background .35s ease;
+      color: #c8d4f0; position: relative;
+    }
+    .toggle-moon { transition: opacity .2s ease, transform .2s ease; }
+    .toggle-sun  { position: absolute; opacity: 0; transform: rotate(90deg) scale(.6); transition: opacity .2s ease, transform .2s ease; color: #fbbf24; }
+    body.light-mode .theme-toggle { background: rgba(251,191,36,.15); border-color: rgba(251,191,36,.35); }
+    body.light-mode .theme-toggle:hover { background: rgba(251,191,36,.25); }
+    body.light-mode .toggle-knob { transform: translateX(24px); background: rgba(251,191,36,.4); color: #fbbf24; }
+    body.light-mode .toggle-moon { opacity: 0; transform: rotate(-90deg) scale(.6); }
+    body.light-mode .toggle-sun  { opacity: 1; transform: rotate(0) scale(1); }
+
+    /* ── Light mode ──────────────────────────────────────────────── */
+    body.light-mode {
+      --bg: #edf1f7; --surface: #ffffff; --card: #f5f8fc;
+      --border: rgba(106,154,184,.18); --border-hover: rgba(82,131,160,.5);
+      --text: #0f172a; --text-sub: #475569; --text-dim: #64748b; --text-muted: #94a3b8;
+      --teal: #0d9488;
+      --grad-glow: linear-gradient(135deg, rgba(106,154,184,.08) 0%, rgba(82,131,160,.06) 100%);
+      background: var(--bg); color: var(--text);
+    }
+    /* Nav */
+    body.light-mode .top-nav { background: #fff; border-bottom-color: rgba(106,154,184,.15); }
+    body.light-mode .nav-logo { background: linear-gradient(135deg, #5283a0 0%, #3d6a94 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    body.light-mode .nav-logo svg { filter: brightness(0.85) saturate(1.15) drop-shadow(0 1px 2px rgba(0,0,0,.12)); }
+    body.light-mode .trip-name-input { color: #0f172a; }
+    body.light-mode .trip-name-input::placeholder { color: #94a3b8; }
+    body.light-mode .nav-date-range { color: #64748b; }
+    body.light-mode .nav-sep { background: rgba(15,23,42,.1); }
+    body.light-mode .btn-ghost { background: rgba(15,23,42,.05); border-color: rgba(106,154,184,.2); color: #475569; }
+    body.light-mode .btn-ghost:hover { background: rgba(15,23,42,.09); color: #0f172a; }
+    body.light-mode .trips-dropdown-btn { background: rgba(15,23,42,.05); border-color: rgba(106,154,184,.2); color: #475569; }
+    body.light-mode .trips-dropdown-btn:hover { background: rgba(15,23,42,.09); color: #0f172a; }
+    body.light-mode .trips-dropdown-menu { background: #fff; border-color: rgba(106,154,184,.2); box-shadow: 0 8px 32px rgba(0,0,0,.12); }
+    body.light-mode .trip-dd-item:hover { background: rgba(106,154,184,.08); }
+    body.light-mode .trip-dd-item.active { background: rgba(106,154,184,.12); }
+    body.light-mode .trip-dd-item-name { color: #0f172a; }
+    body.light-mode .trip-dd-item.active .trip-dd-item-name { color: #3d6a94; }
+    body.light-mode .trip-dd-item-del { color: #94a3b8; }
+    body.light-mode .trip-dd-sep { background: rgba(106,154,184,.12); }
+    body.light-mode .mob-map-toggle { background: rgba(13,148,136,.1); border-color: rgba(13,148,136,.3); color: #0d9488; }
+    /* Hero */
+    body.light-mode .hero-band { background: #dde6f0; }
+    body.light-mode .hero-overlay { background: linear-gradient(to bottom, rgba(221,230,240,.1) 0%, rgba(221,230,240,.5) 70%, rgba(221,230,240,.75) 100%); }
+    body.light-mode .hero-city { background: linear-gradient(135deg, #0f172a 40%, #3d6a94 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    body.light-mode .hero-trip-name { color: rgba(15,23,42,.55); -webkit-text-fill-color: rgba(15,23,42,.55); }
+    body.light-mode .hero-action-btn { background: rgba(255,255,255,.7); border-color: rgba(255,255,255,.9); color: #0f172a; }
+    body.light-mode .hero-action-btn:hover { background: rgba(255,255,255,.9); }
+    /* Tab bar */
+    body.light-mode .tab-bar { background: rgba(237,241,247,.96); border-bottom-color: rgba(106,154,184,.15); }
+    body.light-mode .tab-btn { color: #64748b; }
+    body.light-mode .tab-btn:hover { color: #334155; background: rgba(106,154,184,.06); border-color: rgba(106,154,184,.18); }
+    body.light-mode .tab-btn.active { background: rgba(13,148,136,.1); border-color: rgba(13,148,136,.3); color: #0d9488; box-shadow: 0 0 14px rgba(13,148,136,.1); }
+    /* Content panel */
+    body.light-mode .content-panel { background: #fff; border-color: rgba(106,154,184,.2); box-shadow: 0 4px 24px rgba(0,0,0,.08); }
+    /* Date pills */
+    body.light-mode .date-pills-row { background: rgba(237,241,247,.8); border-bottom-color: rgba(106,154,184,.12); }
+    body.light-mode .date-pill { background: rgba(15,23,42,.05); border-color: rgba(106,154,184,.2); color: #64748b; }
+    body.light-mode .date-pill:hover { background: rgba(106,154,184,.1); color: #334155; border-color: rgba(106,154,184,.3); }
+    body.light-mode .date-pill.active { background: linear-gradient(135deg, #5a87b0 0%, #3d6a94 100%); border-color: transparent; color: #fff; }
+    body.light-mode .add-day-pill { border-color: rgba(106,154,184,.4); color: #5283a0; }
+    body.light-mode .add-day-pill:hover { background: rgba(106,154,184,.12); }
+    /* Placed cards */
+    body.light-mode .placed-card { background: linear-gradient(135deg, #fff 0%, #f8fafc 100%); border-color: rgba(106,154,184,.18); box-shadow: 0 2px 8px rgba(0,0,0,.07); }
+    body.light-mode .placed-card:hover { background: linear-gradient(135deg, #fff 0%, #f1f5f9 100%); border-color: rgba(106,154,184,.35); box-shadow: 0 6px 22px rgba(0,0,0,.1); }
+    body.light-mode .placed-name { color: #0f172a; }
+    body.light-mode .placed-cat-tag { background: rgba(106,154,184,.1); color: #475569; }
+    body.light-mode .placed-duration { color: #94a3b8; }
+    body.light-mode .placed-note-input { color: #64748b; }
+    body.light-mode .placed-note-input::placeholder { color: #94a3b8; }
+    body.light-mode .placed-note-input:focus { border-color: rgba(106,154,184,.3); color: #334155; }
+    body.light-mode .placed-del { background: rgba(15,23,42,.04); border-color: rgba(15,23,42,.08); color: #94a3b8; }
+    body.light-mode .placed-num { color: rgba(15,23,42,.15); }
+    body.light-mode .placed-card:hover .placed-num { color: rgba(106,154,184,.5); }
+    body.light-mode .placed-photo { background: #dde6f0; }
+    body.light-mode .placed-city-badge { background: rgba(106,154,184,.14); color: #3d6a94; }
+    /* Add place */
+    body.light-mode .add-place-row { background: linear-gradient(to top, rgba(237,241,247,.98), rgba(255,255,255,.95)); border-top-color: rgba(106,154,184,.12); }
+    body.light-mode .add-place-input { background: rgba(15,23,42,.04); border-color: rgba(106,154,184,.2); color: #0f172a; }
+    body.light-mode .add-place-input:focus { border-color: rgba(13,148,136,.4); background: rgba(255,255,255,.8); }
+    body.light-mode .add-place-input::placeholder { color: #94a3b8; }
+    body.light-mode .add-place-suggestions { background: #fff; border-color: rgba(106,154,184,.2); box-shadow: 0 -8px 24px rgba(0,0,0,.1); }
+    body.light-mode .suggest-item:hover { background: rgba(106,154,184,.07); }
+    body.light-mode .suggest-name { color: #0f172a; }
+    body.light-mode .suggest-meta { color: #64748b; }
+    /* Timeline */
+    body.light-mode .tl-toolbar { background: rgba(237,241,247,.8); border-bottom-color: rgba(106,154,184,.12); }
+    body.light-mode .tl-dot { background: rgba(15,23,42,.07); border-color: rgba(106,154,184,.25); }
+    body.light-mode .tl-connector { background: linear-gradient(to bottom, rgba(106,154,184,.3), rgba(15,23,42,.06)); }
+    body.light-mode .tl-time-btn { background: rgba(15,23,42,.04); border-color: rgba(106,154,184,.25); color: #64748b; }
+    body.light-mode .tl-time-btn:hover { border-color: rgba(106,154,184,.5); color: #0d9488; }
+    body.light-mode .tl-time-btn.has-time { background: rgba(106,154,184,.12); border-color: rgba(106,154,184,.35); color: #0d9488; }
+    body.light-mode .tl-end-time { color: #64748b; }
+    body.light-mode .tl-no-time-header { color: #94a3b8; }
+    body.light-mode .tl-no-time-header::after { background: rgba(106,154,184,.15); }
+    body.light-mode .itin-empty p { color: #64748b; }
+    /* Saves tab */
+    body.light-mode .saves-search-wrap { background: rgba(237,241,247,.8); border-bottom-color: rgba(106,154,184,.12); }
+    body.light-mode .saves-search { background: rgba(15,23,42,.04); border-color: rgba(106,154,184,.2); color: #0f172a; }
+    body.light-mode .saves-search:focus { border-color: rgba(106,154,184,.4); }
+    body.light-mode .saves-search::placeholder { color: #94a3b8; }
+    body.light-mode .save-card { background: #fff; border-color: rgba(106,154,184,.15); }
+    body.light-mode .save-card:hover { border-color: rgba(244,114,182,.4); box-shadow: 0 6px 20px rgba(0,0,0,.1); }
+    body.light-mode .save-name { color: #0f172a; }
+    body.light-mode .save-cat { background: rgba(15,23,42,.06); color: #475569; }
+    body.light-mode .save-footer { border-top-color: rgba(106,154,184,.12); }
+    body.light-mode .save-add-btn { background: rgba(106,154,184,.1); border-color: rgba(106,154,184,.3); color: #3d6a94; }
+    body.light-mode .save-add-btn:hover { background: rgba(106,154,184,.25); }
+    /* Discover tab */
+    body.light-mode .discover-header { background: rgba(237,241,247,.9); border-bottom-color: rgba(106,154,184,.15); }
+    body.light-mode .disc-search-input { background: rgba(15,23,42,.04); border-color: rgba(106,154,184,.2); color: #0f172a; }
+    body.light-mode .disc-search-input:focus { border-color: rgba(106,154,184,.4); }
+    body.light-mode .disc-search-input::placeholder { color: #94a3b8; }
+    body.light-mode .disc-sort-pill { background: rgba(15,23,42,.04); border-color: rgba(15,23,42,.1); color: #64748b; }
+    body.light-mode .disc-sort-pill:hover { background: rgba(15,23,42,.08); color: #334155; }
+    body.light-mode .disc-sort-pill.active { background: rgba(251,191,36,.1); border-color: rgba(251,191,36,.3); color: #b45309; }
+    body.light-mode .filter-pill { background: rgba(15,23,42,.04); border-color: rgba(15,23,42,.1); color: #64748b; }
+    body.light-mode .filter-pill:hover { background: rgba(15,23,42,.08); color: #334155; }
+    body.light-mode .filter-pill.active { background: rgba(13,148,136,.1); border-color: rgba(13,148,136,.3); color: #0d9488; }
+    body.light-mode .discover-card { background: #fff; border-color: rgba(106,154,184,.15); }
+    body.light-mode .discover-card:hover { border-color: rgba(106,154,184,.35); box-shadow: 0 6px 24px rgba(0,0,0,.1); }
+    body.light-mode .disc-body { background: #fff; }
+    body.light-mode .disc-desc { color: #64748b; }
+    body.light-mode .section-head-sep { background: linear-gradient(to right, rgba(13,148,136,.25), transparent); }
+    body.light-mode .section-head-count { background: rgba(15,23,42,.05); border-color: rgba(106,154,184,.2); color: #64748b; }
+    /* Map */
+    body.light-mode .map-panel { background: #dde6f0; }
+    body.light-mode .map-box { background: #edf1f7; border-color: rgba(106,154,184,.25); box-shadow: 0 8px 40px rgba(0,0,0,.1); }
+    body.light-mode .map-box-header { background: rgba(237,241,247,.95); border-bottom-color: rgba(106,154,184,.15); }
+    body.light-mode .map-box-city { color: #0f172a; }
+    body.light-mode .map-box-coords { color: #64748b; }
+    body.light-mode .map-no-trip { background: #dde6f0; color: #64748b; }
+    /* Modal */
+    body.light-mode .modal-box { background: #fff; border-color: rgba(106,154,184,.25); }
+    body.light-mode .modal-title { color: #0f172a; }
+    body.light-mode .modal-label { color: #64748b; }
+    body.light-mode .modal-input { background: rgba(15,23,42,.04); border-color: rgba(106,154,184,.2); color: #0f172a; }
+    body.light-mode .modal-input:focus { border-color: rgba(106,154,184,.45); }
+    body.light-mode .modal-select { background: #f8fafc; border-color: rgba(106,154,184,.2); color: #0f172a; color-scheme: light; }
+    body.light-mode .btn-cancel { background: rgba(15,23,42,.04); border-color: rgba(106,154,184,.2); color: #475569; }
+    body.light-mode .modal-error { color: #dc2626; }
+    /* Lang picker */
+    body.light-mode .lang-picker-btn { color: #475569; }
+    body.light-mode .lang-picker-menu { background: #fff; border-color: rgba(106,154,184,.2); }
+
   </style>
 </head>
 <body>
@@ -1851,6 +2008,12 @@
     <button class="btn-ghost" onclick="exportItinerary()" title="Export / Print itinerary"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-1px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</button>
     <a href="globe.html" class="btn-ghost"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-1px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Globe</a>
     <a href="index.html" class="btn-ghost" id="btn-explore" data-i18n="explore">Explore</a>
+    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode">
+      <span class="toggle-knob">
+        <svg class="toggle-moon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="toggle-sun" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>
+      </span>
+    </button>
     <div class="lang-picker-wrap" id="lang-picker-wrap">
       <button class="lang-picker-btn" id="lang-picker-btn" onclick="toggleLangPicker()" title="Language / 言語 / Idioma"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></button>
       <div class="lang-picker-menu" id="lang-picker-menu"></div>
@@ -2511,6 +2674,24 @@
   </div>
 </div>
 
+<script>
+(function() {
+  function isDaytime() {
+    const h = new Date().getHours();
+    return h >= 6 && h < 19;
+  }
+  function applyTheme(mode) {
+    if (mode === 'light') document.body.classList.add('light-mode');
+    else document.body.classList.remove('light-mode');
+    localStorage.setItem('dropped_theme', mode);
+  }
+  window.toggleTheme = function() {
+    applyTheme(document.body.classList.contains('light-mode') ? 'dark' : 'light');
+  };
+  const saved = localStorage.getItem('dropped_theme');
+  applyTheme(saved ? saved : (isDaytime() ? 'light' : 'dark'));
+})();
+</script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
