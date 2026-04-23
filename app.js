@@ -1280,22 +1280,18 @@ function renderCityGrid(cities) {
     const placeCount = allPlaces.length;
     // Count hole-in-the-wall / locals-only spots
     const localGems = allPlaces.filter(p => p.localGem).length;
-    const gemBadge = localGems ? `<span class="city-card-gem">💎 ${localGems} local gem${localGems > 1 ? 's' : ''}</span>` : '';
     return `
     <div class="city-card" onclick="openCity('${city.id}')" draggable="true"
       ondragstart="startCityDrag(event,'${city.id}','${escHtml(city.name)}')"
       style="animation-delay:${i * 0.04}s">
       <div class="city-card-img" style="background-image:url('${city.image}')"></div>
-      <div class="city-card-body">
-        <div class="city-card-top">
+      <div class="city-card-overlay"></div>
+      <div class="city-card-footer">
+        <div class="city-card-meta-row">
           <span class="city-row-iata">${escHtml(city.iata)}</span>
           <span class="city-card-country">${escHtml(city.country)}</span>
         </div>
         <div class="city-card-name">${escHtml(city.name)}</div>
-        <div class="city-card-tagline">${escHtml(city.tagline)}</div>
-        <div class="city-card-stats">⭐ ${avgRating} · ${placeCount} places</div>
-        ${gemBadge}
-        <div class="city-card-drag-hint">⠿ drag to planner</div>
       </div>
     </div>`;
   }).join('');
