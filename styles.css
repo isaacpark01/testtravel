@@ -33,10 +33,9 @@ body {
 .logo-text {
   font-family: 'Geist', sans-serif;
   font-size: 22px; font-weight: 700; letter-spacing: -.5px;
-  background: linear-gradient(135deg, #97ace0 0%, #b0bfe8 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #e8edf5; -webkit-text-fill-color: #e8edf5;
 }
+.logo svg { filter: grayscale(1) brightness(5) contrast(0.78); }
 .header-nav { display: none; }
 @media (min-width: 768px) {
   .header-nav { display: flex; gap: 28px; }
@@ -1009,9 +1008,10 @@ body.light-mode .step-num { color: #5283a0; }
 @media (min-width: 640px) { .footer-top { grid-template-columns: 1.6fr 1fr 1fr; } }
 .footer-brand-logo {
   font-family: 'Geist', sans-serif;
-  font-size: 22px; font-weight: 700; color: #97ace0;
+  font-size: 22px; font-weight: 700; color: #e8edf5;
   margin-bottom: 10px; letter-spacing: -.3px;
 }
+.footer-brand-logo svg { filter: grayscale(1) brightness(5) contrast(0.78); }
 .footer-brand-tagline {
   font-size: 13px; color: rgba(240,250,249,.4); line-height: 1.6;
   max-width: 280px; margin-bottom: 20px;
@@ -1223,7 +1223,7 @@ body.light-mode select option { background: #ede8f8; color: #1a1830; }
 body.light-mode .site-header { background: rgba(245,242,255,.92); border-bottom-color: rgba(106,154,184,.2); }
 body.light-mode .header-nav a { color: rgba(26,24,48,.55); }
 body.light-mode .header-nav a:hover { color: #1a1830; }
-body.light-mode .logo-text { background: linear-gradient(135deg, #5283a0 0%, #97ace0 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+body.light-mode .logo-text { background: none; -webkit-text-fill-color: #0f172a; color: #0f172a; }
 body.light-mode .auth-btn-outline { border-color: rgba(106,154,184,.5); color: #5283a0; }
 body.light-mode .auth-btn-outline:hover { background: rgba(106,154,184,.1); }
 body.light-mode .auth-btn-solid { background: #6a9ab8; }
@@ -1290,7 +1290,7 @@ body.light-mode .modal-field-label { color: rgba(26,24,48,.6); }
 body.light-mode .auth-field { background: rgba(237,232,248,.5); border-color: rgba(106,154,184,.25); color: #1a1830; }
 body.light-mode .auth-field:focus { border-color: #6a9ab8; }
 body.light-mode .site-footer { background: rgba(237,232,248,.98); border-top-color: rgba(106,154,184,.15); }
-body.light-mode .footer-brand-logo { color: #5283a0; }
+body.light-mode .footer-brand-logo { color: #1e293b; }
 body.light-mode .footer-brand-tagline { color: rgba(26,24,48,.5); }
 body.light-mode .footer-social-btn { border-color: rgba(106,154,184,.2); background: rgba(255,255,255,.6); color: rgba(26,24,48,.5); }
 body.light-mode .footer-social-btn:hover { background: rgba(106,154,184,.1); color: #5283a0; border-color: rgba(106,154,184,.4); }
@@ -1380,8 +1380,9 @@ body.light-mode p, body.light-mode span, body.light-mode label, body.light-mode 
 body.light-mode .wip-banner { background: #6a9ab8 !important; }
 
 /* ── Logo light-mode adaptation ── */
-body.light-mode .logo svg { filter: brightness(0.82) saturate(1.2) drop-shadow(0 1px 2px rgba(0,0,0,.15)); }
-body.light-mode .footer-logo svg { filter: brightness(0.82) saturate(1.2) drop-shadow(0 1px 2px rgba(0,0,0,.1)); }
+body.light-mode .logo svg { filter: grayscale(1) brightness(0.2) contrast(1.4); }
+body.light-mode .footer-brand-logo { color: #1e293b; }
+body.light-mode .footer-brand-logo svg { filter: grayscale(1) brightness(0.2) contrast(1.4); }
 
 /* ================== UI ENHANCEMENTS v3 ================== */
 

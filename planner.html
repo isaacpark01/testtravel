@@ -103,9 +103,10 @@
     }
     .nav-logo {
       font-weight: 800; font-size: 17px;
-      background: linear-gradient(135deg, #97ace0 0%, #6a9ab8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      color: #e8edf5; -webkit-text-fill-color: #e8edf5;
       text-decoration: none; white-space: nowrap; flex-shrink: 0; letter-spacing: -.5px;
     }
+    .nav-logo svg { filter: grayscale(1) brightness(5) contrast(0.78); }
     .nav-sep { width: 1px; height: 20px; background: rgba(255,255,255,.08); flex-shrink: 0; }
     .nav-center { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
     .trip-name-input {
@@ -279,12 +280,11 @@
     }
     .add-day-pill:hover { background: rgba(106,154,184,.1); }
 
-    .itin-cards-area { flex: 1; overflow-y: auto; padding: 14px 16px 24px; display: flex; flex-direction: column; gap: 12px; }
-    /* premium thin scrollbar */
-    .itin-cards-area::-webkit-scrollbar { width: 3px; }
-    .itin-cards-area::-webkit-scrollbar-track { background: transparent; }
-    .itin-cards-area::-webkit-scrollbar-thumb { background: rgba(94,234,212,.25); border-radius: 2px; }
-    .itin-cards-area::-webkit-scrollbar-thumb:hover { background: rgba(94,234,212,.45); }
+    .itin-cards-area { flex: 1; overflow-y: auto; padding: 14px 16px 24px; display: flex; flex-direction: column; gap: 12px; scrollbar-width: thin; scrollbar-color: rgba(94,234,212,.45) rgba(255,255,255,.04); }
+    .itin-cards-area::-webkit-scrollbar { width: 5px; }
+    .itin-cards-area::-webkit-scrollbar-track { background: rgba(255,255,255,.04); border-radius: 4px; }
+    .itin-cards-area::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #5eead4, #0d9488); border-radius: 4px; }
+    .itin-cards-area::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #7ff3e4, #14b8a6); }
     .itin-cards-area.drag-over { outline: 2px dashed rgba(151,172,224,.25); outline-offset: -4px; border-radius: 8px; }
     .itin-cards-area.pick-drag-over {
       outline: 2px solid rgba(94,234,212,.35); outline-offset: -4px; border-radius: 8px;
@@ -1841,8 +1841,8 @@
     }
     /* Nav */
     body.light-mode .top-nav { background: #fff; border-bottom-color: rgba(106,154,184,.15); }
-    body.light-mode .nav-logo { background: linear-gradient(135deg, #5283a0 0%, #3d6a94 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    body.light-mode .nav-logo svg { filter: brightness(0.85) saturate(1.15) drop-shadow(0 1px 2px rgba(0,0,0,.12)); }
+    body.light-mode .nav-logo { color: #0f172a; -webkit-text-fill-color: #0f172a; }
+    body.light-mode .nav-logo svg { filter: grayscale(1) brightness(0.2) contrast(1.4); }
     body.light-mode .trip-name-input { color: #0f172a; }
     body.light-mode .trip-name-input::placeholder { color: #94a3b8; }
     body.light-mode .nav-date-range { color: #64748b; }
