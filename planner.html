@@ -499,9 +499,9 @@
 
     /* Add place row */
     .add-place-row {
-      padding: 12px 14px; border-top: 1px solid rgba(94,234,212,.08);
+      padding: 12px 14px; border-bottom: 1px solid rgba(94,234,212,.08);
       flex-shrink: 0; position: relative;
-      background: linear-gradient(to top, rgba(11,17,32,.98), rgba(15,23,38,.95));
+      background: linear-gradient(to bottom, rgba(11,17,32,.98), rgba(15,23,38,.95));
     }
     .add-place-inner { position: relative; }
     .add-place-icon {
@@ -518,10 +518,10 @@
     .add-place-input:focus { border-color: rgba(94,234,212,.35); background: rgba(255,255,255,.07); }
     .add-place-input::placeholder { color: #334155; }
     .add-place-suggestions {
-      position: absolute; bottom: calc(100% + 4px); left: 14px; right: 14px;
+      position: absolute; top: calc(100% + 4px); left: 14px; right: 14px;
       background: #1a2742; border: 1px solid rgba(255,255,255,.1);
       border-radius: 10px; z-index: 50; max-height: 200px; overflow-y: auto;
-      box-shadow: 0 -8px 24px rgba(0,0,0,.4); display: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,.4); display: none;
     }
     .add-place-suggestions.open { display: block; }
     .suggest-item {
@@ -1872,6 +1872,10 @@
     body.light-mode .tab-btn:hover { color: #334155; background: rgba(106,154,184,.06); border-color: rgba(106,154,184,.18); }
     body.light-mode .tab-btn.active { background: rgba(13,148,136,.1); border-color: rgba(13,148,136,.3); color: #0d9488; box-shadow: 0 0 14px rgba(13,148,136,.1); }
     /* Content panel */
+    body.light-mode .itin-cards-area { scrollbar-color: rgba(82,131,160,.6) rgba(15,23,42,.06); }
+    body.light-mode .itin-cards-area::-webkit-scrollbar-track { background: rgba(15,23,42,.06); }
+    body.light-mode .itin-cards-area::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #6a9ab8, #3d6a94); }
+    body.light-mode .itin-cards-area::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #7aabca, #4d7aaa); }
     body.light-mode .content-panel { background: #fff; border-color: rgba(106,154,184,.2); box-shadow: 0 4px 24px rgba(0,0,0,.08); }
     /* Date pills */
     body.light-mode .date-pills-row { background: rgba(237,241,247,.8); border-bottom-color: rgba(106,154,184,.12); }
@@ -1895,7 +1899,7 @@
     body.light-mode .placed-photo { background: #dde6f0; }
     body.light-mode .placed-city-badge { background: rgba(106,154,184,.14); color: #3d6a94; }
     /* Add place */
-    body.light-mode .add-place-row { background: linear-gradient(to top, rgba(237,241,247,.98), rgba(255,255,255,.95)); border-top-color: rgba(106,154,184,.12); }
+    body.light-mode .add-place-row { background: linear-gradient(to bottom, rgba(237,241,247,.98), rgba(255,255,255,.95)); border-bottom-color: rgba(106,154,184,.12); border-top: none; }
     body.light-mode .add-place-input { background: rgba(15,23,42,.04); border-color: rgba(106,154,184,.2); color: #0f172a; }
     body.light-mode .add-place-input:focus { border-color: rgba(13,148,136,.4); background: rgba(255,255,255,.8); }
     body.light-mode .add-place-input::placeholder { color: #94a3b8; }
@@ -2077,12 +2081,6 @@
     <!-- ITINERARY TAB -->
     <div class="tab-panel active" id="panel-itinerary">
       <div class="date-pills-row" id="date-pills-row"></div>
-      <div class="saves-counter" id="saves-counter"></div>
-      <div class="itin-cards-area" id="itin-cards-area"
-        ondragover="onDayDragOver(event)"
-        ondragleave="onDayDragLeave(event)"
-        ondrop="onDayDrop(event)">
-      </div>
       <div class="add-place-row">
         <div class="add-place-inner">
           <span class="add-place-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
@@ -2093,6 +2091,12 @@
             onkeydown="onAddPlaceKey(event)" />
         </div>
         <div class="add-place-suggestions" id="add-place-suggestions"></div>
+      </div>
+      <div class="saves-counter" id="saves-counter"></div>
+      <div class="itin-cards-area" id="itin-cards-area"
+        ondragover="onDayDragOver(event)"
+        ondragleave="onDayDragLeave(event)"
+        ondrop="onDayDrop(event)">
       </div>
     </div>
 
