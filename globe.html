@@ -61,31 +61,21 @@
     }
     .globe-navbtn:hover { background: rgba(56,189,248,.15); color: #38bdf8; border-color: rgba(56,189,248,.3); }
 
-    /* ── Map Pin ── */
-    .map-pin {
-      width: 38px; height: 38px;
-      border-radius: 50% 50% 50% 0;
-      transform: rotate(-45deg);
-      border: 2.5px solid #fff;
-      overflow: hidden;
-      box-shadow: 0 3px 12px rgba(0,0,0,.6), 0 1px 4px rgba(0,0,0,.4);
-      cursor: pointer;
-      transition: transform .15s, box-shadow .15s;
-      flex-shrink: 0;
+    /* ── Hover Tooltip ── */
+    .globe-tooltip {
+      position: fixed; pointer-events: none; z-index: 99;
+      background: rgba(8,18,28,.93); border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px; padding: 7px 12px;
+      display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 6px 24px rgba(0,0,0,.5);
+      transform: translate(-50%, -120%);
+      transition: opacity .12s;
+      opacity: 0;
     }
-    .map-pin:hover {
-      transform: rotate(-45deg) scale(1.18);
-      box-shadow: 0 6px 20px rgba(0,0,0,.7);
-    }
-    .map-pin img {
-      width: 100%; height: 100%; object-fit: cover;
-      transform: rotate(45deg) scale(1.55);
-      pointer-events: none;
-    }
-    .map-pin.active {
-      border-color: #38bdf8;
-      box-shadow: 0 0 0 3px rgba(56,189,248,.4), 0 6px 20px rgba(0,0,0,.7);
-    }
+    .globe-tooltip.show { opacity: 1; }
+    .globe-tooltip-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .globe-tooltip-name { font-size: 13px; font-weight: 700; color: #fff; white-space: nowrap; }
+    .globe-tooltip-country { font-size: 11px; color: rgba(255,255,255,.4); white-space: nowrap; }
 
     /* ── City Panel ── */
     .city-panel {
@@ -102,32 +92,41 @@
 
     /* hero */
     .cp-hero {
-      position: relative; flex-shrink: 0; height: 220px; overflow: hidden; background: #0d1220;
+      position: relative; flex-shrink: 0; height: 200px; overflow: hidden; background: #0d1220;
     }
-    .cp-hero-img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .65; }
+    .cp-hero-img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .7; }
     .cp-hero::after {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(10,31,29,1) 0%, rgba(0,0,0,.12) 55%);
+      background: linear-gradient(to top, rgba(10,18,32,1) 0%, rgba(0,0,0,.1) 60%);
     }
     .cp-hero-text {
-      position: absolute; bottom: 16px; left: 18px; z-index: 10;
+      position: absolute; bottom: 14px; left: 16px; z-index: 10;
     }
     .cp-country-row {
-      font-size: 11px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
-      color: rgba(255,255,255,.55); margin-bottom: 4px;
+      font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
+      color: rgba(255,255,255,.5); margin-bottom: 4px;
       display: flex; align-items: center; gap: 6px;
     }
     .cp-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-    .cp-city-name { font-family: 'Geist', sans-serif; font-size: clamp(22px,5vw,30px); font-weight: 700; color: #fff; line-height: 1.1; }
-    .cp-tagline { color: rgba(255,255,255,.5); font-size: 13px; margin-top: 3px; }
+    .cp-city-name { font-size: clamp(20px,5vw,28px); font-weight: 800; color: #fff; line-height: 1.1; }
+    .cp-tagline { color: rgba(255,255,255,.45); font-size: 12px; margin-top: 3px; }
     .cp-close {
-      position: absolute; top: 13px; right: 13px; z-index: 20;
+      position: absolute; top: 12px; right: 12px; z-index: 20;
       width: 30px; height: 30px; border-radius: 50%;
-      background: rgba(0,0,0,.5); border: 1px solid rgba(255,255,255,.2);
-      color: rgba(255,255,255,.7); font-size: 13px; cursor: pointer;
+      background: rgba(0,0,0,.55); border: 1px solid rgba(255,255,255,.18);
+      color: rgba(255,255,255,.75); font-size: 13px; cursor: pointer;
       display: flex; align-items: center; justify-content: center; transition: background .15s;
     }
     .cp-close:hover { background: rgba(220,38,38,.6); color: #fff; }
+    /* Pin to Board button on hero */
+    .cp-pin-btn {
+      position: absolute; top: 12px; left: 12px; z-index: 20;
+      background: rgba(0,0,0,.55); border: 1px solid rgba(255,255,255,.18);
+      color: rgba(255,255,255,.8); padding: 5px 10px; border-radius: 16px;
+      font-size: 11px; font-weight: 600; cursor: pointer; text-decoration: none;
+      transition: background .15s;
+    }
+    .cp-pin-btn:hover { background: rgba(56,189,248,.25); color: #38bdf8; }
 
     /* filter bar */
     .cp-filter-bar {
@@ -136,7 +135,7 @@
     }
     .cp-search {
       flex: 1; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
-      border-radius: 10px; color: #f0eae4; font-size: 13px; padding: 8px 12px;
+      border-radius: 10px; color: #f0eae4; font-size: 13px; padding: 7px 12px;
       outline: none; font-family: inherit;
     }
     .cp-search::placeholder { color: rgba(240,250,249,.3); }
@@ -154,10 +153,10 @@
     }
     .cp-tabs::-webkit-scrollbar { display: none; }
     .cp-tab {
-      flex: 1; padding: 11px 8px; text-align: center; white-space: nowrap;
+      flex: 1; padding: 10px 6px; text-align: center; white-space: nowrap;
       font-size: 12px; font-weight: 600; color: rgba(255,255,255,.38);
       cursor: pointer; border-bottom: 2px solid transparent;
-      transition: color .15s, border-color .15s; user-select: none;
+      transition: color .15s, border-color .15s; user-select: none; min-width: 80px;
     }
     .cp-tab.active { color: #f0eae4; border-bottom-color: #97ace0; }
 
@@ -168,26 +167,48 @@
 
     /* spot cards — match home page exactly */
     .spot-card {
-      background: rgba(13,18,32,.7); border: 1px solid rgba(106,154,184,.12);
-      border-radius: 14px; overflow: hidden; margin-bottom: 10px; transition: all .2s;
+      background: rgba(13,18,32,.8); border: 1px solid rgba(106,154,184,.12);
+      border-radius: 14px; overflow: hidden; margin-bottom: 12px; transition: all .2s;
     }
-    .spot-card:hover { background: rgba(106,154,184,.08); border-color: rgba(106,154,184,.25); transform: translateY(-1px); }
-    .spot-photo { width: 100%; height: 130px; object-fit: cover; display: block; background: #0d1220; }
-    .spot-body { padding: 12px 14px; }
-    .spot-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 7px; }
-    .spot-name { font-size: 13px; font-weight: 600; color: #f0eae4; line-height: 1.3; }
+    .spot-card:hover { background: rgba(106,154,184,.08); border-color: rgba(106,154,184,.25); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.3); }
+    .spot-photo {
+      width: 100%; height: 160px; object-fit: cover; display: block; background: #0d1220;
+    }
+    .spot-body { padding: 12px 14px 10px; }
+    .spot-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+    .spot-name { font-size: 14px; font-weight: 700; color: #f0eae4; line-height: 1.3; }
     .spot-price { font-size: 13px; font-weight: 700; white-space: nowrap; color: #97ace0; flex-shrink: 0; }
     .spot-price.free { color: #34d399; }
-    .spot-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 7px; }
+    .spot-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
     .spot-tag { font-size: 10px; padding: 3px 8px; border-radius: 20px; font-weight: 600; }
-    .tag-rating   { background: rgba(151,172,224,.1);  color: #97ace0; }
-    .tag-duration { background: rgba(151,172,224,.08); color: #97ace0; }
-    .tag-type     { background: rgba(106,154,184,.08); color: #14b8a6; }
-    .tag-cuisine  { background: rgba(106,154,184,.08); color: #14b8a6; }
+    .tag-rating   { background: rgba(251,191,36,.12); color: #fbbf24; }
+    .tag-duration { background: rgba(151,172,224,.1);  color: #97ace0; }
+    .tag-type     { background: rgba(52,211,153,.1);   color: #34d399; }
+    .tag-cuisine  { background: rgba(52,211,153,.1);   color: #34d399; }
     .spot-tip {
       font-size: 11px; color: rgba(240,250,249,.38); line-height: 1.6;
-      border-left: 2px solid rgba(151,172,224,.2); padding-left: 9px; margin-top: 6px;
+      border-left: 2px solid rgba(151,172,224,.2); padding-left: 9px; margin-bottom: 10px;
     }
+    /* Social link buttons — match home page */
+    .spot-links { display: flex; gap: 6px; flex-wrap: wrap; }
+    .spot-link {
+      font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 12px;
+      text-decoration: none; transition: opacity .15s, transform .1s;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .spot-link:hover { opacity: .78; transform: translateY(-1px); }
+    .spot-link.yelp  { background: rgba(196,69,54,.15); color: #ef4444; border: 1px solid rgba(196,69,54,.25); }
+    .spot-link.maps  { background: rgba(56,189,248,.12); color: #38bdf8; border: 1px solid rgba(56,189,248,.22); }
+    .spot-link.tiktok{ background: rgba(129,140,248,.12); color: #818cf8; border: 1px solid rgba(129,140,248,.22); }
+    .spot-link.ig    { background: rgba(244,63,94,.12);  color: #fb7185; border: 1px solid rgba(244,63,94,.22); }
+    .spot-plan-btn {
+      font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 12px;
+      background: rgba(14,165,233,.15); color: #0ea5e9; border: 1px solid rgba(14,165,233,.25);
+      cursor: pointer; text-decoration: none; margin-left: auto; flex-shrink: 0;
+      transition: background .15s;
+    }
+    .spot-plan-btn:hover { background: rgba(14,165,233,.25); }
+
     .no-results { text-align: center; padding: 40px 20px; color: rgba(255,255,255,.3); font-size: 14px; }
 
     /* footer */
@@ -255,7 +276,7 @@
 
 <div class="globe-header">
   <a href="/" class="globe-logo">🌍 Dropped</a>
-  <span class="globe-hint">Click a pin · Drag to rotate · Scroll to zoom</span>
+  <span class="globe-hint">Click a city · Drag to rotate · Scroll to zoom</span>
   <div class="globe-search-wrap" id="search-wrap">
     <input id="globe-search" class="globe-search" type="text" placeholder="Search cities…" autocomplete="off" />
     <span class="globe-search-icon">🔍</span>
@@ -267,14 +288,22 @@
   </nav>
 </div>
 
+<!-- Hover tooltip -->
+<div class="globe-tooltip" id="globe-tooltip">
+  <span class="globe-tooltip-dot" id="tooltip-dot"></span>
+  <span class="globe-tooltip-name" id="tooltip-name"></span>
+  <span class="globe-tooltip-country" id="tooltip-country"></span>
+</div>
+
 <div id="globe-wrap"></div>
 
 <!-- City panel -->
 <div class="city-panel" id="city-panel">
   <div class="cp-hero">
-    <img id="cp-img" class="cp-hero-img" src="" alt="" />
+    <img id="cp-img" class="cp-hero-img" src="" alt=""
+      onerror="this.style.opacity='.15'; this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&auto=format&fit=crop'" />
     <div class="cp-hero-text">
-      <div id="cp-country-row" class="cp-country-row">
+      <div class="cp-country-row">
         <span id="cp-dot" class="cp-dot"></span>
         <span id="cp-country-name"></span>
       </div>
@@ -282,10 +311,11 @@
       <div id="cp-tagline" class="cp-tagline"></div>
     </div>
     <button class="cp-close" onclick="closePanel()">✕</button>
+    <a id="cp-pin-btn" class="cp-pin-btn" href="/">📌 Pin to Board</a>
   </div>
 
   <div class="cp-filter-bar">
-    <input id="cp-search" class="cp-search" type="text" placeholder="🔍 Search…" oninput="filterList()" autocomplete="off" />
+    <input id="cp-search" class="cp-search" type="text" placeholder="🔍 Search activities, food…" oninput="filterList()" autocomplete="off" />
     <div id="cp-iata" class="cp-iata">—</div>
   </div>
 
@@ -307,7 +337,7 @@
 </div>
 
 <script src="https://unpkg.com/globe.gl@2.32.0/dist/globe.gl.min.js"></script>
-<script src="data.js?v=6"></script>
+<script src="data.js?v=7"></script>
 <script>
 (function () {
   const COORDS = {
@@ -336,20 +366,20 @@
     charlotte:[35.2271,-80.8431], memphis:[35.1495,-90.0490], minneapolis:[44.9778,-93.2650],
     kansascity:[39.0997,-94.5786], baltimore:[39.2904,-76.6122], pittsburgh:[40.4406,-79.9959],
     saltlakecity:[40.7608,-111.8910],
-    riodejaneiro:[-22.9068,-43.1729],saopaulo:[-23.5505,-46.6333],
-    lima:[-12.0464,-77.0428],bogota:[4.7110,-74.0721],
-    medellin:[6.2442,-75.5812],cancun:[21.1743,-86.8466],
-    cartagena:[10.3910,-75.4794],santiago:[-33.4489,-70.6693],
-    porto:[41.1579,-8.6291],seville:[37.3891,-5.9845],
-    athens:[37.9838,23.7275],reykjavik:[64.1466,-21.9426],
-    brussels:[50.8503,4.3517],zurich:[47.3769,8.5417],
-    oslo:[59.9139,10.7522],warsaw:[52.2297,21.0122],
-    mumbai:[19.0760,72.8777],delhi:[28.6139,77.2090],
-    hochiminh:[10.8231,106.6297],beijing:[39.9042,116.4074],
-    shanghai:[31.2304,121.4737],manila:[14.5995,120.9842],
-    kathmandu:[27.7172,85.3240],auckland:[-36.8509,174.7645],
-    lagos:[6.5244,3.3792],nairobi:[-1.2921,36.8219],
-    telaviv:[32.0853,34.7818],doha:[25.2854,51.5310],
+    riodejaneiro:[-22.9068,-43.1729], saopaulo:[-23.5505,-46.6333],
+    lima:[-12.0464,-77.0428],         bogota:[4.7110,-74.0721],
+    medellin:[6.2442,-75.5812],       cancun:[21.1743,-86.8466],
+    cartagena:[10.3910,-75.4794],     santiago:[-33.4489,-70.6693],
+    porto:[41.1579,-8.6291],          seville:[37.3891,-5.9845],
+    athens:[37.9838,23.7275],         reykjavik:[64.1466,-21.9426],
+    brussels:[50.8503,4.3517],        zurich:[47.3769,8.5417],
+    oslo:[59.9139,10.7522],           warsaw:[52.2297,21.0122],
+    mumbai:[19.0760,72.8777],         delhi:[28.6139,77.2090],
+    hochiminh:[10.8231,106.6297],     beijing:[39.9042,116.4074],
+    shanghai:[31.2304,121.4737],      manila:[14.5995,120.9842],
+    kathmandu:[27.7172,85.3240],      auckland:[-36.8509,174.7645],
+    lagos:[6.5244,3.3792],            nairobi:[-1.2921,36.8219],
+    telaviv:[32.0853,34.7818],        doha:[25.2854,51.5310],
   };
 
   function pinColor(id) {
@@ -377,24 +407,54 @@
   /* ── State ── */
   let activeTab = 'activities';
   let currentCity = null;
-  let activeEl = null;
+  let selectedPt = null;
   let filterQ = '';
 
-  /* ── Panel ── */
+  /* ── Escape helpers ── */
   function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function encQ(s) { return encodeURIComponent(s); }
 
+  /* ── Photo fallback chain ── */
+  // Curated fallback images by category keyword
+  const FALLBACK_CITY_IMG = 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&auto=format&fit=crop&q=70';
+  const FALLBACK_FOOD_IMG  = 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop&q=70';
+  const FALLBACK_ACT_IMG   = 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&auto=format&fit=crop&q=70';
+  const FALLBACK_TRANS_IMG = 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=400&auto=format&fit=crop&q=70';
+
+  function imgFallback(el, fallback) {
+    el.onerror = null;
+    el.src = fallback;
+  }
+
+  /* ── Social link builder ── */
+  function socialLinks(name, cityName) {
+    const q = encQ(`${name} ${cityName}`);
+    return `
+      <div class="spot-links">
+        <a href="https://yelp.com/search?find_desc=${encQ(name)}&find_loc=${encQ(cityName)}" target="_blank" rel="noopener" class="spot-link yelp">⭐ Yelp</a>
+        <a href="https://maps.google.com/?q=${q}" target="_blank" rel="noopener" class="spot-link maps">📍 Maps</a>
+        <a href="https://tiktok.com/search?q=${q}" target="_blank" rel="noopener" class="spot-link tiktok">🎵 TikTok</a>
+        <a href="https://www.instagram.com/explore/search/keyword/?q=${q}" target="_blank" rel="noopener" class="spot-link ig">📷 IG</a>
+      </div>`;
+  }
+
+  /* ── Render cards ── */
   function renderList() {
     const city = currentCity;
     if (!city) return;
     const q = filterQ.toLowerCase();
     const list = document.getElementById('cp-list');
+    const cityName = city.name;
 
     if (activeTab === 'activities') {
       let items = (city.activities || []).filter(Boolean);
-      if (q) items = items.filter(a => a.name.toLowerCase().includes(q) || (a.tip||'').toLowerCase().includes(q));
-      list.innerHTML = items.length ? items.map(a => `
+      if (q) items = items.filter(a => (a.name||'').toLowerCase().includes(q) || (a.tip||'').toLowerCase().includes(q) || (a.desc||'').toLowerCase().includes(q));
+      list.innerHTML = items.length ? items.map(a => {
+        const photo = a.photo || city.image || FALLBACK_ACT_IMG;
+        return `
         <div class="spot-card">
-          <img class="spot-photo" src="${esc(a.photo||city.image)}" alt="${esc(a.name)}" loading="lazy" onerror="this.src='${esc(city.image)}'" />
+          <img class="spot-photo" src="${esc(photo)}" alt="${esc(a.name)}" loading="lazy"
+            onerror="this.onerror=null;this.src='${esc(city.image || FALLBACK_ACT_IMG)}'" />
           <div class="spot-body">
             <div class="spot-header">
               <div class="spot-name">${esc(a.name)}</div>
@@ -404,46 +464,53 @@
               <span class="spot-tag tag-rating">⭐ ${a.rating}</span>
               ${a.duration ? `<span class="spot-tag tag-duration">🕐 ${esc(a.duration)}</span>` : ''}
             </div>
-            <div class="spot-tip">💡 ${esc(a.tip||a.desc||'')}</div>
+            ${a.tip ? `<div class="spot-tip">💡 ${esc(a.tip)}</div>` : a.desc ? `<div class="spot-tip">${esc(a.desc)}</div>` : ''}
+            ${socialLinks(a.name, cityName)}
           </div>
-        </div>`).join('') : `<div class="no-results">No activities match your search.</div>`;
+        </div>`;
+      }).join('') : `<div class="no-results">No activities match your search.</div>`;
 
     } else if (activeTab === 'food') {
       let items = (city.food || []).filter(Boolean);
-      if (q) items = items.filter(f => f.name.toLowerCase().includes(q) || (f.cuisine||'').toLowerCase().includes(q) || (f.tip||'').toLowerCase().includes(q));
-      list.innerHTML = items.length ? items.map(f => `
+      if (q) items = items.filter(f => (f.name||'').toLowerCase().includes(q) || (f.cuisine||'').toLowerCase().includes(q) || (f.tip||'').toLowerCase().includes(q));
+      list.innerHTML = items.length ? items.map(f => {
+        const photo = f.photo || city.image || FALLBACK_FOOD_IMG;
+        return `
         <div class="spot-card">
-          <img class="spot-photo" src="${esc(f.photo||city.image)}" alt="${esc(f.name)}" loading="lazy" onerror="this.src='${esc(city.image)}'" />
+          <img class="spot-photo" src="${esc(photo)}" alt="${esc(f.name)}" loading="lazy"
+            onerror="this.onerror=null;this.src='${esc(city.image || FALLBACK_FOOD_IMG)}'" />
           <div class="spot-body">
             <div class="spot-header">
               <div class="spot-name">${esc(f.name)}</div>
-              <span class="spot-price">$${f.price}</span>
+              ${f.price === 0 ? '<span class="spot-price free">FREE</span>' : `<span class="spot-price">$${f.price}</span>`}
             </div>
             <div class="spot-meta">
               <span class="spot-tag tag-rating">⭐ ${f.rating}</span>
-              ${f.cuisine ? `<span class="spot-tag tag-cuisine">${esc(f.cuisine)}</span>` : ''}
+              ${f.cuisine ? `<span class="spot-tag tag-cuisine">🍴 ${esc(f.cuisine)}</span>` : ''}
             </div>
-            <div class="spot-tip">💡 ${esc(f.tip||f.desc||'')}</div>
+            ${f.tip ? `<div class="spot-tip">💡 ${esc(f.tip)}</div>` : f.desc ? `<div class="spot-tip">${esc(f.desc)}</div>` : ''}
+            ${socialLinks(f.name, cityName)}
           </div>
-        </div>`).join('') : `<div class="no-results">No restaurants match your search.</div>`;
+        </div>`;
+      }).join('') : `<div class="no-results">No restaurants match your search.</div>`;
 
     } else {
       let items = (city.transport || []).filter(Boolean);
-      if (q) items = items.filter(t => t.name.toLowerCase().includes(q) || (t.type||'').toLowerCase().includes(q));
+      if (q) items = items.filter(t => (t.name||'').toLowerCase().includes(q) || (t.type||'').toLowerCase().includes(q));
       list.innerHTML = items.length ? items.map(t => `
         <div class="spot-card">
-          <div class="spot-body">
+          <div class="spot-body" style="padding-top:14px">
             <div class="spot-header">
               <div class="spot-name">${esc(t.name)}</div>
-              <span class="spot-price">$${t.price}</span>
+              ${t.price === 0 ? '<span class="spot-price free">FREE</span>' : `<span class="spot-price">$${t.price}</span>`}
             </div>
             <div class="spot-meta">
               <span class="spot-tag tag-rating">⭐ ${t.rating}</span>
               ${t.type ? `<span class="spot-tag tag-type">🚌 ${esc(t.type)}</span>` : ''}
             </div>
-            <div class="spot-tip">💡 ${esc(t.tip||'')}</div>
+            ${t.tip ? `<div class="spot-tip">💡 ${esc(t.tip)}</div>` : ''}
           </div>
-        </div>`).join('') : `<div class="no-results">No transport options match your search.</div>`;
+        </div>`).join('') : `<div class="no-results">No transport info available.</div>`;
     }
     list.scrollTop = 0;
   }
@@ -465,17 +532,29 @@
     const city = CITY_MAP[pt.id];
     if (!city) return;
     currentCity = city;
+    selectedPt = pt;
     filterQ = '';
     document.getElementById('cp-search').value = '';
 
-    document.getElementById('cp-img').src = city.image;
-    document.getElementById('cp-img').alt = city.name;
+    const heroImg = document.getElementById('cp-img');
+    heroImg.style.opacity = '.7';
+    heroImg.src = city.image || FALLBACK_CITY_IMG;
+    heroImg.alt = city.name;
+    heroImg.onerror = () => { heroImg.style.opacity = '.15'; heroImg.src = FALLBACK_CITY_IMG; };
+
     document.getElementById('cp-dot').style.background = pt.color;
     document.getElementById('cp-country-name').textContent = city.country;
     document.getElementById('cp-name').textContent = city.name;
     document.getElementById('cp-tagline').textContent = city.tagline || '';
     document.getElementById('cp-iata').textContent = city.iata || '—';
     document.getElementById('cp-plan-btn').href = `planner.html?city=${city.id}`;
+    document.getElementById('cp-pin-btn').href = `/?city=${city.id}`;
+
+    // Pulse ring on selected city
+    globe.ringsData([pt])
+      .ringLat('lat').ringLng('lng')
+      .ringColor(() => pt.color)
+      .ringMaxRadius(2.5).ringPropagationSpeed(3).ringRepeatPeriod(900);
 
     activeTab = 'activities';
     document.querySelectorAll('.cp-tab').forEach(el => el.classList.toggle('active', el.dataset.tab === 'activities'));
@@ -485,66 +564,82 @@
 
   window.closePanel = function() {
     document.getElementById('city-panel').classList.remove('open');
-    if (activeEl) { activeEl.classList.remove('active'); activeEl = null; }
+    globe.ringsData([]);
     currentCity = null;
+    selectedPt = null;
   };
 
-  /* ── Globe ── */
+  /* ── Globe — WebGL points (no DOM lag) ── */
   const globe = Globe({ animateIn: true })(document.getElementById('globe-wrap'))
     .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
     .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
     .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
     .showAtmosphere(true)
-    .atmosphereColor('#60a5fa')
-    .atmosphereAltitude(0.16)
-    /* HTML pin elements instead of dots */
-    .htmlElementsData(points)
-    .htmlLat('lat')
-    .htmlLng('lng')
-    .htmlAltitude(0.01)
-    .htmlElement(d => {
-      const wrap = document.createElement('div');
-      wrap.title = `${d.name} · ${d.country}`;
-
-      const pin = document.createElement('div');
-      pin.className = 'map-pin';
-      pin.style.borderColor = d.color;
-
-      const img = document.createElement('img');
-      img.src = d.image;
-      img.alt = d.name;
-      img.onerror = () => { img.style.display = 'none'; pin.style.background = d.color; };
-
-      pin.appendChild(img);
-      wrap.appendChild(pin);
-
-      wrap.addEventListener('click', () => {
-        globe.controls().autoRotate = false;
-        if (activeEl) activeEl.querySelector('.map-pin')?.classList.remove('active');
-        pin.classList.add('active');
-        activeEl = wrap;
-        openPanel(d);
-        setTimeout(() => { globe.controls().autoRotate = true; }, 4000);
-      });
-
-      return wrap;
+    .atmosphereColor('#38bdf8')
+    .atmosphereAltitude(0.18)
+    /* WebGL points — fast, no DOM overhead */
+    .pointsData(points)
+    .pointLat('lat')
+    .pointLng('lng')
+    .pointColor('color')
+    .pointAltitude(0.015)
+    .pointRadius(0.42)
+    .pointResolution(8)
+    .onPointClick((pt, event) => {
+      globe.controls().autoRotate = false;
+      openPanel(pt);
+      setTimeout(() => { globe.controls().autoRotate = true; }, 5000);
     })
-    /* keep rings for pulse effect */
+    .onPointHover((pt, prevPt) => {
+      const tip = document.getElementById('globe-tooltip');
+      if (pt) {
+        document.getElementById('tooltip-dot').style.background = pt.color;
+        document.getElementById('tooltip-name').textContent = pt.name;
+        document.getElementById('tooltip-country').textContent = pt.country;
+        tip.classList.add('show');
+        document.body.style.cursor = 'pointer';
+      } else {
+        tip.classList.remove('show');
+        document.body.style.cursor = '';
+      }
+    })
+    /* Rings for selected city pulse */
     .ringsData([])
-    .ringColor(d => d.color || '#38bdf8')
-    .ringMaxRadius(3).ringPropagationSpeed(2).ringRepeatPeriod(700);
+    .ringLat('lat').ringLng('lng')
+    .ringColor(() => '#38bdf8')
+    .ringMaxRadius(2.5).ringPropagationSpeed(3).ringRepeatPeriod(900)
+    /* Labels for city names at high zoom */
+    .labelsData(points)
+    .labelLat('lat').labelLng('lng')
+    .labelText('name')
+    .labelSize(0.5)
+    .labelDotRadius(0)
+    .labelColor('color')
+    .labelResolution(2)
+    .labelAltitude(0.018)
+    .labelIncludeDots(false);
 
+  /* Better renderer quality */
   globe.renderer().setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
   globe.controls().autoRotate = true;
-  globe.controls().autoRotateSpeed = 0.35;
+  globe.controls().autoRotateSpeed = 0.3;
   globe.controls().enableDamping = true;
+  globe.controls().dampingFactor = 0.08;
   globe.controls().addEventListener('start', () => { globe.controls().autoRotate = false; });
-  globe.controls().addEventListener('end', () => { setTimeout(() => { globe.controls().autoRotate = true; }, 2500); });
+  globe.controls().addEventListener('end',   () => { setTimeout(() => { globe.controls().autoRotate = true; }, 3000); });
 
   globe.pointOfView({ lat: 20, lng: 10, altitude: 2.2 }, 0);
   document.getElementById('city-count').textContent = points.length;
-  setTimeout(() => { document.getElementById('globe-loading').style.display = 'none'; }, 1200);
+  setTimeout(() => { document.getElementById('globe-loading').style.display = 'none'; }, 1000);
   window.addEventListener('resize', () => { globe.width(window.innerWidth).height(window.innerHeight); });
+
+  /* Move tooltip with mouse */
+  document.addEventListener('mousemove', e => {
+    const tip = document.getElementById('globe-tooltip');
+    tip.style.left = e.clientX + 'px';
+    tip.style.top  = e.clientY + 'px';
+  });
 
   /* ── Search ── */
   const searchInput   = document.getElementById('globe-search');
@@ -552,11 +647,11 @@
 
   function flyToCity(pt) {
     globe.controls().autoRotate = false;
-    globe.pointOfView({ lat: pt.lat, lng: pt.lng, altitude: 1.4 }, 1200);
+    globe.pointOfView({ lat: pt.lat, lng: pt.lng, altitude: 1.5 }, 1200);
     setTimeout(() => { openPanel(pt); }, 1200);
     searchInput.value = '';
     searchResults.classList.remove('show');
-    setTimeout(() => { globe.controls().autoRotate = true; }, 5000);
+    setTimeout(() => { globe.controls().autoRotate = true; }, 6000);
   }
 
   searchInput.addEventListener('input', () => {
@@ -566,7 +661,7 @@
     if (!hits.length) { searchResults.classList.remove('show'); return; }
     searchResults.innerHTML = hits.map(p =>
       `<div class="globe-search-result" data-id="${p.id}">
-         <span style="width:7px;height:7px;border-radius:50%;background:${p.color};display:inline-block;flex-shrink:0"></span>
+         <span style="width:8px;height:8px;border-radius:50%;background:${p.color};display:inline-block;flex-shrink:0"></span>
          <span class="globe-sr-name">${p.name}</span>
          <span class="globe-sr-country">${p.country}</span>
        </div>`).join('');
