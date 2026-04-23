@@ -1828,8 +1828,14 @@ function renderBudgetRecs() {
 
   if (!pool.length) { el.style.display = 'none'; return; }
 
-  pool.sort((a, b) => b.rating - a.rating || a.price - b.price);
-  const picks = pool.slice(0, 10);
+  const byName = new Map();
+  for (const item of pool) {
+    const existing = byName.get(item.name);
+    if (!existing || item.price < existing.price) byName.set(item.name, item);
+  }
+  const picks = Array.from(byName.values())
+    .sort((a, b) => b.rating - a.rating || a.price - b.price)
+    .slice(0, 10);
 
   const emoji    = type => type === 'food'
     ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`
@@ -2173,7 +2179,7 @@ function renderTimelineItem(card, dayId, num, isConnected) {
 
 function renderPlacedCard(card, dayId, num) {
   const city      = typeof CITIES !== 'undefined' ? CITIES.find(c => c.id === card.cityId) : null;
-  const photo     = card.photo || getPhoto(card.name, city?.image, 80);
+  const photo     = card.photo || getPhoto(card.name, city?.image, 400);
   const catIcon   = card.category === 'food' ? '🍽' : card.category === 'transport' ? '🚗' : '🎯';
   const price     = card.price === 0 ? '<span style="color:#34d399;font-weight:700">FREE</span>'
                   : card.price > 0   ? `<span style="color:#fb923c;font-weight:700">$${card.price}</span>` : '';
@@ -2185,7 +2191,7 @@ function renderPlacedCard(card, dayId, num) {
   return `<div class="placed-card" draggable="true" data-card-id="${card.id}" data-day-id="${dayId}" data-cat="${escHtml(card.category || 'activity')}">
     <div class="placed-num" title="Drag to reorder"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="5" r="1" fill="currentColor"/><circle cx="9" cy="12" r="1" fill="currentColor"/><circle cx="9" cy="19" r="1" fill="currentColor"/><circle cx="15" cy="5" r="1" fill="currentColor"/><circle cx="15" cy="12" r="1" fill="currentColor"/><circle cx="15" cy="19" r="1" fill="currentColor"/></svg></div>
     <img class="placed-photo" src="${escHtml(photo)}" alt="${escHtml(card.name)}" loading="lazy"
-      onerror="this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=80&q=70'" />
+      onerror="this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=85&fm=webp&fit=crop'" />
     <div class="placed-body">
       ${card.cityName ? `<div class="placed-city-badge">${escHtml(card.cityName)}</div>` : ''}
       <div class="placed-name">${escHtml(card.name)}</div>
@@ -3013,8 +3019,13 @@ function updateMapPins() {
   if (!mapInitialized || !leafletMap) return;
   clearMapMarkers();
 
+  const cityNameEl   = document.getElementById('map-box-city-name');
+  const coordsEl     = document.getElementById('map-box-coords');
+
   if (!currentTrip) {
     leafletMap.setView([20, 0], 2);
+    if (cityNameEl) cityNameEl.textContent = 'Select a city';
+    if (coordsEl)   coordsEl.textContent   = '';
     return;
   }
 
@@ -3023,6 +3034,10 @@ function updateMapPins() {
     leafletMap.setView([20, 0], 2);
     return;
   }
+
+  const city = typeof CITIES !== 'undefined' ? CITIES.find(c => c.id === currentTrip.cityId) : null;
+  if (cityNameEl) cityNameEl.textContent = city ? `${city.name}, ${city.country}` : currentTrip.cityId;
+  if (coordsEl)   coordsEl.textContent   = `${cityCoord[0].toFixed(2)}°N ${cityCoord[1].toFixed(2)}°E`;
 
   const bounds = [];
 

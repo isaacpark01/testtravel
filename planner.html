@@ -76,8 +76,11 @@
       --text: #f0faf9; --text-sub: #94a3b8; --text-dim: #64748b; --text-muted: #334155;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; overflow: hidden; }
-    body { font-family: 'Geist', sans-serif; background: var(--bg); color: var(--text); display: flex; flex-direction: column; }
+    html { height: 100%; }
+    body { min-height: 100%; overflow-y: auto; font-family: 'Geist', sans-serif; background: var(--bg); color: var(--text); display: flex; flex-direction: column; }
+    body::-webkit-scrollbar { width: 5px; }
+    body::-webkit-scrollbar-track { background: rgba(255,255,255,.02); }
+    body::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #5eead4, #0d9488); border-radius: 10px; }
 
     /* ── Grain overlay ─────────────────────────────────────────── */
     body::after {
@@ -222,7 +225,7 @@
     }
 
     /* ── Main layout ───────────────────────────────────────────── */
-    .planner-layout { display: flex; flex: 1; min-height: 0; overflow: hidden; }
+    .planner-layout { display: flex; flex: 1; min-height: calc(100vh - 227px); }
 
     /* ── Content panel (left) ──────────────────────────────────── */
     .content-panel {
@@ -817,7 +820,24 @@
     .profile-plan-btn:hover { background: #5a8aa8; }
 
     /* ── Map panel ─────────────────────────────────────────────── */
-    .map-panel { flex: 1; min-width: 0; position: relative; overflow: hidden; }
+    .map-panel { flex: 1; min-width: 0; position: sticky; top: 0; height: 100vh; overflow: hidden; padding: 10px 12px 10px 0; }
+    .map-box {
+      position: relative; width: 100%; height: 100%;
+      border-radius: 18px; overflow: hidden;
+      border: 1px solid rgba(151,172,224,.18);
+      box-shadow: 0 8px 40px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.04);
+      display: flex; flex-direction: column;
+    }
+    .map-box-header {
+      flex-shrink: 0; display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px; z-index: 10;
+      background: rgba(11,17,32,.88); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .map-box-icon { display: flex; align-items: center; flex-shrink: 0; }
+    .map-box-city { font-size: 13px; font-weight: 700; color: #f0faf9; flex: 1; }
+    .map-box-coords { font-size: 10px; color: #475569; font-variant-numeric: tabular-nums; }
+    .map-box-map { flex: 1; position: relative; min-height: 0; }
     #map { position: absolute; inset: 0; }
     .map-no-trip {
       position: absolute; inset: 0; display: flex; flex-direction: column;
@@ -1043,7 +1063,8 @@
     }
     @media (max-width: 768px) {
       .content-panel { width: 100%; max-width: 100%; }
-      .map-panel { display: none; position: fixed; inset: 0; z-index: 150; }
+      .map-panel { display: none; position: fixed; inset: 0; z-index: 150; padding: 0; height: 100%; }
+      .map-panel .map-box { border-radius: 0; border: none; box-shadow: none; }
       .map-panel.mob-visible { display: block; }
       .map-panel.mob-visible .mob-map-close { display: block; }
       .mob-map-toggle { display: flex; align-items: center; gap: 5px; }
@@ -1917,7 +1938,18 @@
   <!-- Map panel -->
   <div class="map-panel" id="map-panel">
     <button class="mob-map-close" id="mob-map-close" onclick="toggleMobileMap()">✕ Close Map</button>
-    <div id="map"></div>
+    <div class="map-box">
+      <div class="map-box-header">
+        <span class="map-box-icon">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5eead4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </span>
+        <span class="map-box-city" id="map-box-city-name">Select a city</span>
+        <span class="map-box-coords" id="map-box-coords"></span>
+      </div>
+      <div class="map-box-map">
+        <div id="map"></div>
+      </div>
+    </div>
   </div>
 
 </div>
