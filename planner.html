@@ -423,19 +423,33 @@
       transform: translateY(-2px); box-shadow: 0 6px 22px rgba(0,0,0,.4);
     }
     .placed-card:active { cursor: grabbing; }
-    .placed-card.dragging { opacity: .3; transform: scale(.97) rotate(1deg); box-shadow: none; }
+    .placed-card.dragging {
+      opacity: .18; transform: scale(.97) rotate(.5deg);
+      box-shadow: none; border-color: rgba(94,234,212,.3) !important;
+    }
+    /* Target cards shift to visually open a landing gap */
+    .placed-card[data-drop-before] {
+      transform: translateY(10px);
+      border-color: rgba(94,234,212,.25) !important;
+      transition: transform .14s ease, border-color .14s;
+    }
+    .placed-card[data-drop-after] {
+      transform: translateY(-10px);
+      border-color: rgba(94,234,212,.25) !important;
+      transition: transform .14s ease, border-color .14s;
+    }
     /* Glowing drop-line indicators for reorder — use ::after only to avoid accent-bar conflict */
     .placed-card[data-drop-before]::after,
     .placed-card[data-drop-after]::after {
-      content: ''; position: absolute; left: 12px; right: 12px; height: 2px;
-      border-radius: 2px;
-      background: linear-gradient(90deg, transparent, #5eead4 20%, #97ace0 50%, #5eead4 80%, transparent);
-      box-shadow: 0 0 10px rgba(94,234,212,.7), 0 0 20px rgba(94,234,212,.3);
-      animation: dropLinePulse .35s ease;
+      content: ''; position: absolute; left: 6px; right: 6px; height: 3px;
+      border-radius: 3px;
+      background: linear-gradient(90deg, transparent, #5eead4 15%, #fff 50%, #5eead4 85%, transparent);
+      box-shadow: 0 0 8px rgba(94,234,212,1), 0 0 20px rgba(94,234,212,.7), 0 0 40px rgba(94,234,212,.4);
+      animation: dropLinePulse .2s ease;
     }
-    .placed-card[data-drop-before]::after { top: -6px; bottom: unset; }
-    .placed-card[data-drop-after]::after  { bottom: -6px; top: unset; }
-    @keyframes dropLinePulse { from { opacity: 0; transform: scaleX(.5); } to { opacity: 1; transform: scaleX(1); } }
+    .placed-card[data-drop-before]::after { top: -8px; bottom: unset; }
+    .placed-card[data-drop-after]::after  { bottom: -8px; top: unset; }
+    @keyframes dropLinePulse { from { opacity: 0; transform: scaleX(.3); } to { opacity: 1; transform: scaleX(1); } }
     .placed-num {
       color: rgba(255,255,255,.15); flex-shrink: 0; margin-top: 4px;
       user-select: none; cursor: grab; pointer-events: none; transition: color .15s;

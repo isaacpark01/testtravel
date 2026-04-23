@@ -2242,9 +2242,25 @@ function setupCardDrag() {
     card.addEventListener('dragstart', e => {
       _dragCardId = card.dataset.cardId;
       _dragPlace  = null;
-      card.classList.add('dragging');
       e.dataTransfer.effectAllowed = 'move';
       e.stopPropagation();
+
+      // Custom ghost: full-opacity lifted card with teal border
+      const ghost = card.cloneNode(true);
+      Object.assign(ghost.style, {
+        position: 'fixed', top: '-9999px', left: '-9999px',
+        width: card.offsetWidth + 'px', opacity: '1',
+        transform: 'rotate(2deg) scale(1.04)',
+        border: '2px solid rgba(94,234,212,.85)',
+        boxShadow: '0 20px 56px rgba(0,0,0,.7), 0 0 28px rgba(94,234,212,.4)',
+        borderRadius: '14px', pointerEvents: 'none', zIndex: '9999',
+      });
+      document.body.appendChild(ghost);
+      e.dataTransfer.setDragImage(ghost, e.offsetX, e.offsetY);
+      requestAnimationFrame(() => {
+        document.body.removeChild(ghost);
+        card.classList.add('dragging');
+      });
     });
     card.addEventListener('dragend', () => {
       card.classList.remove('dragging');
