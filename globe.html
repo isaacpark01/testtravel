@@ -226,6 +226,35 @@
     }
     .cp-plan-btn:hover { opacity: .88; transform: translateY(-1px); }
 
+    /* ── Map Pin Drops ── */
+    .map-pin {
+      display: flex; flex-direction: column; align-items: center;
+      cursor: pointer; user-select: none;
+      transition: transform .15s cubic-bezier(.34,1.56,.64,1), filter .15s;
+      transform-origin: bottom center;
+      will-change: transform;
+    }
+    .map-pin:hover { transform: scale(1.25) translateY(-4px); filter: drop-shadow(0 6px 14px rgba(0,0,0,.7)); }
+    .pin-circle {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 3px 12px rgba(0,0,0,.65);
+      background: #0d1220;
+      flex-shrink: 0;
+    }
+    .pin-circle img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      pointer-events: none;
+    }
+    .pin-stem {
+      width: 0; height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      margin-top: -1px;
+    }
+
     /* ── Loading ── */
     .globe-loading {
       position: fixed; inset: 0; z-index: 500;
@@ -579,46 +608,54 @@
     .showAtmosphere(true)
     .atmosphereColor('#38bdf8')
     .atmosphereAltitude(0.18)
-    /* WebGL points — fast, no DOM overhead */
-    .pointsData(points)
-    .pointLat('lat')
-    .pointLng('lng')
-    .pointColor('color')
-    .pointAltitude(0.015)
-    .pointRadius(0.42)
-    .pointResolution(8)
-    .onPointClick((pt, event) => {
-      globe.controls().autoRotate = false;
-      openPanel(pt);
-      setTimeout(() => { globe.controls().autoRotate = true; }, 5000);
-    })
-    .onPointHover((pt, prevPt) => {
-      const tip = document.getElementById('globe-tooltip');
-      if (pt) {
-        document.getElementById('tooltip-dot').style.background = pt.color;
-        document.getElementById('tooltip-name').textContent = pt.name;
-        document.getElementById('tooltip-country').textContent = pt.country;
-        tip.classList.add('show');
+    /* Image pin drops — circular city photo + pointer stem */
+    .htmlElementsData(points)
+    .htmlElement(d => {
+      const pin = document.createElement('div');
+      pin.className = 'map-pin';
+
+      const circle = document.createElement('div');
+      circle.className = 'pin-circle';
+      circle.style.border = `2.5px solid ${d.color}`;
+
+      const img = document.createElement('img');
+      img.src = d.image || FALLBACK_CITY_IMG;
+      img.loading = 'lazy';
+      img.onerror = () => { img.onerror = null; img.src = FALLBACK_CITY_IMG; };
+
+      const stem = document.createElement('div');
+      stem.className = 'pin-stem';
+      stem.style.borderTop = `8px solid ${d.color}`;
+
+      circle.appendChild(img);
+      pin.appendChild(circle);
+      pin.appendChild(stem);
+
+      pin.addEventListener('click', () => {
+        globe.controls().autoRotate = false;
+        openPanel(d);
+        setTimeout(() => { globe.controls().autoRotate = true; }, 5000);
+      });
+      pin.addEventListener('mouseover', () => {
+        document.getElementById('tooltip-dot').style.background = d.color;
+        document.getElementById('tooltip-name').textContent = d.name;
+        document.getElementById('tooltip-country').textContent = d.country;
+        document.getElementById('globe-tooltip').classList.add('show');
         document.body.style.cursor = 'pointer';
-      } else {
-        tip.classList.remove('show');
+      });
+      pin.addEventListener('mouseout', () => {
+        document.getElementById('globe-tooltip').classList.remove('show');
         document.body.style.cursor = '';
-      }
+      });
+
+      return pin;
     })
-    /* Rings for selected city pulse */
+    .htmlAltitude(0.01)
+    /* Pulse ring on selected city */
     .ringsData([])
     .ringLat('lat').ringLng('lng')
     .ringColor(() => '#38bdf8')
-    .ringMaxRadius(2.5).ringPropagationSpeed(3).ringRepeatPeriod(900)
-    /* Labels for city names at high zoom */
-    .labelsData(points)
-    .labelLat('lat').labelLng('lng')
-    .labelText('name')
-    .labelSize(0.5)
-    .labelDotRadius(0)
-    .labelColor('color')
-    .labelResolution(2)
-    .labelAltitude(0.018);
+    .ringMaxRadius(2.5).ringPropagationSpeed(3).ringRepeatPeriod(900);
 
   /* Better renderer quality */
   try { globe.renderer().setPixelRatio(Math.min(window.devicePixelRatio, 2)); } catch(e) {}
