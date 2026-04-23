@@ -1828,12 +1828,23 @@ function renderBudgetRecs() {
 
   if (!pool.length) { el.style.display = 'none'; return; }
 
-  const byName = new Map();
+  const deduped = new Map();
   for (const item of pool) {
-    const existing = byName.get(item.name);
-    if (!existing || item.price < existing.price) byName.set(item.name, item);
+    const iNorm = item.name.toLowerCase().trim();
+    let matchKey = null;
+    for (const key of deduped.keys()) {
+      const kNorm = key.toLowerCase().trim();
+      if (iNorm === kNorm || iNorm.startsWith(kNorm + ' ') || kNorm.startsWith(iNorm + ' ')) {
+        matchKey = key; break;
+      }
+    }
+    if (matchKey !== null) {
+      if (item.price < deduped.get(matchKey).price) deduped.set(matchKey, item);
+    } else {
+      deduped.set(item.name, item);
+    }
   }
-  const picks = Array.from(byName.values())
+  const picks = Array.from(deduped.values())
     .sort((a, b) => b.rating - a.rating || a.price - b.price)
     .slice(0, 10);
 
