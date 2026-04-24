@@ -83,10 +83,10 @@
     body::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #97ace0, #6a9ab8); border-radius: 4px; }
     body::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #b0bfe8, #7aabca); }
     body { scrollbar-width: thin; scrollbar-color: #6a9ab8 rgba(255,255,255,.04); }
-    body.light-mode::-webkit-scrollbar-track { background: rgba(15,23,42,.07); }
+    body.light-mode::-webkit-scrollbar-track { background: rgba(15,23,42,.12); }
     body.light-mode::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #5283a0, #3d6a94); }
-    body.light-mode::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #6a9ab8, #4d7aaa); }
-    body.light-mode { scrollbar-color: #5283a0 rgba(15,23,42,.07); }
+    body.light-mode::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #3d6a94, #2a5480); }
+    body.light-mode { scrollbar-color: #5283a0 rgba(15,23,42,.12); }
 
     /* ── Grain overlay ─────────────────────────────────────────── */
     body::after {
@@ -286,11 +286,8 @@
     }
     .add-day-pill:hover { background: rgba(106,154,184,.1); }
 
-    .itin-cards-area { flex: 1; overflow-y: scroll; padding: 14px 16px 24px; display: flex; flex-direction: column; gap: 12px; scrollbar-width: thin; scrollbar-color: #6a9ab8 rgba(255,255,255,.04); }
-    .itin-cards-area::-webkit-scrollbar { width: 5px; }
-    .itin-cards-area::-webkit-scrollbar-track { background: rgba(255,255,255,.04); border-radius: 4px; }
-    .itin-cards-area::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #97ace0, #6a9ab8); border-radius: 4px; }
-    .itin-cards-area::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #b0bfe8, #7aabca); }
+    .itin-cards-area { flex: 1; overflow-y: auto; padding: 14px 16px 24px; display: flex; flex-direction: column; gap: 12px; scrollbar-width: none; }
+    .itin-cards-area::-webkit-scrollbar { display: none; }
     .itin-cards-area.drag-over { outline: 2px dashed rgba(151,172,224,.25); outline-offset: -4px; border-radius: 8px; }
     .itin-cards-area.pick-drag-over {
       outline: 2px solid rgba(94,234,212,.35); outline-offset: -4px; border-radius: 8px;
@@ -1878,10 +1875,6 @@
     body.light-mode .tab-btn:hover { color: #334155; background: rgba(106,154,184,.06); border-color: rgba(106,154,184,.18); }
     body.light-mode .tab-btn.active { background: rgba(13,148,136,.1); border-color: rgba(13,148,136,.3); color: #0d9488; box-shadow: 0 0 14px rgba(13,148,136,.1); }
     /* Content panel */
-    body.light-mode .itin-cards-area { scrollbar-color: #5283a0 rgba(15,23,42,.07); }
-    body.light-mode .itin-cards-area::-webkit-scrollbar-track { background: rgba(15,23,42,.07); }
-    body.light-mode .itin-cards-area::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #5283a0, #3d6a94); }
-    body.light-mode .itin-cards-area::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #6a9ab8, #4d7aaa); }
     body.light-mode .content-panel { background: #fff; border-color: rgba(106,154,184,.2); box-shadow: 0 4px 24px rgba(0,0,0,.08); }
     /* Date pills */
     body.light-mode .date-pills-row { background: rgba(237,241,247,.8); border-bottom-color: rgba(106,154,184,.12); }
