@@ -1196,16 +1196,16 @@ function exportItinerary() {
   const spendLine = totalSpend ? `~$${totalSpend} est.` : '';
 
   const css = `
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Inter, system-ui, sans-serif; background: #fff; color: #1a1a1a; font-size: 13px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; background: #fff; color: #1a1a1a; font-size: 13px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .page { max-width: 1100px; margin: 0 auto; padding: 48px 40px 60px; }
 
     /* header */
     .header { margin-bottom: 32px; }
     .header-icon { margin-bottom: 12px; }
     .header-icon svg { display: block; }
-    .trip-name { font-size: 28px; font-weight: 700; color: #111; letter-spacing: -.6px; margin-bottom: 6px; }
+    .trip-name { font-family: 'Playfair Display', Georgia, serif; font-size: 32px; font-weight: 700; color: #111; letter-spacing: -.3px; margin-bottom: 6px; }
     .trip-meta { font-size: 13px; color: #6b7280; display: flex; gap: 16px; align-items: center; }
     .meta-sep { color: #d1d5db; }
     .divider { height: 1px; background: #e5e7eb; margin: 20px 0 28px; }
@@ -1216,7 +1216,7 @@ function exportItinerary() {
     .tab svg { flex-shrink: 0; }
 
     /* itinerary section */
-    .section-title { font-size: 18px; font-weight: 600; color: #111; margin-bottom: 16px; }
+    .section-title { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 600; color: #111; margin-bottom: 16px; letter-spacing: -.2px; }
     .itin-wrap { display: flex; gap: 0; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
     .day-col { flex: 1; min-width: 0; border-right: 1px solid #e5e7eb; }
     .day-col:last-child { border-right: none; }
@@ -1235,7 +1235,7 @@ function exportItinerary() {
 
     /* wishlist / todo */
     .todo-panel { margin-top: 32px; max-width: 480px; }
-    .todo-title { font-size: 16px; font-weight: 600; color: #111; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #e5e7eb; }
+    .todo-title { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 600; color: #111; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #e5e7eb; }
     .todo-item { display: flex; align-items: center; gap: 10px; padding: 8px 4px; border-bottom: 1px solid #f3f4f6; }
     .todo-icon { flex-shrink: 0; }
     .todo-name { flex: 1; font-size: 12.5px; color: #374151; }
