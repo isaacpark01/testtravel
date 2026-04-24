@@ -344,7 +344,7 @@
 
 <div class="globe-header">
   <a href="/" class="globe-logo">🌍 Dropped</a>
-  <span class="globe-hint">Search a city or continent · Click a dot · Drag to rotate</span>
+  <span class="globe-hint">Search a city or continent above · Drag to rotate · Scroll to zoom</span>
   <div class="globe-search-wrap" id="search-wrap">
     <input id="globe-search" class="globe-search" type="text" placeholder="Search cities…" autocomplete="off" />
     <span class="globe-search-icon">🔍</span>
@@ -432,7 +432,7 @@
 </div>
 
 <script src="https://unpkg.com/globe.gl@2.32.0/dist/globe.gl.min.js"></script>
-<script src="data.js?v=8"></script>
+<script src="data.js?v=9"></script>
 <script>
 (function () {
   const COORDS = {
@@ -597,10 +597,6 @@
   /* ── Region filter ── */
   function setRegion(region) {
     activeRegion = region || null;
-    if (globe) {
-      const filtered = activeRegion ? points.filter(p => getRegion(p.id) === activeRegion) : points;
-      globe.pointsData(filtered);
-    }
     document.querySelectorAll('.region-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.region === '' ? !activeRegion : btn.dataset.region === activeRegion);
     });
@@ -781,21 +777,6 @@
     .showAtmosphere(true)
     .atmosphereColor('#38bdf8')
     .atmosphereAltitude(0.15)
-    .pointsData(points)
-    .pointLat('lat').pointLng('lng')
-    .pointColor(d => d.color)
-    .pointRadius(0.42)
-    .pointAltitude(0.006)
-    .pointLabel(d => `<b>${d.name}</b><br/><span style="color:rgba(255,255,255,.45);font-weight:400">${d.country}</span>`)
-    .onPointClick((d, e) => {
-      e.stopPropagation();
-      if (!globe) return;
-      globe.controls().autoRotate = false;
-      globe.pointOfView({ lat: d.lat, lng: d.lng, altitude: 1.5 }, 900);
-      setTimeout(() => openPanel(d), 950);
-      if (isRotating) setTimeout(() => { if (globe) globe.controls().autoRotate = true; }, 6000);
-    })
-    .onPointHover(d => { document.body.style.cursor = d ? 'pointer' : ''; })
     .ringsData([])
     .ringLat('lat').ringLng('lng')
     .ringColor(() => '#38bdf8')
