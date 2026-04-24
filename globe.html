@@ -81,21 +81,8 @@
     .region-btn:hover { background: rgba(255,255,255,.07); color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.2); }
     .region-btn.active { background: rgba(56,189,248,.14); color: #38bdf8; border-color: rgba(56,189,248,.32); }
 
-    /* ── Hover Tooltip ── */
-    .globe-tooltip {
-      position: fixed; pointer-events: none; z-index: 99;
-      background: rgba(8,18,28,.93); border: 1px solid rgba(255,255,255,.12);
-      border-radius: 10px; padding: 7px 12px;
-      display: flex; align-items: center; gap: 8px;
-      box-shadow: 0 6px 24px rgba(0,0,0,.5);
-      transform: translate(-50%, -120%);
-      transition: opacity .12s;
-      opacity: 0;
-    }
-    .globe-tooltip.show { opacity: 1; }
-    .globe-tooltip-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .globe-tooltip-name { font-size: 13px; font-weight: 700; color: #fff; white-space: nowrap; }
-    .globe-tooltip-country { font-size: 11px; color: rgba(255,255,255,.4); white-space: nowrap; }
+    /* globe.gl built-in tooltip */
+    .scene-tooltip { font-family: 'Geist','Inter',system-ui,sans-serif !important; font-size: 12px !important; font-weight: 700 !important; background: rgba(8,18,28,.93) !important; border: 1px solid rgba(255,255,255,.12) !important; border-radius: 10px !important; padding: 6px 11px !important; color: #fff !important; }
 
     /* ── City Panel ── */
     .city-panel {
@@ -258,34 +245,6 @@
     .cp-nearby-chip:hover { background: rgba(56,189,248,.12); color: #38bdf8; border-color: rgba(56,189,248,.25); }
     .cp-nearby-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
 
-    /* ── Map Pin Drops ── */
-    #globe-wrap .map-pin { pointer-events: auto !important; }
-    .map-pin {
-      display: flex; flex-direction: column; align-items: center;
-      cursor: pointer; user-select: none;
-      transition: transform .15s cubic-bezier(.34,1.56,.64,1), filter .15s, opacity .3s;
-      transform-origin: bottom center;
-      will-change: transform;
-    }
-    .map-pin:hover { transform: scale(1.25) translateY(-4px); filter: drop-shadow(0 6px 14px rgba(0,0,0,.7)); }
-    .pin-circle {
-      width: 38px; height: 38px; border-radius: 50%; overflow: hidden;
-      box-shadow: 0 3px 12px rgba(0,0,0,.65); background: #0d1220;
-      flex-shrink: 0; position: relative;
-    }
-    .pin-circle img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
-    .pin-badge {
-      position: absolute; top: -3px; right: -3px;
-      width: 15px; height: 15px; border-radius: 50%;
-      font-size: 8px; display: none; align-items: center; justify-content: center;
-      background: #0d1220; border: 1.5px solid rgba(255,255,255,.15); pointer-events: none;
-    }
-    .pin-badge.show { display: flex; }
-    .pin-stem {
-      width: 0; height: 0;
-      border-left: 5px solid transparent; border-right: 5px solid transparent;
-      margin-top: -1px;
-    }
 
     /* ── Loading ── */
     .globe-loading {
@@ -385,7 +344,7 @@
 
 <div class="globe-header">
   <a href="/" class="globe-logo">🌍 Dropped</a>
-  <span class="globe-hint">Click a city · Drag to rotate · Scroll to zoom</span>
+  <span class="globe-hint">Search a city or continent · Click a dot · Drag to rotate</span>
   <div class="globe-search-wrap" id="search-wrap">
     <input id="globe-search" class="globe-search" type="text" placeholder="Search cities…" autocomplete="off" />
     <span class="globe-search-icon">🔍</span>
@@ -407,13 +366,6 @@
   <button class="region-btn" data-region="gulf">🕌 Gulf / ME</button>
   <button class="region-btn" data-region="africa">🌍 Africa</button>
   <button class="region-btn" data-region="oceania">🦘 Oceania</button>
-</div>
-
-<!-- Hover tooltip -->
-<div class="globe-tooltip" id="globe-tooltip">
-  <span class="globe-tooltip-dot" id="tooltip-dot"></span>
-  <span class="globe-tooltip-name" id="tooltip-name"></span>
-  <span class="globe-tooltip-country" id="tooltip-country"></span>
 </div>
 
 <div id="globe-wrap"></div>
@@ -480,7 +432,7 @@
 </div>
 
 <script src="https://unpkg.com/globe.gl@2.32.0/dist/globe.gl.min.js"></script>
-<script src="data.js?v=7"></script>
+<script src="data.js?v=8"></script>
 <script>
 (function () {
   const COORDS = {
@@ -566,7 +518,6 @@
   let filterQ = '';
   let isRotating = true;
   let activeRegion = null;
-  const pinEls = {};
 
   /* ── Wishlist / Visited (localStorage) ── */
   const WISHLIST_KEY = 'globe_wishlist';
@@ -579,17 +530,6 @@
   }
   let wishlist = loadSet(WISHLIST_KEY);
   let visited  = loadSet(VISITED_KEY);
-
-  function updatePinBadge(id) {
-    const el = pinEls[id];
-    if (!el) return;
-    const badge = el.querySelector('.pin-badge');
-    if (!badge) return;
-    const inW = wishlist.has(id), inV = visited.has(id);
-    badge.classList.toggle('show', inW || inV);
-    if (inW) { badge.textContent = '♥'; badge.style.color = '#fb7185'; }
-    else if (inV) { badge.textContent = '✓'; badge.style.color = '#34d399'; }
-  }
 
   function updateSaveBtns() {
     if (!currentCity) return;
@@ -609,7 +549,6 @@
     if (wishlist.has(id)) wishlist.delete(id); else wishlist.add(id);
     saveSet(WISHLIST_KEY, wishlist);
     updateSaveBtns();
-    updatePinBadge(id);
   };
 
   window.toggleVisited = function() {
@@ -618,7 +557,6 @@
     if (visited.has(id)) visited.delete(id); else visited.add(id);
     saveSet(VISITED_KEY, visited);
     updateSaveBtns();
-    updatePinBadge(id);
   };
 
   /* ── Nearby cities (haversine) ── */
@@ -659,11 +597,10 @@
   /* ── Region filter ── */
   function setRegion(region) {
     activeRegion = region || null;
-    Object.entries(pinEls).forEach(([id, el]) => {
-      const match = !activeRegion || getRegion(id) === activeRegion;
-      el.style.opacity = match ? '1' : '0.08';
-      el.style.pointerEvents = match ? 'auto' : 'none';
-    });
+    if (globe) {
+      const filtered = activeRegion ? points.filter(p => getRegion(p.id) === activeRegion) : points;
+      globe.pointsData(filtered);
+    }
     document.querySelectorAll('.region-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.region === '' ? !activeRegion : btn.dataset.region === activeRegion);
     });
@@ -840,65 +777,25 @@
   try {
   globe = Globe({ animateIn: true })(document.getElementById('globe-wrap'))
     .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
-    .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
     .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
     .showAtmosphere(true)
     .atmosphereColor('#38bdf8')
-    .atmosphereAltitude(0.18)
-    .htmlElementsData(points)
-    .htmlElement(d => {
-      const pin = document.createElement('div');
-      pin.className = 'map-pin';
-
-      const circle = document.createElement('div');
-      circle.className = 'pin-circle';
-      circle.style.border = `2.5px solid ${d.color}`;
-
-      const img = document.createElement('img');
-      img.src = d.image || FALLBACK_CITY_IMG;
-      img.loading = 'lazy';
-      img.onerror = () => { img.onerror = null; img.src = FALLBACK_CITY_IMG; };
-
-      const badge = document.createElement('div');
-      badge.className = 'pin-badge';
-
-      const stem = document.createElement('div');
-      stem.className = 'pin-stem';
-      stem.style.borderTop = `8px solid ${d.color}`;
-
-      circle.appendChild(img);
-      circle.appendChild(badge);
-      pin.appendChild(circle);
-      pin.appendChild(stem);
-
-      pinEls[d.id] = pin;
-      setTimeout(() => updatePinBadge(d.id), 50);
-
-      let _pdX, _pdY;
-      pin.addEventListener('pointerdown', e => { _pdX = e.clientX; _pdY = e.clientY; e.stopPropagation(); });
-      pin.addEventListener('pointerup', e => {
-        if (Math.abs(e.clientX - _pdX) < 6 && Math.abs(e.clientY - _pdY) < 6) {
-          e.stopPropagation();
-          if (globe) globe.controls().autoRotate = false;
-          openPanel(d);
-          if (isRotating) setTimeout(() => { if (globe) globe.controls().autoRotate = true; }, 5000);
-        }
-      });
-      pin.addEventListener('mouseover', () => {
-        document.getElementById('tooltip-dot').style.background = d.color;
-        document.getElementById('tooltip-name').textContent = d.name;
-        document.getElementById('tooltip-country').textContent = d.country;
-        document.getElementById('globe-tooltip').classList.add('show');
-        document.body.style.cursor = 'pointer';
-      });
-      pin.addEventListener('mouseout', () => {
-        document.getElementById('globe-tooltip').classList.remove('show');
-        document.body.style.cursor = '';
-      });
-
-      return pin;
+    .atmosphereAltitude(0.15)
+    .pointsData(points)
+    .pointLat('lat').pointLng('lng')
+    .pointColor(d => d.color)
+    .pointRadius(0.42)
+    .pointAltitude(0.006)
+    .pointLabel(d => `<b>${d.name}</b><br/><span style="color:rgba(255,255,255,.45);font-weight:400">${d.country}</span>`)
+    .onPointClick((d, e) => {
+      e.stopPropagation();
+      if (!globe) return;
+      globe.controls().autoRotate = false;
+      globe.pointOfView({ lat: d.lat, lng: d.lng, altitude: 1.5 }, 900);
+      setTimeout(() => openPanel(d), 950);
+      if (isRotating) setTimeout(() => { if (globe) globe.controls().autoRotate = true; }, 6000);
     })
-    .htmlAltitude(0.01)
+    .onPointHover(d => { document.body.style.cursor = d ? 'pointer' : ''; })
     .ringsData([])
     .ringLat('lat').ringLng('lng')
     .ringColor(() => '#38bdf8')
@@ -923,13 +820,6 @@
     console.error('Globe init error:', globeErr);
     document.getElementById('globe-loading').style.display = 'none';
   }
-
-  /* ── Tooltip follows mouse ── */
-  document.addEventListener('mousemove', e => {
-    const tip = document.getElementById('globe-tooltip');
-    tip.style.left = e.clientX + 'px';
-    tip.style.top  = e.clientY + 'px';
-  });
 
   /* ── Pause / Play ── */
   document.getElementById('pause-btn').addEventListener('click', () => {
@@ -959,35 +849,75 @@
     }, 800);
   });
 
+  /* ── Continents ── */
+  const CONTINENTS = [
+    { isContinent:true, name:'USA & North America', emoji:'🇺🇸', region:'usa',     lat:39,  lng:-98,  altitude:2.3 },
+    { isContinent:true, name:'Europe',              emoji:'🏰', region:'europe',  lat:54,  lng:15,   altitude:2.0 },
+    { isContinent:true, name:'Asia',                emoji:'🌏', region:'asia',    lat:30,  lng:105,  altitude:1.9 },
+    { isContinent:true, name:'Latin America',       emoji:'🌎', region:'latam',   lat:-8,  lng:-58,  altitude:2.3 },
+    { isContinent:true, name:'Middle East',         emoji:'🕌', region:'gulf',    lat:26,  lng:46,   altitude:2.6 },
+    { isContinent:true, name:'Africa',              emoji:'🌍', region:'africa',  lat:2,   lng:22,   altitude:2.2 },
+    { isContinent:true, name:'Oceania',             emoji:'🦘', region:'oceania', lat:-24, lng:134,  altitude:2.5 },
+  ];
+  const CONTINENT_COLORS = { usa:'#f97316', europe:'#a78bfa', asia:'#34d399', latam:'#fb923c', gulf:'#fbbf24', africa:'#f87171', oceania:'#22d3ee' };
+
   /* ── Search ── */
   const searchInput   = document.getElementById('globe-search');
   const searchResults = document.getElementById('search-results');
 
   function flyToCity(pt) {
-    if (globe) globe.controls().autoRotate = false;
-    globe.pointOfView({ lat: pt.lat, lng: pt.lng, altitude: 1.5 }, 1200);
-    setTimeout(() => { openPanel(pt); }, 1200);
+    if (!globe) return;
+    globe.controls().autoRotate = false;
+    globe.pointOfView({ lat: pt.lat, lng: pt.lng, altitude: 1.5 }, 1000);
+    setTimeout(() => openPanel(pt), 1050);
     searchInput.value = '';
     searchResults.classList.remove('show');
     if (isRotating) setTimeout(() => { if (globe) globe.controls().autoRotate = true; }, 6000);
   }
 
+  function flyToContinent(c) {
+    if (!globe) return;
+    globe.controls().autoRotate = false;
+    globe.pointOfView({ lat: c.lat, lng: c.lng, altitude: c.altitude }, 1200);
+    setRegion(c.region === activeRegion ? null : c.region);
+    searchInput.value = '';
+    searchResults.classList.remove('show');
+    if (isRotating) setTimeout(() => { if (globe) globe.controls().autoRotate = true; }, 8000);
+  }
+
   searchInput.addEventListener('input', () => {
     const q = searchInput.value.trim().toLowerCase();
     if (!q) { searchResults.classList.remove('show'); return; }
-    const hits = points.filter(p => p.name.toLowerCase().includes(q) || p.country.toLowerCase().includes(q)).slice(0, 8);
-    if (!hits.length) { searchResults.classList.remove('show'); return; }
-    searchResults.innerHTML = hits.map(p =>
-      `<div class="globe-search-result" data-id="${p.id}">
-         <span style="width:8px;height:8px;border-radius:50%;background:${p.color};display:inline-block;flex-shrink:0"></span>
-         <span class="globe-sr-name">${p.name}</span>
-         <span class="globe-sr-country">${p.country}</span>
-       </div>`).join('');
+
+    const continentHits = CONTINENTS.filter(c => c.name.toLowerCase().includes(q));
+    const cityHits = points.filter(p => p.name.toLowerCase().includes(q) || p.country.toLowerCase().includes(q)).slice(0, 7);
+
+    if (!continentHits.length && !cityHits.length) { searchResults.classList.remove('show'); return; }
+
+    searchResults.innerHTML = [
+      ...continentHits.map(c =>
+        `<div class="globe-search-result" data-continent="${c.region}">
+           <span style="font-size:14px;line-height:1">${c.emoji}</span>
+           <span class="globe-sr-name">${c.name}</span>
+           <span class="globe-sr-country" style="color:${CONTINENT_COLORS[c.region]}">Region</span>
+         </div>`),
+      ...cityHits.map(p =>
+        `<div class="globe-search-result" data-id="${p.id}">
+           <span style="width:8px;height:8px;border-radius:50%;background:${p.color};display:inline-block;flex-shrink:0"></span>
+           <span class="globe-sr-name">${p.name}</span>
+           <span class="globe-sr-country">${p.country}</span>
+         </div>`)
+    ].join('');
+
     searchResults.classList.add('show');
     searchResults.querySelectorAll('.globe-search-result').forEach(el => {
       el.addEventListener('click', () => {
-        const pt = points.find(p => p.id === el.dataset.id);
-        if (pt) flyToCity(pt);
+        if (el.dataset.continent) {
+          flyToContinent(CONTINENTS.find(c => c.region === el.dataset.continent));
+        } else {
+          const pt = points.find(p => p.id === el.dataset.id);
+          if (pt) flyToCity(pt);
+        }
       });
     });
   });
