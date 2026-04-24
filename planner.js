@@ -2331,9 +2331,8 @@ async function _geocode(name, cityName) {
   if (_geoCache[key]) return _geoCache[key];
   try {
     const q = encodeURIComponent(`${name}, ${cityName}`);
-    const r = await fetch(`https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=1&addressdetails=0`, {
-      headers: { 'User-Agent': 'Dropped-TravelApp/1.0' }
-    });
+    const r = await fetch(`https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=1&addressdetails=0`);
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const d = await r.json();
     if (d[0]) {
       const c = { lat: parseFloat(d[0].lat), lng: parseFloat(d[0].lon) };
@@ -2341,7 +2340,9 @@ async function _geocode(name, cityName) {
       localStorage.setItem('dropped_geo', JSON.stringify(_geoCache));
       return c;
     }
-  } catch(e) {}
+  } catch(e) {
+    console.warn('[Dropped] geocode failed for', name, '—', e.message);
+  }
   return null;
 }
 
