@@ -700,11 +700,11 @@ function getPhoto(name, cityImage, size) {
 
   // 2. PHOTO_MAP fallback
   const m = Object.keys(PHOTO_MAP).find(p => k.includes(p));
-  if (m) return `https://images.unsplash.com/${PHOTO_MAP[m]}?w=${w}&q=75`;
+  if (m) return `https://images.unsplash.com/${PHOTO_MAP[m]}?w=${w}&q=90&fm=webp&fit=crop`;
   const c = CATEGORY_PHOTOS.find(([p]) => k.includes(p));
-  if (c) return `https://images.unsplash.com/${c[1]}?w=${w}&q=75`;
-  if (cityImage) return cityImage.replace(/w=\d+/, `w=${w}`);
-  return `https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=${w}&q=70`;
+  if (c) return `https://images.unsplash.com/${c[1]}?w=${w}&q=90&fm=webp&fit=crop`;
+  if (cityImage) return cityImage.replace(/w=\d+(&q=\d+)?/, `w=${w}&q=90&fm=webp&fit=crop`);
+  return `https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=${w}&q=90&fm=webp&fit=crop`;
 }
 
 // ── Multi-photo gallery for profile slideshow ────────────────
@@ -2316,6 +2316,73 @@ function renderItinCards() {
 
   area.innerHTML = healthHTML + insightHTML + toolbar + `<div class="tl-wrap">${tlItems}</div>`;
   setupCardDrag();
+  const distCity = city?.name || '';
+  if (distCity && timedCards.length >= 2) _updateDistances(allSorted, distCity);
+}
+
+// ── Distance between itinerary stops ─────────────────────────
+let _geoCache = {};
+try { _geoCache = JSON.parse(localStorage.getItem('dropped_geo') || '{}'); } catch(e) {}
+let _geoGen = 0;
+
+async function _geocode(name, cityName) {
+  const key = `${name}||${cityName}`;
+  if (_geoCache[key]) return _geoCache[key];
+  try {
+    const q = encodeURIComponent(`${name}, ${cityName}`);
+    const r = await fetch(`https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=1&addressdetails=0`, {
+      headers: { 'User-Agent': 'Dropped-TravelApp/1.0' }
+    });
+    const d = await r.json();
+    if (d[0]) {
+      const c = { lat: parseFloat(d[0].lat), lng: parseFloat(d[0].lon) };
+      _geoCache[key] = c;
+      localStorage.setItem('dropped_geo', JSON.stringify(_geoCache));
+      return c;
+    }
+  } catch(e) {}
+  return null;
+}
+
+function _haversine(a, b) {
+  const R = 3958.8, rad = Math.PI / 180;
+  const dLat = (b.lat - a.lat) * rad, dLon = (b.lng - a.lng) * rad;
+  const h = Math.sin(dLat/2)**2 + Math.cos(a.lat*rad)*Math.cos(b.lat*rad)*Math.sin(dLon/2)**2;
+  return R * 2 * Math.asin(Math.sqrt(h));
+}
+
+function _fmtDist(mi) {
+  if (mi < 0.1) return `${Math.round(mi * 5280)} ft`;
+  return `${mi < 10 ? mi.toFixed(1) : Math.round(mi)} mi`;
+}
+
+async function _updateDistances(cards, cityName) {
+  const gen = ++_geoGen;
+  const timed = cards.filter(c => c.startTime);
+  if (timed.length < 2) return;
+  const coords = [];
+  for (const card of timed) {
+    if (gen !== _geoGen) return;
+    if (!_geoCache[`${card.name}||${cityName}`]) await new Promise(r => setTimeout(r, 1200));
+    coords.push({ card, geo: await _geocode(card.name, cityName) });
+  }
+  if (gen !== _geoGen) return;
+  for (let i = 0; i < coords.length - 1; i++) {
+    const { card: a, geo: geoA } = coords[i];
+    const { geo: geoB } = coords[i + 1];
+    const el = document.getElementById(`dist-${a.id}`);
+    if (!el) continue;
+    if (geoA && geoB) {
+      const mi = _haversine(geoA, geoB);
+      const dist = _fmtDist(mi);
+      const walkMins = Math.round(mi * 20);
+      const walkStr = walkMins < 60 ? `${walkMins} min walk` : `${Math.floor(walkMins/60)}h ${walkMins%60}m walk`;
+      el.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1" fill="currentColor"/><path d="M9 12h6M12 9l3 3-3 3"/><path d="M5 20h14"/></svg> ${dist} &nbsp;·&nbsp; ${walkStr}`;
+      el.classList.add('loaded');
+    } else {
+      el.style.display = 'none';
+    }
+  }
 }
 
 function renderTimelineItem(card, dayId, num, isConnected) {
@@ -2344,13 +2411,14 @@ function renderTimelineItem(card, dayId, num, isConnected) {
           onchange="updateCardTime('${jsqApp(dayId)}','${jsqApp(card.id)}',this.value)" />
       </div>
       ${cardHtml}
+      ${hasTime && isConnected ? `<div class="tl-dist-badge" id="dist-${escHtml(card.id)}"></div>` : ''}
     </div>
   </div>`;
 }
 
 function renderPlacedCard(card, dayId, num) {
   const city      = typeof CITIES !== 'undefined' ? CITIES.find(c => c.id === card.cityId) : null;
-  const photo     = card.photo || getPhoto(card.name, city?.image, 400);
+  const photo     = card.photo || getPhoto(card.name, city?.image, 900);
   const catIcon   = card.category === 'food' ? '🍽' : card.category === 'transport' ? '🚗' : '🎯';
   const price     = card.price === 0 ? '<span style="color:#34d399;font-weight:700">FREE</span>'
                   : card.price > 0   ? `<span style="color:#fb923c;font-weight:700">$${card.price}</span>` : '';
