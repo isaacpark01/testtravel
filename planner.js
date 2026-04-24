@@ -2543,6 +2543,32 @@ function setupCardDrag() {
       _dragCardId = null;
     });
   });
+
+  // Also handle drag over the time-row / dist-badge gaps between cards
+  // so the full tl-item zone is a valid drop target
+  document.querySelectorAll('.tl-item').forEach(item => {
+    const card = item.querySelector('.placed-card');
+    if (!card) return;
+    item.addEventListener('dragover', e => {
+      if (!_dragCardId || _dragCardId === card.dataset.cardId) return;
+      e.preventDefault();
+      clearDropLines();
+      const after = e.clientY > card.getBoundingClientRect().top + card.getBoundingClientRect().height / 2;
+      card.setAttribute(after ? 'data-drop-after' : 'data-drop-before', '1');
+    });
+    item.addEventListener('drop', e => {
+      if (!_dragCardId || _dragCardId === card.dataset.cardId) return;
+      e.preventDefault();
+      e.stopPropagation();
+      clearDropLines();
+      const after = e.clientY > card.getBoundingClientRect().top + card.getBoundingClientRect().height / 2;
+      reorderCard(_dragCardId, card.dataset.cardId, card.dataset.dayId, after);
+      _dragCardId = null;
+    });
+    item.addEventListener('dragleave', e => {
+      if (!item.contains(e.relatedTarget)) clearDropLines();
+    });
+  });
 }
 
 function onDayDragOver(e) {

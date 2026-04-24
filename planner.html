@@ -441,11 +441,12 @@
     /* drag handle — overlay top-left of photo */
     .placed-num {
       position: absolute; top: 8px; left: 8px; z-index: 2;
-      background: rgba(0,0,0,.38); border-radius: 7px; padding: 4px 5px;
-      color: rgba(255,255,255,.7); cursor: grab; pointer-events: auto;
-      display: flex; align-items: center; transition: opacity .15s;
+      background: rgba(0,0,0,.45); border-radius: 7px; padding: 5px 6px;
+      color: rgba(255,255,255,.9); cursor: grab; pointer-events: auto;
+      display: flex; align-items: center; transition: opacity .15s, background .15s;
     }
-    .placed-card:hover .placed-num { opacity: 1; }
+    .placed-num:hover { background: rgba(0,0,0,.65); }
+    .placed-card:active .placed-num { cursor: grabbing; }
 
     /* full-width photo */
     .placed-photo {
