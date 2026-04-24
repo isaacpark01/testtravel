@@ -78,10 +78,6 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { height: 100%; }
     body { min-height: 100%; overflow-y: scroll; font-family: 'Geist', sans-serif; background: var(--bg); color: var(--text); display: flex; flex-direction: column; scrollbar-width: auto; scrollbar-color: #4a7a9b #1a2d42; }
-    body::-webkit-scrollbar { width: 10px; }
-    body::-webkit-scrollbar-track { background: #1a2d42; }
-    body::-webkit-scrollbar-thumb { background: #4a7a9b; border-radius: 6px; border: 2px solid #1a2d42; }
-    body::-webkit-scrollbar-thumb:hover { background: #5a8faf; border-radius: 6px; border: 2px solid #1a2d42; }
 
     /* ── Grain overlay ─────────────────────────────────────────── */
     body::after {
@@ -91,9 +87,10 @@
     }
 
     /* ── Scrollbar ─────────────────────────────────────────────── */
-    ::-webkit-scrollbar { width: 4px; height: 4px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 4px; }
+    ::-webkit-scrollbar { width: 10px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #1a2d42; }
+    ::-webkit-scrollbar-thumb { background: #4a7a9b; border-radius: 6px; border: 2px solid #1a2d42; }
+    ::-webkit-scrollbar-thumb:hover { background: #5a8faf; }
 
     /* ── Nav ───────────────────────────────────────────────────── */
     .top-nav {
