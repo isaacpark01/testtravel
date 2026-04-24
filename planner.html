@@ -77,16 +77,15 @@
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { height: 100%; }
-    body { min-height: 100%; overflow-y: auto; font-family: 'Geist', sans-serif; background: var(--bg); color: var(--text); display: flex; flex-direction: column; }
-    body::-webkit-scrollbar { width: 6px; }
-    body::-webkit-scrollbar-track { background: rgba(255,255,255,.06); border-radius: 4px; }
-    body::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #97ace0, #6a9ab8); border-radius: 4px; }
-    body::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #b0bfe8, #7aabca); }
-    body { scrollbar-width: thin; scrollbar-color: #6a9ab8 rgba(255,255,255,.06); }
-    body.light-mode::-webkit-scrollbar-track { background: #c8d4e0; }
-    body.light-mode::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #4a7a9b, #2e5f80); }
-    body.light-mode::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #3d6a94, #1e4f6e); }
-    body.light-mode { scrollbar-color: #4a7a9b #c8d4e0; }
+    body { min-height: 100%; overflow-y: scroll; font-family: 'Geist', sans-serif; background: var(--bg); color: var(--text); display: flex; flex-direction: column; scrollbar-width: auto; scrollbar-color: #6a9ab8 rgba(255,255,255,.08); }
+    body::-webkit-scrollbar { width: 10px; }
+    body::-webkit-scrollbar-track { background: rgba(255,255,255,.08); }
+    body::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #97ace0, #6a9ab8); border-radius: 6px; border: 2px solid transparent; background-clip: padding-box; }
+    body::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #b0bfe8, #7aabca); border-radius: 6px; border: 2px solid transparent; background-clip: padding-box; }
+    body.light-mode { scrollbar-color: #3d6a94 #b0c4d8; }
+    body.light-mode::-webkit-scrollbar-track { background: #b0c4d8; }
+    body.light-mode::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #3d6a94, #1e4f6e); border-radius: 6px; border: 2px solid transparent; background-clip: padding-box; }
+    body.light-mode::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #2a5480, #0f3350); border-radius: 6px; border: 2px solid transparent; background-clip: padding-box; }
 
     /* ── Grain overlay ─────────────────────────────────────────── */
     body::after {
