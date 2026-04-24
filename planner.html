@@ -79,8 +79,14 @@
     html { height: 100%; }
     body { min-height: 100%; overflow-y: auto; font-family: 'Geist', sans-serif; background: var(--bg); color: var(--text); display: flex; flex-direction: column; }
     body::-webkit-scrollbar { width: 5px; }
-    body::-webkit-scrollbar-track { background: rgba(255,255,255,.02); }
-    body::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #5eead4, #0d9488); border-radius: 10px; }
+    body::-webkit-scrollbar-track { background: rgba(255,255,255,.04); border-radius: 4px; }
+    body::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #97ace0, #6a9ab8); border-radius: 4px; }
+    body::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #b0bfe8, #7aabca); }
+    body { scrollbar-width: thin; scrollbar-color: #6a9ab8 rgba(255,255,255,.04); }
+    body.light-mode::-webkit-scrollbar-track { background: rgba(15,23,42,.07); }
+    body.light-mode::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #5283a0, #3d6a94); }
+    body.light-mode::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #6a9ab8, #4d7aaa); }
+    body.light-mode { scrollbar-color: #5283a0 rgba(15,23,42,.07); }
 
     /* ── Grain overlay ─────────────────────────────────────────── */
     body::after {
@@ -227,12 +233,12 @@
     }
 
     /* ── Main layout ───────────────────────────────────────────── */
-    .planner-layout { display: flex; flex: 1; min-height: calc(100vh - 227px); padding: 10px 12px; gap: 10px; }
+    .planner-layout { display: flex; flex: 1; height: calc(100vh - 277px); overflow: hidden; padding: 10px 12px; gap: 10px; }
 
     /* ── Content panel (left) ──────────────────────────────────── */
     .content-panel {
       width: 480px; min-width: 320px; max-width: 480px; flex-shrink: 0;
-      height: calc(100vh - 297px);
+      height: 100%;
       background: #0f1929; display: flex; flex-direction: column;
       overflow: hidden;
       border-radius: 18px;
@@ -1118,7 +1124,7 @@
     }
     @media (max-width: 768px) {
       .content-panel { width: 100%; max-width: 100%; height: auto; min-height: 60vh; border-radius: 0; box-shadow: none; border: none; }
-      .planner-layout { padding: 0; gap: 0; }
+      .planner-layout { height: auto; overflow: visible; padding: 0; gap: 0; }
       .map-panel { display: none; position: fixed; inset: 0; z-index: 150; padding: 0; height: 100%; }
       .map-panel .map-box { border-radius: 0; border: none; box-shadow: none; }
       .map-panel.mob-visible { display: block; }
