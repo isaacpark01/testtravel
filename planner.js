@@ -1108,44 +1108,99 @@ function renderPackingListContent() {
 // Generates a clean, shareable text summary of the entire trip plan
 function exportItinerary() {
   if (!currentTrip) { showToast('Create a trip first'); return; }
-  const city   = typeof CITIES !== 'undefined' ? CITIES.find(c => c.id === currentTrip.cityId) : null;
-  const lines  = [];
+  const city = typeof CITIES !== 'undefined' ? CITIES.find(c => c.id === currentTrip.cityId) : null;
   let totalSpend = 0;
-
-  lines.push(`<h1 style="font-family:Georgia,serif;color:#0d9488">🌏 ${escHtml(currentTrip.name)}</h1>`);
-  if (city) lines.push(`<p style="color:#555">📍 ${escHtml(city.name)}, ${escHtml(city.country)}</p>`);
-  if (currentTrip.budget) lines.push(`<p style="color:#555">💰 Budget: $${currentTrip.budget}</p>`);
-  lines.push('<hr>');
+  let dayBlocks = '';
 
   (currentTrip.days || []).forEach(day => {
     const cards = day.cards || [];
     if (!cards.length) return;
-    lines.push(`<h2 style="font-family:Georgia,serif;color:#0d9488;margin-top:20px">${escHtml(getDayLabel(day))}</h2>`);
-    lines.push('<ul style="margin:0;padding-left:18px">');
+    let rows = '';
     cards.forEach(c => {
-      const icon    = c.category === 'food' ? '🍽' : '🎯';
+      const isFood  = c.category === 'food';
+      const icon    = isFood ? '🍽' : '🎯';
       const price   = c.price === 0 ? 'Free' : c.price > 0 ? `$${c.price}` : '';
-      const rating  = c.rating ? `⭐ ${c.rating}` : '';
-      const meta    = [rating, price, c.duration].filter(Boolean).join(' · ');
-      lines.push(`<li style="margin-bottom:6px"><strong>${icon} ${escHtml(c.name)}</strong>${meta ? ` <span style="color:#888;font-size:13px">(${meta})</span>` : ''}${c.note ? `<br><span style="color:#888;font-size:12px">📝 ${escHtml(c.note)}</span>` : ''}</li>`);
+      const rating  = c.rating ? `${c.rating}` : '';
+      const chips   = [rating ? `⭐ ${rating}` : '', price, c.duration].filter(Boolean).join(' &middot; ');
       if (typeof c.price === 'number' && c.price > 0) totalSpend += c.price;
+      rows += `
+        <div class="row">
+          <span class="row-icon">${icon}</span>
+          <div class="row-body">
+            <span class="row-name">${escHtml(c.name)}</span>
+            ${chips ? `<span class="row-meta">${chips}</span>` : ''}
+            ${c.note ? `<span class="row-note">📝 ${escHtml(c.note)}</span>` : ''}
+          </div>
+        </div>`;
     });
-    lines.push('</ul>');
+    dayBlocks += `
+      <div class="day-block">
+        <div class="day-label">${escHtml(getDayLabel(day))}</div>
+        <div class="day-rows">${rows}</div>
+      </div>`;
   });
 
+  let wishlistBlock = '';
   if ((currentTrip.saves || []).length) {
-    lines.push('<hr><h2 style="font-family:Georgia,serif;color:#0d9488">♡ Wishlist</h2><ul style="margin:0;padding-left:18px">');
+    let wrows = '';
     currentTrip.saves.forEach(s => {
       const icon = s.category === 'food' ? '🍽' : '🎯';
-      lines.push(`<li>${icon} ${escHtml(s.name)}${s.note ? ` — <span style="color:#888">${escHtml(s.note)}</span>` : ''}</li>`);
+      wrows += `<div class="row"><span class="row-icon">${icon}</span><div class="row-body"><span class="row-name">${escHtml(s.name)}</span>${s.note ? `<span class="row-note">${escHtml(s.note)}</span>` : ''}</div></div>`;
     });
-    lines.push('</ul>');
+    wishlistBlock = `<div class="day-block"><div class="day-label wishlist-label">♡ &nbsp;Wishlist</div><div class="day-rows">${wrows}</div></div>`;
   }
 
-  lines.push(`<hr><p style="color:#888;font-size:12px">Planned spend: ~$${totalSpend} · Planned with Dropped</p>`);
+  const numDays = (currentTrip.days || []).filter(d => (d.cards||[]).length).length;
+  const meta1 = city ? `📍 ${escHtml(city.name)}, ${escHtml(city.country)}` : '';
+  const meta2 = numDays ? `📅 ${numDays} day${numDays !== 1 ? 's' : ''}` : '';
+  const meta3 = totalSpend ? `💸 ~$${totalSpend} est.` : '';
+  const metaLine = [meta1, meta2, meta3].filter(Boolean).join('<span class="dot">&nbsp;·&nbsp;</span>');
+
+  const css = `
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Inter, system-ui, sans-serif; background: #f5f7fa; color: #0f172a; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page { max-width: 680px; margin: 36px auto; padding: 0 20px 48px; }
+    .header { background: #fff; border-radius: 16px; padding: 28px 28px 22px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,.07); border: 1px solid #e8edf5; }
+    .trip-name { font-size: 26px; font-weight: 700; color: #0f172a; letter-spacing: -.5px; margin-bottom: 10px; }
+    .trip-meta { font-size: 13px; color: #64748b; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+    .dot { color: #cbd5e1; }
+    .budget-pill { display: inline-block; margin-top: 10px; background: #f0fdf9; border: 1px solid #99f6e4; color: #0f766e; border-radius: 20px; padding: 3px 12px; font-size: 12px; font-weight: 600; }
+    .day-block { background: #fff; border-radius: 14px; padding: 18px 20px 12px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,.06); border: 1px solid #e8edf5; }
+    .day-label { font-size: 13px; font-weight: 700; color: #0d9488; text-transform: uppercase; letter-spacing: .6px; margin-bottom: 12px; }
+    .wishlist-label { color: #7c3aed; }
+    .day-rows { display: flex; flex-direction: column; gap: 2px; }
+    .row { display: flex; align-items: flex-start; gap: 10px; padding: 7px 8px; border-radius: 8px; }
+    .row:nth-child(odd) { background: #f8fafc; }
+    .row-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+    .row-body { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+    .row-name { font-size: 13.5px; font-weight: 600; color: #1e293b; line-height: 1.3; }
+    .row-meta { font-size: 11.5px; color: #94a3b8; }
+    .row-note { font-size: 11.5px; color: #64748b; font-style: italic; }
+    .footer { text-align: center; margin-top: 24px; font-size: 11px; color: #94a3b8; letter-spacing: .2px; }
+    .footer strong { color: #0d9488; }
+    @media print {
+      body { background: #fff; }
+      .page { margin: 0; padding: 16px; }
+      .header, .day-block { box-shadow: none; border: 1px solid #dde3ee; }
+    }
+  `;
+
+  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escHtml(currentTrip.name)}</title><style>${css}</style></head><body>
+  <div class="page">
+    <div class="header">
+      <div class="trip-name">🌏 ${escHtml(currentTrip.name)}</div>
+      <div class="trip-meta">${metaLine}</div>
+      ${currentTrip.budget ? `<div class="budget-pill">💰 Budget $${currentTrip.budget}</div>` : ''}
+    </div>
+    ${dayBlocks}
+    ${wishlistBlock}
+    <div class="footer">Planned with <strong>Dropped</strong> &nbsp;·&nbsp; dropped.app</div>
+  </div>
+  <script>setTimeout(()=>window.print(),500)<\/script></body></html>`;
 
   const w = window.open('', '_blank');
-  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${escHtml(currentTrip.name)}</title><style>body{font-family:Inter,sans-serif;max-width:720px;margin:40px auto;padding:0 24px;color:#111}@media print{body{margin:20px}}</style></head><body>${lines.join('\n')}<script>setTimeout(()=>window.print(),400)<\/script></body></html>`);
+  w.document.write(html);
   w.document.close();
 }
 
