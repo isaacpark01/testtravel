@@ -2460,7 +2460,7 @@ function renderPlacedCard(card, dayId, num) {
 
   return `<div class="placed-card" draggable="true" data-card-id="${card.id}" data-day-id="${dayId}" data-cat="${escHtml(card.category || 'activity')}">
     <div class="placed-num" title="Drag to reorder"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="5" r="1" fill="currentColor"/><circle cx="9" cy="12" r="1" fill="currentColor"/><circle cx="9" cy="19" r="1" fill="currentColor"/><circle cx="15" cy="5" r="1" fill="currentColor"/><circle cx="15" cy="12" r="1" fill="currentColor"/><circle cx="15" cy="19" r="1" fill="currentColor"/></svg></div>
-    <img class="placed-photo" src="${escHtml(photo)}" alt="${escHtml(card.name)}" loading="lazy"
+    <img class="placed-photo" src="${escHtml(photo)}" alt="${escHtml(card.name)}" loading="lazy" draggable="false"
       onerror="this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=85&fm=webp&fit=crop'" />
     <div class="placed-body">
       ${card.cityName ? `<div class="placed-city-badge">${escHtml(card.cityName)}</div>` : ''}
@@ -2498,6 +2498,9 @@ function clearDropLines() {
 
 function setupCardDrag() {
   document.querySelectorAll('.placed-card').forEach(card => {
+    // Prevent child elements from hijacking the drag
+    card.querySelectorAll('img, button, input').forEach(el => el.setAttribute('draggable', 'false'));
+
     card.addEventListener('dragstart', e => {
       _dragCardId = card.dataset.cardId;
       _dragPlace  = null;
@@ -2567,6 +2570,57 @@ function setupCardDrag() {
     });
     item.addEventListener('dragleave', e => {
       if (!item.contains(e.relatedTarget)) clearDropLines();
+    });
+  });
+
+  // ── Touch drag (mobile) ────────────────────────────────────
+  let _touchDragId = null, _touchClone = null;
+  document.querySelectorAll('.placed-card').forEach(card => {
+    const handle = card.querySelector('.placed-num');
+    if (!handle) return;
+    handle.addEventListener('touchstart', e => {
+      _touchDragId = card.dataset.cardId;
+      const r = card.getBoundingClientRect();
+      _touchClone = card.cloneNode(true);
+      Object.assign(_touchClone.style, {
+        position:'fixed', left: r.left+'px', top: r.top+'px',
+        width: r.width+'px', opacity:'.85', pointerEvents:'none',
+        zIndex:'9999', transform:'rotate(1.5deg) scale(1.03)',
+        border:'2px solid rgba(94,234,212,.8)',
+        borderRadius:'16px', transition:'none',
+      });
+      document.body.appendChild(_touchClone);
+      card.classList.add('dragging');
+      e.preventDefault();
+    }, { passive: false });
+
+    handle.addEventListener('touchmove', e => {
+      if (!_touchClone || !_touchDragId) return;
+      const t = e.touches[0];
+      const r = _touchClone.getBoundingClientRect();
+      _touchClone.style.left = (t.clientX - r.width/2) + 'px';
+      _touchClone.style.top  = (t.clientY - 30) + 'px';
+      clearDropLines();
+      const target = document.elementFromPoint(t.clientX, t.clientY)?.closest('.placed-card');
+      if (target && target.dataset.cardId !== _touchDragId) {
+        const after = t.clientY > target.getBoundingClientRect().top + target.getBoundingClientRect().height / 2;
+        target.setAttribute(after ? 'data-drop-after' : 'data-drop-before', '1');
+      }
+      e.preventDefault();
+    }, { passive: false });
+
+    handle.addEventListener('touchend', e => {
+      if (!_touchDragId) return;
+      const t = e.changedTouches[0];
+      const target = document.elementFromPoint(t.clientX, t.clientY)?.closest('.placed-card');
+      clearDropLines();
+      if (target && target.dataset.cardId !== _touchDragId) {
+        const after = t.clientY > target.getBoundingClientRect().top + target.getBoundingClientRect().height / 2;
+        reorderCard(_touchDragId, target.dataset.cardId, target.dataset.dayId, after);
+      }
+      if (_touchClone) { document.body.removeChild(_touchClone); _touchClone = null; }
+      document.querySelectorAll('.placed-card').forEach(c => c.classList.remove('dragging'));
+      _touchDragId = null;
     });
   });
 }
