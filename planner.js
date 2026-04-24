@@ -1110,92 +1110,166 @@ function exportItinerary() {
   if (!currentTrip) { showToast('Create a trip first'); return; }
   const city = typeof CITIES !== 'undefined' ? CITIES.find(c => c.id === currentTrip.cityId) : null;
   let totalSpend = 0;
-  let dayBlocks = '';
 
-  (currentTrip.days || []).forEach(day => {
+  // ── helper: format 24h time to 12h ──────────────────────────────
+  function fmt12(t) {
+    if (!t) return '';
+    const [hh, mm] = t.split(':').map(Number);
+    const ampm = hh >= 12 ? 'PM' : 'AM';
+    const h = hh % 12 || 12;
+    return `${h}:${String(mm).padStart(2,'0')} ${ampm}`;
+  }
+  function calcEnd(start, dur) {
+    if (!start || !dur) return '';
+    const mins = _parseDurationMins(dur);
+    if (!mins) return '';
+    const [hh, mm] = start.split(':').map(Number);
+    const total = hh * 60 + mm + mins;
+    return `${String(Math.floor(total/60)%24).padStart(2,'0')}:${String(total%60).padStart(2,'0')}`;
+  }
+
+  // ── activity icon (SVG, Notion-style) ───────────────────────────
+  function cardIcon(isFood) {
+    return isFood
+      ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>`
+      : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`;
+  }
+
+  // ── build day columns ────────────────────────────────────────────
+  const activeDays = (currentTrip.days || []).filter(d => (d.cards||[]).length);
+  let dayColumns = '';
+  activeDays.forEach((day, di) => {
     const cards = day.cards || [];
-    if (!cards.length) return;
-    let rows = '';
+    let cardHtml = '';
     cards.forEach(c => {
-      const isFood  = c.category === 'food';
-      const icon    = isFood ? '🍽' : '🎯';
-      const price   = c.price === 0 ? 'Free' : c.price > 0 ? `$${c.price}` : '';
-      const rating  = c.rating ? `${c.rating}` : '';
-      const chips   = [rating ? `⭐ ${rating}` : '', price, c.duration].filter(Boolean).join(' &middot; ');
+      const isFood = c.category === 'food';
+      const price  = c.price === 0 ? 'Free' : c.price > 0 ? `$${c.price}` : '';
       if (typeof c.price === 'number' && c.price > 0) totalSpend += c.price;
-      rows += `
-        <div class="row">
-          <span class="row-icon">${icon}</span>
-          <div class="row-body">
-            <span class="row-name">${escHtml(c.name)}</span>
-            ${chips ? `<span class="row-meta">${chips}</span>` : ''}
-            ${c.note ? `<span class="row-note">📝 ${escHtml(c.note)}</span>` : ''}
+      const timeStart = fmt12(c.startTime);
+      const timeEnd   = fmt12(calcEnd(c.startTime, c.duration));
+      const timeStr   = timeStart ? (timeEnd ? `${timeStart} – ${timeEnd}` : timeStart) : (c.duration || '');
+      const desc      = c.note || c.tip || '';
+      const loc       = c.cuisine || '';
+      cardHtml += `
+        <div class="card">
+          <div class="card-icon">${cardIcon(isFood)}</div>
+          <div class="card-body">
+            <div class="card-name">${escHtml(c.name)}</div>
+            ${desc ? `<div class="card-desc">${escHtml(desc)}</div>` : ''}
+            ${timeStr ? `<div class="card-meta">${escHtml(timeStr)}</div>` : ''}
+            ${loc ? `<div class="card-loc">${escHtml(loc)}</div>` : ''}
+            ${price ? `<div class="card-price">${escHtml(price)}</div>` : ''}
           </div>
         </div>`;
     });
-    dayBlocks += `
-      <div class="day-block">
-        <div class="day-label">${escHtml(getDayLabel(day))}</div>
-        <div class="day-rows">${rows}</div>
+    dayColumns += `
+      <div class="day-col">
+        <div class="day-head">
+          <span class="day-label">Day ${di + 1}</span>
+          <span class="day-count">${cards.length}</span>
+        </div>
+        <div class="day-cards">${cardHtml}</div>
       </div>`;
   });
 
-  let wishlistBlock = '';
+  // ── wishlist / to-do panel ───────────────────────────────────────
+  let todoPanel = '';
   if ((currentTrip.saves || []).length) {
-    let wrows = '';
+    let items = '';
     currentTrip.saves.forEach(s => {
-      const icon = s.category === 'food' ? '🍽' : '🎯';
-      wrows += `<div class="row"><span class="row-icon">${icon}</span><div class="row-body"><span class="row-name">${escHtml(s.name)}</span>${s.note ? `<span class="row-note">${escHtml(s.note)}</span>` : ''}</div></div>`;
+      const isFood = s.category === 'food';
+      items += `
+        <div class="todo-item">
+          <span class="todo-icon">${cardIcon(isFood)}</span>
+          <span class="todo-name">${escHtml(s.name)}</span>
+          <span class="todo-check"></span>
+        </div>`;
     });
-    wishlistBlock = `<div class="day-block"><div class="day-label wishlist-label">♡ &nbsp;Wishlist</div><div class="day-rows">${wrows}</div></div>`;
+    todoPanel = `
+      <div class="todo-panel">
+        <div class="todo-title">Wishlist</div>
+        ${items}
+      </div>`;
   }
 
-  const numDays = (currentTrip.days || []).filter(d => (d.cards||[]).length).length;
-  const meta1 = city ? `📍 ${escHtml(city.name)}, ${escHtml(city.country)}` : '';
-  const meta2 = numDays ? `📅 ${numDays} day${numDays !== 1 ? 's' : ''}` : '';
-  const meta3 = totalSpend ? `💸 ~$${totalSpend} est.` : '';
-  const metaLine = [meta1, meta2, meta3].filter(Boolean).join('<span class="dot">&nbsp;·&nbsp;</span>');
+  const cityLine = city ? `${escHtml(city.name)}, ${escHtml(city.country)}` : '';
+  const spendLine = totalSpend ? `~$${totalSpend} est.` : '';
 
   const css = `
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Inter, system-ui, sans-serif; background: #f5f7fa; color: #0f172a; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .page { max-width: 680px; margin: 36px auto; padding: 0 20px 48px; }
-    .header { background: #fff; border-radius: 16px; padding: 28px 28px 22px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,.07); border: 1px solid #e8edf5; }
-    .trip-name { font-size: 26px; font-weight: 700; color: #0f172a; letter-spacing: -.5px; margin-bottom: 10px; }
-    .trip-meta { font-size: 13px; color: #64748b; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
-    .dot { color: #cbd5e1; }
-    .budget-pill { display: inline-block; margin-top: 10px; background: #f0fdf9; border: 1px solid #99f6e4; color: #0f766e; border-radius: 20px; padding: 3px 12px; font-size: 12px; font-weight: 600; }
-    .day-block { background: #fff; border-radius: 14px; padding: 18px 20px 12px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,.06); border: 1px solid #e8edf5; }
-    .day-label { font-size: 13px; font-weight: 700; color: #0d9488; text-transform: uppercase; letter-spacing: .6px; margin-bottom: 12px; }
-    .wishlist-label { color: #7c3aed; }
-    .day-rows { display: flex; flex-direction: column; gap: 2px; }
-    .row { display: flex; align-items: flex-start; gap: 10px; padding: 7px 8px; border-radius: 8px; }
-    .row:nth-child(odd) { background: #f8fafc; }
-    .row-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-    .row-body { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
-    .row-name { font-size: 13.5px; font-weight: 600; color: #1e293b; line-height: 1.3; }
-    .row-meta { font-size: 11.5px; color: #94a3b8; }
-    .row-note { font-size: 11.5px; color: #64748b; font-style: italic; }
-    .footer { text-align: center; margin-top: 24px; font-size: 11px; color: #94a3b8; letter-spacing: .2px; }
-    .footer strong { color: #0d9488; }
+    body { font-family: Inter, system-ui, sans-serif; background: #fff; color: #1a1a1a; font-size: 13px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page { max-width: 1100px; margin: 0 auto; padding: 48px 40px 60px; }
+
+    /* header */
+    .header { margin-bottom: 32px; }
+    .header-icon { margin-bottom: 12px; }
+    .header-icon svg { display: block; }
+    .trip-name { font-size: 28px; font-weight: 700; color: #111; letter-spacing: -.6px; margin-bottom: 6px; }
+    .trip-meta { font-size: 13px; color: #6b7280; display: flex; gap: 16px; align-items: center; }
+    .meta-sep { color: #d1d5db; }
+    .divider { height: 1px; background: #e5e7eb; margin: 20px 0 28px; }
+
+    /* tab row (decorative) */
+    .tab-row { display: flex; gap: 24px; margin-bottom: 28px; }
+    .tab { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #9ca3af; cursor: default; }
+    .tab svg { flex-shrink: 0; }
+
+    /* itinerary section */
+    .section-title { font-size: 18px; font-weight: 600; color: #111; margin-bottom: 16px; }
+    .itin-wrap { display: flex; gap: 0; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
+    .day-col { flex: 1; min-width: 0; border-right: 1px solid #e5e7eb; }
+    .day-col:last-child { border-right: none; }
+    .day-head { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid #e5e7eb; background: #fafafa; }
+    .day-label { font-size: 12px; font-weight: 600; color: #374151; }
+    .day-count { font-size: 11px; color: #9ca3af; background: #f3f4f6; border-radius: 10px; padding: 1px 7px; }
+    .day-cards { padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+    .card { display: flex; align-items: flex-start; gap: 8px; padding: 10px 10px 9px; border: 1px solid #e5e7eb; border-radius: 6px; background: #fff; }
+    .card-icon { flex-shrink: 0; margin-top: 1px; }
+    .card-body { min-width: 0; }
+    .card-name { font-size: 12.5px; font-weight: 500; color: #111; margin-bottom: 2px; line-height: 1.3; }
+    .card-desc { font-size: 11px; color: #6b7280; margin-bottom: 3px; line-height: 1.4; }
+    .card-meta { font-size: 11px; color: #374151; margin-bottom: 1px; }
+    .card-loc  { font-size: 11px; color: #9ca3af; }
+    .card-price { font-size: 11px; color: #6b7280; margin-top: 2px; }
+
+    /* wishlist / todo */
+    .todo-panel { margin-top: 32px; max-width: 480px; }
+    .todo-title { font-size: 16px; font-weight: 600; color: #111; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #e5e7eb; }
+    .todo-item { display: flex; align-items: center; gap: 10px; padding: 8px 4px; border-bottom: 1px solid #f3f4f6; }
+    .todo-icon { flex-shrink: 0; }
+    .todo-name { flex: 1; font-size: 12.5px; color: #374151; }
+    .todo-check { width: 14px; height: 14px; border: 1.5px solid #d1d5db; border-radius: 3px; flex-shrink: 0; }
+
+    /* footer */
+    .footer { margin-top: 40px; font-size: 11px; color: #9ca3af; }
+    .footer strong { color: #374151; }
+
     @media print {
-      body { background: #fff; }
-      .page { margin: 0; padding: 16px; }
-      .header, .day-block { box-shadow: none; border: 1px solid #dde3ee; }
+      .page { padding: 20px 24px; }
+      .itin-wrap { break-inside: avoid; }
     }
   `;
+
+  // plane SVG
+  const planeSvg = `<svg width="40" height="40" viewBox="0 0 24 24" fill="#1f2937"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>`;
 
   const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escHtml(currentTrip.name)}</title><style>${css}</style></head><body>
   <div class="page">
     <div class="header">
-      <div class="trip-name">🌏 ${escHtml(currentTrip.name)}</div>
-      <div class="trip-meta">${metaLine}</div>
-      ${currentTrip.budget ? `<div class="budget-pill">💰 Budget $${currentTrip.budget}</div>` : ''}
+      <div class="header-icon">${planeSvg}</div>
+      <div class="trip-name">${escHtml(currentTrip.name)}</div>
+      <div class="trip-meta">
+        ${cityLine ? `<span>${cityLine}</span>` : ''}
+        ${cityLine && spendLine ? `<span class="meta-sep">·</span>` : ''}
+        ${spendLine ? `<span>${spendLine}</span>` : ''}
+      </div>
     </div>
-    ${dayBlocks}
-    ${wishlistBlock}
-    <div class="footer">Planned with <strong>Dropped</strong> &nbsp;·&nbsp; dropped.app</div>
+    <div class="divider"></div>
+    <div class="section-title">Itinerary</div>
+    <div class="itin-wrap">${dayColumns}</div>
+    ${todoPanel}
+    <div class="footer">Planned with <strong>Dropped</strong></div>
   </div>
   <script>setTimeout(()=>window.print(),500)<\/script></body></html>`;
 
