@@ -1425,6 +1425,9 @@ function renderLangMenu() {
       <span class="lang-flag">${l.flag}</span>
       <span class="lang-name">${l.native}</span>
     </button>`).join('');
+  const active = LANGS.find(l => l.code === activeLang);
+  const lbl = document.getElementById('lp-label');
+  if (lbl && active) lbl.textContent = active.name;
 }
 
 function setLang(code) {

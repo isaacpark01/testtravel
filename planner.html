@@ -1123,8 +1123,9 @@
       .btn-ghost { display: none; }
       #btn-new-trip { display: none; }
       .trips-dropdown-wrap { display: none; }
-      /* Lang picker always visible on mobile */
-      .lang-picker-btn { width: 38px; height: 38px; font-size: 18px; }
+      /* Lang picker always visible on mobile — keep pill but hide text label */
+      .lang-picker-btn { padding: 0 10px; }
+      .lang-picker-btn .lp-label { display: none; }
       .lang-picker-menu { right: 0; left: auto; min-width: 180px; }
     }
     @media (max-width: 500px) {
@@ -1503,12 +1504,14 @@
     /* ── Language Picker ─────────────────────────────────────── */
     .lang-picker-wrap { position: relative; }
     .lang-picker-btn {
-      background: rgba(151,172,224,.08); border: 1px solid rgba(151,172,224,.25);
-      border-radius: 8px; color: #97ace0; font-size: 16px;
-      width: 36px; height: 36px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; transition: all .15s;
+      background: rgba(151,172,224,.08); border: 1px solid rgba(151,172,224,.3);
+      border-radius: 999px; color: #97ace0; font-size: 13px; font-weight: 500;
+      height: 34px; padding: 0 14px 0 10px; cursor: pointer; white-space: nowrap;
+      display: flex; align-items: center; gap: 7px; transition: all .15s; letter-spacing: .01em;
     }
-    .lang-picker-btn:hover { background: rgba(151,172,224,.18); border-color: rgba(151,172,224,.5); }
+    .lang-picker-btn:hover { background: rgba(151,172,224,.18); border-color: rgba(151,172,224,.55); }
+    .lang-picker-btn .lp-globe { flex-shrink: 0; opacity: .85; }
+    .lang-picker-btn .lp-label { line-height: 1; }
     .lang-picker-menu {
       position: absolute; right: 0; top: calc(100% + 6px);
       background: #1e293b; border: 1px solid rgba(255,255,255,.1);
@@ -1955,7 +1958,7 @@
     body.light-mode .btn-cancel { background: rgba(15,23,42,.04); border-color: rgba(106,154,184,.2); color: #475569; }
     body.light-mode .modal-error { color: #dc2626; }
     /* Lang picker */
-    body.light-mode .lang-picker-btn { color: #475569; }
+    body.light-mode .lang-picker-btn { color: #475569; background: rgba(100,130,180,.07); border-color: rgba(100,130,180,.3); }
     body.light-mode .lang-picker-menu { background: #fff; border-color: rgba(106,154,184,.2); }
 
   </style>
@@ -1990,7 +1993,10 @@
       </span>
     </button>
     <div class="lang-picker-wrap" id="lang-picker-wrap">
-      <button class="lang-picker-btn" id="lang-picker-btn" onclick="toggleLangPicker()" title="Language / 言語 / Idioma"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></button>
+      <button class="lang-picker-btn" id="lang-picker-btn" onclick="toggleLangPicker()" title="Language / 言語 / Idioma">
+        <svg class="lp-globe" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <span class="lp-label" id="lp-label">English</span>
+      </button>
       <div class="lang-picker-menu" id="lang-picker-menu"></div>
     </div>
     <button class="mob-map-toggle" id="mob-map-toggle" onclick="toggleMobileMap()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-1px"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>Map</button>
