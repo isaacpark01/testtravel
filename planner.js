@@ -2316,8 +2316,8 @@ function renderItinCards() {
 
   area.innerHTML = healthHTML + insightHTML + toolbar + `<div class="tl-wrap">${tlItems}</div>`;
   setupCardDrag();
-  const distCity = city?.name || '';
-  if (distCity && timedCards.length >= 2) _updateDistances(allSorted, distCity);
+  const _distCity = getCurrentCity()?.name || '';
+  if (_distCity && timedCards.length >= 2) _updateDistances(allSorted, _distCity);
 }
 
 // ── Distance between itinerary stops ─────────────────────────
