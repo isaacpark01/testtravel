@@ -35,7 +35,7 @@ body {
   font-size: 22px; font-weight: 700; letter-spacing: -.5px;
   color: #e8edf5; -webkit-text-fill-color: #e8edf5;
 }
-.logo svg { filter: grayscale(1) brightness(5) contrast(0.78); }
+.logo-img { filter: brightness(0) invert(1); transition: filter .3s ease; }
 .header-nav { display: none; }
 @media (min-width: 768px) {
   .header-nav { display: flex; gap: 28px; }
@@ -1019,7 +1019,7 @@ body.light-mode .step-num { color: #5283a0; }
   font-size: 22px; font-weight: 700; color: #e8edf5;
   margin-bottom: 10px; letter-spacing: -.3px;
 }
-.footer-brand-logo svg { filter: grayscale(1) brightness(5) contrast(0.78); }
+.footer-brand-logo .logo-img { filter: brightness(0) invert(1); transition: filter .3s ease; }
 .footer-brand-tagline {
   font-size: 13px; color: rgba(240,250,249,.4); line-height: 1.6;
   max-width: 280px; margin-bottom: 20px;
@@ -1388,9 +1388,8 @@ body.light-mode p, body.light-mode span, body.light-mode label, body.light-mode 
 body.light-mode .wip-banner { background: #6a9ab8 !important; }
 
 /* ── Logo light-mode adaptation ── */
-body.light-mode .logo svg { filter: grayscale(1) brightness(0.2) contrast(1.4); }
+body.light-mode .logo-img { filter: none; }
 body.light-mode .footer-brand-logo { color: #1e293b; }
-body.light-mode .footer-brand-logo svg { filter: grayscale(1) brightness(0.2) contrast(1.4); }
 
 /* ================== UI ENHANCEMENTS v3 ================== */
 

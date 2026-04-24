@@ -111,7 +111,7 @@
       color: #e8edf5; -webkit-text-fill-color: #e8edf5;
       text-decoration: none; white-space: nowrap; flex-shrink: 0; letter-spacing: -.5px;
     }
-    .nav-logo svg { filter: grayscale(1) brightness(5) contrast(0.78); }
+    .nav-logo .logo-img { filter: brightness(0) invert(1); transition: filter .3s ease; }
     .nav-sep { width: 1px; height: 20px; background: rgba(255,255,255,.08); flex-shrink: 0; }
     .nav-center { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
     .trip-name-input {
@@ -1844,7 +1844,7 @@
     /* Nav */
     body.light-mode .top-nav { background: #fff; border-bottom-color: rgba(106,154,184,.15); }
     body.light-mode .nav-logo { color: #0f172a; -webkit-text-fill-color: #0f172a; }
-    body.light-mode .nav-logo svg { filter: grayscale(1) brightness(0.2) contrast(1.4); }
+    body.light-mode .nav-logo .logo-img { filter: none; }
     body.light-mode .trip-name-input { color: #0f172a; }
     body.light-mode .trip-name-input::placeholder { color: #94a3b8; }
     body.light-mode .nav-date-range { color: #64748b; }
@@ -1972,27 +1972,7 @@
 <!-- Nav -->
 <nav class="top-nav">
   <a class="nav-logo" href="index.html" style="display:inline-flex;align-items:center;gap:8px">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 430" width="17" height="22">
-  <defs>
-    <radialGradient id="rayGrad-pn" cx="170" cy="268" r="290" gradientUnits="userSpaceOnUse">
-      <stop offset="0%"   stop-color="#6FA0FF" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#6FA0FF" stop-opacity="0"/>
-    </radialGradient>
-    <filter id="softBlur-pn" x="-60%" y="-60%" width="220%" height="220%">
-      <feGaussianBlur stdDeviation="18"/>
-    </filter>
-  </defs>
-  <path fill="#1547FF" d="M 60,278 L 170,242 L 143,194 Q 134,178 117,184 L 43,208 Q 26,214 34,230 Z"/>
-  <path fill="#0D3CBF" d="M 170,242 L 280,278 L 306,230 Q 314,214 297,208 L 223,184 Q 206,178 197,194 Z"/>
-  <path fill="#1547FF" d="M 60,278 L 170,316 L 170,394 Q 170,412 153,406 L 77,380 Q 60,374 60,356 Z"/>
-  <path fill="#0D3CBF" d="M 170,316 L 280,278 L 280,356 Q 280,374 263,380 L 187,406 Q 170,412 170,394 Z"/>
-  <ellipse cx="170" cy="260" rx="115" ry="52" fill="#7BB3FF" opacity="0.65" filter="url(#softBlur-pn)"/>
-  <polygon fill="url(#rayGrad-pn)" points="170,268  -31,74   13,36"/>
-  <polygon fill="url(#rayGrad-pn)" points="170,268   56,12  112,-6"/>
-  <polygon fill="url(#rayGrad-pn)" points="170,268  141,-10 199,-10"/>
-  <polygon fill="url(#rayGrad-pn)" points="170,268  228,-6  284,12"/>
-  <polygon fill="url(#rayGrad-pn)" points="170,268  327,36  371,74"/>
-</svg>
+    <img src="logo.png" class="logo-img" alt="Dropped" style="width:30px;height:30px;object-fit:contain;">
     Dropped
   </a>
   <div class="nav-sep"></div>
