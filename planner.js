@@ -2305,7 +2305,8 @@ function renderItinCards() {
   // Build timeline items
   let tlItems = '';
   timedCards.forEach((c, i) => {
-    tlItems += renderTimelineItem(c, day.id, i + 1, true);
+    const notLast = i < timedCards.length - 1;
+    tlItems += renderTimelineItem(c, day.id, i + 1, true, notLast);
   });
   if (untimedCards.length && timedCards.length) {
     tlItems += `<div class="tl-no-time-header">Unscheduled</div>`;
@@ -2360,13 +2361,24 @@ async function _updateDistances(cards, cityName) {
   const gen = ++_geoGen;
   const timed = cards.filter(c => c.startTime);
   if (timed.length < 2) return;
+
+  // Show loading state immediately
+  for (let i = 0; i < timed.length - 1; i++) {
+    const el = document.getElementById(`dist-${timed[i].id}`);
+    if (el) { el.textContent = '↕ calculating…'; el.classList.add('loaded'); }
+  }
+
   const coords = [];
   for (const card of timed) {
     if (gen !== _geoGen) return;
-    if (!_geoCache[`${card.name}||${cityName}`]) await new Promise(r => setTimeout(r, 1200));
-    coords.push({ card, geo: await _geocode(card.name, cityName) });
+    const cached = _geoCache[`${card.name}||${cityName}`];
+    if (!cached) await new Promise(r => setTimeout(r, 1200));
+    const geo = await _geocode(card.name, cityName);
+    coords.push({ card, geo });
   }
+
   if (gen !== _geoGen) return;
+
   for (let i = 0; i < coords.length - 1; i++) {
     const { card: a, geo: geoA } = coords[i];
     const { geo: geoB } = coords[i + 1];
@@ -2377,15 +2389,14 @@ async function _updateDistances(cards, cityName) {
       const dist = _fmtDist(mi);
       const walkMins = Math.round(mi * 20);
       const walkStr = walkMins < 60 ? `${walkMins} min walk` : `${Math.floor(walkMins/60)}h ${walkMins%60}m walk`;
-      el.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1" fill="currentColor"/><path d="M9 12h6M12 9l3 3-3 3"/><path d="M5 20h14"/></svg> ${dist} &nbsp;·&nbsp; ${walkStr}`;
-      el.classList.add('loaded');
+      el.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8l4 4-4 4M3 12h18"/></svg>&nbsp;${dist}&nbsp;·&nbsp;${walkStr}`;
     } else {
-      el.style.display = 'none';
+      el.textContent = '↕ distance unavailable';
     }
   }
 }
 
-function renderTimelineItem(card, dayId, num, isConnected) {
+function renderTimelineItem(card, dayId, num, isConnected, showDist = false) {
   const hasTime  = !!card.startTime;
   const timeDisp = hasTime ? _fmt12h(card.startTime) : '';
   const endDisp  = hasTime && card.duration ? _calcEndTime(card.startTime, card.duration) : '';
@@ -2411,7 +2422,7 @@ function renderTimelineItem(card, dayId, num, isConnected) {
           onchange="updateCardTime('${jsqApp(dayId)}','${jsqApp(card.id)}',this.value)" />
       </div>
       ${cardHtml}
-      ${hasTime && isConnected ? `<div class="tl-dist-badge" id="dist-${escHtml(card.id)}"></div>` : ''}
+      ${showDist ? `<div class="tl-dist-badge" id="dist-${escHtml(card.id)}"></div>` : ''}
     </div>
   </div>`;
 }
