@@ -57,9 +57,29 @@
       background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
       color: rgba(255,255,255,.7); padding: 6px 14px; border-radius: 18px;
       font-size: 12px; font-weight: 600; cursor: pointer; text-decoration: none;
-      transition: background .18s, color .18s;
+      transition: background .18s, color .18s; font-family: inherit;
     }
     .globe-navbtn:hover { background: rgba(56,189,248,.15); color: #38bdf8; border-color: rgba(56,189,248,.3); }
+
+    /* ── Region Filter Bar ── */
+    .region-filters {
+      position: fixed; top: 58px; left: 50%; transform: translateX(-50%);
+      z-index: 99; display: flex; gap: 5px; align-items: center;
+      padding: 5px 10px;
+      background: rgba(7,17,26,.82); backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,.08); border-radius: 30px;
+      max-width: calc(100vw - 32px); overflow-x: auto;
+      scrollbar-width: none; pointer-events: auto;
+    }
+    .region-filters::-webkit-scrollbar { display: none; }
+    .region-btn {
+      background: transparent; border: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.45); padding: 4px 11px; border-radius: 20px;
+      font-size: 11px; font-weight: 600; cursor: pointer; white-space: nowrap;
+      transition: all .15s; font-family: inherit; flex-shrink: 0;
+    }
+    .region-btn:hover { background: rgba(255,255,255,.07); color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.2); }
+    .region-btn.active { background: rgba(56,189,248,.14); color: #38bdf8; border-color: rgba(56,189,248,.32); }
 
     /* ── Hover Tooltip ── */
     .globe-tooltip {
@@ -99,9 +119,7 @@
       content: ''; position: absolute; inset: 0;
       background: linear-gradient(to top, rgba(10,18,32,1) 0%, rgba(0,0,0,.1) 60%);
     }
-    .cp-hero-text {
-      position: absolute; bottom: 14px; left: 16px; z-index: 10;
-    }
+    .cp-hero-text { position: absolute; bottom: 14px; left: 16px; z-index: 10; }
     .cp-country-row {
       font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
       color: rgba(255,255,255,.5); margin-bottom: 4px;
@@ -118,15 +136,20 @@
       display: flex; align-items: center; justify-content: center; transition: background .15s;
     }
     .cp-close:hover { background: rgba(220,38,38,.6); color: #fff; }
-    /* Pin to Board button on hero */
-    .cp-pin-btn {
+
+    /* Wishlist / Visited hero buttons */
+    .cp-hero-actions {
       position: absolute; top: 12px; left: 12px; z-index: 20;
-      background: rgba(0,0,0,.55); border: 1px solid rgba(255,255,255,.18);
-      color: rgba(255,255,255,.8); padding: 5px 10px; border-radius: 16px;
-      font-size: 11px; font-weight: 600; cursor: pointer; text-decoration: none;
-      transition: background .15s;
+      display: flex; gap: 6px;
     }
-    .cp-pin-btn:hover { background: rgba(56,189,248,.25); color: #38bdf8; }
+    .cp-save-btn {
+      background: rgba(0,0,0,.55); border: 1px solid rgba(255,255,255,.18);
+      color: rgba(255,255,255,.7); padding: 5px 10px; border-radius: 16px;
+      font-size: 11px; font-weight: 600; cursor: pointer; font-family: inherit;
+      transition: background .15s, color .15s, border-color .15s;
+    }
+    #cp-wishlist-btn.active { background: rgba(251,113,133,.22); color: #fb7185; border-color: rgba(251,113,133,.4); }
+    #cp-visited-btn.active  { background: rgba(52,211,153,.22);  color: #34d399; border-color: rgba(52,211,153,.4); }
 
     /* filter bar */
     .cp-filter-bar {
@@ -160,20 +183,18 @@
     }
     .cp-tab.active { color: #f0eae4; border-bottom-color: #97ace0; }
 
-    /* list */
-    .cp-list { flex: 1; overflow-y: auto; padding: 10px 12px 80px; }
+    /* list — extra bottom padding for taller footer */
+    .cp-list { flex: 1; overflow-y: auto; padding: 10px 12px 155px; }
     .cp-list::-webkit-scrollbar { width: 4px; }
     .cp-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 4px; }
 
-    /* spot cards — match home page exactly */
+    /* spot cards */
     .spot-card {
       background: rgba(13,18,32,.8); border: 1px solid rgba(106,154,184,.12);
       border-radius: 14px; overflow: hidden; margin-bottom: 12px; transition: all .2s;
     }
     .spot-card:hover { background: rgba(106,154,184,.08); border-color: rgba(106,154,184,.25); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.3); }
-    .spot-photo {
-      width: 100%; height: 160px; object-fit: cover; display: block; background: #0d1220;
-    }
+    .spot-photo { width: 100%; height: 160px; object-fit: cover; display: block; background: #0d1220; }
     .spot-body { padding: 12px 14px 10px; }
     .spot-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
     .spot-name { font-size: 14px; font-weight: 700; color: #f0eae4; line-height: 1.3; }
@@ -189,7 +210,6 @@
       font-size: 11px; color: rgba(240,250,249,.38); line-height: 1.6;
       border-left: 2px solid rgba(151,172,224,.2); padding-left: 9px; margin-bottom: 10px;
     }
-    /* Social link buttons — match home page */
     .spot-links { display: flex; gap: 6px; flex-wrap: wrap; }
     .spot-link {
       font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 12px;
@@ -201,20 +221,14 @@
     .spot-link.maps  { background: rgba(56,189,248,.12); color: #38bdf8; border: 1px solid rgba(56,189,248,.22); }
     .spot-link.tiktok{ background: rgba(129,140,248,.12); color: #818cf8; border: 1px solid rgba(129,140,248,.22); }
     .spot-link.ig    { background: rgba(244,63,94,.12);  color: #fb7185; border: 1px solid rgba(244,63,94,.22); }
-    .spot-plan-btn {
-      font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 12px;
-      background: rgba(14,165,233,.15); color: #0ea5e9; border: 1px solid rgba(14,165,233,.25);
-      cursor: pointer; text-decoration: none; margin-left: auto; flex-shrink: 0;
-      transition: background .15s;
-    }
-    .spot-plan-btn:hover { background: rgba(14,165,233,.25); }
 
     .no-results { text-align: center; padding: 40px 20px; color: rgba(255,255,255,.3); font-size: 14px; }
 
     /* footer */
     .cp-footer {
       position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 12px 14px; background: rgba(13,18,32,.97);
+      padding: 10px 14px 12px;
+      background: rgba(13,18,32,.97);
       border-top: 1px solid rgba(255,255,255,.07);
     }
     .cp-plan-btn {
@@ -226,34 +240,50 @@
     }
     .cp-plan-btn:hover { opacity: .88; transform: translateY(-1px); }
 
+    /* ── Nearby Cities ── */
+    .cp-nearby { margin-bottom: 10px; }
+    .cp-nearby-title {
+      font-size: 9px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
+      color: rgba(255,255,255,.28); margin-bottom: 7px;
+    }
+    .cp-nearby-row { display: flex; gap: 7px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+    .cp-nearby-row::-webkit-scrollbar { display: none; }
+    .cp-nearby-chip {
+      flex-shrink: 0; display: flex; align-items: center; gap: 5px;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 18px; padding: 5px 10px; cursor: pointer;
+      font-size: 11px; font-weight: 600; color: rgba(255,255,255,.65);
+      transition: background .15s, color .15s, border-color .15s;
+    }
+    .cp-nearby-chip:hover { background: rgba(56,189,248,.12); color: #38bdf8; border-color: rgba(56,189,248,.25); }
+    .cp-nearby-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
     /* ── Map Pin Drops ── */
-    /* !important overrides globe.gl CSS2DRenderer inline pointer-events:none */
     #globe-wrap .map-pin { pointer-events: auto !important; }
     .map-pin {
       display: flex; flex-direction: column; align-items: center;
       cursor: pointer; user-select: none;
-      transition: transform .15s cubic-bezier(.34,1.56,.64,1), filter .15s;
+      transition: transform .15s cubic-bezier(.34,1.56,.64,1), filter .15s, opacity .3s;
       transform-origin: bottom center;
       will-change: transform;
     }
     .map-pin:hover { transform: scale(1.25) translateY(-4px); filter: drop-shadow(0 6px 14px rgba(0,0,0,.7)); }
     .pin-circle {
-      width: 38px; height: 38px;
-      border-radius: 50%;
-      overflow: hidden;
-      box-shadow: 0 3px 12px rgba(0,0,0,.65);
-      background: #0d1220;
-      flex-shrink: 0;
+      width: 38px; height: 38px; border-radius: 50%; overflow: hidden;
+      box-shadow: 0 3px 12px rgba(0,0,0,.65); background: #0d1220;
+      flex-shrink: 0; position: relative;
     }
-    .pin-circle img {
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
-      pointer-events: none;
+    .pin-circle img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+    .pin-badge {
+      position: absolute; top: -3px; right: -3px;
+      width: 15px; height: 15px; border-radius: 50%;
+      font-size: 8px; display: none; align-items: center; justify-content: center;
+      background: #0d1220; border: 1.5px solid rgba(255,255,255,.15); pointer-events: none;
     }
+    .pin-badge.show { display: flex; }
     .pin-stem {
       width: 0; height: 0;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
+      border-left: 5px solid transparent; border-right: 5px solid transparent;
       margin-top: -1px;
     }
 
@@ -271,7 +301,19 @@
     @keyframes spin { to { transform: rotate(360deg); } }
     .globe-loading-text { font-size: 13px; color: rgba(255,255,255,.38); }
 
-    /* ── Pause/Play Button ── */
+    /* ── Surprise Me ── */
+    .globe-surprise-btn {
+      position: fixed; bottom: 118px; right: 20px; z-index: 100;
+      background: rgba(129,140,248,.16); border: 1px solid rgba(129,140,248,.28);
+      color: #a5b4fc; padding: 8px 14px; border-radius: 20px;
+      font-size: 11px; font-weight: 700; cursor: pointer; font-family: inherit;
+      backdrop-filter: blur(12px); white-space: nowrap;
+      transition: background .15s, transform .15s, box-shadow .15s;
+      box-shadow: 0 4px 16px rgba(0,0,0,.3);
+    }
+    .globe-surprise-btn:hover { background: rgba(129,140,248,.28); transform: translateY(-2px) scale(1.04); box-shadow: 0 6px 24px rgba(129,140,248,.2); }
+
+    /* ── Pause/Play ── */
     .globe-pause-btn {
       position: fixed; bottom: 70px; right: 20px; z-index: 100;
       width: 40px; height: 40px; border-radius: 50%;
@@ -285,7 +327,29 @@
     .globe-pause-btn:hover { background: rgba(56,189,248,.2); color: #38bdf8; border-color: rgba(56,189,248,.35); transform: scale(1.1); }
     .globe-pause-btn.paused { background: rgba(56,189,248,.15); color: #38bdf8; border-color: rgba(56,189,248,.35); }
 
-    /* ── Badge ── */
+    /* ── Region Legend ── */
+    .globe-legend {
+      position: fixed; bottom: 22px; left: 20px; z-index: 100;
+      background: rgba(7,17,26,.82); backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.1); border-radius: 14px;
+      padding: 10px 14px; display: flex; flex-direction: column; gap: 4px;
+    }
+    .legend-title {
+      font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.22); margin-bottom: 3px;
+    }
+    .legend-row {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 11px; color: rgba(255,255,255,.45); cursor: pointer;
+      border-radius: 6px; padding: 2px 4px; margin: 0 -4px;
+      transition: color .12s, background .12s;
+    }
+    .legend-row:hover { color: #fff; background: rgba(255,255,255,.06); }
+    .legend-row.active { color: #38bdf8; background: rgba(56,189,248,.08); }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    @media (max-width: 700px) { .globe-legend { display: none; } }
+
+    /* ── City Count Badge ── */
     .city-count-badge {
       position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
       background: rgba(7,17,26,.82); backdrop-filter: blur(14px);
@@ -333,6 +397,18 @@
   </nav>
 </div>
 
+<!-- Region filter bar -->
+<div class="region-filters">
+  <button class="region-btn active" data-region="">🌍 All</button>
+  <button class="region-btn" data-region="usa">🇺🇸 USA</button>
+  <button class="region-btn" data-region="europe">🏰 Europe</button>
+  <button class="region-btn" data-region="asia">🌏 Asia</button>
+  <button class="region-btn" data-region="latam">🌎 LatAm</button>
+  <button class="region-btn" data-region="gulf">🕌 Gulf / ME</button>
+  <button class="region-btn" data-region="africa">🌍 Africa</button>
+  <button class="region-btn" data-region="oceania">🦘 Oceania</button>
+</div>
+
 <!-- Hover tooltip -->
 <div class="globe-tooltip" id="globe-tooltip">
   <span class="globe-tooltip-dot" id="tooltip-dot"></span>
@@ -356,7 +432,10 @@
       <div id="cp-tagline" class="cp-tagline"></div>
     </div>
     <button class="cp-close" onclick="closePanel()">✕</button>
-    <a id="cp-pin-btn" class="cp-pin-btn" href="/">📌 Pin to Board</a>
+    <div class="cp-hero-actions">
+      <button class="cp-save-btn" id="cp-wishlist-btn" onclick="toggleWishlist()">♡ Wishlist</button>
+      <button class="cp-save-btn" id="cp-visited-btn" onclick="toggleVisited()">○ Visited</button>
+    </div>
   </div>
 
   <div class="cp-filter-bar">
@@ -373,10 +452,27 @@
   <div class="cp-list" id="cp-list"></div>
 
   <div class="cp-footer">
+    <div class="cp-nearby">
+      <div class="cp-nearby-title">Nearby Destinations</div>
+      <div class="cp-nearby-row" id="cp-nearby-row"></div>
+    </div>
     <a id="cp-plan-btn" class="cp-plan-btn" href="planner.html">🗓 Plan a Trip Here</a>
   </div>
 </div>
 
+<!-- Region legend (desktop only) -->
+<div class="globe-legend">
+  <div class="legend-title">Regions</div>
+  <div class="legend-row" data-region="usa"><div class="legend-dot" style="background:#f97316"></div>USA</div>
+  <div class="legend-row" data-region="europe"><div class="legend-dot" style="background:#a78bfa"></div>Europe</div>
+  <div class="legend-row" data-region="asia"><div class="legend-dot" style="background:#34d399"></div>Asia</div>
+  <div class="legend-row" data-region="latam"><div class="legend-dot" style="background:#fb923c"></div>LatAm</div>
+  <div class="legend-row" data-region="gulf"><div class="legend-dot" style="background:#fbbf24"></div>Gulf / ME</div>
+  <div class="legend-row" data-region="africa"><div class="legend-dot" style="background:#f87171"></div>Africa</div>
+  <div class="legend-row" data-region="oceania"><div class="legend-dot" style="background:#22d3ee"></div>Oceania</div>
+</div>
+
+<button class="globe-surprise-btn" id="surprise-btn">🎲 Surprise Me</button>
 <button class="globe-pause-btn" id="pause-btn" title="Pause rotation">⏸</button>
 
 <div class="city-count-badge">
@@ -429,6 +525,18 @@
     telaviv:[32.0853,34.7818],        doha:[25.2854,51.5310],
   };
 
+  /* ── Region classifier ── */
+  function getRegion(id) {
+    if (['nyc','losangeles','chicago','miami','sanfrancisco','lasvegas','seattle','austin','neworleans','denver','nashville','orlando','hawaii','sandiego','washingtondc','boston','portland','atlanta','philadelphia','phoenix','dallas','houston','tampa','charlotte','memphis','minneapolis','kansascity','baltimore','pittsburgh','saltlakecity'].includes(id)) return 'usa';
+    if (['london','paris','barcelona','amsterdam','rome','lisbon','prague','budapest','istanbul','vienna','edinburgh','copenhagen','santorini','dubrovnik','venice','florence','milan','berlin','madrid','stockholm','dublin','porto','seville','athens','reykjavik','brussels','zurich','oslo','warsaw'].includes(id)) return 'europe';
+    if (['tokyo','kyoto','seoul','bangkok','singapore','bali','osaka','hongkong','taipei','kualalumpur','hanoi','mumbai','delhi','hochiminh','beijing','shanghai','manila','kathmandu'].includes(id)) return 'asia';
+    if (['dubai','doha','telaviv'].includes(id)) return 'gulf';
+    if (['marrakech','capetown','cairo','lagos','nairobi'].includes(id)) return 'africa';
+    if (['sydney','auckland'].includes(id)) return 'oceania';
+    if (['buenosaires','mexicocity','toronto','vancouver','havana','riodejaneiro','saopaulo','lima','bogota','medellin','cancun','cartagena','santiago'].includes(id)) return 'latam';
+    return 'other';
+  }
+
   function pinColor(id) {
     if (['nyc','losangeles','chicago','miami','sanfrancisco','lasvegas','seattle','austin','neworleans','denver','nashville','orlando','hawaii','sandiego','washingtondc','boston','portland','atlanta','philadelphia','phoenix','dallas','houston','tampa','charlotte','memphis','minneapolis','kansascity','baltimore','pittsburgh','saltlakecity'].includes(id)) return '#f97316';
     if (['london','paris','barcelona','amsterdam','rome','lisbon','prague','budapest','istanbul','vienna','edinburgh','copenhagen','santorini','dubrovnik','venice','florence','milan','berlin','madrid','stockholm','dublin','porto','seville','athens','reykjavik','brussels','zurich','oslo','warsaw'].includes(id)) return '#a78bfa';
@@ -441,7 +549,7 @@
     return '#fb7185';
   }
 
-  /* build city map */
+  /* ── City map ── */
   const CITY_MAP = {};
   (typeof CITIES !== 'undefined' ? CITIES : []).forEach(c => { CITY_MAP[c.id] = c; });
 
@@ -457,33 +565,144 @@
   let selectedPt = null;
   let filterQ = '';
   let isRotating = true;
+  let activeRegion = null;
+  const pinEls = {};
+
+  /* ── Wishlist / Visited (localStorage) ── */
+  const WISHLIST_KEY = 'globe_wishlist';
+  const VISITED_KEY  = 'globe_visited';
+  function loadSet(key) {
+    try { return new Set(JSON.parse(localStorage.getItem(key) || '[]')); } catch { return new Set(); }
+  }
+  function saveSet(key, set) {
+    try { localStorage.setItem(key, JSON.stringify([...set])); } catch {}
+  }
+  let wishlist = loadSet(WISHLIST_KEY);
+  let visited  = loadSet(VISITED_KEY);
+
+  function updatePinBadge(id) {
+    const el = pinEls[id];
+    if (!el) return;
+    const badge = el.querySelector('.pin-badge');
+    if (!badge) return;
+    const inW = wishlist.has(id), inV = visited.has(id);
+    badge.classList.toggle('show', inW || inV);
+    if (inW) { badge.textContent = '♥'; badge.style.color = '#fb7185'; }
+    else if (inV) { badge.textContent = '✓'; badge.style.color = '#34d399'; }
+  }
+
+  function updateSaveBtns() {
+    if (!currentCity) return;
+    const id = currentCity.id;
+    const wBtn = document.getElementById('cp-wishlist-btn');
+    const vBtn = document.getElementById('cp-visited-btn');
+    const inW = wishlist.has(id), inV = visited.has(id);
+    wBtn.classList.toggle('active', inW);
+    wBtn.textContent = inW ? '♥ Saved' : '♡ Wishlist';
+    vBtn.classList.toggle('active', inV);
+    vBtn.textContent = inV ? '✓ Visited' : '○ Visited';
+  }
+
+  window.toggleWishlist = function() {
+    if (!currentCity) return;
+    const id = currentCity.id;
+    if (wishlist.has(id)) wishlist.delete(id); else wishlist.add(id);
+    saveSet(WISHLIST_KEY, wishlist);
+    updateSaveBtns();
+    updatePinBadge(id);
+  };
+
+  window.toggleVisited = function() {
+    if (!currentCity) return;
+    const id = currentCity.id;
+    if (visited.has(id)) visited.delete(id); else visited.add(id);
+    saveSet(VISITED_KEY, visited);
+    updateSaveBtns();
+    updatePinBadge(id);
+  };
+
+  /* ── Nearby cities (haversine) ── */
+  function haversine(lat1, lng1, lat2, lng2) {
+    const R = 6371, r = x => x * Math.PI / 180;
+    const dLat = r(lat2 - lat1), dLng = r(lng2 - lng1);
+    const a = Math.sin(dLat/2)**2 + Math.cos(r(lat1)) * Math.cos(r(lat2)) * Math.sin(dLng/2)**2;
+    return 2 * R * Math.asin(Math.sqrt(a));
+  }
+
+  function renderNearby() {
+    const row = document.getElementById('cp-nearby-row');
+    if (!currentCity || !COORDS[currentCity.id]) { row.innerHTML = ''; return; }
+    const [lat, lng] = COORDS[currentCity.id];
+    const nearby = points
+      .filter(p => p.id !== currentCity.id)
+      .map(p => ({ ...p, dist: haversine(lat, lng, p.lat, p.lng) }))
+      .sort((a, b) => a.dist - b.dist)
+      .slice(0, 4);
+    row.innerHTML = nearby.map(p =>
+      `<div class="cp-nearby-chip" onclick="flyToFromPanel('${p.id}')">
+         <div class="cp-nearby-dot" style="background:${p.color}"></div>
+         ${esc(p.name)}
+       </div>`
+    ).join('');
+  }
+
+  window.flyToFromPanel = function(id) {
+    const pt = points.find(p => p.id === id);
+    if (!pt || !globe) return;
+    closePanel();
+    globe.controls().autoRotate = false;
+    globe.pointOfView({ lat: pt.lat, lng: pt.lng, altitude: 1.5 }, 1200);
+    setTimeout(() => openPanel(pt), 1300);
+    if (isRotating) setTimeout(() => { if (globe) globe.controls().autoRotate = true; }, 7000);
+  };
+
+  /* ── Region filter ── */
+  function setRegion(region) {
+    activeRegion = region || null;
+    Object.entries(pinEls).forEach(([id, el]) => {
+      const match = !activeRegion || getRegion(id) === activeRegion;
+      el.style.opacity = match ? '1' : '0.08';
+      el.style.pointerEvents = match ? 'auto' : 'none';
+    });
+    document.querySelectorAll('.region-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.region === '' ? !activeRegion : btn.dataset.region === activeRegion);
+    });
+    document.querySelectorAll('.legend-row').forEach(row => {
+      row.classList.toggle('active', row.dataset.region === activeRegion);
+    });
+  }
+
+  document.querySelectorAll('.region-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const r = btn.dataset.region;
+      setRegion(r === '' || r === activeRegion ? null : r);
+    });
+  });
+  document.querySelectorAll('.legend-row').forEach(row => {
+    row.addEventListener('click', () => {
+      const r = row.dataset.region;
+      setRegion(r === activeRegion ? null : r);
+    });
+  });
 
   /* ── Escape helpers ── */
   function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
   function encQ(s) { return encodeURIComponent(s); }
 
-  /* ── Photo fallback chain ── */
-  // Curated fallback images by category keyword
+  /* ── Photo fallbacks ── */
   const FALLBACK_CITY_IMG = 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&auto=format&fit=crop&q=70';
   const FALLBACK_FOOD_IMG  = 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop&q=70';
   const FALLBACK_ACT_IMG   = 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&auto=format&fit=crop&q=70';
-  const FALLBACK_TRANS_IMG = 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=400&auto=format&fit=crop&q=70';
 
-  function imgFallback(el, fallback) {
-    el.onerror = null;
-    el.src = fallback;
-  }
-
-  /* ── Social link builder ── */
+  /* ── Social links ── */
   function socialLinks(name, cityName) {
     const q = encQ(`${name} ${cityName}`);
-    return `
-      <div class="spot-links">
-        <a href="https://yelp.com/search?find_desc=${encQ(name)}&find_loc=${encQ(cityName)}" target="_blank" rel="noopener" class="spot-link yelp">⭐ Yelp</a>
-        <a href="https://maps.google.com/?q=${q}" target="_blank" rel="noopener" class="spot-link maps">📍 Maps</a>
-        <a href="https://tiktok.com/search?q=${q}" target="_blank" rel="noopener" class="spot-link tiktok">🎵 TikTok</a>
-        <a href="https://www.instagram.com/explore/search/keyword/?q=${q}" target="_blank" rel="noopener" class="spot-link ig">📷 IG</a>
-      </div>`;
+    return `<div class="spot-links">
+      <a href="https://yelp.com/search?find_desc=${encQ(name)}&find_loc=${encQ(cityName)}" target="_blank" rel="noopener" class="spot-link yelp">⭐ Yelp</a>
+      <a href="https://maps.google.com/?q=${q}" target="_blank" rel="noopener" class="spot-link maps">📍 Maps</a>
+      <a href="https://tiktok.com/search?q=${q}" target="_blank" rel="noopener" class="spot-link tiktok">🎵 TikTok</a>
+      <a href="https://www.instagram.com/explore/search/keyword/?q=${q}" target="_blank" rel="noopener" class="spot-link ig">📷 IG</a>
+    </div>`;
   }
 
   /* ── Render cards ── */
@@ -499,8 +718,7 @@
       if (q) items = items.filter(a => (a.name||'').toLowerCase().includes(q) || (a.tip||'').toLowerCase().includes(q) || (a.desc||'').toLowerCase().includes(q));
       list.innerHTML = items.length ? items.map(a => {
         const photo = a.photo || city.image || FALLBACK_ACT_IMG;
-        return `
-        <div class="spot-card">
+        return `<div class="spot-card">
           <img class="spot-photo" src="${esc(photo)}" alt="${esc(a.name)}" loading="lazy"
             onerror="this.onerror=null;this.src='${esc(city.image || FALLBACK_ACT_IMG)}'" />
           <div class="spot-body">
@@ -523,8 +741,7 @@
       if (q) items = items.filter(f => (f.name||'').toLowerCase().includes(q) || (f.cuisine||'').toLowerCase().includes(q) || (f.tip||'').toLowerCase().includes(q));
       list.innerHTML = items.length ? items.map(f => {
         const photo = f.photo || city.image || FALLBACK_FOOD_IMG;
-        return `
-        <div class="spot-card">
+        return `<div class="spot-card">
           <img class="spot-photo" src="${esc(photo)}" alt="${esc(f.name)}" loading="lazy"
             onerror="this.onerror=null;this.src='${esc(city.image || FALLBACK_FOOD_IMG)}'" />
           <div class="spot-body">
@@ -596,9 +813,10 @@
     document.getElementById('cp-tagline').textContent = city.tagline || '';
     document.getElementById('cp-iata').textContent = city.iata || '—';
     document.getElementById('cp-plan-btn').href = `planner.html?city=${city.id}`;
-    document.getElementById('cp-pin-btn').href = `/?city=${city.id}`;
 
-    // Pulse ring on selected city
+    updateSaveBtns();
+    renderNearby();
+
     globe.ringsData([pt])
       .ringLat('lat').ringLng('lng')
       .ringColor(() => pt.color)
@@ -612,12 +830,12 @@
 
   window.closePanel = function() {
     document.getElementById('city-panel').classList.remove('open');
-    globe.ringsData([]);
+    if (globe) globe.ringsData([]);
     currentCity = null;
     selectedPt = null;
   };
 
-  /* ── Globe — WebGL points (no DOM lag) ── */
+  /* ── Globe init ── */
   let globe;
   try {
   globe = Globe({ animateIn: true })(document.getElementById('globe-wrap'))
@@ -627,7 +845,6 @@
     .showAtmosphere(true)
     .atmosphereColor('#38bdf8')
     .atmosphereAltitude(0.18)
-    /* Image pin drops — circular city photo + pointer stem */
     .htmlElementsData(points)
     .htmlElement(d => {
       const pin = document.createElement('div');
@@ -642,15 +859,21 @@
       img.loading = 'lazy';
       img.onerror = () => { img.onerror = null; img.src = FALLBACK_CITY_IMG; };
 
+      const badge = document.createElement('div');
+      badge.className = 'pin-badge';
+
       const stem = document.createElement('div');
       stem.className = 'pin-stem';
       stem.style.borderTop = `8px solid ${d.color}`;
 
       circle.appendChild(img);
+      circle.appendChild(badge);
       pin.appendChild(circle);
       pin.appendChild(stem);
 
-      /* pointerdown+up is more reliable than click vs OrbitControls drag */
+      pinEls[d.id] = pin;
+      setTimeout(() => updatePinBadge(d.id), 50);
+
       let _pdX, _pdY;
       pin.addEventListener('pointerdown', e => { _pdX = e.clientX; _pdY = e.clientY; e.stopPropagation(); });
       pin.addEventListener('pointerup', e => {
@@ -676,13 +899,11 @@
       return pin;
     })
     .htmlAltitude(0.01)
-    /* Pulse ring on selected city */
     .ringsData([])
     .ringLat('lat').ringLng('lng')
     .ringColor(() => '#38bdf8')
     .ringMaxRadius(2.5).ringPropagationSpeed(3).ringRepeatPeriod(900);
 
-  /* Better renderer quality */
   try { globe.renderer().setPixelRatio(Math.min(window.devicePixelRatio, 2)); } catch(e) {}
 
   try {
@@ -703,7 +924,7 @@
     document.getElementById('globe-loading').style.display = 'none';
   }
 
-  /* Move tooltip with mouse */
+  /* ── Tooltip follows mouse ── */
   document.addEventListener('mousemove', e => {
     const tip = document.getElementById('globe-tooltip');
     tip.style.left = e.clientX + 'px';
@@ -718,6 +939,24 @@
     btn.title = isRotating ? 'Pause rotation' : 'Resume rotation';
     btn.classList.toggle('paused', !isRotating);
     if (globe) globe.controls().autoRotate = isRotating;
+  });
+
+  /* ── Surprise Me ── */
+  document.getElementById('surprise-btn').addEventListener('click', () => {
+    const pool = activeRegion ? points.filter(p => getRegion(p.id) === activeRegion) : [...points];
+    const filtered = currentCity ? pool.filter(p => p.id !== currentCity.id) : pool;
+    if (!filtered.length || !globe) return;
+    const pt = filtered[Math.floor(Math.random() * filtered.length)];
+
+    closePanel();
+    globe.controls().autoRotate = false;
+    const cur = globe.pointOfView();
+    globe.pointOfView({ lat: cur.lat * 0.4, lng: cur.lng + 120, altitude: 3.8 }, 800);
+    setTimeout(() => {
+      globe.pointOfView({ lat: pt.lat, lng: pt.lng, altitude: 1.5 }, 1400);
+      setTimeout(() => openPanel(pt), 1400);
+      if (isRotating) setTimeout(() => { if (globe) globe.controls().autoRotate = true; }, 8000);
+    }, 800);
   });
 
   /* ── Search ── */
