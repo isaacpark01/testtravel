@@ -233,12 +233,11 @@
     }
 
     /* ── Main layout ───────────────────────────────────────────── */
-    .planner-layout { display: flex; flex: 1; height: calc(100vh - 277px); overflow: hidden; padding: 10px 12px; gap: 10px; }
+    .planner-layout { display: flex; flex: 1; min-height: calc(100vh - 227px); padding: 10px 12px; gap: 10px; }
 
     /* ── Content panel (left) ──────────────────────────────────── */
     .content-panel {
       width: 480px; min-width: 320px; max-width: 480px; flex-shrink: 0;
-      height: 100%;
       background: #0f1929; display: flex; flex-direction: column;
       overflow: hidden;
       border-radius: 18px;
@@ -1123,8 +1122,8 @@
       padding: 8px 16px; cursor: pointer; backdrop-filter: blur(8px);
     }
     @media (max-width: 768px) {
-      .content-panel { width: 100%; max-width: 100%; height: auto; min-height: 60vh; border-radius: 0; box-shadow: none; border: none; }
-      .planner-layout { height: auto; overflow: visible; padding: 0; gap: 0; }
+      .content-panel { width: 100%; max-width: 100%; border-radius: 0; box-shadow: none; border: none; }
+      .planner-layout { padding: 0; gap: 0; }
       .map-panel { display: none; position: fixed; inset: 0; z-index: 150; padding: 0; height: 100%; }
       .map-panel .map-box { border-radius: 0; border: none; box-shadow: none; }
       .map-panel.mob-visible { display: block; }
