@@ -2329,17 +2329,19 @@ let _geoGen = 0;
 async function _geocode(name, cityName) {
   const key = `${name}||${cityName}`;
   if (_geoCache[key]) return _geoCache[key];
-  // Try simplified name (first 3 words) if full name fails
-  const names = [name, name.split(' ').slice(0, 3).join(' ')];
-  for (const n of names) {
+  const short = name.split(' ').slice(0, 3).join(' ');
+  // Try: full name + city, short name + city, short name alone (catches places outside city)
+  const attempts = [
+    `${name}, ${cityName}`,
+    `${short}, ${cityName}`,
+    short,
+  ];
+  for (const q of attempts) {
     try {
-      const q = encodeURIComponent(`${n}, ${cityName}`);
-      const url = `https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=1&addressdetails=0`;
-      console.log('[Dropped] geocoding:', url);
+      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&limit=1&addressdetails=0`;
       const r = await fetch(url);
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       const d = await r.json();
-      console.log('[Dropped] result for', n, ':', d[0] || 'no results');
       if (d[0]) {
         const c = { lat: parseFloat(d[0].lat), lng: parseFloat(d[0].lon) };
         _geoCache[key] = c;
@@ -2347,8 +2349,9 @@ async function _geocode(name, cityName) {
         return c;
       }
     } catch(e) {
-      console.warn('[Dropped] geocode error for', n, '—', e.message);
+      console.warn('[Dropped] geocode error:', q, e.message);
     }
+    await new Promise(r => setTimeout(r, 800));
   }
   return null;
 }
