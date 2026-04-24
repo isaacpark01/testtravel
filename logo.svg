@@ -1,39 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 130" fill="none">
-  <defs>
-    <linearGradient id="pinGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#b8cce8"/>
-      <stop offset="55%" stop-color="#7fa4cc"/>
-      <stop offset="100%" stop-color="#5a87b0"/>
-    </linearGradient>
-    <filter id="drop-shadow" x="-25%" y="-10%" width="150%" height="150%">
-      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="rgba(90,135,176,0.38)"/>
-    </filter>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 250">
 
-  <!--
-    Combined mark: location pin (pointing down) + water drop (pointing up, cutout inside).
-    The two inverse teardrop shapes interlock — one positive, one negative space.
-    fill-rule="evenodd" creates the drop-shaped window through the pin body.
-  -->
-  <path
-    fill-rule="evenodd"
-    clip-rule="evenodd"
-    d="
-      M 50 4
-      C 27 4 10 21 10 44
-      C 10 70 50 126 50 126
-      C 50 126 90 70 90 44
-      C 90 21 73 4 50 4
-      Z
+  <!-- ── BOX ──────────────────────────────────────────────────── -->
+  <path fill="#0d1f3c" d="M 38,132 L 100,112 L 76,76 Q 68,62 54,67 L 14,83 Q 2,88 8,103 Z"/>
+  <path fill="#081422" d="M 100,112 L 162,132 L 192,103 Q 198,88 186,83 L 146,67 Q 132,62 124,76 Z"/>
+  <path fill="#0d1f3c" d="M 38,132 L 100,154 L 100,220 Q 100,233 86,228 L 44,213 Q 30,208 30,194 Z"/>
+  <path fill="#081422" d="M 100,154 L 162,132 L 162,194 Q 162,208 148,213 L 106,228 Q 100,233 100,220 Z"/>
 
-      M 50 20
-      C 37 31 29 44 29 56
-      C 29 69 38.5 78 50 78
-      C 61.5 78 71 69 71 56
-      C 71 44 63 31 50 20
-      Z
-    "
-    fill="url(#pinGrad)"
-    filter="url(#drop-shadow)"
-  />
+  <!-- ── SUITCASE ───────────────────────────────────────────────── -->
+  <rect fill="#0d1f3c" x="28" y="68" width="30" height="24" rx="3"/>
+  <path fill="none" stroke="#0d1f3c" stroke-width="2.5" stroke-linecap="round" d="M 37,68 Q 37,61 43,61 Q 49,61 49,68"/>
+  <rect fill="#081422" x="28" y="79" width="30" height="2" rx="1"/>
+  <rect fill="#081422" x="43" y="68" width="2" height="24"/>
+
+  <!-- ── AIRPLANE ───────────────────────────────────────────────── -->
+  <g transform="rotate(-18 128 82)" fill="#0d1f3c">
+    <ellipse cx="128" cy="82" rx="28" ry="6.5"/>
+    <polygon points="114,76 133,56 135,75"/>
+    <polygon points="142,79 154,68 154,86"/>
+    <polygon points="108,89 100,97 116,91"/>
+  </g>
+
+  <!-- ── CAR ───────────────────────────────────────────────────── -->
+  <rect fill="#0d1f3c" x="108" y="107" width="46" height="17" rx="3"/>
+  <rect fill="#0d1f3c" x="114" y="98"  width="28" height="13" rx="3"/>
+  <rect fill="#081422" x="118" y="100" width="12" height="8"  rx="2"/>
+  <circle fill="#081422" cx="117" cy="125" r="5.5"/>
+  <circle fill="#0d1f3c" cx="117" cy="125" r="2.5"/>
+  <circle fill="#081422" cx="145" cy="125" r="5.5"/>
+  <circle fill="#0d1f3c" cx="145" cy="125" r="2.5"/>
+
+  <!-- ── TICKET ──────────────────────────────────────────────────── -->
+  <polygon fill="#0d1f3c" points="68,52 68,30 94,30 94,44 83,52"/>
+  <line x1="74" y1="37" x2="88" y2="37" stroke="#081422" stroke-width="1.5"/>
+  <line x1="74" y1="43" x2="85" y2="43" stroke="#081422" stroke-width="1.5"/>
+
+  <!-- ── GOLD ACCENT DASHES ──────────────────────────────────────── -->
+  <rect fill="#c9974a" x="95"  y="96"  width="11" height="3"   rx="1.5" transform="rotate(-38 100 97)"/>
+  <rect fill="#c9974a" x="66"  y="60"  width="9"  height="2.5" rx="1.2" transform="rotate(12 70 61)"/>
+  <rect fill="#c9974a" x="158" y="100" width="9"  height="2.5" rx="1.2" transform="rotate(-28 162 101)"/>
+  <rect fill="#c9974a" x="24"  y="103" width="7"  height="2"   rx="1"   transform="rotate(42 27 104)"/>
+
+  <!-- ── HAND ───────────────────────────────────────────────────── -->
+  <ellipse fill="#0d1f3c" cx="100" cy="34" rx="26" ry="13"/>
+  <rect fill="#0d1f3c" x="79"  y="7"  width="9.5" height="30" rx="4.75"/>
+  <rect fill="#0d1f3c" x="90"  y="3"  width="9.5" height="34" rx="4.75"/>
+  <rect fill="#0d1f3c" x="101" y="4"  width="9.5" height="33" rx="4.75"/>
+  <rect fill="#0d1f3c" x="112" y="9"  width="8.5" height="28" rx="4.25"/>
+  <ellipse fill="#0d1f3c" cx="71" cy="27" rx="7.5" ry="13" transform="rotate(-14 71 27)"/>
+
 </svg>
