@@ -2329,19 +2329,26 @@ let _geoGen = 0;
 async function _geocode(name, cityName) {
   const key = `${name}||${cityName}`;
   if (_geoCache[key]) return _geoCache[key];
-  try {
-    const q = encodeURIComponent(`${name}, ${cityName}`);
-    const r = await fetch(`https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=1&addressdetails=0`);
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    const d = await r.json();
-    if (d[0]) {
-      const c = { lat: parseFloat(d[0].lat), lng: parseFloat(d[0].lon) };
-      _geoCache[key] = c;
-      localStorage.setItem('dropped_geo', JSON.stringify(_geoCache));
-      return c;
+  // Try simplified name (first 3 words) if full name fails
+  const names = [name, name.split(' ').slice(0, 3).join(' ')];
+  for (const n of names) {
+    try {
+      const q = encodeURIComponent(`${n}, ${cityName}`);
+      const url = `https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=1&addressdetails=0`;
+      console.log('[Dropped] geocoding:', url);
+      const r = await fetch(url);
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const d = await r.json();
+      console.log('[Dropped] result for', n, ':', d[0] || 'no results');
+      if (d[0]) {
+        const c = { lat: parseFloat(d[0].lat), lng: parseFloat(d[0].lon) };
+        _geoCache[key] = c;
+        localStorage.setItem('dropped_geo', JSON.stringify(_geoCache));
+        return c;
+      }
+    } catch(e) {
+      console.warn('[Dropped] geocode error for', n, '—', e.message);
     }
-  } catch(e) {
-    console.warn('[Dropped] geocode failed for', name, '—', e.message);
   }
   return null;
 }
@@ -2358,31 +2365,41 @@ function _fmtDist(mi) {
   return `${mi < 10 ? mi.toFixed(1) : Math.round(mi)} mi`;
 }
 
+function _timeDiff(a, b) {
+  const [ah, am] = a.startTime.split(':').map(Number);
+  const [bh, bm] = b.startTime.split(':').map(Number);
+  const diff = (bh * 60 + bm) - (ah * 60 + am) - (_parseDurationMins(a.duration) || 0);
+  if (diff <= 0) return '';
+  return diff < 60 ? `${diff} min gap` : `${Math.floor(diff/60)}h${diff%60 ? ` ${diff%60}m` : ''} gap`;
+}
+
 async function _updateDistances(cards, cityName) {
   const gen = ++_geoGen;
   const timed = cards.filter(c => c.startTime);
   if (timed.length < 2) return;
+  console.log('[Dropped] _updateDistances for', cityName, timed.map(c => c.name));
 
-  // Show loading state immediately
+  // Show time-gap immediately as fallback
   for (let i = 0; i < timed.length - 1; i++) {
     const el = document.getElementById(`dist-${timed[i].id}`);
-    if (el) { el.textContent = '↕ calculating…'; el.classList.add('loaded'); }
+    if (!el) continue;
+    const gap = _timeDiff(timed[i], timed[i + 1]);
+    el.innerHTML = gap ? `⏱ ${gap} to next stop` : '↕ next stop';
+    el.classList.add('loaded');
   }
 
+  // Then try to resolve real distances via geocoding
   const coords = [];
   for (const card of timed) {
     if (gen !== _geoGen) return;
-    const cached = _geoCache[`${card.name}||${cityName}`];
-    if (!cached) await new Promise(r => setTimeout(r, 1200));
-    const geo = await _geocode(card.name, cityName);
-    coords.push({ card, geo });
+    if (!_geoCache[`${card.name}||${cityName}`]) await new Promise(r => setTimeout(r, 1200));
+    coords.push({ card, geo: await _geocode(card.name, cityName) });
   }
-
   if (gen !== _geoGen) return;
 
   for (let i = 0; i < coords.length - 1; i++) {
     const { card: a, geo: geoA } = coords[i];
-    const { geo: geoB } = coords[i + 1];
+    const { card: b, geo: geoB } = coords[i + 1];
     const el = document.getElementById(`dist-${a.id}`);
     if (!el) continue;
     if (geoA && geoB) {
@@ -2391,9 +2408,8 @@ async function _updateDistances(cards, cityName) {
       const walkMins = Math.round(mi * 20);
       const walkStr = walkMins < 60 ? `${walkMins} min walk` : `${Math.floor(walkMins/60)}h ${walkMins%60}m walk`;
       el.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8l4 4-4 4M3 12h18"/></svg>&nbsp;${dist}&nbsp;·&nbsp;${walkStr}`;
-    } else {
-      el.textContent = '↕ distance unavailable';
     }
+    // else: keep the time-gap fallback already showing
   }
 }
 
