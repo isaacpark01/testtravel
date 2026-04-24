@@ -33,10 +33,9 @@ body {
 .logo-text {
   font-family: 'Geist', sans-serif;
   font-size: 22px; font-weight: 700; letter-spacing: -.5px;
-  background: linear-gradient(135deg, #97ace0 0%, #b0bfe8 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #e8edf5; -webkit-text-fill-color: #e8edf5;
 }
+.logo-img { filter: brightness(0) invert(1); transition: filter .3s ease; }
 .header-nav { display: none; }
 @media (min-width: 768px) {
   .header-nav { display: flex; gap: 28px; }
@@ -846,7 +845,15 @@ body.light-mode .btn-planner-outline:hover { background: rgba(255,255,255,.35); 
 .hidden { display: none !important; }
 @keyframes fadeUp { from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);} }
 
-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(151,172,224,.2);border-radius:2px}
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: rgba(255,255,255,.04); border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #97ace0, #6a9ab8); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #b0bfe8, #7aabca); }
+* { scrollbar-width: thin; scrollbar-color: #6a9ab8 rgba(255,255,255,.04); }
+body.light-mode ::-webkit-scrollbar-track { background: rgba(15,23,42,.07); }
+body.light-mode ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #5283a0, #3d6a94); }
+body.light-mode ::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #6a9ab8, #4d7aaa); }
+body.light-mode * { scrollbar-color: #5283a0 rgba(15,23,42,.07); }
 
 /* ===================== UI Component Classes ===================== */
 .modal-input {
@@ -1009,9 +1016,10 @@ body.light-mode .step-num { color: #5283a0; }
 @media (min-width: 640px) { .footer-top { grid-template-columns: 1.6fr 1fr 1fr; } }
 .footer-brand-logo {
   font-family: 'Geist', sans-serif;
-  font-size: 22px; font-weight: 700; color: #97ace0;
+  font-size: 22px; font-weight: 700; color: #e8edf5;
   margin-bottom: 10px; letter-spacing: -.3px;
 }
+.footer-brand-logo .logo-img { filter: brightness(0) invert(1); transition: filter .3s ease; }
 .footer-brand-tagline {
   font-size: 13px; color: rgba(240,250,249,.4); line-height: 1.6;
   max-width: 280px; margin-bottom: 20px;
@@ -1223,7 +1231,7 @@ body.light-mode select option { background: #ede8f8; color: #1a1830; }
 body.light-mode .site-header { background: rgba(245,242,255,.92); border-bottom-color: rgba(106,154,184,.2); }
 body.light-mode .header-nav a { color: rgba(26,24,48,.55); }
 body.light-mode .header-nav a:hover { color: #1a1830; }
-body.light-mode .logo-text { background: linear-gradient(135deg, #5283a0 0%, #97ace0 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+body.light-mode .logo-text { background: none; -webkit-text-fill-color: #0f172a; color: #0f172a; }
 body.light-mode .auth-btn-outline { border-color: rgba(106,154,184,.5); color: #5283a0; }
 body.light-mode .auth-btn-outline:hover { background: rgba(106,154,184,.1); }
 body.light-mode .auth-btn-solid { background: #6a9ab8; }
@@ -1290,7 +1298,7 @@ body.light-mode .modal-field-label { color: rgba(26,24,48,.6); }
 body.light-mode .auth-field { background: rgba(237,232,248,.5); border-color: rgba(106,154,184,.25); color: #1a1830; }
 body.light-mode .auth-field:focus { border-color: #6a9ab8; }
 body.light-mode .site-footer { background: rgba(237,232,248,.98); border-top-color: rgba(106,154,184,.15); }
-body.light-mode .footer-brand-logo { color: #5283a0; }
+body.light-mode .footer-brand-logo { color: #1e293b; }
 body.light-mode .footer-brand-tagline { color: rgba(26,24,48,.5); }
 body.light-mode .footer-social-btn { border-color: rgba(106,154,184,.2); background: rgba(255,255,255,.6); color: rgba(26,24,48,.5); }
 body.light-mode .footer-social-btn:hover { background: rgba(106,154,184,.1); color: #5283a0; border-color: rgba(106,154,184,.4); }
@@ -1378,6 +1386,10 @@ body.light-mode .section-header h2 { color: #1a1830; }
 body.light-mode .section-header p { color: rgba(26,24,48,.6); }
 body.light-mode p, body.light-mode span, body.light-mode label, body.light-mode li { color: inherit; }
 body.light-mode .wip-banner { background: #6a9ab8 !important; }
+
+/* ── Logo light-mode adaptation ── */
+body.light-mode .logo-img { filter: none; }
+body.light-mode .footer-brand-logo { color: #1e293b; }
 
 /* ================== UI ENHANCEMENTS v3 ================== */
 
