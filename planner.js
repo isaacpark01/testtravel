@@ -700,11 +700,11 @@ function getPhoto(name, cityImage, size) {
 
   // 2. PHOTO_MAP fallback
   const m = Object.keys(PHOTO_MAP).find(p => k.includes(p));
-  if (m) return `https://images.unsplash.com/${PHOTO_MAP[m]}?w=${w}&q=75`;
+  if (m) return `https://images.unsplash.com/${PHOTO_MAP[m]}?w=${w}&q=90&fm=webp&fit=crop`;
   const c = CATEGORY_PHOTOS.find(([p]) => k.includes(p));
-  if (c) return `https://images.unsplash.com/${c[1]}?w=${w}&q=75`;
-  if (cityImage) return cityImage.replace(/w=\d+/, `w=${w}`);
-  return `https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=${w}&q=70`;
+  if (c) return `https://images.unsplash.com/${c[1]}?w=${w}&q=90&fm=webp&fit=crop`;
+  if (cityImage) return cityImage.replace(/w=\d+(&q=\d+)?/, `w=${w}&q=90&fm=webp&fit=crop`);
+  return `https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=${w}&q=90&fm=webp&fit=crop`;
 }
 
 // ── Multi-photo gallery for profile slideshow ────────────────
@@ -2305,7 +2305,8 @@ function renderItinCards() {
   // Build timeline items
   let tlItems = '';
   timedCards.forEach((c, i) => {
-    tlItems += renderTimelineItem(c, day.id, i + 1, true);
+    const notLast = i < timedCards.length - 1;
+    tlItems += renderTimelineItem(c, day.id, i + 1, true, notLast);
   });
   if (untimedCards.length && timedCards.length) {
     tlItems += `<div class="tl-no-time-header">Unscheduled</div>`;
@@ -2316,9 +2317,106 @@ function renderItinCards() {
 
   area.innerHTML = healthHTML + insightHTML + toolbar + `<div class="tl-wrap">${tlItems}</div>`;
   setupCardDrag();
+  const _distCity = getCurrentCity()?.name || '';
+  if (_distCity && timedCards.length >= 2) _updateDistances(allSorted, _distCity);
 }
 
-function renderTimelineItem(card, dayId, num, isConnected) {
+// ── Distance between itinerary stops ─────────────────────────
+let _geoCache = {};
+try { _geoCache = JSON.parse(localStorage.getItem('dropped_geo') || '{}'); } catch(e) {}
+let _geoGen = 0;
+
+async function _geocode(name, cityName) {
+  const key = `${name}||${cityName}`;
+  if (_geoCache[key]) return _geoCache[key];
+  const short = name.split(' ').slice(0, 3).join(' ');
+  // Try: full name + city, short name + city, short name alone (catches places outside city)
+  const attempts = [
+    `${name}, ${cityName}`,
+    `${short}, ${cityName}`,
+    short,
+  ];
+  for (const q of attempts) {
+    try {
+      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&limit=1&addressdetails=0`;
+      const r = await fetch(url);
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const d = await r.json();
+      if (d[0]) {
+        const c = { lat: parseFloat(d[0].lat), lng: parseFloat(d[0].lon) };
+        _geoCache[key] = c;
+        localStorage.setItem('dropped_geo', JSON.stringify(_geoCache));
+        return c;
+      }
+    } catch(e) {
+      console.warn('[Dropped] geocode error:', q, e.message);
+    }
+    await new Promise(r => setTimeout(r, 800));
+  }
+  return null;
+}
+
+function _haversine(a, b) {
+  const R = 3958.8, rad = Math.PI / 180;
+  const dLat = (b.lat - a.lat) * rad, dLon = (b.lng - a.lng) * rad;
+  const h = Math.sin(dLat/2)**2 + Math.cos(a.lat*rad)*Math.cos(b.lat*rad)*Math.sin(dLon/2)**2;
+  return R * 2 * Math.asin(Math.sqrt(h));
+}
+
+function _fmtDist(mi) {
+  if (mi < 0.1) return `${Math.round(mi * 5280)} ft`;
+  return `${mi < 10 ? mi.toFixed(1) : Math.round(mi)} mi`;
+}
+
+function _timeDiff(a, b) {
+  const [ah, am] = a.startTime.split(':').map(Number);
+  const [bh, bm] = b.startTime.split(':').map(Number);
+  const diff = (bh * 60 + bm) - (ah * 60 + am) - (_parseDurationMins(a.duration) || 0);
+  if (diff <= 0) return '';
+  return diff < 60 ? `${diff} min gap` : `${Math.floor(diff/60)}h${diff%60 ? ` ${diff%60}m` : ''} gap`;
+}
+
+async function _updateDistances(cards, cityName) {
+  const gen = ++_geoGen;
+  const timed = cards.filter(c => c.startTime);
+  if (timed.length < 2) return;
+  console.log('[Dropped] _updateDistances for', cityName, timed.map(c => c.name));
+
+  // Show time-gap immediately as fallback
+  for (let i = 0; i < timed.length - 1; i++) {
+    const el = document.getElementById(`dist-${timed[i].id}`);
+    if (!el) continue;
+    const gap = _timeDiff(timed[i], timed[i + 1]);
+    el.innerHTML = gap ? `⏱ ${gap} to next stop` : '↕ next stop';
+    el.classList.add('loaded');
+  }
+
+  // Then try to resolve real distances via geocoding
+  const coords = [];
+  for (const card of timed) {
+    if (gen !== _geoGen) return;
+    if (!_geoCache[`${card.name}||${cityName}`]) await new Promise(r => setTimeout(r, 1200));
+    coords.push({ card, geo: await _geocode(card.name, cityName) });
+  }
+  if (gen !== _geoGen) return;
+
+  for (let i = 0; i < coords.length - 1; i++) {
+    const { card: a, geo: geoA } = coords[i];
+    const { card: b, geo: geoB } = coords[i + 1];
+    const el = document.getElementById(`dist-${a.id}`);
+    if (!el) continue;
+    if (geoA && geoB) {
+      const mi = _haversine(geoA, geoB);
+      const dist = _fmtDist(mi);
+      const walkMins = Math.round(mi * 20);
+      const walkStr = walkMins < 60 ? `${walkMins} min walk` : `${Math.floor(walkMins/60)}h ${walkMins%60}m walk`;
+      el.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8l4 4-4 4M3 12h18"/></svg>&nbsp;${dist}&nbsp;·&nbsp;${walkStr}`;
+    }
+    // else: keep the time-gap fallback already showing
+  }
+}
+
+function renderTimelineItem(card, dayId, num, isConnected, showDist = false) {
   const hasTime  = !!card.startTime;
   const timeDisp = hasTime ? _fmt12h(card.startTime) : '';
   const endDisp  = hasTime && card.duration ? _calcEndTime(card.startTime, card.duration) : '';
@@ -2344,13 +2442,14 @@ function renderTimelineItem(card, dayId, num, isConnected) {
           onchange="updateCardTime('${jsqApp(dayId)}','${jsqApp(card.id)}',this.value)" />
       </div>
       ${cardHtml}
+      ${showDist ? `<div class="tl-dist-badge" id="dist-${escHtml(card.id)}"></div>` : ''}
     </div>
   </div>`;
 }
 
 function renderPlacedCard(card, dayId, num) {
   const city      = typeof CITIES !== 'undefined' ? CITIES.find(c => c.id === card.cityId) : null;
-  const photo     = card.photo || getPhoto(card.name, city?.image, 400);
+  const photo     = card.photo || getPhoto(card.name, city?.image, 900);
   const catIcon   = card.category === 'food' ? '🍽' : card.category === 'transport' ? '🚗' : '🎯';
   const price     = card.price === 0 ? '<span style="color:#34d399;font-weight:700">FREE</span>'
                   : card.price > 0   ? `<span style="color:#fb923c;font-weight:700">$${card.price}</span>` : '';
@@ -2361,7 +2460,7 @@ function renderPlacedCard(card, dayId, num) {
 
   return `<div class="placed-card" draggable="true" data-card-id="${card.id}" data-day-id="${dayId}" data-cat="${escHtml(card.category || 'activity')}">
     <div class="placed-num" title="Drag to reorder"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="5" r="1" fill="currentColor"/><circle cx="9" cy="12" r="1" fill="currentColor"/><circle cx="9" cy="19" r="1" fill="currentColor"/><circle cx="15" cy="5" r="1" fill="currentColor"/><circle cx="15" cy="12" r="1" fill="currentColor"/><circle cx="15" cy="19" r="1" fill="currentColor"/></svg></div>
-    <img class="placed-photo" src="${escHtml(photo)}" alt="${escHtml(card.name)}" loading="lazy"
+    <img class="placed-photo" src="${escHtml(photo)}" alt="${escHtml(card.name)}" loading="lazy" draggable="false"
       onerror="this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=85&fm=webp&fit=crop'" />
     <div class="placed-body">
       ${card.cityName ? `<div class="placed-city-badge">${escHtml(card.cityName)}</div>` : ''}
@@ -2399,6 +2498,9 @@ function clearDropLines() {
 
 function setupCardDrag() {
   document.querySelectorAll('.placed-card').forEach(card => {
+    // Prevent child elements from hijacking the drag
+    card.querySelectorAll('img, button, input').forEach(el => el.setAttribute('draggable', 'false'));
+
     card.addEventListener('dragstart', e => {
       _dragCardId = card.dataset.cardId;
       _dragPlace  = null;
@@ -2442,6 +2544,83 @@ function setupCardDrag() {
       const after = e.clientY > card.getBoundingClientRect().top + card.getBoundingClientRect().height / 2;
       reorderCard(_dragCardId, card.dataset.cardId, card.dataset.dayId, after);
       _dragCardId = null;
+    });
+  });
+
+  // Also handle drag over the time-row / dist-badge gaps between cards
+  // so the full tl-item zone is a valid drop target
+  document.querySelectorAll('.tl-item').forEach(item => {
+    const card = item.querySelector('.placed-card');
+    if (!card) return;
+    item.addEventListener('dragover', e => {
+      if (!_dragCardId || _dragCardId === card.dataset.cardId) return;
+      e.preventDefault();
+      clearDropLines();
+      const after = e.clientY > card.getBoundingClientRect().top + card.getBoundingClientRect().height / 2;
+      card.setAttribute(after ? 'data-drop-after' : 'data-drop-before', '1');
+    });
+    item.addEventListener('drop', e => {
+      if (!_dragCardId || _dragCardId === card.dataset.cardId) return;
+      e.preventDefault();
+      e.stopPropagation();
+      clearDropLines();
+      const after = e.clientY > card.getBoundingClientRect().top + card.getBoundingClientRect().height / 2;
+      reorderCard(_dragCardId, card.dataset.cardId, card.dataset.dayId, after);
+      _dragCardId = null;
+    });
+    item.addEventListener('dragleave', e => {
+      if (!item.contains(e.relatedTarget)) clearDropLines();
+    });
+  });
+
+  // ── Touch drag (mobile) ────────────────────────────────────
+  let _touchDragId = null, _touchClone = null;
+  document.querySelectorAll('.placed-card').forEach(card => {
+    const handle = card.querySelector('.placed-num');
+    if (!handle) return;
+    handle.addEventListener('touchstart', e => {
+      _touchDragId = card.dataset.cardId;
+      const r = card.getBoundingClientRect();
+      _touchClone = card.cloneNode(true);
+      Object.assign(_touchClone.style, {
+        position:'fixed', left: r.left+'px', top: r.top+'px',
+        width: r.width+'px', opacity:'.85', pointerEvents:'none',
+        zIndex:'9999', transform:'rotate(1.5deg) scale(1.03)',
+        border:'2px solid rgba(94,234,212,.8)',
+        borderRadius:'16px', transition:'none',
+      });
+      document.body.appendChild(_touchClone);
+      card.classList.add('dragging');
+      e.preventDefault();
+    }, { passive: false });
+
+    handle.addEventListener('touchmove', e => {
+      if (!_touchClone || !_touchDragId) return;
+      const t = e.touches[0];
+      const r = _touchClone.getBoundingClientRect();
+      _touchClone.style.left = (t.clientX - r.width/2) + 'px';
+      _touchClone.style.top  = (t.clientY - 30) + 'px';
+      clearDropLines();
+      const target = document.elementFromPoint(t.clientX, t.clientY)?.closest('.placed-card');
+      if (target && target.dataset.cardId !== _touchDragId) {
+        const after = t.clientY > target.getBoundingClientRect().top + target.getBoundingClientRect().height / 2;
+        target.setAttribute(after ? 'data-drop-after' : 'data-drop-before', '1');
+      }
+      e.preventDefault();
+    }, { passive: false });
+
+    handle.addEventListener('touchend', e => {
+      if (!_touchDragId) return;
+      const t = e.changedTouches[0];
+      const target = document.elementFromPoint(t.clientX, t.clientY)?.closest('.placed-card');
+      clearDropLines();
+      if (target && target.dataset.cardId !== _touchDragId) {
+        const after = t.clientY > target.getBoundingClientRect().top + target.getBoundingClientRect().height / 2;
+        reorderCard(_touchDragId, target.dataset.cardId, target.dataset.dayId, after);
+      }
+      if (_touchClone) { document.body.removeChild(_touchClone); _touchClone = null; }
+      document.querySelectorAll('.placed-card').forEach(c => c.classList.remove('dragging'));
+      _touchDragId = null;
     });
   });
 }
