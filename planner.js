@@ -2053,6 +2053,7 @@ function renderBudgetRecs() {
 
   el.style.display = 'block';
   el.innerHTML = `
+    <div class="budget-recs-title">${title}</div>
     <div class="budget-recs-wrap">
       <button class="recs-arrow recs-arrow-left" onclick="scrollRecs(-1)">${arrowL}</button>
       <div class="budget-recs-scroll" id="budget-recs-scroll">
