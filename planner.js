@@ -307,7 +307,7 @@ const PHOTO_MAP = {
   'peter luger':          'photo-1534080564583-6be75777b70a',
   'smorgasburg':          'photo-1567620905732-2d1ec7ab7445',
   // ── Paris ──
-  'eiffel tower':         'photo-1499856871958-5b9627545d1a',
+  'eiffel tower':         'photo-1701939802524-0043a927a3bf',
   'louvre':               'photo-1565799557186-fbf4e10c9f34',
   'musée d\'orsay':       'photo-1499856871958-5b9627545d1a',
   'orsay':                'photo-1499856871958-5b9627545d1a',
