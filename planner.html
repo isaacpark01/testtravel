@@ -1418,8 +1418,7 @@
     }
     .recs-arrow:hover { background: rgba(94,234,212,.18); border-color: rgba(94,234,212,.55); transform: scale(1.1); color: #5eead4; box-shadow: 0 4px 20px rgba(94,234,212,.15); }
     .budget-recs-scroll {
-      display: flex; gap: 12px; overflow-x: auto; padding: 8px 2px 8px;
-      margin: -8px -2px -8px;
+      display: flex; gap: 12px; overflow-x: auto; padding-bottom: 4px;
       scrollbar-width: none; flex: 1; min-width: 0;
     }
     .budget-recs-scroll::-webkit-scrollbar { display: none; }
@@ -1428,13 +1427,12 @@
       border-radius: 16px; width: 210px; height: 165px;
       background: rgb(10,18,38);
       cursor: pointer; border: 1px solid rgba(255,255,255,.09);
-      transition: transform .28s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease, border-color .25s;
+      transition: box-shadow .25s ease, border-color .25s;
       box-shadow: 0 4px 20px rgba(0,0,0,.45);
     }
     .budget-rec-chip:hover {
-      transform: translateY(-6px) scale(1.015);
-      box-shadow: 0 16px 36px rgba(0,0,0,.65), 0 0 0 1px rgba(94,234,212,.25);
-      border-color: rgba(94,234,212,.35);
+      box-shadow: 0 8px 32px rgba(0,0,0,.65), 0 0 0 1px rgba(94,234,212,.3), 0 0 18px rgba(94,234,212,.1);
+      border-color: rgba(94,234,212,.4);
     }
     .budget-rec-chip img.rec-bg-img {
       position: absolute; inset: 0; width: 100%; height: 100%;
