@@ -1972,14 +1972,8 @@ function renderBudgetRecs() {
   const el = document.getElementById('budget-recs');
   if (!el) return;
 
-  const heroBand = document.getElementById('hero-band');
   const city = getCurrentCity();
-  if (!city) {
-    el.style.display = 'none';
-    if (heroBand) heroBand.style.display = 'none';
-    return;
-  }
-  if (heroBand) heroBand.style.display = '';
+  if (!city) { el.style.display = 'none'; return; }
 
   // Populate _discCache so getPhoto can resolve item.photo for each place
   (city.activities || []).filter(Boolean).forEach(item => {
