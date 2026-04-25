@@ -26,11 +26,11 @@ const LANGS = [
 const TRANSLATIONS = {
   en: {
     tabSaves:'Saves', tabItinerary:'Itinerary', tabDiscover:'Discover', tabRewards:'Rewards', tabGroup:'Group',
-    filterAll:'All', filterActivities:'🎯 Activities', filterFood:'🍽 Food', filterFree:'✨ Free',
-    sortRating:'⭐ Top Rated', sortPriceLow:'💸 Price: Low', sortPriceHigh:'💎 Price: High', sortAZ:'A → Z',
-    vibeAll:'All Vibes', vibeHiddenGem:'💎 Hidden Gem', vibeBudget:'💸 Budget', vibeRomantic:'❤️ Romantic',
-    vibeOutdoor:'🌿 Outdoor', vibeFoodie:'🍜 Foodie', vibeInstagrammable:'📸 Instagrammable',
-    vibeLocalFave:'🌟 Local Fave', vibeSplurge:'✨ Splurge',
+    filterAll:'All', filterActivities:'Activities', filterFood:'Food', filterFree:'Free',
+    sortRating:'Top Rated', sortPriceLow:'Price: Low', sortPriceHigh:'Price: High', sortAZ:'A → Z',
+    vibeAll:'All Vibes', vibeHiddenGem:'Hidden Gem', vibeBudget:'Budget', vibeRomantic:'Romantic',
+    vibeOutdoor:'Outdoor', vibeFoodie:'Foodie', vibeInstagrammable:'Instagrammable',
+    vibeLocalFave:'Local Fave', vibeSplurge:'Splurge',
     searchPlaceholder:'Search places, food, activities…',
     addToPlanner:'+ Add to Planner', addToDay:'Add to Day', newTrip:'+ New Trip', explore:'← Explore',
     trendingTitle:'🔥 Trending on Social', noTrip:'Create a trip to discover places',
@@ -39,11 +39,11 @@ const TRANSLATIONS = {
   },
   es: {
     tabSaves:'Guardados', tabItinerary:'Itinerario', tabDiscover:'Descubrir', tabRewards:'Recompensas', tabGroup:'Grupo',
-    filterAll:'Todos', filterActivities:'🎯 Actividades', filterFood:'🍽 Comida', filterFree:'✨ Gratis',
-    sortRating:'⭐ Mejor Valorado', sortPriceLow:'💸 Precio: Bajo', sortPriceHigh:'💎 Precio: Alto', sortAZ:'A → Z',
-    vibeAll:'Todos los Vibes', vibeHiddenGem:'💎 Joya Oculta', vibeBudget:'💸 Económico', vibeRomantic:'❤️ Romántico',
-    vibeOutdoor:'🌿 Al Aire Libre', vibeFoodie:'🍜 Gastronomía', vibeInstagrammable:'📸 Instagrameable',
-    vibeLocalFave:'🌟 Favorito Local', vibeSplurge:'✨ Lujo',
+    filterAll:'Todos', filterActivities:'Actividades', filterFood:'Comida', filterFree:'Gratis',
+    sortRating:'Mejor Valorado', sortPriceLow:'Precio: Bajo', sortPriceHigh:'Precio: Alto', sortAZ:'A → Z',
+    vibeAll:'Todos los Vibes', vibeHiddenGem:'Joya Oculta', vibeBudget:'Económico', vibeRomantic:'Romántico',
+    vibeOutdoor:'Al Aire Libre', vibeFoodie:'Gastronomía', vibeInstagrammable:'Instagrameable',
+    vibeLocalFave:'Favorito Local', vibeSplurge:'Lujo',
     searchPlaceholder:'Buscar lugares, comida, actividades…',
     addToPlanner:'+ Agregar al Planner', addToDay:'Agregar al Día', newTrip:'+ Nuevo Viaje', explore:'← Explorar',
     trendingTitle:'🔥 Tendencias en Redes', noTrip:'Crea un viaje para descubrir lugares',
@@ -52,11 +52,11 @@ const TRANSLATIONS = {
   },
   fr: {
     tabSaves:'Sauvegardes', tabItinerary:'Itinéraire', tabDiscover:'Découvrir', tabRewards:'Récompenses', tabGroup:'Groupe',
-    filterAll:'Tout', filterActivities:'🎯 Activités', filterFood:'🍽 Nourriture', filterFree:'✨ Gratuit',
-    sortRating:'⭐ Mieux Notés', sortPriceLow:'💸 Prix : Bas', sortPriceHigh:'💎 Prix : Haut', sortAZ:'A → Z',
-    vibeAll:'Tous les Vibes', vibeHiddenGem:'💎 Joyau Caché', vibeBudget:'💸 Budget', vibeRomantic:'❤️ Romantique',
-    vibeOutdoor:'🌿 Plein Air', vibeFoodie:'🍜 Gastronomie', vibeInstagrammable:'📸 Instagrammable',
-    vibeLocalFave:'🌟 Favori Local', vibeSplurge:'✨ Luxe',
+    filterAll:'Tout', filterActivities:'Activités', filterFood:'Nourriture', filterFree:'Gratuit',
+    sortRating:'Mieux Notés', sortPriceLow:'Prix : Bas', sortPriceHigh:'Prix : Haut', sortAZ:'A → Z',
+    vibeAll:'Tous les Vibes', vibeHiddenGem:'Joyau Caché', vibeBudget:'Budget', vibeRomantic:'Romantique',
+    vibeOutdoor:'Plein Air', vibeFoodie:'Gastronomie', vibeInstagrammable:'Instagrammable',
+    vibeLocalFave:'Favori Local', vibeSplurge:'Luxe',
     searchPlaceholder:'Rechercher des lieux, plats, activités…',
     addToPlanner:'+ Ajouter au Planificateur', addToDay:'Ajouter au Jour', newTrip:'+ Nouveau Voyage', explore:'← Explorer',
     trendingTitle:'🔥 Tendances Sociales', noTrip:'Créez un voyage pour découvrir des lieux',
@@ -65,11 +65,11 @@ const TRANSLATIONS = {
   },
   ja: {
     tabSaves:'保存済み', tabItinerary:'旅程', tabDiscover:'発見', tabRewards:'特典', tabGroup:'グループ',
-    filterAll:'すべて', filterActivities:'🎯 アクティビティ', filterFood:'🍽 グルメ', filterFree:'✨ 無料',
-    sortRating:'⭐ 評価順', sortPriceLow:'💸 価格：安い順', sortPriceHigh:'💎 価格：高い順', sortAZ:'A → Z',
-    vibeAll:'すべてのバイブ', vibeHiddenGem:'💎 穴場スポット', vibeBudget:'💸 リーズナブル', vibeRomantic:'❤️ ロマンチック',
-    vibeOutdoor:'🌿 アウトドア', vibeFoodie:'🍜 グルメ', vibeInstagrammable:'📸 インスタ映え',
-    vibeLocalFave:'🌟 地元のお気に入り', vibeSplurge:'✨ 贅沢',
+    filterAll:'すべて', filterActivities:'アクティビティ', filterFood:'グルメ', filterFree:'無料',
+    sortRating:'評価順', sortPriceLow:'価格：安い順', sortPriceHigh:'価格：高い順', sortAZ:'A → Z',
+    vibeAll:'すべてのバイブ', vibeHiddenGem:'穴場スポット', vibeBudget:'リーズナブル', vibeRomantic:'ロマンチック',
+    vibeOutdoor:'アウトドア', vibeFoodie:'グルメ', vibeInstagrammable:'インスタ映え',
+    vibeLocalFave:'地元のお気に入り', vibeSplurge:'贅沢',
     searchPlaceholder:'スポット、グルメ、アクティビティを検索…',
     addToPlanner:'+ プランナーに追加', addToDay:'日程に追加', newTrip:'+ 新しい旅', explore:'← 探索',
     trendingTitle:'🔥 SNSでトレンド', noTrip:'旅行を作成してスポットを発見しよう',
@@ -78,11 +78,11 @@ const TRANSLATIONS = {
   },
   ko: {
     tabSaves:'저장됨', tabItinerary:'일정', tabDiscover:'탐색', tabRewards:'리워드', tabGroup:'그룹',
-    filterAll:'전체', filterActivities:'🎯 액티비티', filterFood:'🍽 음식', filterFree:'✨ 무료',
-    sortRating:'⭐ 평점순', sortPriceLow:'💸 가격: 낮은순', sortPriceHigh:'💎 가격: 높은순', sortAZ:'A → Z',
-    vibeAll:'모든 바이브', vibeHiddenGem:'💎 숨겨진 보석', vibeBudget:'💸 저렴한', vibeRomantic:'❤️ 로맨틱',
-    vibeOutdoor:'🌿 야외', vibeFoodie:'🍜 미식가', vibeInstagrammable:'📸 인스타그래머블',
-    vibeLocalFave:'🌟 지역 인기', vibeSplurge:'✨ 럭셔리',
+    filterAll:'전체', filterActivities:'액티비티', filterFood:'음식', filterFree:'무료',
+    sortRating:'평점순', sortPriceLow:'가격: 낮은순', sortPriceHigh:'가격: 높은순', sortAZ:'A → Z',
+    vibeAll:'모든 바이브', vibeHiddenGem:'숨겨진 보석', vibeBudget:'저렴한', vibeRomantic:'로맨틱',
+    vibeOutdoor:'야외', vibeFoodie:'미식가', vibeInstagrammable:'인스타그래머블',
+    vibeLocalFave:'지역 인기', vibeSplurge:'럭셔리',
     searchPlaceholder:'장소, 음식, 액티비티 검색…',
     addToPlanner:'+ 플래너에 추가', addToDay:'일정에 추가', newTrip:'+ 새 여행', explore:'← 탐색',
     trendingTitle:'🔥 소셜 트렌드', noTrip:'여행을 만들어 장소를 탐색하세요',
@@ -91,11 +91,11 @@ const TRANSLATIONS = {
   },
   zh: {
     tabSaves:'已保存', tabItinerary:'行程', tabDiscover:'发现', tabRewards:'奖励', tabGroup:'群组',
-    filterAll:'全部', filterActivities:'🎯 活动', filterFood:'🍽 美食', filterFree:'✨ 免费',
-    sortRating:'⭐ 评分最高', sortPriceLow:'💸 价格：从低到高', sortPriceHigh:'💎 价格：从高到低', sortAZ:'A → Z',
-    vibeAll:'全部氛围', vibeHiddenGem:'💎 隐秘宝藏', vibeBudget:'💸 实惠', vibeRomantic:'❤️ 浪漫',
-    vibeOutdoor:'🌿 户外', vibeFoodie:'🍜 美食家', vibeInstagrammable:'📸 适合拍照',
-    vibeLocalFave:'🌟 本地最爱', vibeSplurge:'✨ 奢华',
+    filterAll:'全部', filterActivities:'活动', filterFood:'美食', filterFree:'免费',
+    sortRating:'评分最高', sortPriceLow:'价格：从低到高', sortPriceHigh:'价格：从高到低', sortAZ:'A → Z',
+    vibeAll:'全部氛围', vibeHiddenGem:'隐秘宝藏', vibeBudget:'实惠', vibeRomantic:'浪漫',
+    vibeOutdoor:'户外', vibeFoodie:'美食家', vibeInstagrammable:'适合拍照',
+    vibeLocalFave:'本地最爱', vibeSplurge:'奢华',
     searchPlaceholder:'搜索地点、美食、活动…',
     addToPlanner:'+ 添加到计划', addToDay:'添加到当天', newTrip:'+ 新旅行', explore:'← 探索',
     trendingTitle:'🔥 社交媒体热门', noTrip:'创建旅行以发现地点',
@@ -104,11 +104,11 @@ const TRANSLATIONS = {
   },
   pt: {
     tabSaves:'Salvos', tabItinerary:'Roteiro', tabDiscover:'Descobrir', tabRewards:'Recompensas', tabGroup:'Grupo',
-    filterAll:'Todos', filterActivities:'🎯 Atividades', filterFood:'🍽 Comida', filterFree:'✨ Grátis',
-    sortRating:'⭐ Melhor Avaliados', sortPriceLow:'💸 Preço: Baixo', sortPriceHigh:'💎 Preço: Alto', sortAZ:'A → Z',
-    vibeAll:'Todos os Vibes', vibeHiddenGem:'💎 Joia Escondida', vibeBudget:'💸 Econômico', vibeRomantic:'❤️ Romântico',
-    vibeOutdoor:'🌿 Ao Ar Livre', vibeFoodie:'🍜 Gastronomia', vibeInstagrammable:'📸 Instagramável',
-    vibeLocalFave:'🌟 Favorito Local', vibeSplurge:'✨ Luxo',
+    filterAll:'Todos', filterActivities:'Atividades', filterFood:'Comida', filterFree:'Grátis',
+    sortRating:'Melhor Avaliados', sortPriceLow:'Preço: Baixo', sortPriceHigh:'Preço: Alto', sortAZ:'A → Z',
+    vibeAll:'Todos os Vibes', vibeHiddenGem:'Joia Escondida', vibeBudget:'Econômico', vibeRomantic:'Romântico',
+    vibeOutdoor:'Ao Ar Livre', vibeFoodie:'Gastronomia', vibeInstagrammable:'Instagramável',
+    vibeLocalFave:'Favorito Local', vibeSplurge:'Luxo',
     searchPlaceholder:'Buscar lugares, comidas, atividades…',
     addToPlanner:'+ Adicionar ao Roteiro', addToDay:'Adicionar ao Dia', newTrip:'+ Nova Viagem', explore:'← Explorar',
     trendingTitle:'🔥 Tendências nas Redes', noTrip:'Crie uma viagem para descobrir lugares',
@@ -117,11 +117,11 @@ const TRANSLATIONS = {
   },
   ar: {
     tabSaves:'المحفوظات', tabItinerary:'الجدول', tabDiscover:'استكشف', tabRewards:'المكافآت', tabGroup:'المجموعة',
-    filterAll:'الكل', filterActivities:'🎯 الأنشطة', filterFood:'🍽 الطعام', filterFree:'✨ مجاني',
-    sortRating:'⭐ الأعلى تقييمًا', sortPriceLow:'💸 السعر: الأقل', sortPriceHigh:'💎 السعر: الأعلى', sortAZ:'أ → ي',
-    vibeAll:'كل الأجواء', vibeHiddenGem:'💎 جوهرة مخفية', vibeBudget:'💸 اقتصادي', vibeRomantic:'❤️ رومانسي',
-    vibeOutdoor:'🌿 في الهواء الطلق', vibeFoodie:'🍜 ذواق', vibeInstagrammable:'📸 مناسب للتصوير',
-    vibeLocalFave:'🌟 المفضل المحلي', vibeSplurge:'✨ فاخر',
+    filterAll:'الكل', filterActivities:'الأنشطة', filterFood:'الطعام', filterFree:'مجاني',
+    sortRating:'الأعلى تقييمًا', sortPriceLow:'السعر: الأقل', sortPriceHigh:'السعر: الأعلى', sortAZ:'أ → ي',
+    vibeAll:'كل الأجواء', vibeHiddenGem:'جوهرة مخفية', vibeBudget:'اقتصادي', vibeRomantic:'رومانسي',
+    vibeOutdoor:'في الهواء الطلق', vibeFoodie:'ذواق', vibeInstagrammable:'مناسب للتصوير',
+    vibeLocalFave:'المفضل المحلي', vibeSplurge:'فاخر',
     searchPlaceholder:'ابحث عن أماكن، طعام، أنشطة…',
     addToPlanner:'+ أضف إلى المخطط', addToDay:'أضف إلى اليوم', newTrip:'+ رحلة جديدة', explore:'استكشف →',
     trendingTitle:'🔥 الرائج على السوشيال', noTrip:'أنشئ رحلة لاستكشاف الأماكن',
@@ -130,11 +130,11 @@ const TRANSLATIONS = {
   },
   hi: {
     tabSaves:'सेव किए', tabItinerary:'यात्रा योजना', tabDiscover:'खोजें', tabRewards:'पुरस्कार', tabGroup:'ग्रुप',
-    filterAll:'सभी', filterActivities:'🎯 गतिविधियाँ', filterFood:'🍽 खाना', filterFree:'✨ मुफ्त',
-    sortRating:'⭐ सर्वश्रेष्ठ', sortPriceLow:'💸 कीमत: कम', sortPriceHigh:'💎 कीमत: अधिक', sortAZ:'A → Z',
-    vibeAll:'सभी वाइब्स', vibeHiddenGem:'💎 छुपा रत्न', vibeBudget:'💸 बजट', vibeRomantic:'❤️ रोमांटिक',
-    vibeOutdoor:'🌿 बाहरी', vibeFoodie:'🍜 फूडी', vibeInstagrammable:'📸 इंस्टाग्राम योग्य',
-    vibeLocalFave:'🌟 स्थानीय पसंद', vibeSplurge:'✨ विलासिता',
+    filterAll:'सभी', filterActivities:'गतिविधियाँ', filterFood:'खाना', filterFree:'मुफ्त',
+    sortRating:'सर्वश्रेष्ठ', sortPriceLow:'कीमत: कम', sortPriceHigh:'कीमत: अधिक', sortAZ:'A → Z',
+    vibeAll:'सभी वाइब्स', vibeHiddenGem:'छुपा रत्न', vibeBudget:'बजट', vibeRomantic:'रोमांटिक',
+    vibeOutdoor:'बाहरी', vibeFoodie:'फूडी', vibeInstagrammable:'इंस्टाग्राम योग्य',
+    vibeLocalFave:'स्थानीय पसंद', vibeSplurge:'विलासिता',
     searchPlaceholder:'जगह, खाना, गतिविधियाँ खोजें…',
     addToPlanner:'+ योजना में जोड़ें', addToDay:'दिन में जोड़ें', newTrip:'+ नई यात्रा', explore:'← खोजें',
     trendingTitle:'🔥 सोशल पर ट्रेंडिंग', noTrip:'स्थान खोजने के लिए यात्रा बनाएं',
@@ -143,11 +143,11 @@ const TRANSLATIONS = {
   },
   vi: {
     tabSaves:'Đã lưu', tabItinerary:'Lịch trình', tabDiscover:'Khám phá', tabRewards:'Phần thưởng', tabGroup:'Nhóm',
-    filterAll:'Tất cả', filterActivities:'🎯 Hoạt động', filterFood:'🍽 Ẩm thực', filterFree:'✨ Miễn phí',
-    sortRating:'⭐ Đánh giá cao', sortPriceLow:'💸 Giá: Thấp', sortPriceHigh:'💎 Giá: Cao', sortAZ:'A → Z',
-    vibeAll:'Tất cả Vibes', vibeHiddenGem:'💎 Viên ngọc ẩn', vibeBudget:'💸 Tiết kiệm', vibeRomantic:'❤️ Lãng mạn',
-    vibeOutdoor:'🌿 Ngoài trời', vibeFoodie:'🍜 Ẩm thực', vibeInstagrammable:'📸 Chụp ảnh đẹp',
-    vibeLocalFave:'🌟 Yêu thích địa phương', vibeSplurge:'✨ Sang trọng',
+    filterAll:'Tất cả', filterActivities:'Hoạt động', filterFood:'Ẩm thực', filterFree:'Miễn phí',
+    sortRating:'Đánh giá cao', sortPriceLow:'Giá: Thấp', sortPriceHigh:'Giá: Cao', sortAZ:'A → Z',
+    vibeAll:'Tất cả Vibes', vibeHiddenGem:'Viên ngọc ẩn', vibeBudget:'Tiết kiệm', vibeRomantic:'Lãng mạn',
+    vibeOutdoor:'Ngoài trời', vibeFoodie:'Ẩm thực', vibeInstagrammable:'Chụp ảnh đẹp',
+    vibeLocalFave:'Yêu thích địa phương', vibeSplurge:'Sang trọng',
     searchPlaceholder:'Tìm kiếm địa điểm, ẩm thực, hoạt động…',
     addToPlanner:'+ Thêm vào lịch', addToDay:'Thêm vào ngày', newTrip:'+ Chuyến mới', explore:'← Khám phá',
     trendingTitle:'🔥 Xu hướng mạng xã hội', noTrip:'Tạo chuyến đi để khám phá địa điểm',
@@ -156,11 +156,11 @@ const TRANSLATIONS = {
   },
   tl: {
     tabSaves:'Naka-save', tabItinerary:'Itinerary', tabDiscover:'Tuklasin', tabRewards:'Rewards', tabGroup:'Grupo',
-    filterAll:'Lahat', filterActivities:'🎯 Aktibidad', filterFood:'🍽 Pagkain', filterFree:'✨ Libre',
-    sortRating:'⭐ Pinaka-rated', sortPriceLow:'💸 Presyo: Mababa', sortPriceHigh:'💎 Presyo: Mataas', sortAZ:'A → Z',
-    vibeAll:'Lahat ng Vibes', vibeHiddenGem:'💎 Nakatagong Hiyas', vibeBudget:'💸 Budget', vibeRomantic:'❤️ Romantiko',
-    vibeOutdoor:'🌿 Labas ng Bahay', vibeFoodie:'🍜 Foodie', vibeInstagrammable:'📸 Pang-Instagram',
-    vibeLocalFave:'🌟 Paboritong Local', vibeSplurge:'✨ Marangya',
+    filterAll:'Lahat', filterActivities:'Aktibidad', filterFood:'Pagkain', filterFree:'Libre',
+    sortRating:'Pinaka-rated', sortPriceLow:'Presyo: Mababa', sortPriceHigh:'Presyo: Mataas', sortAZ:'A → Z',
+    vibeAll:'Lahat ng Vibes', vibeHiddenGem:'Nakatagong Hiyas', vibeBudget:'Budget', vibeRomantic:'Romantiko',
+    vibeOutdoor:'Labas ng Bahay', vibeFoodie:'Foodie', vibeInstagrammable:'Pang-Instagram',
+    vibeLocalFave:'Paboritong Local', vibeSplurge:'Marangya',
     searchPlaceholder:'Maghanap ng lugar, pagkain, aktibidad…',
     addToPlanner:'+ Idagdag sa Planner', addToDay:'Idagdag sa Araw', newTrip:'+ Bagong Biyahe', explore:'← I-explore',
     trendingTitle:'🔥 Trending sa Social', noTrip:'Gumawa ng biyahe para tuklasin ang mga lugar',
@@ -2967,18 +2967,45 @@ function setDiscoverFilter(filter) {
 
 function setDiscoverVibe(vibe) {
   discoverVibe = vibe;
-  document.querySelectorAll('.vibe-filter-pill').forEach(p => {
+  document.querySelectorAll('.dfs-vibe-pill').forEach(p => {
     p.classList.toggle('active', p.dataset.vibe === vibe);
   });
+  updateFiltersBadge();
   renderDiscoverTab();
 }
 
 function setDiscoverSort(sort) {
   discoverSort = sort;
-  document.querySelectorAll('.disc-sort-pill').forEach(p => {
+  document.querySelectorAll('.dfs-pill[data-sort]').forEach(p => {
     p.classList.toggle('active', p.dataset.sort === sort);
   });
+  updateFiltersBadge();
   renderDiscoverTab();
+}
+
+function openDiscoverFilters() {
+  document.getElementById('disc-filter-backdrop').classList.add('open');
+  document.getElementById('disc-filter-sheet').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDiscoverFilters() {
+  document.getElementById('disc-filter-backdrop').classList.remove('open');
+  document.getElementById('disc-filter-sheet').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function clearDiscoverFilters() {
+  setDiscoverSort('rating');
+  setDiscoverVibe('');
+}
+
+function updateFiltersBadge() {
+  const count = (discoverSort !== 'rating' ? 1 : 0) + (discoverVibe ? 1 : 0);
+  const badge = document.getElementById('disc-filters-badge');
+  const btn   = document.getElementById('disc-filters-btn');
+  if (badge) { badge.textContent = count; badge.classList.toggle('hidden', count === 0); }
+  if (btn)   btn.classList.toggle('has-active', count > 0);
 }
 
 function onDiscSearchInput(val) {
