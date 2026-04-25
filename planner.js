@@ -687,25 +687,28 @@ function getPhoto(name, cityImage, size) {
   const w = size || 120;
   const k = (name || '').toLowerCase();
 
-  // 1. Non-Unsplash sources (local files, Yelp CDN) — always reliable
   const cached = _discCache[name];
+
+  // 1. Non-Unsplash sources (local files, Yelp CDN) — always reliable
   if (cached?.item?.photo) {
     const p = cached.item.photo;
     if (p.startsWith('photos/') || p.includes('yelpcdn.com')) return p;
   }
 
-  // 2. PHOTO_MAP / CATEGORY_PHOTOS — curated IDs that reliably load
+  // 2. PHOTO_MAP — specific landmark matches (accurate)
   const m = Object.keys(PHOTO_MAP).find(p => k.includes(p));
   if (m) return `https://images.unsplash.com/${PHOTO_MAP[m]}?w=${w}&q=90&fm=webp&fit=crop`;
-  const c = CATEGORY_PHOTOS.find(([p]) => k.includes(p));
-  if (c) return `https://images.unsplash.com/${c[1]}?w=${w}&q=90&fm=webp&fit=crop`;
 
-  // 3. item.photo from data.js — last resort
+  // 3. item.photo from data.js — specific to this place (accurate when set)
   if (cached?.item?.photo) {
     const p = cached.item.photo;
     if (p.includes('unsplash.com')) return p.replace(/w=\d+/, `w=${w}`);
     return p;
   }
+
+  // 4. CATEGORY_PHOTOS — generic category fallback
+  const c = CATEGORY_PHOTOS.find(([p]) => k.includes(p));
+  if (c) return `https://images.unsplash.com/${c[1]}?w=${w}&q=90&fm=webp&fit=crop`;
 
   if (cityImage) return cityImage.replace(/w=\d+(&q=\d+)?/, `w=${w}&q=90&fm=webp&fit=crop`);
   return `https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=${w}&q=90&fm=webp&fit=crop`;
@@ -1971,6 +1974,14 @@ function renderBudgetRecs() {
 
   const city = getCurrentCity();
   if (!city) { el.style.display = 'none'; return; }
+
+  // Populate _discCache so getPhoto can resolve item.photo for each place
+  (city.activities || []).filter(Boolean).forEach(item => {
+    if (!_discCache[item.name]) _discCache[item.name] = { item, city };
+  });
+  (city.food || []).filter(Boolean).forEach(item => {
+    if (!_discCache[item.name]) _discCache[item.name] = { item, city };
+  });
 
   const budget  = currentTrip?.budget || 0;
   const days    = (currentTrip?.days || []).length || 1;
