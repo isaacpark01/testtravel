@@ -1406,24 +1406,41 @@
     }
     .budget-recs-scroll {
       display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px;
+      scrollbar-width: none;
     }
+    .budget-recs-scroll::-webkit-scrollbar { display: none; }
     .budget-rec-chip {
-      flex-shrink: 0; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
-      border-radius: 10px; padding: 9px 12px; min-width: 130px; max-width: 160px;
-      cursor: pointer; transition: border-color .15s, background .15s;
+      flex-shrink: 0; position: relative; overflow: hidden;
+      border-radius: 12px; width: 200px; height: 140px;
+      background: rgb(15,25,45);
+      cursor: pointer; border: 1px solid rgba(255,255,255,.08);
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s;
+      box-shadow: 0 4px 16px rgba(0,0,0,.35);
     }
-    .budget-rec-chip:hover { border-color: rgba(151,172,224,.35); background: rgba(151,172,224,.07); }
-    .budget-rec-chip .rec-emoji { font-size: 14px; }
+    .budget-rec-chip:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.5); border-color: rgba(94,234,212,.25); }
+    .budget-rec-chip img.rec-bg-img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      pointer-events: none;
+    }
+    .budget-rec-chip .rec-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,.02) 0%, rgba(0,0,0,.08) 35%, rgba(0,0,0,.62) 65%, rgba(0,0,0,.88) 100%);
+    }
+    .budget-rec-chip .rec-info {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 8px 10px 10px; z-index: 2;
+    }
     .budget-rec-chip .rec-name {
-      font-size: 11px; font-weight: 700; color: #f0faf9;
+      font-size: 11px; font-weight: 700; color: #fff;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      margin: 3px 0 2px;
+      margin-bottom: 4px; text-shadow: 0 1px 4px rgba(0,0,0,.8);
     }
     .budget-rec-chip .rec-price {
-      font-size: 11px; color: #34d399; font-weight: 600;
+      font-size: 11px; color: #6ee7b7; font-weight: 700;
     }
     .budget-rec-chip .rec-rating {
-      font-size: 10px; color: rgba(240,250,249,.45); margin-left: 4px;
+      font-size: 10px; color: rgba(255,255,255,.6); margin-left: 4px;
     }
 
     /* ── Vibe filter row (discover) ────────────────────────────── */

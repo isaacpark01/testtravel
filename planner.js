@@ -1994,8 +1994,6 @@ function renderBudgetRecs() {
   pool.sort((a, b) => b.rating - a.rating || a.price - b.price);
   const picks = pool.slice(0, 10);
 
-  const emoji    = type => type === 'food' ? '🍽' : '🎯';
-  const priceStr = p => p === 0 ? '<span style="color:#34d399;font-weight:700">Free</span>' : `<span style="color:#34d399;font-weight:700">$${p}</span>`;
   const title    = hasBudget
     ? `Places within your budget ($${Math.round(perDay)}/day)`
     : `Top picks — ${escHtml(city.name)}`;
@@ -2004,12 +2002,20 @@ function renderBudgetRecs() {
   el.innerHTML = `
     <div class="budget-recs-title">${title}</div>
     <div class="budget-recs-scroll">
-      ${picks.map(p => `
+      ${picks.map(p => {
+        const photo = getPhoto(p.name, city.image, 800);
+        const priceLabel = p.price === 0 ? '<span class="rec-price">Free</span>' : `<span class="rec-price">$${p.price}</span>`;
+        return `
         <div class="budget-rec-chip" onclick="addBudgetRecToDay('${jsqApp(p.name)}','${jsqApp(p.type)}')" title="Add to itinerary">
-          <div class="rec-emoji">${emoji(p.type)}</div>
-          <div class="rec-name">${escHtml(p.name)}</div>
-          ${priceStr(p.price)}<span class="rec-rating"> ⭐ ${p.rating}</span>
-        </div>`).join('')}
+          <img class="rec-bg-img" src="${escHtml(photo)}" alt=""
+            onerror="this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=90&fm=webp';this.onerror=null">
+          <div class="rec-overlay"></div>
+          <div class="rec-info">
+            <div class="rec-name">${escHtml(p.name)}</div>
+            <div>${priceLabel}<span class="rec-rating">⭐ ${p.rating}</span></div>
+          </div>
+        </div>`;
+      }).join('')}
     </div>`;
 }
 
