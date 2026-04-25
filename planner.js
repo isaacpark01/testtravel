@@ -1988,20 +1988,23 @@ function renderBudgetRecs() {
   const perDay    = budget > 0 ? budget / days : Infinity;
   const hasBudget = budget > 0;
 
-  // Deduplicate by name, normalise fields, filter by budget
+  // Deduplicate by name (fuzzy — "Berthillon" and "Berthillon Ice Cream" collapse to one)
+  // If collapsed items have different prices, mark as priceVary so UI can show "price may vary"
   const prepare = (arr, type) => {
-    const seen = new Set();
-    return arr.filter(Boolean).filter(item => {
+    const groups = [];
+    arr.filter(Boolean).forEach(item => {
       const key = item.name.toLowerCase().trim();
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    }).map(item => ({
-      name:   item.name,
-      price:  typeof item.price === 'number' ? item.price : 0,
-      rating: item.rating || 0,
-      type,
-    })).filter(i => i.price <= perDay);
+      const match = groups.find(g => g.key === key || key.startsWith(g.key + ' ') || g.key.startsWith(key + ' '));
+      if (match) {
+        const p = typeof item.price === 'number' ? item.price : 0;
+        if (p !== match.price) match.priceVary = true;
+        if ((item.rating || 0) > match.rating) match.rating = item.rating || 0;
+        if (key.length < match.key.length) { match.key = key; match.name = item.name; } // keep shorter name
+      } else {
+        groups.push({ key, name: item.name, price: typeof item.price === 'number' ? item.price : 0, rating: item.rating || 0, priceVary: false });
+      }
+    });
+    return groups.map(g => ({ name: g.name, price: g.price, rating: g.rating, priceVary: g.priceVary, type }));
   };
 
   // Pick top-rated items spread across three price tiers
@@ -2056,7 +2059,10 @@ function renderBudgetRecs() {
       <div class="budget-recs-scroll" id="budget-recs-scroll">
         ${picks.map(p => {
           const photo = getPhoto(p.name, city.image, 800);
-          const priceLabel = p.price === 0 ? '<span class="rec-price">Free</span>' : `<span class="rec-price">$${p.price}</span>`;
+          const priceLabel = p.priceVary
+            ? '<span class="rec-price">Price may vary</span>'
+            : p.price === 0 ? '<span class="rec-price">Free</span>'
+            : `<span class="rec-price">$${p.price}</span>`;
           return `
           <div class="budget-rec-chip" draggable="true"
             ondragstart="startPickDrag('${jsqApp(p.name)}','${jsqApp(p.type)}',event)"
