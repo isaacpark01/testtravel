@@ -41,7 +41,11 @@
     @media (min-width: 700px) { .globe-hint { display: block; } }
 
     /* ── Search ── */
-    .globe-search-wrap { flex: 1; max-width: 340px; position: relative; pointer-events: auto; }
+    .globe-search-wrap {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      width: 360px; max-width: calc(100vw - 320px);
+      pointer-events: auto;
+    }
     .globe-search {
       width: 100%; padding: 9px 38px 9px 16px;
       background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
@@ -241,7 +245,6 @@
 
 <div class="globe-header">
   <a href="/" class="globe-logo">Dropped</a>
-  <span class="globe-hint">Search cities · Drag to rotate · Scroll to zoom</span>
   <div class="globe-search-wrap" id="search-wrap">
     <input id="globe-search" class="globe-search" type="text" placeholder="Search cities…" autocomplete="off" />
     <span class="globe-search-icon">
