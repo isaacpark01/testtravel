@@ -2011,10 +2011,14 @@ function renderBudgetRecs() {
           const photo = getPhoto(p.name, city.image, 800);
           const priceLabel = p.price === 0 ? '<span class="rec-price">Free</span>' : `<span class="rec-price">$${p.price}</span>`;
           return `
-          <div class="budget-rec-chip" onclick="addBudgetRecToDay('${jsqApp(p.name)}','${jsqApp(p.type)}')" title="Add to itinerary">
+          <div class="budget-rec-chip" draggable="true"
+            ondragstart="startPickDrag('${jsqApp(p.name)}','${jsqApp(p.type)}',event)"
+            ondragend="endPickDrag()"
+            onclick="addBudgetRecToDay('${jsqApp(p.name)}','${jsqApp(p.type)}')" title="Drag to itinerary or tap to add">
             <img class="rec-bg-img" src="${escHtml(photo)}" alt=""
               onerror="this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=90&fm=webp';this.onerror=null">
             <div class="rec-overlay"></div>
+            <div class="rec-drag-label">Drag or Drop</div>
             <div class="rec-info">
               <div class="rec-name">${escHtml(p.name)}</div>
               <div>${priceLabel}<span class="rec-rating">⭐ ${p.rating}</span></div>
