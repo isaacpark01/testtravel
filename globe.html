@@ -477,12 +477,19 @@
 
   /* ── Globe ── */
   const globe = Globe({ animateIn: true })(document.getElementById('globe-wrap'))
-    .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+    /* NASA Blue Marble Next Generation — 5400×2700 */
+    .globeImageUrl('https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73909/world.topo.bathy.200412.3x5400x2700.jpg')
     .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
-    .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
+    /* NASA Deep Star Maps — galactic coordinates, 8K equirectangular */
+    .backgroundImageUrl('https://svs.gsfc.nasa.gov/vis/a000000/a003800/a003895/starmap_g8k.jpg')
     .showAtmosphere(true)
-    .atmosphereColor('#60a5fa')
-    .atmosphereAltitude(0.16);
+    .atmosphereColor('#4a90d9')
+    .atmosphereAltitude(0.2);
+
+  /* Ocean specularity — subtle sheen on water */
+  const mat = globe.globeMaterial();
+  mat.shininess = 12;
+  mat.specular.setHex(0x1a3a5c);
 
   globe.renderer().setPixelRatio(Math.min(window.devicePixelRatio, 2));
   globe.controls().autoRotate = true;
@@ -493,7 +500,8 @@
 
   globe.pointOfView({ lat: 20, lng: 10, altitude: 2.2 }, 0);
   document.getElementById('city-count').textContent = points.length;
-  setTimeout(() => { document.getElementById('globe-loading').style.display = 'none'; }, 1200);
+  /* Longer timeout to account for NASA high-res texture load time */
+  setTimeout(() => { document.getElementById('globe-loading').style.display = 'none'; }, 3500);
   window.addEventListener('resize', () => { globe.width(window.innerWidth).height(window.innerHeight); });
 
   /* ── Search ── */
