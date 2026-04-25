@@ -1398,72 +1398,95 @@
 
     /* ── Budget recommendations ─────────────────────────────────── */
     .budget-recs {
-      padding: 0 16px 16px;
+      padding: 0 16px 20px;
     }
     .budget-recs-title {
-      font-size: 10px; font-weight: 700; color: rgba(240,250,249,.45);
-      text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px;
+      font-size: 10px; font-weight: 700; color: rgba(240,250,249,.5);
+      text-transform: uppercase; letter-spacing: .12em; margin-bottom: 14px;
     }
     .budget-recs-wrap {
-      position: relative; display: flex; align-items: center; gap: 8px;
+      position: relative; display: flex; align-items: center; gap: 10px;
     }
     .recs-arrow {
-      flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%;
-      background: rgba(10,15,28,.75); border: 1px solid rgba(255,255,255,.15);
-      color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 4px 16px rgba(0,0,0,.4);
-      transition: background .2s, border-color .2s, transform .2s;
+      flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(10,15,28,.8); border: 1px solid rgba(255,255,255,.18);
+      color: rgba(255,255,255,.85); cursor: pointer; display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 4px 20px rgba(0,0,0,.5);
+      transition: background .2s, border-color .2s, transform .2s ease, color .2s;
       z-index: 2;
     }
-    .recs-arrow:hover { background: rgba(94,234,212,.2); border-color: rgba(94,234,212,.5); transform: scale(1.08); }
+    .recs-arrow:hover { background: rgba(94,234,212,.18); border-color: rgba(94,234,212,.55); transform: scale(1.1); color: #5eead4; box-shadow: 0 4px 20px rgba(94,234,212,.15); }
     .budget-recs-scroll {
-      display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px;
+      display: flex; gap: 12px; overflow-x: auto; padding-bottom: 6px;
       scrollbar-width: none; flex: 1; min-width: 0;
     }
     .budget-recs-scroll::-webkit-scrollbar { display: none; }
     .budget-rec-chip {
       flex-shrink: 0; position: relative; overflow: hidden;
-      border-radius: 12px; width: 200px; height: 140px;
-      background: rgb(15,25,45);
-      cursor: pointer; border: 1px solid rgba(255,255,255,.08);
-      transition: transform .2s ease, box-shadow .2s ease, border-color .2s;
-      box-shadow: 0 4px 16px rgba(0,0,0,.35);
+      border-radius: 16px; width: 210px; height: 165px;
+      background: rgb(10,18,38);
+      cursor: pointer; border: 1px solid rgba(255,255,255,.09);
+      transition: transform .28s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease, border-color .25s;
+      box-shadow: 0 4px 20px rgba(0,0,0,.45);
     }
-    .budget-rec-chip:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.5); border-color: rgba(94,234,212,.25); }
+    .budget-rec-chip:hover {
+      transform: translateY(-6px) scale(1.015);
+      box-shadow: 0 16px 36px rgba(0,0,0,.65), 0 0 0 1px rgba(94,234,212,.25);
+      border-color: rgba(94,234,212,.35);
+    }
     .budget-rec-chip img.rec-bg-img {
       position: absolute; inset: 0; width: 100%; height: 100%;
       object-fit: cover; object-position: center;
-      pointer-events: none;
+      pointer-events: none; transition: transform .4s ease;
     }
+    .budget-rec-chip:hover img.rec-bg-img { transform: scale(1.04); }
     .budget-rec-chip .rec-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,.02) 0%, rgba(0,0,0,.08) 35%, rgba(0,0,0,.62) 65%, rgba(0,0,0,.88) 100%);
+      background: linear-gradient(to bottom,
+        rgba(0,0,0,0) 0%,
+        rgba(0,0,0,.04) 38%,
+        rgba(0,0,0,.68) 62%,
+        rgba(0,0,0,.93) 100%);
     }
-    .budget-rec-chip .rec-info {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 8px 10px 10px; z-index: 2;
+    .budget-rec-chip .rec-type-badge {
+      position: absolute; top: 10px; left: 10px; z-index: 3;
+      font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+      padding: 3px 8px; border-radius: 20px;
+      background: rgba(0,0,0,.42); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      color: rgba(255,255,255,.78); border: 1px solid rgba(255,255,255,.18);
     }
     .budget-rec-chip .rec-drag-label {
-      position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+      position: absolute; top: 10px; right: 10px; z-index: 3;
       font-size: 9px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
-      color: rgba(255,255,255,.7); background: rgba(0,0,0,.35);
+      color: #5eead4; background: rgba(94,234,212,.15);
       backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,.15); border-radius: 20px;
-      padding: 3px 8px; z-index: 3; white-space: nowrap;
+      border: 1px solid rgba(94,234,212,.35); border-radius: 20px;
+      padding: 3px 8px; white-space: nowrap;
       opacity: 0; transition: opacity .2s;
     }
     .budget-rec-chip:hover .rec-drag-label { opacity: 1; }
+    .budget-rec-chip .rec-info {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 10px 12px 13px; z-index: 2;
+    }
     .budget-rec-chip .rec-name {
-      font-size: 11px; font-weight: 700; color: #fff;
+      font-size: 13px; font-weight: 700; color: #fff;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      margin-bottom: 4px; text-shadow: 0 1px 4px rgba(0,0,0,.8);
+      margin-bottom: 5px; letter-spacing: -.01em;
+      text-shadow: 0 1px 8px rgba(0,0,0,.9);
+    }
+    .budget-rec-chip .rec-meta {
+      display: flex; align-items: center; gap: 6px;
     }
     .budget-rec-chip .rec-price {
-      font-size: 11px; color: #6ee7b7; font-weight: 700;
+      font-size: 12px; color: #5eead4; font-weight: 700;
+    }
+    .budget-rec-chip .rec-divider {
+      font-size: 10px; color: rgba(255,255,255,.25);
     }
     .budget-rec-chip .rec-rating {
-      font-size: 10px; color: rgba(255,255,255,.6); margin-left: 4px;
+      font-size: 11px; color: rgba(255,255,255,.65);
     }
 
     /* ── Vibe filter row (discover) ────────────────────────────── */
