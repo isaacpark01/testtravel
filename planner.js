@@ -1983,27 +1983,63 @@ function renderBudgetRecs() {
     if (!_discCache[item.name]) _discCache[item.name] = { item, city };
   });
 
-  const budget  = currentTrip?.budget || 0;
-  const days    = (currentTrip?.days || []).length || 1;
-  const perDay  = budget > 0 ? budget / days : Infinity;
+  const budget    = currentTrip?.budget || 0;
+  const days      = (currentTrip?.days || []).length || 1;
+  const perDay    = budget > 0 ? budget / days : Infinity;
   const hasBudget = budget > 0;
 
-  const scoreItem = (item, type) => ({
-    name:   item.name,
-    price:  typeof item.price === 'number' ? item.price : 0,
-    rating: item.rating || 0,
-    type,
-  });
+  // Deduplicate by name, normalise fields, filter by budget
+  const prepare = (arr, type) => {
+    const seen = new Set();
+    return arr.filter(Boolean).filter(item => {
+      const key = item.name.toLowerCase().trim();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }).map(item => ({
+      name:   item.name,
+      price:  typeof item.price === 'number' ? item.price : 0,
+      rating: item.rating || 0,
+      type,
+    })).filter(i => i.price <= perDay);
+  };
 
-  const pool = [
-    ...(city.food       || []).filter(Boolean).map(i => scoreItem(i, 'food')),
-    ...(city.activities || []).filter(Boolean).map(i => scoreItem(i, 'activity')),
-  ].filter(i => i.price <= perDay);
+  // Pick top-rated items spread across three price tiers
+  const pickSpread = (items, count) => {
+    const sorted   = [...items].sort((a, b) => b.rating - a.rating || a.price - b.price);
+    const cheap    = sorted.filter(i => i.price === 0 || i.price <= 20);
+    const mid      = sorted.filter(i => i.price > 20 && i.price <= 80);
+    const premium  = sorted.filter(i => i.price > 80);
+    const perTier  = Math.ceil(count / 3);
+    const picked   = [
+      ...cheap.slice(0, perTier),
+      ...mid.slice(0, perTier),
+      ...premium.slice(0, perTier),
+    ];
+    // Fill remaining slots from top-rated if tiers didn't have enough
+    if (picked.length < count) {
+      const names = new Set(picked.map(p => p.name));
+      for (const item of sorted) {
+        if (picked.length >= count) break;
+        if (!names.has(item.name)) { picked.push(item); names.add(item.name); }
+      }
+    }
+    return picked.slice(0, count).sort((a, b) => b.rating - a.rating);
+  };
 
-  if (!pool.length) { el.style.display = 'none'; return; }
+  const foodPicks = pickSpread(prepare(city.food       || [], 'food'),     9);
+  const actPicks  = pickSpread(prepare(city.activities || [], 'activity'), 6);
 
-  pool.sort((a, b) => b.rating - a.rating || a.price - b.price);
-  const picks = pool.slice(0, 10);
+  // Interleave 2 food : 1 activity
+  const picks = [];
+  let fi = 0, ai = 0;
+  while (picks.length < 15 && (fi < foodPicks.length || ai < actPicks.length)) {
+    if (fi < foodPicks.length) picks.push(foodPicks[fi++]);
+    if (picks.length < 15 && fi < foodPicks.length) picks.push(foodPicks[fi++]);
+    if (picks.length < 15 && ai < actPicks.length)  picks.push(actPicks[ai++]);
+  }
+
+  if (!picks.length) { el.style.display = 'none'; return; }
 
   const title    = hasBudget
     ? `Places within your budget ($${Math.round(perDay)}/day)`
