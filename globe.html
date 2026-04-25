@@ -62,30 +62,6 @@
     .globe-navbtn:hover { background: rgba(56,189,248,.15); color: #38bdf8; border-color: rgba(56,189,248,.3); }
 
     /* ── Map Pin ── */
-    .map-pin {
-      width: 38px; height: 38px;
-      border-radius: 50% 50% 50% 0;
-      transform: rotate(-45deg);
-      border: 2.5px solid #fff;
-      overflow: hidden;
-      box-shadow: 0 3px 12px rgba(0,0,0,.6), 0 1px 4px rgba(0,0,0,.4);
-      cursor: pointer;
-      transition: transform .15s, box-shadow .15s;
-      flex-shrink: 0;
-    }
-    .map-pin:hover {
-      transform: rotate(-45deg) scale(1.18);
-      box-shadow: 0 6px 20px rgba(0,0,0,.7);
-    }
-    .map-pin img {
-      width: 100%; height: 100%; object-fit: cover;
-      transform: rotate(45deg) scale(1.55);
-      pointer-events: none;
-    }
-    .map-pin.active {
-      border-color: #38bdf8;
-      box-shadow: 0 0 0 3px rgba(56,189,248,.4), 0 6px 20px rgba(0,0,0,.7);
-    }
 
     /* ── City Panel ── */
     .city-panel {
@@ -377,7 +353,6 @@
   /* ── State ── */
   let activeTab = 'activities';
   let currentCity = null;
-  let activeEl = null;
   let filterQ = '';
 
   /* ── Panel ── */
@@ -485,7 +460,6 @@
 
   window.closePanel = function() {
     document.getElementById('city-panel').classList.remove('open');
-    if (activeEl) { activeEl.classList.remove('active'); activeEl = null; }
     currentCity = null;
   };
 
@@ -496,43 +470,7 @@
     .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
     .showAtmosphere(true)
     .atmosphereColor('#60a5fa')
-    .atmosphereAltitude(0.16)
-    /* HTML pin elements instead of dots */
-    .htmlElementsData(points)
-    .htmlLat('lat')
-    .htmlLng('lng')
-    .htmlAltitude(0.01)
-    .htmlElement(d => {
-      const wrap = document.createElement('div');
-      wrap.title = `${d.name} · ${d.country}`;
-
-      const pin = document.createElement('div');
-      pin.className = 'map-pin';
-      pin.style.borderColor = d.color;
-
-      const img = document.createElement('img');
-      img.src = d.image;
-      img.alt = d.name;
-      img.onerror = () => { img.style.display = 'none'; pin.style.background = d.color; };
-
-      pin.appendChild(img);
-      wrap.appendChild(pin);
-
-      wrap.addEventListener('click', () => {
-        globe.controls().autoRotate = false;
-        if (activeEl) activeEl.querySelector('.map-pin')?.classList.remove('active');
-        pin.classList.add('active');
-        activeEl = wrap;
-        openPanel(d);
-        setTimeout(() => { globe.controls().autoRotate = true; }, 4000);
-      });
-
-      return wrap;
-    })
-    /* keep rings for pulse effect */
-    .ringsData([])
-    .ringColor(d => d.color || '#38bdf8')
-    .ringMaxRadius(3).ringPropagationSpeed(2).ringRepeatPeriod(700);
+    .atmosphereAltitude(0.16);
 
   globe.renderer().setPixelRatio(Math.min(window.devicePixelRatio, 2));
   globe.controls().autoRotate = true;
