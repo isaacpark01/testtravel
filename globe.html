@@ -76,6 +76,37 @@
     .globe-sr-name { font-weight: 700; color: #f0faf9; }
     .globe-sr-country { font-size: 11px; color: rgba(255,255,255,.32); margin-left: auto; }
 
+    /* ── Search toggle (mobile icon) ── */
+    .globe-search-toggle {
+      display: none; width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.65); cursor: pointer;
+      align-items: center; justify-content: center;
+      transition: all .15s; flex-shrink: 0; pointer-events: auto;
+    }
+    .globe-search-toggle:hover { background: rgba(151,172,224,.12); color: #97ace0; border-color: rgba(151,172,224,.3); }
+    .globe-search-toggle.active { background: rgba(151,172,224,.15); color: #97ace0; border-color: rgba(151,172,224,.4); }
+
+    /* ── Mobile search bar ── */
+    @media (max-width: 660px) {
+      .globe-search-toggle { display: flex; }
+      .globe-search-wrap {
+        position: fixed; left: 0; right: 0; top: 53px;
+        width: auto; max-width: none;
+        transform: translateY(-6px);
+        padding: 10px 14px;
+        background: rgba(7,17,26,.96);
+        backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255,255,255,.07);
+        z-index: 99; opacity: 0; pointer-events: none;
+        transition: opacity .2s ease, transform .22s cubic-bezier(.22,.8,.25,1);
+      }
+      .globe-header.search-open .globe-search-wrap {
+        opacity: 1; pointer-events: auto; transform: translateY(0);
+      }
+      .globe-search { border-radius: 12px; }
+    }
+
     /* ── Nav ── */
     .globe-nav { margin-left: auto; pointer-events: auto; display: flex; gap: 8px; align-items: center; }
     .globe-navbtn {
@@ -253,6 +284,9 @@
     <div class="globe-search-results" id="search-results"></div>
   </div>
   <nav class="globe-nav">
+    <button class="globe-search-toggle" id="search-toggle" onclick="toggleMobileSearch()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
     <a href="planner.html" class="globe-navbtn primary">Planner</a>
     <a href="/" class="globe-navbtn">Explore</a>
   </nav>
@@ -543,12 +577,37 @@
       const m = points.find(p => p.name.toLowerCase().startsWith(q));
       if (m) flyToCity(m);
     }
-    if (e.key === 'Escape') { searchInput.value = ''; searchResults.classList.remove('show'); }
+    if (e.key === 'Escape') {
+      searchInput.value = '';
+      searchResults.classList.remove('show');
+      closeMobileSearch();
+    }
   });
 
   document.addEventListener('click', e => {
-    if (!document.getElementById('search-wrap').contains(e.target)) searchResults.classList.remove('show');
+    const wrap = document.getElementById('search-wrap');
+    const toggle = document.getElementById('search-toggle');
+    if (!wrap.contains(e.target) && !toggle?.contains(e.target)) {
+      searchResults.classList.remove('show');
+      closeMobileSearch();
+    }
   });
+
+  window.toggleMobileSearch = function() {
+    const header = document.querySelector('.globe-header');
+    const toggle = document.getElementById('search-toggle');
+    const isOpen = header.classList.toggle('search-open');
+    toggle.classList.toggle('active', isOpen);
+    if (isOpen) setTimeout(() => searchInput.focus(), 220);
+    else { searchInput.value = ''; searchResults.classList.remove('show'); }
+  };
+
+  function closeMobileSearch() {
+    const header = document.querySelector('.globe-header');
+    const toggle = document.getElementById('search-toggle');
+    header.classList.remove('search-open');
+    toggle?.classList.remove('active');
+  }
 })();
 </script>
 </body>
