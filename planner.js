@@ -2051,9 +2051,6 @@ function renderBudgetRecs() {
   const arrowL = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>`;
   const arrowR = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`;
 
-  const budgetBar = document.getElementById('hero-budget-bar');
-  if (budgetBar) budgetBar.style.display = 'none';
-
   el.style.display = 'block';
   el.innerHTML = `
     <div class="budget-recs-wrap">
