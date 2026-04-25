@@ -2063,7 +2063,6 @@ function renderBudgetRecs() {
             ? '<span class="rec-price">Price may vary</span>'
             : p.price === 0 ? '<span class="rec-price">Free</span>'
             : `<span class="rec-price">$${p.price}</span>`;
-          const typeBadge = p.type === 'food' ? 'Dining' : 'Activity';
           return `
           <div class="budget-rec-chip" draggable="true"
             ondragstart="startPickDrag('${jsqApp(p.name)}','${jsqApp(p.type)}',event)"
@@ -2072,11 +2071,10 @@ function renderBudgetRecs() {
             <img class="rec-bg-img" src="${escHtml(photo)}" alt=""
               onerror="this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=90&fm=webp';this.onerror=null">
             <div class="rec-overlay"></div>
-            <div class="rec-type-badge">${typeBadge}</div>
             <div class="rec-drag-label">Drag or Drop</div>
             <div class="rec-info">
               <div class="rec-name">${escHtml(p.name)}</div>
-              <div class="rec-meta">${priceLabel}<span class="rec-divider">·</span><span class="rec-rating">★ ${p.rating}</span></div>
+              <div>${priceLabel}<span class="rec-rating">⭐ ${p.rating}</span></div>
             </div>
           </div>`;
         }).join('')}
