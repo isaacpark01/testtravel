@@ -163,7 +163,7 @@
 
     /* ── Hero ──────────────────────────────────────────────────── */
     .hero-band {
-      position: relative; height: 175px; min-height: 175px; flex-shrink: 0;
+      position: relative; min-height: 175px; flex-shrink: 0;
       background-color: var(--surface);
     }
     .hero-bg {
@@ -174,11 +174,11 @@
     }
     .hero-bg::after, .hero-bg::before { display: none; }
     .hero-overlay {
-      position: absolute; inset: 0; z-index: 2;
+      position: relative; z-index: 2; width: 100%;
       background: linear-gradient(135deg, rgba(106,154,184,.12) 0%, rgba(151,172,224,.04) 50%, transparent 100%),
                   linear-gradient(to bottom, rgba(11,17,32,.08) 0%, rgba(11,17,32,.62) 70%, rgba(11,17,32,.82) 100%);
       display: flex; flex-direction: column; justify-content: flex-end;
-      gap: 0; padding: 0 20px 0;
+      min-height: 175px; padding: 0 20px 0;
     }
     .hero-meta { display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 14px; }
     .hero-titles {}
@@ -1113,7 +1113,8 @@
       .map-panel.mob-visible { display: block; }
       .map-panel.mob-visible .mob-map-close { display: block; }
       .mob-map-toggle { display: flex; align-items: center; gap: 5px; }
-      .hero-band { height: 120px; min-height: 120px; }
+      .hero-band { min-height: 120px; }
+      .hero-overlay { min-height: 120px; }
       /* Hide nav items that don't fit on small screens */
       .btn-ghost { display: none; }
       #btn-new-trip { display: none; }
