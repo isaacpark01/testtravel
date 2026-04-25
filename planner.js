@@ -3094,9 +3094,8 @@ function renderTrendingSection(city) {
     <div class="trending-title">${escHtml(t('trendingTitle'))}</div>
     <div class="trending-scroll">
       ${cards.map(c => `<a class="trending-card" href="${c.href}" target="_blank" rel="noopener">
-        <span class="trending-platform ${c.platform}">${c.platform === 'tt' ? '▶ TikTok' : '◈ Instagram'}</span>
+        <span class="trending-platform-icon ${c.platform}">${c.platform === 'tt' ? '▶' : '◇'}</span>
         <span class="trending-label">${escHtml(c.label)}</span>
-        <span class="trending-sub">${c.sub}</span>
       </a>`).join('')}
     </div>
   </div>`;
