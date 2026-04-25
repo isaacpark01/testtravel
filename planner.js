@@ -2256,7 +2256,7 @@ function renderItinCards() {
   if (!cards.length) {
     area.innerHTML = `<div class="itin-empty">
       <div class="empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#pinGrad)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="pinGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b8cce8"/><stop offset="100%" stop-color="#6a9ab8"/></linearGradient></defs><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-      <p>Drop your first spot here — search above or check out <strong style="color:var(--teal,#2dd4bf);cursor:pointer" onclick="switchTab('discover')">Discover →</strong></p>
+      <p>Drag or drop your first spot here — search above or check out <strong style="color:var(--teal,#2dd4bf);cursor:pointer" onclick="switchTab('discover')">Discover →</strong></p>
     </div>`;
   
     return;
