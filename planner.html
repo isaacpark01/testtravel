@@ -410,10 +410,12 @@
       border: 1px solid rgba(255,255,255,.07);
       border-radius: 16px; overflow: hidden;
       display: flex; flex-direction: column;
-      position: relative; cursor: grab;
+      position: relative;
       transition: border-color .2s, transform .18s, box-shadow .2s;
       user-select: none;
     }
+    .tl-ghost { opacity: .18 !important; }
+    .tl-chosen .placed-card { border-color: rgba(94,234,212,.6) !important; box-shadow: 0 16px 48px rgba(0,0,0,.6), 0 0 24px rgba(94,234,212,.3); }
     /* category top-bar replaces left accent */
     .placed-card::before { display: none; }
     .placed-card[data-cat="food"]     { border-top: 2.5px solid #f97316; }
@@ -1399,84 +1401,29 @@
       padding: 0 16px 16px;
     }
     .budget-recs-title {
-      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
-      background: linear-gradient(135deg, #97ace0 0%, #5eead4 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      margin-bottom: 10px;
-    }
-    .budget-recs-wrap {
-      position: relative; display: flex; align-items: center; gap: 0;
-    }
-    .recs-arrow {
-      flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
-      border: 1px solid rgba(151,172,224,.25);
-      background: rgba(10,15,28,.8);
-      color: #fff; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 4px 16px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.07);
-      transition: border-color .2s, background .2s, transform .2s;
-      z-index: 2;
-    }
-    .recs-arrow:hover {
-      border-color: rgba(151,172,224,.55);
-      background: rgba(90,135,176,.3);
-      transform: scale(1.1);
+      font-size: 10px; font-weight: 700; color: rgba(240,250,249,.45);
+      text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px;
     }
     .budget-recs-scroll {
-      display: flex; gap: 10px; overflow-x: auto; padding: 4px 8px 8px;
-      scrollbar-width: none; flex: 1; min-width: 0;
+      display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px;
     }
-    .budget-recs-scroll::-webkit-scrollbar { display: none; }
     .budget-rec-chip {
-      flex-shrink: 0; position: relative; overflow: hidden;
-      border-radius: 12px; width: 190px; height: 140px;
-      background-size: cover; background-position: center;
-      background-color: rgba(255,255,255,.06);
-      cursor: grab; border: 1px solid rgba(255,255,255,.08);
-      box-shadow: 0 4px 16px rgba(0,0,0,.35);
-      transition: transform .2s ease, box-shadow .2s ease, border-color .2s;
+      flex-shrink: 0; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px; padding: 9px 12px; min-width: 130px; max-width: 160px;
+      cursor: pointer; transition: border-color .15s, background .15s;
     }
-    .budget-rec-chip:active { cursor: grabbing; }
-    .budget-rec-chip:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.5); border-color: rgba(94,234,212,.25); }
-    .rec-drag-hint {
-      position: absolute; top: 8px; left: 8px; z-index: 3;
-      background: rgba(0,0,0,.4); backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,.12); border-radius: 6px;
-      width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;
-      color: rgba(255,255,255,.6); opacity: 0; transition: opacity .2s;
-    }
-    .budget-rec-chip:hover .rec-drag-hint { opacity: 1; }
-    .rec-img-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,.02) 0%, rgba(0,0,0,.1) 35%, rgba(0,0,0,.65) 68%, rgba(0,0,0,.88) 100%);
-    }
-    .rec-cat-badge {
-      position: absolute; top: 8px; right: 8px; z-index: 2;
-      background: rgba(0,0,0,.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-      border-radius: 7px; padding: 4px 5px;
-      border: 1px solid rgba(255,255,255,.13);
-      color: rgba(255,255,255,.9); display: flex; align-items: center;
-    }
-    .rec-info {
-      position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
-      padding: 8px 10px 10px;
-    }
+    .budget-rec-chip:hover { border-color: rgba(151,172,224,.35); background: rgba(151,172,224,.07); }
+    .budget-rec-chip .rec-emoji { font-size: 14px; }
     .budget-rec-chip .rec-name {
-      font-size: 11px; font-weight: 700; color: #fff;
+      font-size: 11px; font-weight: 700; color: #f0faf9;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      line-height: 1.3; margin-bottom: 4px;
-      text-shadow: 0 1px 5px rgba(0,0,0,.7);
-    }
-    .rec-meta {
-      display: flex; align-items: center; gap: 5px;
+      margin: 3px 0 2px;
     }
     .budget-rec-chip .rec-price {
-      font-size: 10.5px; color: #6ee7b7; font-weight: 700;
+      font-size: 11px; color: #34d399; font-weight: 600;
     }
     .budget-rec-chip .rec-rating {
-      font-size: 9.5px; color: rgba(255,255,255,.6); font-weight: 600;
-      display: flex; align-items: center; gap: 2px;
+      font-size: 10px; color: rgba(240,250,249,.45); margin-left: 4px;
     }
 
     /* ── Vibe filter row (discover) ────────────────────────────── */
@@ -2669,6 +2616,7 @@
 </script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="config.js"></script>
 <script src="data.js"></script>

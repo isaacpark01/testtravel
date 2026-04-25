@@ -417,7 +417,7 @@ const PHOTO_MAP = {
   'art institute':        'photo-1547891654-e66ed7ebb968',
   'millennium park':      'photo-1477959858617-67f85cf4f1df',
   'the bean':             'photo-1477959858617-67f85cf4f1df',
-  'navy pier':            'photo-1477959858617-67f85cf4f1df',
+  'navy pier':            'photo-1476514525535-07fb3b4ae5f1',
   'riverwalk':            'photo-1477959858617-67f85cf4f1df',
   'wrigley field':        'photo-1566577739112-5180d4bf9390',
   'skydeck':              'photo-1494522855154-9297ac14b55f',
@@ -667,7 +667,7 @@ const CATEGORY_PHOTOS = [
   ['cathedral',   'photo-1467269204594-9661b134dd2b'],
   ['observatory', 'photo-1580655653885-65763b2597d0'],
   ['stadium',     'photo-1566577739112-5180d4bf9390'],
-  ['pier',        'photo-1477959858617-67f85cf4f1df'],
+  ['pier',        'photo-1507525428034-b723cf961d3e'],
   ['cruise',      'photo-1568402102990-bc541580b59f'],
   ['space',       'photo-1457364559154-aa2644600ebb'],
   ['zoo',         'photo-1416879595882-3373a0480b5b'],
@@ -687,22 +687,26 @@ function getPhoto(name, cityImage, size) {
   const w = size || 120;
   const k = (name || '').toLowerCase();
 
-  // 1. Check item.photo from data.js (stored in _discCache)
+  // 1. Non-Unsplash sources (local files, Yelp CDN) — always reliable
   const cached = _discCache[name];
   if (cached?.item?.photo) {
     const p = cached.item.photo;
-    // Local photos or Yelp CDN — return as-is
     if (p.startsWith('photos/') || p.includes('yelpcdn.com')) return p;
-    // Unsplash — resize
-    if (p.includes('unsplash.com')) return p.replace(/w=\d+/, `w=${w}`);
-    return p;
   }
 
-  // 2. PHOTO_MAP fallback
+  // 2. PHOTO_MAP / CATEGORY_PHOTOS — curated IDs that reliably load
   const m = Object.keys(PHOTO_MAP).find(p => k.includes(p));
   if (m) return `https://images.unsplash.com/${PHOTO_MAP[m]}?w=${w}&q=90&fm=webp&fit=crop`;
   const c = CATEGORY_PHOTOS.find(([p]) => k.includes(p));
   if (c) return `https://images.unsplash.com/${c[1]}?w=${w}&q=90&fm=webp&fit=crop`;
+
+  // 3. item.photo from data.js — last resort
+  if (cached?.item?.photo) {
+    const p = cached.item.photo;
+    if (p.includes('unsplash.com')) return p.replace(/w=\d+/, `w=${w}`);
+    return p;
+  }
+
   if (cityImage) return cityImage.replace(/w=\d+(&q=\d+)?/, `w=${w}&q=90&fm=webp&fit=crop`);
   return `https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=${w}&q=90&fm=webp&fit=crop`;
 }
@@ -1977,7 +1981,6 @@ function renderBudgetRecs() {
     name:   item.name,
     price:  typeof item.price === 'number' ? item.price : 0,
     rating: item.rating || 0,
-    photo:  item.photo || null,
     type,
   });
 
@@ -1988,65 +1991,25 @@ function renderBudgetRecs() {
 
   if (!pool.length) { el.style.display = 'none'; return; }
 
-  const deduped = new Map();
-  for (const item of pool) {
-    const iNorm = item.name.toLowerCase().trim();
-    let matchKey = null;
-    for (const key of deduped.keys()) {
-      const kNorm = key.toLowerCase().trim();
-      if (iNorm === kNorm || iNorm.startsWith(kNorm + ' ') || kNorm.startsWith(iNorm + ' ')) {
-        matchKey = key; break;
-      }
-    }
-    if (matchKey !== null) {
-      if (item.price < deduped.get(matchKey).price) deduped.set(matchKey, item);
-    } else {
-      deduped.set(item.name, item);
-    }
-  }
-  const picks = Array.from(deduped.values())
-    .sort((a, b) => b.rating - a.rating || a.price - b.price)
-    .slice(0, 10);
+  pool.sort((a, b) => b.rating - a.rating || a.price - b.price);
+  const picks = pool.slice(0, 10);
 
-  const emoji    = type => type === 'food'
-    ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`
-    : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>`;
+  const emoji    = type => type === 'food' ? '🍽' : '🎯';
   const priceStr = p => p === 0 ? '<span style="color:#34d399;font-weight:700">Free</span>' : `<span style="color:#34d399;font-weight:700">$${p}</span>`;
   const title    = hasBudget
     ? `Places within your budget ($${Math.round(perDay)}/day)`
     : `Top picks — ${escHtml(city.name)}`;
 
-  const starSvg = `<svg width="9" height="9" viewBox="0 0 24 24" fill="#fbbf24" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
-  const arrowL = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>`;
-  const arrowR = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`;
-
   el.style.display = 'block';
   el.innerHTML = `
     <div class="budget-recs-title">${title}</div>
-    <div class="budget-recs-wrap">
-      <button class="recs-arrow recs-arrow-left" onclick="scrollRecs(-1)">${arrowL}</button>
-      <div class="budget-recs-scroll" id="budget-recs-scroll">
-        ${picks.map(p => {
-          const photo = p.photo || (getPhoto(p.name, city.image, 400) || [])[0] || '';
-          const bgStyle = photo ? `background-image:url('${photo}')` : `background:rgba(255,255,255,.06)`;
-          const priceLabel = p.price === 0 ? '<span class="rec-price">Free</span>' : `<span class="rec-price">$${p.price}</span>`;
-          return `
-          <div class="budget-rec-chip" draggable="true"
-            ondragstart="startPickDrag('${jsqApp(p.name)}','${jsqApp(p.type)}',event)"
-            ondragend="endPickDrag()"
-            onclick="addBudgetRecToDay('${jsqApp(p.name)}','${jsqApp(p.type)}')"
-            title="Drag to itinerary or tap to add" style="${bgStyle}">
-            <div class="rec-img-overlay"></div>
-            <div class="rec-drag-hint"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-            <div class="rec-cat-badge">${emoji(p.type)}</div>
-            <div class="rec-info">
-              <div class="rec-name">${escHtml(p.name)}</div>
-              <div class="rec-meta">${priceLabel}<span class="rec-rating">${starSvg} ${p.rating}</span></div>
-            </div>
-          </div>`;
-        }).join('')}
-      </div>
-      <button class="recs-arrow recs-arrow-right" onclick="scrollRecs(1)">${arrowR}</button>
+    <div class="budget-recs-scroll">
+      ${picks.map(p => `
+        <div class="budget-rec-chip" onclick="addBudgetRecToDay('${jsqApp(p.name)}','${jsqApp(p.type)}')" title="Add to itinerary">
+          <div class="rec-emoji">${emoji(p.type)}</div>
+          <div class="rec-name">${escHtml(p.name)}</div>
+          ${priceStr(p.price)}<span class="rec-rating"> ⭐ ${p.rating}</span>
+        </div>`).join('')}
     </div>`;
 }
 
