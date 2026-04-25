@@ -1998,24 +1998,31 @@ function renderBudgetRecs() {
     ? `Places within your budget ($${Math.round(perDay)}/day)`
     : `Top picks — ${escHtml(city.name)}`;
 
+  const arrowL = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>`;
+  const arrowR = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`;
+
   el.style.display = 'block';
   el.innerHTML = `
     <div class="budget-recs-title">${title}</div>
-    <div class="budget-recs-scroll">
-      ${picks.map(p => {
-        const photo = getPhoto(p.name, city.image, 800);
-        const priceLabel = p.price === 0 ? '<span class="rec-price">Free</span>' : `<span class="rec-price">$${p.price}</span>`;
-        return `
-        <div class="budget-rec-chip" onclick="addBudgetRecToDay('${jsqApp(p.name)}','${jsqApp(p.type)}')" title="Add to itinerary">
-          <img class="rec-bg-img" src="${escHtml(photo)}" alt=""
-            onerror="this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=90&fm=webp';this.onerror=null">
-          <div class="rec-overlay"></div>
-          <div class="rec-info">
-            <div class="rec-name">${escHtml(p.name)}</div>
-            <div>${priceLabel}<span class="rec-rating">⭐ ${p.rating}</span></div>
-          </div>
-        </div>`;
-      }).join('')}
+    <div class="budget-recs-wrap">
+      <button class="recs-arrow recs-arrow-left" onclick="scrollRecs(-1)">${arrowL}</button>
+      <div class="budget-recs-scroll" id="budget-recs-scroll">
+        ${picks.map(p => {
+          const photo = getPhoto(p.name, city.image, 800);
+          const priceLabel = p.price === 0 ? '<span class="rec-price">Free</span>' : `<span class="rec-price">$${p.price}</span>`;
+          return `
+          <div class="budget-rec-chip" onclick="addBudgetRecToDay('${jsqApp(p.name)}','${jsqApp(p.type)}')" title="Add to itinerary">
+            <img class="rec-bg-img" src="${escHtml(photo)}" alt=""
+              onerror="this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=90&fm=webp';this.onerror=null">
+            <div class="rec-overlay"></div>
+            <div class="rec-info">
+              <div class="rec-name">${escHtml(p.name)}</div>
+              <div>${priceLabel}<span class="rec-rating">⭐ ${p.rating}</span></div>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+      <button class="recs-arrow recs-arrow-right" onclick="scrollRecs(1)">${arrowR}</button>
     </div>`;
 }
 
