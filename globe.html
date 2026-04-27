@@ -5,335 +5,291 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dropped — World Explorer</title>
   <style>
+    @font-face { font-family:'Geist'; src:url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'Geist'; src:url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Medium.woff2') format('woff2'); font-weight:500; font-display:swap; }
+    @font-face { font-family:'Geist'; src:url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
+    @font-face { font-family:'Geist'; src:url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Bold.woff2') format('woff2'); font-weight:700; font-display:swap; }
+    @font-face { font-family:'Geist'; src:url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Black.woff2') format('woff2'); font-weight:800; font-display:swap; }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { width: 100%; height: 100%; overflow: hidden; background: #07111a; font-family: 'Geist', 'Inter', system-ui, sans-serif; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #07111a; font-family: 'Geist', system-ui, sans-serif; }
     #globe-wrap { width: 100%; height: 100%; }
+
+    /* Grain overlay */
+    body::after {
+      content: ''; position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: .025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat; background-size: 180px;
+    }
 
     /* ── Header ── */
     .globe-header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; gap: 14px; padding: 13px 20px;
-      background: linear-gradient(to bottom, rgba(7,17,26,.97) 0%, transparent 100%);
+      display: flex; align-items: center; gap: 14px; padding: 12px 20px;
+      background: rgba(7,17,26,.72);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
       pointer-events: none;
     }
     .globe-logo {
-      font-size: 17px; font-weight: 800; letter-spacing: -.4px;
-      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      font-size: 18px; font-weight: 800; letter-spacing: -.5px;
+      background: linear-gradient(135deg, #97ace0 0%, #818cf8 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text; pointer-events: auto; text-decoration: none;
+      background-clip: text; pointer-events: auto; text-decoration: none; flex-shrink: 0;
     }
-    .globe-hint { font-size: 12px; color: rgba(255,255,255,.25); display: none; }
+    .globe-hint { font-size: 12px; color: rgba(255,255,255,.22); display: none; letter-spacing: .01em; white-space: nowrap; }
     @media (min-width: 700px) { .globe-hint { display: block; } }
 
     /* ── Search ── */
-    .globe-search-wrap { flex: 1; max-width: 300px; position: relative; pointer-events: auto; }
+    .globe-search-wrap {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      width: 360px; max-width: calc(100vw - 320px);
+      pointer-events: auto;
+    }
     .globe-search {
-      width: 100%; padding: 7px 34px 7px 13px;
-      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.13);
-      border-radius: 22px; color: #fff; font-size: 13px; font-family: inherit; outline: none;
+      width: 100%; padding: 9px 38px 9px 16px;
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 24px; color: #f0faf9; font-size: 13px; font-family: inherit; outline: none;
       transition: border-color .18s, background .18s;
     }
-    .globe-search::placeholder { color: rgba(255,255,255,.32); }
-    .globe-search:focus { border-color: rgba(56,189,248,.45); background: rgba(255,255,255,.1); }
-    .globe-search-icon { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); font-size: 13px; pointer-events: none; opacity: .45; }
+    .globe-search::placeholder { color: rgba(255,255,255,.28); }
+    .globe-search:focus { border-color: rgba(151,172,224,.5); background: rgba(255,255,255,.09); }
+    .globe-search-icon {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      color: rgba(255,255,255,.3); pointer-events: none; display: flex; align-items: center;
+    }
     .globe-search-results {
-      position: absolute; top: calc(100% + 6px); left: 0; right: 0;
-      background: rgba(8,18,28,.97); border: 1px solid rgba(255,255,255,.1);
-      border-radius: 14px; overflow: hidden; display: none;
-      box-shadow: 0 10px 40px rgba(0,0,0,.6);
+      position: absolute; top: calc(100% + 8px); left: 0; right: 0;
+      background: rgba(10,18,36,.96); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 16px; overflow: hidden; display: none;
+      box-shadow: 0 16px 48px rgba(0,0,0,.7);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     }
     .globe-search-results.show { display: block; }
     .globe-search-result {
-      padding: 9px 14px; font-size: 13px; cursor: pointer;
+      padding: 10px 16px; font-size: 13px; cursor: pointer;
       display: flex; align-items: center; gap: 9px;
       border-bottom: 1px solid rgba(255,255,255,.05); transition: background .12s;
     }
     .globe-search-result:last-child { border-bottom: none; }
-    .globe-search-result:hover { background: rgba(56,189,248,.1); }
-    .globe-sr-name { font-weight: 700; color: #fff; }
-    .globe-sr-country { font-size: 11px; color: rgba(255,255,255,.38); margin-left: auto; }
+    .globe-search-result:hover { background: rgba(151,172,224,.1); }
+    .globe-sr-name { font-weight: 700; color: #f0faf9; }
+    .globe-sr-country { font-size: 11px; color: rgba(255,255,255,.32); margin-left: auto; }
+
+    /* ── Search toggle (mobile icon) ── */
+    .globe-search-toggle {
+      display: none; width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.65); cursor: pointer;
+      align-items: center; justify-content: center;
+      transition: all .15s; flex-shrink: 0; pointer-events: auto;
+    }
+    .globe-search-toggle:hover { background: rgba(151,172,224,.12); color: #97ace0; border-color: rgba(151,172,224,.3); }
+    .globe-search-toggle.active { background: rgba(151,172,224,.15); color: #97ace0; border-color: rgba(151,172,224,.4); }
+
+    /* ── Mobile search bar ── */
+    @media (max-width: 660px) {
+      .globe-search-toggle { display: flex; }
+      .globe-search-wrap {
+        position: fixed; left: 0; right: 0; top: 53px;
+        width: auto; max-width: none;
+        transform: translateY(-6px);
+        padding: 10px 14px;
+        background: rgba(7,17,26,.96);
+        backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255,255,255,.07);
+        z-index: 99; opacity: 0; pointer-events: none;
+        transition: opacity .2s ease, transform .22s cubic-bezier(.22,.8,.25,1);
+      }
+      .globe-header.search-open .globe-search-wrap {
+        opacity: 1; pointer-events: auto; transform: translateY(0);
+      }
+      .globe-search { border-radius: 12px; }
+    }
+
+    /* ── Nav ── */
     .globe-nav { margin-left: auto; pointer-events: auto; display: flex; gap: 8px; align-items: center; }
     .globe-navbtn {
-      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.7); padding: 6px 14px; border-radius: 18px;
-      font-size: 12px; font-weight: 600; cursor: pointer; text-decoration: none;
-      transition: background .18s, color .18s; font-family: inherit;
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.6); padding: 7px 15px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; cursor: pointer; text-decoration: none;
+      transition: all .18s; letter-spacing: .01em; white-space: nowrap;
     }
-    .globe-navbtn:hover { background: rgba(56,189,248,.15); color: #38bdf8; border-color: rgba(56,189,248,.3); }
-
-    /* ── Region Filter Bar ── */
-    .region-filters {
-      position: fixed; top: 58px; left: 50%; transform: translateX(-50%);
-      z-index: 99; display: flex; gap: 5px; align-items: center;
-      padding: 5px 10px;
-      background: rgba(7,17,26,.82); backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,.08); border-radius: 30px;
-      max-width: calc(100vw - 32px); overflow-x: auto;
-      scrollbar-width: none; pointer-events: auto;
+    .globe-navbtn:hover { background: rgba(151,172,224,.12); color: #97ace0; border-color: rgba(151,172,224,.35); }
+    .globe-navbtn.primary {
+      background: rgba(151,172,224,.12); border-color: rgba(151,172,224,.35); color: #97ace0;
     }
-    .region-filters::-webkit-scrollbar { display: none; }
-    .region-btn {
-      background: transparent; border: 1px solid rgba(255,255,255,.1);
-      color: rgba(255,255,255,.45); padding: 4px 11px; border-radius: 20px;
-      font-size: 11px; font-weight: 600; cursor: pointer; white-space: nowrap;
-      transition: all .15s; font-family: inherit; flex-shrink: 0;
-    }
-    .region-btn:hover { background: rgba(255,255,255,.07); color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.2); }
-    .region-btn.active { background: rgba(56,189,248,.14); color: #38bdf8; border-color: rgba(56,189,248,.32); }
-
-    /* globe.gl built-in tooltip */
-    .scene-tooltip { font-family: 'Geist','Inter',system-ui,sans-serif !important; font-size: 12px !important; font-weight: 700 !important; background: rgba(8,18,28,.93) !important; border: 1px solid rgba(255,255,255,.12) !important; border-radius: 10px !important; padding: 6px 11px !important; color: #fff !important; }
+    .globe-navbtn.primary:hover { background: rgba(151,172,224,.22); }
 
     /* ── City Panel ── */
     .city-panel {
       position: fixed; right: 0; top: 0; bottom: 0; z-index: 200;
       width: min(440px, 100vw);
-      background: #0d1220;
+      background: #0b1120;
       border-left: 1px solid rgba(255,255,255,.07);
       display: flex; flex-direction: column;
       transform: translateX(100%);
-      transition: transform .36s cubic-bezier(.22,.8,.25,1);
+      transition: transform .38s cubic-bezier(.22,.8,.25,1);
       overflow: hidden;
     }
     .city-panel.open { transform: translateX(0); }
 
     /* hero */
-    .cp-hero {
-      position: relative; flex-shrink: 0; height: 200px; overflow: hidden; background: #0d1220;
-    }
-    .cp-hero-img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .7; }
+    .cp-hero { position: relative; flex-shrink: 0; height: 240px; overflow: hidden; background: #0b1120; }
+    .cp-hero-img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .7; transition: opacity .3s; }
     .cp-hero::after {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(10,18,32,1) 0%, rgba(0,0,0,.1) 60%);
+      background: linear-gradient(to top, rgba(11,17,32,1) 0%, rgba(11,17,32,.4) 50%, transparent 100%);
     }
-    .cp-hero-text { position: absolute; bottom: 14px; left: 16px; z-index: 10; }
+    .cp-hero-text { position: absolute; bottom: 18px; left: 20px; right: 60px; z-index: 10; }
     .cp-country-row {
-      font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
-      color: rgba(255,255,255,.5); margin-bottom: 4px;
+      font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(255,255,255,.5); margin-bottom: 5px;
       display: flex; align-items: center; gap: 6px;
     }
     .cp-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-    .cp-city-name { font-size: clamp(20px,5vw,28px); font-weight: 800; color: #fff; line-height: 1.1; }
-    .cp-tagline { color: rgba(255,255,255,.45); font-size: 12px; margin-top: 3px; }
+    .cp-city-name { font-size: clamp(24px,5vw,32px); font-weight: 800; color: #fff; line-height: 1.1; letter-spacing: -.4px; text-shadow: 0 2px 12px rgba(0,0,0,.5); }
+    .cp-tagline { color: rgba(255,255,255,.45); font-size: 13px; margin-top: 4px; font-weight: 400; }
     .cp-close {
-      position: absolute; top: 12px; right: 12px; z-index: 20;
-      width: 30px; height: 30px; border-radius: 50%;
+      position: absolute; top: 14px; right: 14px; z-index: 20;
+      width: 32px; height: 32px; border-radius: 50%;
       background: rgba(0,0,0,.55); border: 1px solid rgba(255,255,255,.18);
-      color: rgba(255,255,255,.75); font-size: 13px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; transition: background .15s;
+      color: rgba(255,255,255,.7); font-size: 12px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; transition: all .15s;
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
     }
-    .cp-close:hover { background: rgba(220,38,38,.6); color: #fff; }
-
-    /* Wishlist / Visited hero buttons */
-    .cp-hero-actions {
-      position: absolute; top: 12px; left: 12px; z-index: 20;
-      display: flex; gap: 6px;
-    }
-    .cp-save-btn {
-      background: rgba(0,0,0,.55); border: 1px solid rgba(255,255,255,.18);
-      color: rgba(255,255,255,.7); padding: 5px 10px; border-radius: 16px;
-      font-size: 11px; font-weight: 600; cursor: pointer; font-family: inherit;
-      transition: background .15s, color .15s, border-color .15s;
-    }
-    #cp-wishlist-btn.active { background: rgba(251,113,133,.22); color: #fb7185; border-color: rgba(251,113,133,.4); }
-    #cp-visited-btn.active  { background: rgba(52,211,153,.22);  color: #34d399; border-color: rgba(52,211,153,.4); }
+    .cp-close:hover { background: rgba(220,38,38,.55); border-color: rgba(220,38,38,.4); color: #fff; }
 
     /* filter bar */
     .cp-filter-bar {
       display: flex; align-items: center; gap: 8px;
-      padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,.07); flex-shrink: 0;
+      padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,.06); flex-shrink: 0;
     }
     .cp-search {
-      flex: 1; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
-      border-radius: 10px; color: #f0eae4; font-size: 13px; padding: 7px 12px;
-      outline: none; font-family: inherit;
+      flex: 1; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09);
+      border-radius: 12px; color: #f0faf9; font-size: 13px; padding: 8px 12px;
+      outline: none; font-family: inherit; transition: border-color .15s;
     }
-    .cp-search::placeholder { color: rgba(240,250,249,.3); }
+    .cp-search::placeholder { color: rgba(255,255,255,.28); }
     .cp-search:focus { border-color: rgba(151,172,224,.4); }
     .cp-iata {
-      font-size: 12px; font-weight: 700; color: #97ace0;
+      font-size: 11px; font-weight: 800; color: #97ace0; letter-spacing: .06em;
       background: rgba(151,172,224,.1); border: 1px solid rgba(151,172,224,.2);
       border-radius: 8px; padding: 6px 10px; white-space: nowrap; flex-shrink: 0;
     }
 
     /* tabs */
-    .cp-tabs {
-      display: flex; flex-shrink: 0; overflow-x: auto;
-      border-bottom: 1px solid rgba(255,255,255,.07);
-    }
+    .cp-tabs { display: flex; flex-shrink: 0; border-bottom: 1px solid rgba(255,255,255,.06); }
     .cp-tabs::-webkit-scrollbar { display: none; }
     .cp-tab {
-      flex: 1; padding: 10px 6px; text-align: center; white-space: nowrap;
-      font-size: 12px; font-weight: 600; color: rgba(255,255,255,.38);
+      flex: 1; padding: 12px 8px; text-align: center; white-space: nowrap;
+      font-size: 12px; font-weight: 700; color: rgba(255,255,255,.32);
       cursor: pointer; border-bottom: 2px solid transparent;
-      transition: color .15s, border-color .15s; user-select: none; min-width: 80px;
+      transition: color .15s, border-color .15s; user-select: none; letter-spacing: .01em;
     }
-    .cp-tab.active { color: #f0eae4; border-bottom-color: #97ace0; }
+    .cp-tab.active { color: #f0faf9; border-bottom-color: #97ace0; }
+    .cp-tab:hover:not(.active) { color: rgba(255,255,255,.58); }
 
-    /* list — extra bottom padding for taller footer */
-    .cp-list { flex: 1; overflow-y: auto; padding: 10px 12px 155px; }
+    /* list */
+    .cp-list { flex: 1; overflow-y: auto; padding: 12px 12px 90px; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.08) transparent; }
     .cp-list::-webkit-scrollbar { width: 4px; }
-    .cp-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 4px; }
+    .cp-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,.09); border-radius: 4px; }
 
     /* spot cards */
     .spot-card {
-      background: rgba(13,18,32,.8); border: 1px solid rgba(106,154,184,.12);
-      border-radius: 14px; overflow: hidden; margin-bottom: 12px; transition: all .2s;
+      background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07);
+      border-radius: 16px; overflow: hidden; margin-bottom: 10px; transition: border-color .2s, background .2s;
     }
-    .spot-card:hover { background: rgba(106,154,184,.08); border-color: rgba(106,154,184,.25); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.3); }
-    .spot-photo { width: 100%; height: 160px; object-fit: cover; display: block; background: #0d1220; }
-    .spot-body { padding: 12px 14px 10px; }
+    .spot-card:hover { background: rgba(151,172,224,.06); border-color: rgba(151,172,224,.2); }
+    .spot-photo { width: 100%; height: 130px; object-fit: cover; display: block; background: #111827; }
+    .spot-body { padding: 12px 14px; }
     .spot-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
-    .spot-name { font-size: 14px; font-weight: 700; color: #f0eae4; line-height: 1.3; }
-    .spot-price { font-size: 13px; font-weight: 700; white-space: nowrap; color: #97ace0; flex-shrink: 0; }
+    .spot-name { font-size: 13px; font-weight: 700; color: #f0faf9; line-height: 1.3; }
+    .spot-price { font-size: 13px; font-weight: 800; white-space: nowrap; color: #97ace0; flex-shrink: 0; }
     .spot-price.free { color: #34d399; }
-    .spot-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
-    .spot-tag { font-size: 10px; padding: 3px 8px; border-radius: 20px; font-weight: 600; }
-    .tag-rating   { background: rgba(251,191,36,.12); color: #fbbf24; }
-    .tag-duration { background: rgba(151,172,224,.1);  color: #97ace0; }
-    .tag-type     { background: rgba(52,211,153,.1);   color: #34d399; }
-    .tag-cuisine  { background: rgba(52,211,153,.1);   color: #34d399; }
+    .spot-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 7px; }
+    .spot-tag { font-size: 10px; padding: 3px 8px; border-radius: 20px; font-weight: 700; }
+    .tag-rating   { background: rgba(151,172,224,.12); color: #97ace0; }
+    .tag-duration { background: rgba(151,172,224,.08); color: #97ace0; }
+    .tag-type     { background: rgba(52,211,153,.08);  color: #34d399; }
+    .tag-cuisine  { background: rgba(52,211,153,.08);  color: #34d399; }
     .spot-tip {
-      font-size: 11px; color: rgba(240,250,249,.38); line-height: 1.6;
-      border-left: 2px solid rgba(151,172,224,.2); padding-left: 9px; margin-bottom: 10px;
+      font-size: 11px; color: rgba(255,255,255,.32); line-height: 1.65;
+      border-left: 2px solid rgba(151,172,224,.18); padding-left: 10px; margin-top: 7px;
     }
-    .spot-links { display: flex; gap: 6px; flex-wrap: wrap; }
-    .spot-link {
-      font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 12px;
-      text-decoration: none; transition: opacity .15s, transform .1s;
-      display: flex; align-items: center; gap: 4px;
-    }
-    .spot-link:hover { opacity: .78; transform: translateY(-1px); }
-    .spot-link.yelp  { background: rgba(196,69,54,.15); color: #ef4444; border: 1px solid rgba(196,69,54,.25); }
-    .spot-link.maps  { background: rgba(56,189,248,.12); color: #38bdf8; border: 1px solid rgba(56,189,248,.22); }
-    .spot-link.tiktok{ background: rgba(129,140,248,.12); color: #818cf8; border: 1px solid rgba(129,140,248,.22); }
-    .spot-link.ig    { background: rgba(244,63,94,.12);  color: #fb7185; border: 1px solid rgba(244,63,94,.22); }
-
-    .no-results { text-align: center; padding: 40px 20px; color: rgba(255,255,255,.3); font-size: 14px; }
+    .no-results { text-align: center; padding: 48px 20px; color: rgba(255,255,255,.25); font-size: 14px; }
 
     /* footer */
     .cp-footer {
       position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 10px 14px 12px;
-      background: rgba(13,18,32,.97);
-      border-top: 1px solid rgba(255,255,255,.07);
+      padding: 12px 14px 16px; background: rgba(11,17,32,.96);
+      border-top: 1px solid rgba(255,255,255,.06);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
     }
     .cp-plan-btn {
       display: flex; align-items: center; justify-content: center; gap: 8px;
-      width: 100%; background: linear-gradient(135deg, #0ea5e9, #6366f1);
-      border: none; color: #fff; padding: 13px; border-radius: 12px;
-      font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none;
-      transition: opacity .2s, transform .15s;
+      width: 100%; background: linear-gradient(135deg, #6366f1, #0ea5e9);
+      border: none; color: #fff; padding: 14px; border-radius: 14px;
+      font-size: 14px; font-weight: 800; cursor: pointer; text-decoration: none;
+      transition: opacity .2s, box-shadow .2s; letter-spacing: .01em;
+      box-shadow: 0 4px 24px rgba(99,102,241,.3);
     }
-    .cp-plan-btn:hover { opacity: .88; transform: translateY(-1px); }
-
-    /* ── Nearby Cities ── */
-    .cp-nearby { margin-bottom: 10px; }
-    .cp-nearby-title {
-      font-size: 9px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
-      color: rgba(255,255,255,.28); margin-bottom: 7px;
-    }
-    .cp-nearby-row { display: flex; gap: 7px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
-    .cp-nearby-row::-webkit-scrollbar { display: none; }
-    .cp-nearby-chip {
-      flex-shrink: 0; display: flex; align-items: center; gap: 5px;
-      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
-      border-radius: 18px; padding: 5px 10px; cursor: pointer;
-      font-size: 11px; font-weight: 600; color: rgba(255,255,255,.65);
-      transition: background .15s, color .15s, border-color .15s;
-    }
-    .cp-nearby-chip:hover { background: rgba(56,189,248,.12); color: #38bdf8; border-color: rgba(56,189,248,.25); }
-    .cp-nearby-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-
+    .cp-plan-btn:hover { opacity: .9; box-shadow: 0 6px 32px rgba(99,102,241,.45); }
 
     /* ── Loading ── */
     .globe-loading {
       position: fixed; inset: 0; z-index: 500;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      background: #07111a; gap: 16px;
+      background: #07111a; gap: 18px;
+    }
+    .globe-loading-logo {
+      font-size: 30px; font-weight: 800; letter-spacing: -.6px; margin-bottom: 8px;
+      background: linear-gradient(135deg, #97ace0, #818cf8);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     .globe-loading-ring {
-      width: 46px; height: 46px; border-radius: 50%;
-      border: 3px solid rgba(56,189,248,.12); border-top-color: #38bdf8;
-      animation: spin .8s linear infinite;
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 2.5px solid rgba(151,172,224,.12); border-top-color: #97ace0;
+      animation: spin .9s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .globe-loading-text { font-size: 13px; color: rgba(255,255,255,.38); }
+    .globe-loading-text { font-size: 12px; color: rgba(255,255,255,.28); letter-spacing: .05em; text-transform: uppercase; }
 
-
-    /* ── Pause/Play ── */
-    .globe-pause-btn {
-      position: fixed; bottom: 70px; right: 20px; z-index: 100;
-      width: 40px; height: 40px; border-radius: 50%;
-      background: rgba(7,17,26,.85); border: 1px solid rgba(255,255,255,.15);
-      color: rgba(255,255,255,.75); font-size: 15px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      backdrop-filter: blur(12px);
-      transition: background .15s, color .15s, transform .15s, border-color .15s;
-      box-shadow: 0 4px 16px rgba(0,0,0,.4);
-    }
-    .globe-pause-btn:hover { background: rgba(56,189,248,.2); color: #38bdf8; border-color: rgba(56,189,248,.35); transform: scale(1.1); }
-    .globe-pause-btn.paused { background: rgba(56,189,248,.15); color: #38bdf8; border-color: rgba(56,189,248,.35); }
-
-
-    /* ── City Count Badge ── */
+    /* ── Bottom badge ── */
     .city-count-badge {
-      position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
-      background: rgba(7,17,26,.82); backdrop-filter: blur(14px);
-      border: 1px solid rgba(255,255,255,.1); border-radius: 28px;
-      padding: 7px 18px; font-size: 12px; color: rgba(255,255,255,.45);
-      pointer-events: none; z-index: 100; white-space: nowrap;
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: rgba(7,17,26,.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,.08); border-radius: 32px;
+      padding: 8px 22px; font-size: 12px; color: rgba(255,255,255,.38);
+      pointer-events: none; z-index: 100; white-space: nowrap; letter-spacing: .03em;
     }
-    .city-count-badge span { color: #38bdf8; font-weight: 700; }
-
-    @font-face {
-      font-family: 'Geist';
-      src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Regular.woff2') format('woff2');
-      font-weight: 400; font-display: swap;
-    }
-    @font-face {
-      font-family: 'Geist';
-      src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Bold.woff2') format('woff2');
-      font-weight: 700; font-display: swap;
-    }
-    @font-face {
-      font-family: 'Geist';
-      src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Black.woff2') format('woff2');
-      font-weight: 800; font-display: swap;
-    }
+    .city-count-badge span { color: #97ace0; font-weight: 800; }
   </style>
 </head>
 <body>
 
 <div class="globe-loading" id="globe-loading">
+  <div class="globe-loading-logo">Dropped</div>
   <div class="globe-loading-ring"></div>
-  <div class="globe-loading-text">Loading Earth…</div>
+  <div class="globe-loading-text">Loading Earth</div>
 </div>
 
 <div class="globe-header">
-  <a href="/" class="globe-logo">🌍 Dropped</a>
-  <span class="globe-hint">Search a city or continent above · Drag to rotate · Scroll to zoom</span>
+  <a href="/" class="globe-logo">Dropped</a>
   <div class="globe-search-wrap" id="search-wrap">
     <input id="globe-search" class="globe-search" type="text" placeholder="Search cities…" autocomplete="off" />
-    <span class="globe-search-icon">🔍</span>
+    <span class="globe-search-icon">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </span>
     <div class="globe-search-results" id="search-results"></div>
   </div>
   <nav class="globe-nav">
-    <a href="planner.html" class="globe-navbtn">🗓 Planner</a>
-    <a href="/" class="globe-navbtn">← Explore</a>
+    <button class="globe-search-toggle" id="search-toggle" onclick="toggleMobileSearch()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <a href="planner.html" class="globe-navbtn primary">Planner</a>
+    <a href="/" class="globe-navbtn">Explore</a>
   </nav>
-</div>
-
-<!-- Region filter bar -->
-<div class="region-filters">
-  <button class="region-btn active" data-region="">🌍 All</button>
-  <button class="region-btn" data-region="usa">🇺🇸 USA</button>
-  <button class="region-btn" data-region="europe">🏰 Europe</button>
-  <button class="region-btn" data-region="asia">🌏 Asia</button>
-  <button class="region-btn" data-region="latam">🌎 LatAm</button>
-  <button class="region-btn" data-region="gulf">🕌 Gulf / ME</button>
-  <button class="region-btn" data-region="africa">🌍 Africa</button>
-  <button class="region-btn" data-region="oceania">🦘 Oceania</button>
 </div>
 
 <div id="globe-wrap"></div>
@@ -341,10 +297,9 @@
 <!-- City panel -->
 <div class="city-panel" id="city-panel">
   <div class="cp-hero">
-    <img id="cp-img" class="cp-hero-img" src="" alt=""
-      onerror="this.style.opacity='.15'; this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&auto=format&fit=crop'" />
+    <img id="cp-img" class="cp-hero-img" src="" alt="" />
     <div class="cp-hero-text">
-      <div class="cp-country-row">
+      <div id="cp-country-row" class="cp-country-row">
         <span id="cp-dot" class="cp-dot"></span>
         <span id="cp-country-name"></span>
       </div>
@@ -352,42 +307,32 @@
       <div id="cp-tagline" class="cp-tagline"></div>
     </div>
     <button class="cp-close" onclick="closePanel()">✕</button>
-    <div class="cp-hero-actions">
-      <button class="cp-save-btn" id="cp-wishlist-btn" onclick="toggleWishlist()">♡ Wishlist</button>
-      <button class="cp-save-btn" id="cp-visited-btn" onclick="toggleVisited()">○ Visited</button>
-    </div>
   </div>
 
   <div class="cp-filter-bar">
-    <input id="cp-search" class="cp-search" type="text" placeholder="🔍 Search activities, food…" oninput="filterList()" autocomplete="off" />
+    <input id="cp-search" class="cp-search" type="text" placeholder="Search…" oninput="filterList()" autocomplete="off" />
     <div id="cp-iata" class="cp-iata">—</div>
   </div>
 
   <div class="cp-tabs">
-    <div class="cp-tab active" data-tab="activities" onclick="switchTab('activities')">🎯 Activities</div>
-    <div class="cp-tab" data-tab="food" onclick="switchTab('food')">🍽 Food</div>
-    <div class="cp-tab" data-tab="transport" onclick="switchTab('transport')">🚇 Getting Around</div>
+    <div class="cp-tab active" data-tab="activities" onclick="switchTab('activities')">Activities</div>
+    <div class="cp-tab" data-tab="food" onclick="switchTab('food')">Food</div>
+    <div class="cp-tab" data-tab="transport" onclick="switchTab('transport')">Getting Around</div>
   </div>
 
   <div class="cp-list" id="cp-list"></div>
 
   <div class="cp-footer">
-    <div class="cp-nearby">
-      <div class="cp-nearby-title">Nearby Destinations</div>
-      <div class="cp-nearby-row" id="cp-nearby-row"></div>
-    </div>
-    <a id="cp-plan-btn" class="cp-plan-btn" href="planner.html">🗓 Plan a Trip Here</a>
+    <a id="cp-plan-btn" class="cp-plan-btn" href="planner.html">Plan a Trip Here →</a>
   </div>
 </div>
-
-<button class="globe-pause-btn" id="pause-btn" title="Pause rotation">⏸</button>
 
 <div class="city-count-badge">
   <span id="city-count">0</span> destinations on the globe
 </div>
 
 <script src="https://unpkg.com/globe.gl@2.32.0/dist/globe.gl.min.js"></script>
-<script src="data.js?v=10"></script>
+<script src="data.js?v=6"></script>
 <script>
 (function () {
   const COORDS = {
@@ -416,33 +361,21 @@
     charlotte:[35.2271,-80.8431], memphis:[35.1495,-90.0490], minneapolis:[44.9778,-93.2650],
     kansascity:[39.0997,-94.5786], baltimore:[39.2904,-76.6122], pittsburgh:[40.4406,-79.9959],
     saltlakecity:[40.7608,-111.8910],
-    riodejaneiro:[-22.9068,-43.1729], saopaulo:[-23.5505,-46.6333],
-    lima:[-12.0464,-77.0428],         bogota:[4.7110,-74.0721],
-    medellin:[6.2442,-75.5812],       cancun:[21.1743,-86.8466],
-    cartagena:[10.3910,-75.4794],     santiago:[-33.4489,-70.6693],
-    porto:[41.1579,-8.6291],          seville:[37.3891,-5.9845],
-    athens:[37.9838,23.7275],         reykjavik:[64.1466,-21.9426],
-    brussels:[50.8503,4.3517],        zurich:[47.3769,8.5417],
-    oslo:[59.9139,10.7522],           warsaw:[52.2297,21.0122],
-    mumbai:[19.0760,72.8777],         delhi:[28.6139,77.2090],
-    hochiminh:[10.8231,106.6297],     beijing:[39.9042,116.4074],
-    shanghai:[31.2304,121.4737],      manila:[14.5995,120.9842],
-    kathmandu:[27.7172,85.3240],      auckland:[-36.8509,174.7645],
-    lagos:[6.5244,3.3792],            nairobi:[-1.2921,36.8219],
-    telaviv:[32.0853,34.7818],        doha:[25.2854,51.5310],
+    riodejaneiro:[-22.9068,-43.1729],saopaulo:[-23.5505,-46.6333],
+    lima:[-12.0464,-77.0428],bogota:[4.7110,-74.0721],
+    medellin:[6.2442,-75.5812],cancun:[21.1743,-86.8466],
+    cartagena:[10.3910,-75.4794],santiago:[-33.4489,-70.6693],
+    porto:[41.1579,-8.6291],seville:[37.3891,-5.9845],
+    athens:[37.9838,23.7275],reykjavik:[64.1466,-21.9426],
+    brussels:[50.8503,4.3517],zurich:[47.3769,8.5417],
+    oslo:[59.9139,10.7522],warsaw:[52.2297,21.0122],
+    mumbai:[19.0760,72.8777],delhi:[28.6139,77.2090],
+    hochiminh:[10.8231,106.6297],beijing:[39.9042,116.4074],
+    shanghai:[31.2304,121.4737],manila:[14.5995,120.9842],
+    kathmandu:[27.7172,85.3240],auckland:[-36.8509,174.7645],
+    lagos:[6.5244,3.3792],nairobi:[-1.2921,36.8219],
+    telaviv:[32.0853,34.7818],doha:[25.2854,51.5310],
   };
-
-  /* ── Region classifier ── */
-  function getRegion(id) {
-    if (['nyc','losangeles','chicago','miami','sanfrancisco','lasvegas','seattle','austin','neworleans','denver','nashville','orlando','hawaii','sandiego','washingtondc','boston','portland','atlanta','philadelphia','phoenix','dallas','houston','tampa','charlotte','memphis','minneapolis','kansascity','baltimore','pittsburgh','saltlakecity'].includes(id)) return 'usa';
-    if (['london','paris','barcelona','amsterdam','rome','lisbon','prague','budapest','istanbul','vienna','edinburgh','copenhagen','santorini','dubrovnik','venice','florence','milan','berlin','madrid','stockholm','dublin','porto','seville','athens','reykjavik','brussels','zurich','oslo','warsaw'].includes(id)) return 'europe';
-    if (['tokyo','kyoto','seoul','bangkok','singapore','bali','osaka','hongkong','taipei','kualalumpur','hanoi','mumbai','delhi','hochiminh','beijing','shanghai','manila','kathmandu'].includes(id)) return 'asia';
-    if (['dubai','doha','telaviv'].includes(id)) return 'gulf';
-    if (['marrakech','capetown','cairo','lagos','nairobi'].includes(id)) return 'africa';
-    if (['sydney','auckland'].includes(id)) return 'oceania';
-    if (['buenosaires','mexicocity','toronto','vancouver','havana','riodejaneiro','saopaulo','lima','bogota','medellin','cancun','cartagena','santiago'].includes(id)) return 'latam';
-    return 'other';
-  }
 
   function pinColor(id) {
     if (['nyc','losangeles','chicago','miami','sanfrancisco','lasvegas','seattle','austin','neworleans','denver','nashville','orlando','hawaii','sandiego','washingtondc','boston','portland','atlanta','philadelphia','phoenix','dallas','houston','tampa','charlotte','memphis','minneapolis','kansascity','baltimore','pittsburgh','saltlakecity'].includes(id)) return '#f97316';
@@ -456,7 +389,7 @@
     return '#fb7185';
   }
 
-  /* ── City map ── */
+  /* build city map */
   const CITY_MAP = {};
   (typeof CITIES !== 'undefined' ? CITIES : []).forEach(c => { CITY_MAP[c.id] = c; });
 
@@ -469,137 +402,23 @@
   /* ── State ── */
   let activeTab = 'activities';
   let currentCity = null;
-  let selectedPt = null;
   let filterQ = '';
-  let isRotating = true;
-  let activeRegion = null;
 
-  /* ── Wishlist / Visited (localStorage) ── */
-  const WISHLIST_KEY = 'globe_wishlist';
-  const VISITED_KEY  = 'globe_visited';
-  function loadSet(key) {
-    try { return new Set(JSON.parse(localStorage.getItem(key) || '[]')); } catch { return new Set(); }
-  }
-  function saveSet(key, set) {
-    try { localStorage.setItem(key, JSON.stringify([...set])); } catch {}
-  }
-  let wishlist = loadSet(WISHLIST_KEY);
-  let visited  = loadSet(VISITED_KEY);
-
-  function updateSaveBtns() {
-    if (!currentCity) return;
-    const id = currentCity.id;
-    const wBtn = document.getElementById('cp-wishlist-btn');
-    const vBtn = document.getElementById('cp-visited-btn');
-    const inW = wishlist.has(id), inV = visited.has(id);
-    wBtn.classList.toggle('active', inW);
-    wBtn.textContent = inW ? '♥ Saved' : '♡ Wishlist';
-    vBtn.classList.toggle('active', inV);
-    vBtn.textContent = inV ? '✓ Visited' : '○ Visited';
-  }
-
-  window.toggleWishlist = function() {
-    if (!currentCity) return;
-    const id = currentCity.id;
-    if (wishlist.has(id)) wishlist.delete(id); else wishlist.add(id);
-    saveSet(WISHLIST_KEY, wishlist);
-    updateSaveBtns();
-  };
-
-  window.toggleVisited = function() {
-    if (!currentCity) return;
-    const id = currentCity.id;
-    if (visited.has(id)) visited.delete(id); else visited.add(id);
-    saveSet(VISITED_KEY, visited);
-    updateSaveBtns();
-  };
-
-  /* ── Nearby cities (haversine) ── */
-  function haversine(lat1, lng1, lat2, lng2) {
-    const R = 6371, r = x => x * Math.PI / 180;
-    const dLat = r(lat2 - lat1), dLng = r(lng2 - lng1);
-    const a = Math.sin(dLat/2)**2 + Math.cos(r(lat1)) * Math.cos(r(lat2)) * Math.sin(dLng/2)**2;
-    return 2 * R * Math.asin(Math.sqrt(a));
-  }
-
-  function renderNearby() {
-    const row = document.getElementById('cp-nearby-row');
-    if (!currentCity || !COORDS[currentCity.id]) { row.innerHTML = ''; return; }
-    const [lat, lng] = COORDS[currentCity.id];
-    const nearby = points
-      .filter(p => p.id !== currentCity.id)
-      .map(p => ({ ...p, dist: haversine(lat, lng, p.lat, p.lng) }))
-      .sort((a, b) => a.dist - b.dist)
-      .slice(0, 4);
-    row.innerHTML = nearby.map(p =>
-      `<div class="cp-nearby-chip" onclick="flyToFromPanel('${p.id}')">
-         <div class="cp-nearby-dot" style="background:${p.color}"></div>
-         ${esc(p.name)}
-       </div>`
-    ).join('');
-  }
-
-  window.flyToFromPanel = function(id) {
-    const pt = points.find(p => p.id === id);
-    if (!pt || !globe) return;
-    closePanel();
-    globe.controls().autoRotate = false;
-    globe.pointOfView({ lat: pt.lat, lng: pt.lng, altitude: 1.5 }, 1200);
-    setTimeout(() => openPanel(pt), 1300);
-    if (isRotating) setTimeout(() => { if (globe) globe.controls().autoRotate = true; }, 7000);
-  };
-
-  /* ── Region filter ── */
-  function setRegion(region) {
-    activeRegion = region || null;
-    document.querySelectorAll('.region-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.region === '' ? !activeRegion : btn.dataset.region === activeRegion);
-    });
-  }
-
-  document.querySelectorAll('.region-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const r = btn.dataset.region;
-      setRegion(r === '' || r === activeRegion ? null : r);
-    });
-  });
-
-  /* ── Escape helpers ── */
+  /* ── Panel ── */
   function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-  function encQ(s) { return encodeURIComponent(s); }
 
-  /* ── Photo fallbacks ── */
-  const FALLBACK_CITY_IMG = 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&auto=format&fit=crop&q=70';
-  const FALLBACK_FOOD_IMG  = 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop&q=70';
-  const FALLBACK_ACT_IMG   = 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&auto=format&fit=crop&q=70';
-
-  /* ── Social links ── */
-  function socialLinks(name, cityName) {
-    const q = encQ(`${name} ${cityName}`);
-    return `<div class="spot-links">
-      <a href="https://yelp.com/search?find_desc=${encQ(name)}&find_loc=${encQ(cityName)}" target="_blank" rel="noopener" class="spot-link yelp">⭐ Yelp</a>
-      <a href="https://maps.google.com/?q=${q}" target="_blank" rel="noopener" class="spot-link maps">📍 Maps</a>
-      <a href="https://tiktok.com/search?q=${q}" target="_blank" rel="noopener" class="spot-link tiktok">🎵 TikTok</a>
-      <a href="https://www.instagram.com/explore/search/keyword/?q=${q}" target="_blank" rel="noopener" class="spot-link ig">📷 IG</a>
-    </div>`;
-  }
-
-  /* ── Render cards ── */
   function renderList() {
     const city = currentCity;
     if (!city) return;
     const q = filterQ.toLowerCase();
     const list = document.getElementById('cp-list');
-    const cityName = city.name;
 
     if (activeTab === 'activities') {
       let items = (city.activities || []).filter(Boolean);
-      if (q) items = items.filter(a => (a.name||'').toLowerCase().includes(q) || (a.tip||'').toLowerCase().includes(q) || (a.desc||'').toLowerCase().includes(q));
-      list.innerHTML = items.length ? items.map(a => {
-        const photo = a.photo || city.image || FALLBACK_ACT_IMG;
-        return `<div class="spot-card">
-          <img class="spot-photo" src="${esc(photo)}" alt="${esc(a.name)}" loading="lazy"
-            onerror="this.onerror=null;this.src='${esc(city.image || FALLBACK_ACT_IMG)}'" />
+      if (q) items = items.filter(a => a.name.toLowerCase().includes(q) || (a.tip||'').toLowerCase().includes(q));
+      list.innerHTML = items.length ? items.map(a => `
+        <div class="spot-card">
+          <img class="spot-photo" src="${esc(a.photo||city.image)}" alt="${esc(a.name)}" loading="lazy" onerror="this.src='${esc(city.image)}'" />
           <div class="spot-body">
             <div class="spot-header">
               <div class="spot-name">${esc(a.name)}</div>
@@ -609,52 +428,46 @@
               <span class="spot-tag tag-rating">⭐ ${a.rating}</span>
               ${a.duration ? `<span class="spot-tag tag-duration">🕐 ${esc(a.duration)}</span>` : ''}
             </div>
-            ${a.tip ? `<div class="spot-tip">💡 ${esc(a.tip)}</div>` : a.desc ? `<div class="spot-tip">${esc(a.desc)}</div>` : ''}
-            ${socialLinks(a.name, cityName)}
+            <div class="spot-tip">💡 ${esc(a.tip||a.desc||'')}</div>
           </div>
-        </div>`;
-      }).join('') : `<div class="no-results">No activities match your search.</div>`;
+        </div>`).join('') : `<div class="no-results">No activities match your search.</div>`;
 
     } else if (activeTab === 'food') {
       let items = (city.food || []).filter(Boolean);
-      if (q) items = items.filter(f => (f.name||'').toLowerCase().includes(q) || (f.cuisine||'').toLowerCase().includes(q) || (f.tip||'').toLowerCase().includes(q));
-      list.innerHTML = items.length ? items.map(f => {
-        const photo = f.photo || city.image || FALLBACK_FOOD_IMG;
-        return `<div class="spot-card">
-          <img class="spot-photo" src="${esc(photo)}" alt="${esc(f.name)}" loading="lazy"
-            onerror="this.onerror=null;this.src='${esc(city.image || FALLBACK_FOOD_IMG)}'" />
+      if (q) items = items.filter(f => f.name.toLowerCase().includes(q) || (f.cuisine||'').toLowerCase().includes(q) || (f.tip||'').toLowerCase().includes(q));
+      list.innerHTML = items.length ? items.map(f => `
+        <div class="spot-card">
+          <img class="spot-photo" src="${esc(f.photo||city.image)}" alt="${esc(f.name)}" loading="lazy" onerror="this.src='${esc(city.image)}'" />
           <div class="spot-body">
             <div class="spot-header">
               <div class="spot-name">${esc(f.name)}</div>
-              ${f.price === 0 ? '<span class="spot-price free">FREE</span>' : `<span class="spot-price">$${f.price}</span>`}
+              <span class="spot-price">$${f.price}</span>
             </div>
             <div class="spot-meta">
               <span class="spot-tag tag-rating">⭐ ${f.rating}</span>
-              ${f.cuisine ? `<span class="spot-tag tag-cuisine">🍴 ${esc(f.cuisine)}</span>` : ''}
+              ${f.cuisine ? `<span class="spot-tag tag-cuisine">${esc(f.cuisine)}</span>` : ''}
             </div>
-            ${f.tip ? `<div class="spot-tip">💡 ${esc(f.tip)}</div>` : f.desc ? `<div class="spot-tip">${esc(f.desc)}</div>` : ''}
-            ${socialLinks(f.name, cityName)}
+            <div class="spot-tip">💡 ${esc(f.tip||f.desc||'')}</div>
           </div>
-        </div>`;
-      }).join('') : `<div class="no-results">No restaurants match your search.</div>`;
+        </div>`).join('') : `<div class="no-results">No restaurants match your search.</div>`;
 
     } else {
       let items = (city.transport || []).filter(Boolean);
-      if (q) items = items.filter(t => (t.name||'').toLowerCase().includes(q) || (t.type||'').toLowerCase().includes(q));
+      if (q) items = items.filter(t => t.name.toLowerCase().includes(q) || (t.type||'').toLowerCase().includes(q));
       list.innerHTML = items.length ? items.map(t => `
         <div class="spot-card">
-          <div class="spot-body" style="padding-top:14px">
+          <div class="spot-body">
             <div class="spot-header">
               <div class="spot-name">${esc(t.name)}</div>
-              ${t.price === 0 ? '<span class="spot-price free">FREE</span>' : `<span class="spot-price">$${t.price}</span>`}
+              <span class="spot-price">$${t.price}</span>
             </div>
             <div class="spot-meta">
               <span class="spot-tag tag-rating">⭐ ${t.rating}</span>
               ${t.type ? `<span class="spot-tag tag-type">🚌 ${esc(t.type)}</span>` : ''}
             </div>
-            ${t.tip ? `<div class="spot-tip">💡 ${esc(t.tip)}</div>` : ''}
+            <div class="spot-tip">💡 ${esc(t.tip||'')}</div>
           </div>
-        </div>`).join('') : `<div class="no-results">No transport info available.</div>`;
+        </div>`).join('') : `<div class="no-results">No transport options match your search.</div>`;
     }
     list.scrollTop = 0;
   }
@@ -676,30 +489,17 @@
     const city = CITY_MAP[pt.id];
     if (!city) return;
     currentCity = city;
-    selectedPt = pt;
     filterQ = '';
     document.getElementById('cp-search').value = '';
 
-    const heroImg = document.getElementById('cp-img');
-    heroImg.style.opacity = '.7';
-    heroImg.src = city.image || FALLBACK_CITY_IMG;
-    heroImg.alt = city.name;
-    heroImg.onerror = () => { heroImg.style.opacity = '.15'; heroImg.src = FALLBACK_CITY_IMG; };
-
+    document.getElementById('cp-img').src = city.image;
+    document.getElementById('cp-img').alt = city.name;
     document.getElementById('cp-dot').style.background = pt.color;
     document.getElementById('cp-country-name').textContent = city.country;
     document.getElementById('cp-name').textContent = city.name;
     document.getElementById('cp-tagline').textContent = city.tagline || '';
     document.getElementById('cp-iata').textContent = city.iata || '—';
     document.getElementById('cp-plan-btn').href = `planner.html?city=${city.id}`;
-
-    updateSaveBtns();
-    renderNearby();
-
-    globe.ringsData([pt])
-      .ringLat('lat').ringLng('lng')
-      .ringColor(() => pt.color)
-      .ringMaxRadius(2.5).ringPropagationSpeed(3).ringRepeatPeriod(900);
 
     activeTab = 'activities';
     document.querySelectorAll('.cp-tab').forEach(el => el.classList.toggle('active', el.dataset.tab === 'activities'));
@@ -709,23 +509,19 @@
 
   window.closePanel = function() {
     document.getElementById('city-panel').classList.remove('open');
-    if (globe) globe.ringsData([]);
     currentCity = null;
-    selectedPt = null;
   };
 
   /* ── Continents ── */
   const CONTINENTS = [
-    { name:'USA & North America', emoji:'🇺🇸', region:'usa',     lat:39,  lng:-98,  altitude:2.3 },
-    { name:'Europe',              emoji:'🏰', region:'europe',  lat:54,  lng:15,   altitude:2.0 },
-    { name:'Asia',                emoji:'🌏', region:'asia',    lat:30,  lng:105,  altitude:1.9 },
-    { name:'Latin America',       emoji:'🌎', region:'latam',   lat:-8,  lng:-58,  altitude:2.3 },
-    { name:'Middle East',         emoji:'🕌', region:'gulf',    lat:26,  lng:46,   altitude:2.6 },
-    { name:'Africa',              emoji:'🌍', region:'africa',  lat:2,   lng:22,   altitude:2.2 },
-    { name:'Oceania',             emoji:'🦘', region:'oceania', lat:-24, lng:134,  altitude:2.5 },
+    { name: 'USA & North America', region: 'usa',    lat: 39,  lng: -98,  alt: 2.3 },
+    { name: 'Europe',              region: 'europe', lat: 54,  lng: 15,   alt: 2.0 },
+    { name: 'Asia',                region: 'asia',   lat: 30,  lng: 105,  alt: 1.9 },
+    { name: 'Latin America',       region: 'latam',  lat: -8,  lng: -58,  alt: 2.3 },
+    { name: 'Middle East',         region: 'gulf',   lat: 26,  lng: 46,   alt: 2.6 },
+    { name: 'Africa',              region: 'africa', lat: 2,   lng: 22,   alt: 2.2 },
+    { name: 'Oceania',             region: 'oceania',lat: -24, lng: 134,  alt: 2.5 },
   ];
-  const CONTINENT_COLORS = { usa:'#f97316', europe:'#a78bfa', asia:'#34d399', latam:'#fb923c', gulf:'#fbbf24', africa:'#f87171', oceania:'#22d3ee' };
-
   function detectContinent(lat, lng) {
     if (lat > 15  && lat < 72  && lng > -168 && lng < -52)  return 'usa';
     if (lat > -56 && lat < 15  && lng > -82  && lng < -34)  return 'latam';
@@ -736,26 +532,19 @@
     if (lat > -50 && lat < -8  && lng > 108  && lng < 180)  return 'oceania';
     return null;
   }
-
   function flyToContinent(c) {
-    if (!globe) return;
-    isRotating = false;
     globe.controls().autoRotate = false;
-    document.getElementById('pause-btn').textContent = '▶';
-    document.getElementById('pause-btn').title = 'Resume rotation';
-    document.getElementById('pause-btn').classList.add('paused');
-    globe.pointOfView({ lat: c.lat, lng: c.lng, altitude: c.altitude }, 1200);
+    globe.pointOfView({ lat: c.lat, lng: c.lng, altitude: c.alt }, 1200);
   }
 
-  /* ── Globe init ── */
-  let globe;
-  try {
-  globe = Globe({ animateIn: true })(document.getElementById('globe-wrap'))
+  /* ── Globe ── */
+  const globe = Globe({ animateIn: true })(document.getElementById('globe-wrap'))
     .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+    .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
     .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
     .showAtmosphere(true)
-    .atmosphereColor('#38bdf8')
-    .atmosphereAltitude(0.15)
+    .atmosphereColor('#4a90d9')
+    .atmosphereAltitude(0.2)
     .ringsData([])
     .ringLat('lat').ringLng('lng')
     .ringColor(() => '#38bdf8')
@@ -767,89 +556,53 @@
       if (c) flyToContinent(c);
     });
 
-  try { globe.renderer().setPixelRatio(Math.min(window.devicePixelRatio, 2)); } catch(e) {}
+  /* Ocean specularity — subtle sheen on water */
+  const mat = globe.globeMaterial();
+  mat.shininess = 12;
+  mat.specular.setHex(0x1a3a5c);
 
-  try {
-    globe.controls().autoRotate = true;
-    globe.controls().autoRotateSpeed = 0.3;
-    globe.controls().enableDamping = true;
-    globe.controls().dampingFactor = 0.08;
-    globe.controls().addEventListener('start', () => { globe.controls().autoRotate = false; });
-    globe.controls().addEventListener('end',   () => { if (isRotating) setTimeout(() => { globe.controls().autoRotate = true; }, 3000); });
-  } catch(e) {}
+  globe.renderer().setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  globe.controls().autoRotate = true;
+  globe.controls().autoRotateSpeed = 0.35;
+  globe.controls().enableDamping = true;
+  globe.controls().addEventListener('start', () => { globe.controls().autoRotate = false; });
+  globe.controls().addEventListener('end', () => { setTimeout(() => { globe.controls().autoRotate = true; }, 2500); });
 
   globe.pointOfView({ lat: 20, lng: 10, altitude: 2.2 }, 0);
   document.getElementById('city-count').textContent = points.length;
-  document.getElementById('globe-loading').style.display = 'none';
+  setTimeout(() => { document.getElementById('globe-loading').style.display = 'none'; }, 1200);
   window.addEventListener('resize', () => { globe.width(window.innerWidth).height(window.innerHeight); });
-  } catch(globeErr) {
-    console.error('Globe init error:', globeErr);
-    document.getElementById('globe-loading').style.display = 'none';
-  }
-
-  /* ── Pause / Play ── */
-  document.getElementById('pause-btn').addEventListener('click', () => {
-    isRotating = !isRotating;
-    const btn = document.getElementById('pause-btn');
-    btn.textContent = isRotating ? '⏸' : '▶';
-    btn.title = isRotating ? 'Pause rotation' : 'Resume rotation';
-    btn.classList.toggle('paused', !isRotating);
-    if (globe) globe.controls().autoRotate = isRotating;
-  });
 
   /* ── Search ── */
   const searchInput   = document.getElementById('globe-search');
   const searchResults = document.getElementById('search-results');
 
   function flyToCity(pt) {
-    if (!globe) return;
     globe.controls().autoRotate = false;
-    globe.pointOfView({ lat: pt.lat, lng: pt.lng, altitude: 1.5 }, 1000);
-    setTimeout(() => openPanel(pt), 1050);
+    globe.pointOfView({ lat: pt.lat, lng: pt.lng, altitude: 1.4 }, 1200);
+    globe.ringsData([pt]);
+    setTimeout(() => { openPanel(pt); }, 1200);
     searchInput.value = '';
     searchResults.classList.remove('show');
-    if (isRotating) setTimeout(() => { if (globe) globe.controls().autoRotate = true; }, 6000);
-  }
-
-  function flyToContinent_search(c) {
-    flyToContinent(c);
-    searchInput.value = '';
-    searchResults.classList.remove('show');
+    setTimeout(() => { globe.controls().autoRotate = true; }, 5000);
   }
 
   searchInput.addEventListener('input', () => {
     const q = searchInput.value.trim().toLowerCase();
     if (!q) { searchResults.classList.remove('show'); return; }
-
-    const continentHits = CONTINENTS.filter(c => c.name.toLowerCase().includes(q));
-    const cityHits = points.filter(p => p.name.toLowerCase().includes(q) || p.country.toLowerCase().includes(q)).slice(0, 7);
-
-    if (!continentHits.length && !cityHits.length) { searchResults.classList.remove('show'); return; }
-
-    searchResults.innerHTML = [
-      ...continentHits.map(c =>
-        `<div class="globe-search-result" data-continent="${c.region}">
-           <span style="font-size:14px;line-height:1">${c.emoji}</span>
-           <span class="globe-sr-name">${c.name}</span>
-           <span class="globe-sr-country" style="color:${CONTINENT_COLORS[c.region]}">Region</span>
-         </div>`),
-      ...cityHits.map(p =>
-        `<div class="globe-search-result" data-id="${p.id}">
-           <span style="width:8px;height:8px;border-radius:50%;background:${p.color};display:inline-block;flex-shrink:0"></span>
-           <span class="globe-sr-name">${p.name}</span>
-           <span class="globe-sr-country">${p.country}</span>
-         </div>`)
-    ].join('');
-
+    const hits = points.filter(p => p.name.toLowerCase().includes(q) || p.country.toLowerCase().includes(q)).slice(0, 8);
+    if (!hits.length) { searchResults.classList.remove('show'); return; }
+    searchResults.innerHTML = hits.map(p =>
+      `<div class="globe-search-result" data-id="${p.id}">
+         <span style="width:7px;height:7px;border-radius:50%;background:${p.color};display:inline-block;flex-shrink:0"></span>
+         <span class="globe-sr-name">${p.name}</span>
+         <span class="globe-sr-country">${p.country}</span>
+       </div>`).join('');
     searchResults.classList.add('show');
     searchResults.querySelectorAll('.globe-search-result').forEach(el => {
       el.addEventListener('click', () => {
-        if (el.dataset.continent) {
-          flyToContinent_search(CONTINENTS.find(c => c.region === el.dataset.continent));
-        } else {
-          const pt = points.find(p => p.id === el.dataset.id);
-          if (pt) flyToCity(pt);
-        }
+        const pt = points.find(p => p.id === el.dataset.id);
+        if (pt) flyToCity(pt);
       });
     });
   });
@@ -860,12 +613,37 @@
       const m = points.find(p => p.name.toLowerCase().startsWith(q));
       if (m) flyToCity(m);
     }
-    if (e.key === 'Escape') { searchInput.value = ''; searchResults.classList.remove('show'); }
+    if (e.key === 'Escape') {
+      searchInput.value = '';
+      searchResults.classList.remove('show');
+      closeMobileSearch();
+    }
   });
 
   document.addEventListener('click', e => {
-    if (!document.getElementById('search-wrap').contains(e.target)) searchResults.classList.remove('show');
+    const wrap = document.getElementById('search-wrap');
+    const toggle = document.getElementById('search-toggle');
+    if (!wrap.contains(e.target) && !toggle?.contains(e.target)) {
+      searchResults.classList.remove('show');
+      closeMobileSearch();
+    }
   });
+
+  window.toggleMobileSearch = function() {
+    const header = document.querySelector('.globe-header');
+    const toggle = document.getElementById('search-toggle');
+    const isOpen = header.classList.toggle('search-open');
+    toggle.classList.toggle('active', isOpen);
+    if (isOpen) setTimeout(() => searchInput.focus(), 220);
+    else { searchInput.value = ''; searchResults.classList.remove('show'); }
+  };
+
+  function closeMobileSearch() {
+    const header = document.querySelector('.globe-header');
+    const toggle = document.getElementById('search-toggle');
+    header.classList.remove('search-open');
+    toggle?.classList.remove('active');
+  }
 })();
 </script>
 </body>

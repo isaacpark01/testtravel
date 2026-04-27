@@ -26,11 +26,11 @@ const LANGS = [
 const TRANSLATIONS = {
   en: {
     tabSaves:'Saves', tabItinerary:'Itinerary', tabDiscover:'Discover', tabRewards:'Rewards', tabGroup:'Group',
-    filterAll:'All', filterActivities:'🎯 Activities', filterFood:'🍽 Food', filterFree:'✨ Free',
-    sortRating:'⭐ Top Rated', sortPriceLow:'💸 Price: Low', sortPriceHigh:'💎 Price: High', sortAZ:'A → Z',
-    vibeAll:'All Vibes', vibeHiddenGem:'💎 Hidden Gem', vibeBudget:'💸 Budget', vibeRomantic:'❤️ Romantic',
-    vibeOutdoor:'🌿 Outdoor', vibeFoodie:'🍜 Foodie', vibeInstagrammable:'📸 Instagrammable',
-    vibeLocalFave:'🌟 Local Fave', vibeSplurge:'✨ Splurge',
+    filterAll:'All', filterActivities:'Activities', filterFood:'Food', filterFree:'Free',
+    sortRating:'Top Rated', sortPriceLow:'Price: Low', sortPriceHigh:'Price: High', sortAZ:'A → Z',
+    vibeAll:'All Vibes', vibeHiddenGem:'Hidden Gem', vibeBudget:'Budget', vibeRomantic:'Romantic',
+    vibeOutdoor:'Outdoor', vibeFoodie:'Foodie', vibeInstagrammable:'Instagrammable',
+    vibeLocalFave:'Local Fave', vibeSplurge:'Splurge',
     searchPlaceholder:'Search places, food, activities…',
     addToPlanner:'+ Add to Planner', addToDay:'Add to Day', newTrip:'+ New Trip', explore:'← Explore',
     trendingTitle:'🔥 Trending on Social', noTrip:'Create a trip to discover places',
@@ -39,11 +39,11 @@ const TRANSLATIONS = {
   },
   es: {
     tabSaves:'Guardados', tabItinerary:'Itinerario', tabDiscover:'Descubrir', tabRewards:'Recompensas', tabGroup:'Grupo',
-    filterAll:'Todos', filterActivities:'🎯 Actividades', filterFood:'🍽 Comida', filterFree:'✨ Gratis',
-    sortRating:'⭐ Mejor Valorado', sortPriceLow:'💸 Precio: Bajo', sortPriceHigh:'💎 Precio: Alto', sortAZ:'A → Z',
-    vibeAll:'Todos los Vibes', vibeHiddenGem:'💎 Joya Oculta', vibeBudget:'💸 Económico', vibeRomantic:'❤️ Romántico',
-    vibeOutdoor:'🌿 Al Aire Libre', vibeFoodie:'🍜 Gastronomía', vibeInstagrammable:'📸 Instagrameable',
-    vibeLocalFave:'🌟 Favorito Local', vibeSplurge:'✨ Lujo',
+    filterAll:'Todos', filterActivities:'Actividades', filterFood:'Comida', filterFree:'Gratis',
+    sortRating:'Mejor Valorado', sortPriceLow:'Precio: Bajo', sortPriceHigh:'Precio: Alto', sortAZ:'A → Z',
+    vibeAll:'Todos los Vibes', vibeHiddenGem:'Joya Oculta', vibeBudget:'Económico', vibeRomantic:'Romántico',
+    vibeOutdoor:'Al Aire Libre', vibeFoodie:'Gastronomía', vibeInstagrammable:'Instagrameable',
+    vibeLocalFave:'Favorito Local', vibeSplurge:'Lujo',
     searchPlaceholder:'Buscar lugares, comida, actividades…',
     addToPlanner:'+ Agregar al Planner', addToDay:'Agregar al Día', newTrip:'+ Nuevo Viaje', explore:'← Explorar',
     trendingTitle:'🔥 Tendencias en Redes', noTrip:'Crea un viaje para descubrir lugares',
@@ -52,11 +52,11 @@ const TRANSLATIONS = {
   },
   fr: {
     tabSaves:'Sauvegardes', tabItinerary:'Itinéraire', tabDiscover:'Découvrir', tabRewards:'Récompenses', tabGroup:'Groupe',
-    filterAll:'Tout', filterActivities:'🎯 Activités', filterFood:'🍽 Nourriture', filterFree:'✨ Gratuit',
-    sortRating:'⭐ Mieux Notés', sortPriceLow:'💸 Prix : Bas', sortPriceHigh:'💎 Prix : Haut', sortAZ:'A → Z',
-    vibeAll:'Tous les Vibes', vibeHiddenGem:'💎 Joyau Caché', vibeBudget:'💸 Budget', vibeRomantic:'❤️ Romantique',
-    vibeOutdoor:'🌿 Plein Air', vibeFoodie:'🍜 Gastronomie', vibeInstagrammable:'📸 Instagrammable',
-    vibeLocalFave:'🌟 Favori Local', vibeSplurge:'✨ Luxe',
+    filterAll:'Tout', filterActivities:'Activités', filterFood:'Nourriture', filterFree:'Gratuit',
+    sortRating:'Mieux Notés', sortPriceLow:'Prix : Bas', sortPriceHigh:'Prix : Haut', sortAZ:'A → Z',
+    vibeAll:'Tous les Vibes', vibeHiddenGem:'Joyau Caché', vibeBudget:'Budget', vibeRomantic:'Romantique',
+    vibeOutdoor:'Plein Air', vibeFoodie:'Gastronomie', vibeInstagrammable:'Instagrammable',
+    vibeLocalFave:'Favori Local', vibeSplurge:'Luxe',
     searchPlaceholder:'Rechercher des lieux, plats, activités…',
     addToPlanner:'+ Ajouter au Planificateur', addToDay:'Ajouter au Jour', newTrip:'+ Nouveau Voyage', explore:'← Explorer',
     trendingTitle:'🔥 Tendances Sociales', noTrip:'Créez un voyage pour découvrir des lieux',
@@ -65,11 +65,11 @@ const TRANSLATIONS = {
   },
   ja: {
     tabSaves:'保存済み', tabItinerary:'旅程', tabDiscover:'発見', tabRewards:'特典', tabGroup:'グループ',
-    filterAll:'すべて', filterActivities:'🎯 アクティビティ', filterFood:'🍽 グルメ', filterFree:'✨ 無料',
-    sortRating:'⭐ 評価順', sortPriceLow:'💸 価格：安い順', sortPriceHigh:'💎 価格：高い順', sortAZ:'A → Z',
-    vibeAll:'すべてのバイブ', vibeHiddenGem:'💎 穴場スポット', vibeBudget:'💸 リーズナブル', vibeRomantic:'❤️ ロマンチック',
-    vibeOutdoor:'🌿 アウトドア', vibeFoodie:'🍜 グルメ', vibeInstagrammable:'📸 インスタ映え',
-    vibeLocalFave:'🌟 地元のお気に入り', vibeSplurge:'✨ 贅沢',
+    filterAll:'すべて', filterActivities:'アクティビティ', filterFood:'グルメ', filterFree:'無料',
+    sortRating:'評価順', sortPriceLow:'価格：安い順', sortPriceHigh:'価格：高い順', sortAZ:'A → Z',
+    vibeAll:'すべてのバイブ', vibeHiddenGem:'穴場スポット', vibeBudget:'リーズナブル', vibeRomantic:'ロマンチック',
+    vibeOutdoor:'アウトドア', vibeFoodie:'グルメ', vibeInstagrammable:'インスタ映え',
+    vibeLocalFave:'地元のお気に入り', vibeSplurge:'贅沢',
     searchPlaceholder:'スポット、グルメ、アクティビティを検索…',
     addToPlanner:'+ プランナーに追加', addToDay:'日程に追加', newTrip:'+ 新しい旅', explore:'← 探索',
     trendingTitle:'🔥 SNSでトレンド', noTrip:'旅行を作成してスポットを発見しよう',
@@ -78,11 +78,11 @@ const TRANSLATIONS = {
   },
   ko: {
     tabSaves:'저장됨', tabItinerary:'일정', tabDiscover:'탐색', tabRewards:'리워드', tabGroup:'그룹',
-    filterAll:'전체', filterActivities:'🎯 액티비티', filterFood:'🍽 음식', filterFree:'✨ 무료',
-    sortRating:'⭐ 평점순', sortPriceLow:'💸 가격: 낮은순', sortPriceHigh:'💎 가격: 높은순', sortAZ:'A → Z',
-    vibeAll:'모든 바이브', vibeHiddenGem:'💎 숨겨진 보석', vibeBudget:'💸 저렴한', vibeRomantic:'❤️ 로맨틱',
-    vibeOutdoor:'🌿 야외', vibeFoodie:'🍜 미식가', vibeInstagrammable:'📸 인스타그래머블',
-    vibeLocalFave:'🌟 지역 인기', vibeSplurge:'✨ 럭셔리',
+    filterAll:'전체', filterActivities:'액티비티', filterFood:'음식', filterFree:'무료',
+    sortRating:'평점순', sortPriceLow:'가격: 낮은순', sortPriceHigh:'가격: 높은순', sortAZ:'A → Z',
+    vibeAll:'모든 바이브', vibeHiddenGem:'숨겨진 보석', vibeBudget:'저렴한', vibeRomantic:'로맨틱',
+    vibeOutdoor:'야외', vibeFoodie:'미식가', vibeInstagrammable:'인스타그래머블',
+    vibeLocalFave:'지역 인기', vibeSplurge:'럭셔리',
     searchPlaceholder:'장소, 음식, 액티비티 검색…',
     addToPlanner:'+ 플래너에 추가', addToDay:'일정에 추가', newTrip:'+ 새 여행', explore:'← 탐색',
     trendingTitle:'🔥 소셜 트렌드', noTrip:'여행을 만들어 장소를 탐색하세요',
@@ -91,11 +91,11 @@ const TRANSLATIONS = {
   },
   zh: {
     tabSaves:'已保存', tabItinerary:'行程', tabDiscover:'发现', tabRewards:'奖励', tabGroup:'群组',
-    filterAll:'全部', filterActivities:'🎯 活动', filterFood:'🍽 美食', filterFree:'✨ 免费',
-    sortRating:'⭐ 评分最高', sortPriceLow:'💸 价格：从低到高', sortPriceHigh:'💎 价格：从高到低', sortAZ:'A → Z',
-    vibeAll:'全部氛围', vibeHiddenGem:'💎 隐秘宝藏', vibeBudget:'💸 实惠', vibeRomantic:'❤️ 浪漫',
-    vibeOutdoor:'🌿 户外', vibeFoodie:'🍜 美食家', vibeInstagrammable:'📸 适合拍照',
-    vibeLocalFave:'🌟 本地最爱', vibeSplurge:'✨ 奢华',
+    filterAll:'全部', filterActivities:'活动', filterFood:'美食', filterFree:'免费',
+    sortRating:'评分最高', sortPriceLow:'价格：从低到高', sortPriceHigh:'价格：从高到低', sortAZ:'A → Z',
+    vibeAll:'全部氛围', vibeHiddenGem:'隐秘宝藏', vibeBudget:'实惠', vibeRomantic:'浪漫',
+    vibeOutdoor:'户外', vibeFoodie:'美食家', vibeInstagrammable:'适合拍照',
+    vibeLocalFave:'本地最爱', vibeSplurge:'奢华',
     searchPlaceholder:'搜索地点、美食、活动…',
     addToPlanner:'+ 添加到计划', addToDay:'添加到当天', newTrip:'+ 新旅行', explore:'← 探索',
     trendingTitle:'🔥 社交媒体热门', noTrip:'创建旅行以发现地点',
@@ -104,11 +104,11 @@ const TRANSLATIONS = {
   },
   pt: {
     tabSaves:'Salvos', tabItinerary:'Roteiro', tabDiscover:'Descobrir', tabRewards:'Recompensas', tabGroup:'Grupo',
-    filterAll:'Todos', filterActivities:'🎯 Atividades', filterFood:'🍽 Comida', filterFree:'✨ Grátis',
-    sortRating:'⭐ Melhor Avaliados', sortPriceLow:'💸 Preço: Baixo', sortPriceHigh:'💎 Preço: Alto', sortAZ:'A → Z',
-    vibeAll:'Todos os Vibes', vibeHiddenGem:'💎 Joia Escondida', vibeBudget:'💸 Econômico', vibeRomantic:'❤️ Romântico',
-    vibeOutdoor:'🌿 Ao Ar Livre', vibeFoodie:'🍜 Gastronomia', vibeInstagrammable:'📸 Instagramável',
-    vibeLocalFave:'🌟 Favorito Local', vibeSplurge:'✨ Luxo',
+    filterAll:'Todos', filterActivities:'Atividades', filterFood:'Comida', filterFree:'Grátis',
+    sortRating:'Melhor Avaliados', sortPriceLow:'Preço: Baixo', sortPriceHigh:'Preço: Alto', sortAZ:'A → Z',
+    vibeAll:'Todos os Vibes', vibeHiddenGem:'Joia Escondida', vibeBudget:'Econômico', vibeRomantic:'Romântico',
+    vibeOutdoor:'Ao Ar Livre', vibeFoodie:'Gastronomia', vibeInstagrammable:'Instagramável',
+    vibeLocalFave:'Favorito Local', vibeSplurge:'Luxo',
     searchPlaceholder:'Buscar lugares, comidas, atividades…',
     addToPlanner:'+ Adicionar ao Roteiro', addToDay:'Adicionar ao Dia', newTrip:'+ Nova Viagem', explore:'← Explorar',
     trendingTitle:'🔥 Tendências nas Redes', noTrip:'Crie uma viagem para descobrir lugares',
@@ -117,11 +117,11 @@ const TRANSLATIONS = {
   },
   ar: {
     tabSaves:'المحفوظات', tabItinerary:'الجدول', tabDiscover:'استكشف', tabRewards:'المكافآت', tabGroup:'المجموعة',
-    filterAll:'الكل', filterActivities:'🎯 الأنشطة', filterFood:'🍽 الطعام', filterFree:'✨ مجاني',
-    sortRating:'⭐ الأعلى تقييمًا', sortPriceLow:'💸 السعر: الأقل', sortPriceHigh:'💎 السعر: الأعلى', sortAZ:'أ → ي',
-    vibeAll:'كل الأجواء', vibeHiddenGem:'💎 جوهرة مخفية', vibeBudget:'💸 اقتصادي', vibeRomantic:'❤️ رومانسي',
-    vibeOutdoor:'🌿 في الهواء الطلق', vibeFoodie:'🍜 ذواق', vibeInstagrammable:'📸 مناسب للتصوير',
-    vibeLocalFave:'🌟 المفضل المحلي', vibeSplurge:'✨ فاخر',
+    filterAll:'الكل', filterActivities:'الأنشطة', filterFood:'الطعام', filterFree:'مجاني',
+    sortRating:'الأعلى تقييمًا', sortPriceLow:'السعر: الأقل', sortPriceHigh:'السعر: الأعلى', sortAZ:'أ → ي',
+    vibeAll:'كل الأجواء', vibeHiddenGem:'جوهرة مخفية', vibeBudget:'اقتصادي', vibeRomantic:'رومانسي',
+    vibeOutdoor:'في الهواء الطلق', vibeFoodie:'ذواق', vibeInstagrammable:'مناسب للتصوير',
+    vibeLocalFave:'المفضل المحلي', vibeSplurge:'فاخر',
     searchPlaceholder:'ابحث عن أماكن، طعام، أنشطة…',
     addToPlanner:'+ أضف إلى المخطط', addToDay:'أضف إلى اليوم', newTrip:'+ رحلة جديدة', explore:'استكشف →',
     trendingTitle:'🔥 الرائج على السوشيال', noTrip:'أنشئ رحلة لاستكشاف الأماكن',
@@ -130,11 +130,11 @@ const TRANSLATIONS = {
   },
   hi: {
     tabSaves:'सेव किए', tabItinerary:'यात्रा योजना', tabDiscover:'खोजें', tabRewards:'पुरस्कार', tabGroup:'ग्रुप',
-    filterAll:'सभी', filterActivities:'🎯 गतिविधियाँ', filterFood:'🍽 खाना', filterFree:'✨ मुफ्त',
-    sortRating:'⭐ सर्वश्रेष्ठ', sortPriceLow:'💸 कीमत: कम', sortPriceHigh:'💎 कीमत: अधिक', sortAZ:'A → Z',
-    vibeAll:'सभी वाइब्स', vibeHiddenGem:'💎 छुपा रत्न', vibeBudget:'💸 बजट', vibeRomantic:'❤️ रोमांटिक',
-    vibeOutdoor:'🌿 बाहरी', vibeFoodie:'🍜 फूडी', vibeInstagrammable:'📸 इंस्टाग्राम योग्य',
-    vibeLocalFave:'🌟 स्थानीय पसंद', vibeSplurge:'✨ विलासिता',
+    filterAll:'सभी', filterActivities:'गतिविधियाँ', filterFood:'खाना', filterFree:'मुफ्त',
+    sortRating:'सर्वश्रेष्ठ', sortPriceLow:'कीमत: कम', sortPriceHigh:'कीमत: अधिक', sortAZ:'A → Z',
+    vibeAll:'सभी वाइब्स', vibeHiddenGem:'छुपा रत्न', vibeBudget:'बजट', vibeRomantic:'रोमांटिक',
+    vibeOutdoor:'बाहरी', vibeFoodie:'फूडी', vibeInstagrammable:'इंस्टाग्राम योग्य',
+    vibeLocalFave:'स्थानीय पसंद', vibeSplurge:'विलासिता',
     searchPlaceholder:'जगह, खाना, गतिविधियाँ खोजें…',
     addToPlanner:'+ योजना में जोड़ें', addToDay:'दिन में जोड़ें', newTrip:'+ नई यात्रा', explore:'← खोजें',
     trendingTitle:'🔥 सोशल पर ट्रेंडिंग', noTrip:'स्थान खोजने के लिए यात्रा बनाएं',
@@ -143,11 +143,11 @@ const TRANSLATIONS = {
   },
   vi: {
     tabSaves:'Đã lưu', tabItinerary:'Lịch trình', tabDiscover:'Khám phá', tabRewards:'Phần thưởng', tabGroup:'Nhóm',
-    filterAll:'Tất cả', filterActivities:'🎯 Hoạt động', filterFood:'🍽 Ẩm thực', filterFree:'✨ Miễn phí',
-    sortRating:'⭐ Đánh giá cao', sortPriceLow:'💸 Giá: Thấp', sortPriceHigh:'💎 Giá: Cao', sortAZ:'A → Z',
-    vibeAll:'Tất cả Vibes', vibeHiddenGem:'💎 Viên ngọc ẩn', vibeBudget:'💸 Tiết kiệm', vibeRomantic:'❤️ Lãng mạn',
-    vibeOutdoor:'🌿 Ngoài trời', vibeFoodie:'🍜 Ẩm thực', vibeInstagrammable:'📸 Chụp ảnh đẹp',
-    vibeLocalFave:'🌟 Yêu thích địa phương', vibeSplurge:'✨ Sang trọng',
+    filterAll:'Tất cả', filterActivities:'Hoạt động', filterFood:'Ẩm thực', filterFree:'Miễn phí',
+    sortRating:'Đánh giá cao', sortPriceLow:'Giá: Thấp', sortPriceHigh:'Giá: Cao', sortAZ:'A → Z',
+    vibeAll:'Tất cả Vibes', vibeHiddenGem:'Viên ngọc ẩn', vibeBudget:'Tiết kiệm', vibeRomantic:'Lãng mạn',
+    vibeOutdoor:'Ngoài trời', vibeFoodie:'Ẩm thực', vibeInstagrammable:'Chụp ảnh đẹp',
+    vibeLocalFave:'Yêu thích địa phương', vibeSplurge:'Sang trọng',
     searchPlaceholder:'Tìm kiếm địa điểm, ẩm thực, hoạt động…',
     addToPlanner:'+ Thêm vào lịch', addToDay:'Thêm vào ngày', newTrip:'+ Chuyến mới', explore:'← Khám phá',
     trendingTitle:'🔥 Xu hướng mạng xã hội', noTrip:'Tạo chuyến đi để khám phá địa điểm',
@@ -156,11 +156,11 @@ const TRANSLATIONS = {
   },
   tl: {
     tabSaves:'Naka-save', tabItinerary:'Itinerary', tabDiscover:'Tuklasin', tabRewards:'Rewards', tabGroup:'Grupo',
-    filterAll:'Lahat', filterActivities:'🎯 Aktibidad', filterFood:'🍽 Pagkain', filterFree:'✨ Libre',
-    sortRating:'⭐ Pinaka-rated', sortPriceLow:'💸 Presyo: Mababa', sortPriceHigh:'💎 Presyo: Mataas', sortAZ:'A → Z',
-    vibeAll:'Lahat ng Vibes', vibeHiddenGem:'💎 Nakatagong Hiyas', vibeBudget:'💸 Budget', vibeRomantic:'❤️ Romantiko',
-    vibeOutdoor:'🌿 Labas ng Bahay', vibeFoodie:'🍜 Foodie', vibeInstagrammable:'📸 Pang-Instagram',
-    vibeLocalFave:'🌟 Paboritong Local', vibeSplurge:'✨ Marangya',
+    filterAll:'Lahat', filterActivities:'Aktibidad', filterFood:'Pagkain', filterFree:'Libre',
+    sortRating:'Pinaka-rated', sortPriceLow:'Presyo: Mababa', sortPriceHigh:'Presyo: Mataas', sortAZ:'A → Z',
+    vibeAll:'Lahat ng Vibes', vibeHiddenGem:'Nakatagong Hiyas', vibeBudget:'Budget', vibeRomantic:'Romantiko',
+    vibeOutdoor:'Labas ng Bahay', vibeFoodie:'Foodie', vibeInstagrammable:'Pang-Instagram',
+    vibeLocalFave:'Paboritong Local', vibeSplurge:'Marangya',
     searchPlaceholder:'Maghanap ng lugar, pagkain, aktibidad…',
     addToPlanner:'+ Idagdag sa Planner', addToDay:'Idagdag sa Araw', newTrip:'+ Bagong Biyahe', explore:'← I-explore',
     trendingTitle:'🔥 Trending sa Social', noTrip:'Gumawa ng biyahe para tuklasin ang mga lugar',
@@ -417,7 +417,7 @@ const PHOTO_MAP = {
   'art institute':        'photo-1547891654-e66ed7ebb968',
   'millennium park':      'photo-1477959858617-67f85cf4f1df',
   'the bean':             'photo-1477959858617-67f85cf4f1df',
-  'navy pier':            'photo-1477959858617-67f85cf4f1df',
+  'navy pier':            'photo-1476514525535-07fb3b4ae5f1',
   'riverwalk':            'photo-1477959858617-67f85cf4f1df',
   'wrigley field':        'photo-1566577739112-5180d4bf9390',
   'skydeck':              'photo-1494522855154-9297ac14b55f',
@@ -667,7 +667,7 @@ const CATEGORY_PHOTOS = [
   ['cathedral',   'photo-1467269204594-9661b134dd2b'],
   ['observatory', 'photo-1580655653885-65763b2597d0'],
   ['stadium',     'photo-1566577739112-5180d4bf9390'],
-  ['pier',        'photo-1477959858617-67f85cf4f1df'],
+  ['pier',        'photo-1507525428034-b723cf961d3e'],
   ['cruise',      'photo-1568402102990-bc541580b59f'],
   ['space',       'photo-1457364559154-aa2644600ebb'],
   ['zoo',         'photo-1416879595882-3373a0480b5b'],
@@ -687,22 +687,29 @@ function getPhoto(name, cityImage, size) {
   const w = size || 120;
   const k = (name || '').toLowerCase();
 
-  // 1. Check item.photo from data.js (stored in _discCache)
   const cached = _discCache[name];
+
+  // 1. Non-Unsplash sources (local files, Yelp CDN) — always reliable
   if (cached?.item?.photo) {
     const p = cached.item.photo;
-    // Local photos or Yelp CDN — return as-is
     if (p.startsWith('photos/') || p.includes('yelpcdn.com')) return p;
-    // Unsplash — resize
+  }
+
+  // 2. PHOTO_MAP — specific landmark matches (accurate)
+  const m = Object.keys(PHOTO_MAP).find(p => k.includes(p));
+  if (m) return `https://images.unsplash.com/${PHOTO_MAP[m]}?w=${w}&q=90&fm=webp&fit=crop`;
+
+  // 3. item.photo from data.js — specific to this place (accurate when set)
+  if (cached?.item?.photo) {
+    const p = cached.item.photo;
     if (p.includes('unsplash.com')) return p.replace(/w=\d+/, `w=${w}`);
     return p;
   }
 
-  // 2. PHOTO_MAP fallback
-  const m = Object.keys(PHOTO_MAP).find(p => k.includes(p));
-  if (m) return `https://images.unsplash.com/${PHOTO_MAP[m]}?w=${w}&q=90&fm=webp&fit=crop`;
+  // 4. CATEGORY_PHOTOS — generic category fallback
   const c = CATEGORY_PHOTOS.find(([p]) => k.includes(p));
   if (c) return `https://images.unsplash.com/${c[1]}?w=${w}&q=90&fm=webp&fit=crop`;
+
   if (cityImage) return cityImage.replace(/w=\d+(&q=\d+)?/, `w=${w}&q=90&fm=webp&fit=crop`);
   return `https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=${w}&q=90&fm=webp&fit=crop`;
 }
@@ -1968,80 +1975,107 @@ function renderBudgetRecs() {
   const city = getCurrentCity();
   if (!city) { el.style.display = 'none'; return; }
 
-  const budget  = currentTrip?.budget || 0;
-  const days    = (currentTrip?.days || []).length || 1;
-  const perDay  = budget > 0 ? budget / days : Infinity;
-  const hasBudget = budget > 0;
-
-  const scoreItem = (item, type) => ({
-    name:   item.name,
-    price:  typeof item.price === 'number' ? item.price : 0,
-    rating: item.rating || 0,
-    photo:  item.photo || null,
-    type,
+  // Populate _discCache so getPhoto can resolve item.photo for each place
+  (city.activities || []).filter(Boolean).forEach(item => {
+    if (!_discCache[item.name]) _discCache[item.name] = { item, city };
+  });
+  (city.food || []).filter(Boolean).forEach(item => {
+    if (!_discCache[item.name]) _discCache[item.name] = { item, city };
   });
 
-  const pool = [
-    ...(city.food       || []).filter(Boolean).map(i => scoreItem(i, 'food')),
-    ...(city.activities || []).filter(Boolean).map(i => scoreItem(i, 'activity')),
-  ].filter(i => i.price <= perDay);
+  const budget    = currentTrip?.budget || 0;
+  const days      = (currentTrip?.days || []).length || 1;
+  const perDay    = budget > 0 ? budget / days : Infinity;
+  const hasBudget = budget > 0;
 
-  if (!pool.length) { el.style.display = 'none'; return; }
+  // Deduplicate by name (fuzzy — "Berthillon" and "Berthillon Ice Cream" collapse to one)
+  // If collapsed items have different prices, mark as priceVary so UI can show "price may vary"
+  const prepare = (arr, type) => {
+    const groups = [];
+    arr.filter(Boolean).forEach(item => {
+      const key = item.name.toLowerCase().trim();
+      const match = groups.find(g => g.key === key || key.startsWith(g.key + ' ') || g.key.startsWith(key + ' '));
+      if (match) {
+        const p = typeof item.price === 'number' ? item.price : 0;
+        if (p !== match.price) match.priceVary = true;
+        if ((item.rating || 0) > match.rating) match.rating = item.rating || 0;
+        if (key.length < match.key.length) { match.key = key; match.name = item.name; } // keep shorter name
+      } else {
+        groups.push({ key, name: item.name, price: typeof item.price === 'number' ? item.price : 0, rating: item.rating || 0, priceVary: false });
+      }
+    });
+    return groups.map(g => ({ name: g.name, price: g.price, rating: g.rating, priceVary: g.priceVary, type }));
+  };
 
-  const deduped = new Map();
-  for (const item of pool) {
-    const iNorm = item.name.toLowerCase().trim();
-    let matchKey = null;
-    for (const key of deduped.keys()) {
-      const kNorm = key.toLowerCase().trim();
-      if (iNorm === kNorm || iNorm.startsWith(kNorm + ' ') || kNorm.startsWith(iNorm + ' ')) {
-        matchKey = key; break;
+  // Pick top-rated items spread across three price tiers
+  const pickSpread = (items, count) => {
+    const sorted   = [...items].sort((a, b) => b.rating - a.rating || a.price - b.price);
+    const cheap    = sorted.filter(i => i.price === 0 || i.price <= 20);
+    const mid      = sorted.filter(i => i.price > 20 && i.price <= 80);
+    const premium  = sorted.filter(i => i.price > 80);
+    const perTier  = Math.ceil(count / 3);
+    const picked   = [
+      ...cheap.slice(0, perTier),
+      ...mid.slice(0, perTier),
+      ...premium.slice(0, perTier),
+    ];
+    // Fill remaining slots from top-rated if tiers didn't have enough
+    if (picked.length < count) {
+      const names = new Set(picked.map(p => p.name));
+      for (const item of sorted) {
+        if (picked.length >= count) break;
+        if (!names.has(item.name)) { picked.push(item); names.add(item.name); }
       }
     }
-    if (matchKey !== null) {
-      if (item.price < deduped.get(matchKey).price) deduped.set(matchKey, item);
-    } else {
-      deduped.set(item.name, item);
-    }
-  }
-  const picks = Array.from(deduped.values())
-    .sort((a, b) => b.rating - a.rating || a.price - b.price)
-    .slice(0, 10);
+    return picked.slice(0, count).sort((a, b) => b.rating - a.rating);
+  };
 
-  const emoji    = type => type === 'food'
-    ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`
-    : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>`;
-  const priceStr = p => p === 0 ? '<span style="color:#34d399;font-weight:700">Free</span>' : `<span style="color:#34d399;font-weight:700">$${p}</span>`;
+  const foodPicks = pickSpread(prepare(city.food       || [], 'food'),     9);
+  const actPicks  = pickSpread(prepare(city.activities || [], 'activity'), 6);
+
+  // Interleave 2 food : 1 activity
+  const picks = [];
+  let fi = 0, ai = 0;
+  while (picks.length < 15 && (fi < foodPicks.length || ai < actPicks.length)) {
+    if (fi < foodPicks.length) picks.push(foodPicks[fi++]);
+    if (picks.length < 15 && fi < foodPicks.length) picks.push(foodPicks[fi++]);
+    if (picks.length < 15 && ai < actPicks.length)  picks.push(actPicks[ai++]);
+  }
+
+  if (!picks.length) { el.style.display = 'none'; return; }
+
   const title    = hasBudget
     ? `Places within your budget ($${Math.round(perDay)}/day)`
     : `Top picks — ${escHtml(city.name)}`;
 
-  const starSvg = `<svg width="9" height="9" viewBox="0 0 24 24" fill="#fbbf24" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
-  const arrowL = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>`;
-  const arrowR = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`;
+  const arrowL = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>`;
+  const arrowR = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`;
 
   el.style.display = 'block';
   el.innerHTML = `
-    <div class="budget-recs-title">${title}</div>
     <div class="budget-recs-wrap">
       <button class="recs-arrow recs-arrow-left" onclick="scrollRecs(-1)">${arrowL}</button>
       <div class="budget-recs-scroll" id="budget-recs-scroll">
         ${picks.map(p => {
-          const photo = p.photo || (getPhoto(p.name, city.image, 400) || [])[0] || '';
-          const bgStyle = photo ? `background-image:url('${photo}')` : `background:rgba(255,255,255,.06)`;
-          const priceLabel = p.price === 0 ? '<span class="rec-price">Free</span>' : `<span class="rec-price">$${p.price}</span>`;
+          const photo = getPhoto(p.name, city.image, 800);
+          const priceLabel = p.priceVary
+            ? '<span class="rec-price">Price may vary</span>'
+            : p.price === 0 ? '<span class="rec-price">Free</span>'
+            : `<span class="rec-price">$${p.price}</span>`;
+          const typeBadge = p.type === 'food' ? 'Dining' : 'Activity';
           return `
           <div class="budget-rec-chip" draggable="true"
             ondragstart="startPickDrag('${jsqApp(p.name)}','${jsqApp(p.type)}',event)"
             ondragend="endPickDrag()"
-            onclick="addBudgetRecToDay('${jsqApp(p.name)}','${jsqApp(p.type)}')"
-            title="Drag to itinerary or tap to add" style="${bgStyle}">
-            <div class="rec-img-overlay"></div>
-            <div class="rec-drag-hint"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-            <div class="rec-cat-badge">${emoji(p.type)}</div>
+            onclick="addBudgetRecToDay('${jsqApp(p.name)}','${jsqApp(p.type)}')" title="Drag to itinerary or tap to add">
+            <img class="rec-bg-img" src="${escHtml(photo)}" alt=""
+              onerror="this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=90&fm=webp';this.onerror=null">
+            <div class="rec-overlay"></div>
+            <div class="rec-type-badge">${typeBadge}</div>
+            <div class="rec-drag-label">Drag or Drop</div>
             <div class="rec-info">
               <div class="rec-name">${escHtml(p.name)}</div>
-              <div class="rec-meta">${priceLabel}<span class="rec-rating">${starSvg} ${p.rating}</span></div>
+              <div class="rec-meta">${priceLabel}<span class="rec-divider">·</span><span class="rec-rating">★ ${p.rating}</span></div>
             </div>
           </div>`;
         }).join('')}
@@ -2276,7 +2310,7 @@ function renderItinCards() {
   if (!cards.length) {
     area.innerHTML = `<div class="itin-empty">
       <div class="empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#pinGrad)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="pinGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b8cce8"/><stop offset="100%" stop-color="#6a9ab8"/></linearGradient></defs><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-      <p>Drop your first spot here — search above or check out <strong style="color:var(--teal,#2dd4bf);cursor:pointer" onclick="switchTab('discover')">Discover →</strong></p>
+      <p>Drag or drop your first spot here — search above or check out <strong style="color:var(--teal,#2dd4bf);cursor:pointer" onclick="switchTab('discover')">Discover →</strong></p>
     </div>`;
   
     return;
@@ -2933,18 +2967,45 @@ function setDiscoverFilter(filter) {
 
 function setDiscoverVibe(vibe) {
   discoverVibe = vibe;
-  document.querySelectorAll('.vibe-filter-pill').forEach(p => {
+  document.querySelectorAll('.dfs-vibe-pill').forEach(p => {
     p.classList.toggle('active', p.dataset.vibe === vibe);
   });
+  updateFiltersBadge();
   renderDiscoverTab();
 }
 
 function setDiscoverSort(sort) {
   discoverSort = sort;
-  document.querySelectorAll('.disc-sort-pill').forEach(p => {
+  document.querySelectorAll('.dfs-pill[data-sort]').forEach(p => {
     p.classList.toggle('active', p.dataset.sort === sort);
   });
+  updateFiltersBadge();
   renderDiscoverTab();
+}
+
+function openDiscoverFilters() {
+  document.getElementById('disc-filter-backdrop').classList.add('open');
+  document.getElementById('disc-filter-sheet').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDiscoverFilters() {
+  document.getElementById('disc-filter-backdrop').classList.remove('open');
+  document.getElementById('disc-filter-sheet').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function clearDiscoverFilters() {
+  setDiscoverSort('rating');
+  setDiscoverVibe('');
+}
+
+function updateFiltersBadge() {
+  const count = (discoverSort !== 'rating' ? 1 : 0) + (discoverVibe ? 1 : 0);
+  const badge = document.getElementById('disc-filters-badge');
+  const btn   = document.getElementById('disc-filters-btn');
+  if (badge) { badge.textContent = count; badge.classList.toggle('hidden', count === 0); }
+  if (btn)   btn.classList.toggle('has-active', count > 0);
 }
 
 function onDiscSearchInput(val) {
@@ -3060,9 +3121,8 @@ function renderTrendingSection(city) {
     <div class="trending-title">${escHtml(t('trendingTitle'))}</div>
     <div class="trending-scroll">
       ${cards.map(c => `<a class="trending-card" href="${c.href}" target="_blank" rel="noopener">
-        <span class="trending-platform ${c.platform}">${c.platform === 'tt' ? '▶ TikTok' : '◈ Instagram'}</span>
+        <span class="trending-platform-icon ${c.platform}">${c.platform === 'tt' ? '▶' : '◇'}</span>
         <span class="trending-label">${escHtml(c.label)}</span>
-        <span class="trending-sub">${c.sub}</span>
       </a>`).join('')}
     </div>
   </div>`;
