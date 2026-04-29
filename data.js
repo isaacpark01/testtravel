@@ -7984,7 +7984,7 @@ const CITIES = [
     name: "Marrakech",
     country: "Morocco",
     tagline: "The Red City",
-    image: "https://images.unsplash.com/photo-1597212720009-95c4b0f5ad64?w=1920&q=90&fm=webp&fit=crop",
+    image: "https://images.unsplash.com/photo-1692089265012-b3618e99d307?w=1920&q=90&fm=webp&fit=crop",
     iata: "RAK",
     packType: "city_beach",
     activities: [
@@ -8626,7 +8626,7 @@ const CITIES = [
     name: "Toronto",
     country: "Canada",
     tagline: "The Most Multicultural City on Earth",
-    image: "https://images.unsplash.com/photo-1517090186835-e348b621c9ca?w=1920&q=90&fm=webp&fit=crop",
+    image: "https://images.unsplash.com/photo-1543962226-818f4301073f?w=1920&q=90&fm=webp&fit=crop",
     iata: "YYZ",
     packType: "city_usa",
     activities: [
@@ -8885,7 +8885,7 @@ const CITIES = [
     name: "Charlotte",
     country: "USA",
     tagline: "NASCAR, whitewater, and the fastest-growing city in the South.",
-    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1920&q=90&fm=webp&fit=crop",
+    image: "https://images.unsplash.com/photo-1660585238415-517de72185d5?w=1920&q=90&fm=webp&fit=crop",
     iata: "CLT",
     packType: "city_usa",
     activities: [
@@ -8914,7 +8914,7 @@ const CITIES = [
     name: "Memphis",
     country: "USA",
     tagline: "Birthplace of the blues, BBQ, and rock and roll.",
-    image: "https://images.unsplash.com/photo-1544027987-9d3b1fd48f22?w=1920&q=90&fm=webp&fit=crop",
+    image: "https://images.unsplash.com/photo-1704727783994-5e362227d584?w=1920&q=90&fm=webp&fit=crop",
     iata: "MEM",
     packType: "city_usa",
     activities: [
@@ -9059,7 +9059,7 @@ const CITIES = [
     name: "Salt Lake City",
     country: "USA",
     tagline: "Gateway to the greatest snow on earth — and the Great Salt Lake.",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=90&fm=webp&fit=crop",
+    image: "https://images.unsplash.com/photo-1621603933126-6c216db10045?w=1920&q=90&fm=webp&fit=crop",
     iata: "SLC",
     packType: "city_mountain",
     activities: [

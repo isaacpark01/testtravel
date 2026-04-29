@@ -422,6 +422,41 @@
   </div>
 </section>
 
+<!-- ══ GLOBE EXPLORER ═══════════════════════════════════════════ -->
+<section class="globe-embed-section">
+  <div class="ge-header reveal">
+    <span class="section-eyebrow ge-eyebrow">🌍 Live World Explorer</span>
+    <h2 class="ge-title">Your Next Destination Is Out There</h2>
+    <p class="ge-sub">Click any continent to zoom in · Search any city to explore</p>
+  </div>
+
+  <div class="ge-wrap">
+    <div class="ge-corner ge-tl"></div>
+    <div class="ge-corner ge-tr"></div>
+    <div class="ge-corner ge-bl"></div>
+    <div class="ge-corner ge-br"></div>
+    <div class="ge-search-wrap">
+      <input id="home-globe-search" class="ge-search" type="text" placeholder="🔍  Search cities or continents…" autocomplete="off" />
+      <div id="home-globe-results" class="ge-results"></div>
+    </div>
+    <div id="home-globe-div" class="ge-div"></div>
+    <div class="ge-stats">
+      <div class="ge-stat"><span class="ge-stat-n">101</span><span class="ge-stat-l">Cities</span></div>
+      <div class="ge-stat"><span class="ge-stat-n">8k+</span><span class="ge-stat-l">Spots</span></div>
+      <div class="ge-stat"><span class="ge-stat-n">7</span><span class="ge-stat-l">Regions</span></div>
+    </div>
+    <div class="ge-city-label" id="ge-city-label">
+      <div class="ge-city-name" id="ge-city-name"></div>
+      <a class="ge-city-link" id="ge-city-link" href="globe.html">Explore →</a>
+    </div>
+    <div class="ge-hint">Click continent to zoom · Drag to rotate</div>
+  </div>
+
+  <div class="ge-footer">
+    <a href="globe.html" class="ge-cta-btn">Open Full Globe Explorer →</a>
+  </div>
+</section>
+
 <!-- ══ CITIES ════════════════════════════════════════════════════ -->
 <section id="cities" class="section cities-section">
   <div class="section-header reveal">
@@ -686,6 +721,130 @@
 <!-- ══ TOAST ═════════════════════════════════════════════════════ -->
 <div id="share-toast" class="share-toast"></div>
 
+<!-- ══ GLOBE EMBED STYLES ══════════════════════════════════════ -->
+<style>
+.globe-embed-section {
+  padding: 72px 0 60px;
+  background: linear-gradient(180deg, transparent 0%, #020c18 14%, #020c18 86%, transparent 100%);
+  position: relative; overflow: hidden;
+}
+.ge-header { text-align:center; padding:0 24px 28px; }
+.ge-footer  { text-align:center; padding:24px 24px 0; }
+.ge-eyebrow {
+  display:block; font-size:11px; font-weight:700; letter-spacing:.18em;
+  text-transform:uppercase; color:#00d4ff; margin-bottom:10px;
+}
+.ge-title {
+  font-size:clamp(24px,4vw,40px); font-weight:800; line-height:1.15; margin-bottom:10px;
+  background:linear-gradient(130deg,#fff 25%,#38bdf8 60%,#818cf8 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.ge-sub { font-size:15px; color:rgba(255,255,255,.42); max-width:480px; margin:0 auto; }
+
+/* ── Full-width wrap ── */
+.ge-wrap {
+  position:relative; width:100%; height:520px; overflow:hidden;
+  background:#020c18;
+  border-top:1px solid rgba(0,212,255,.2); border-bottom:1px solid rgba(0,212,255,.2);
+  box-shadow:0 0 100px rgba(0,212,255,.08) inset;
+  animation:ge-pulse 5s ease-in-out infinite;
+}
+@keyframes ge-pulse {
+  0%,100% { box-shadow:0 0 100px rgba(0,212,255,.06) inset, 0 0 60px rgba(0,212,255,.04); }
+  50%      { box-shadow:0 0 140px rgba(0,212,255,.12) inset, 0 0 80px rgba(0,212,255,.08); }
+}
+.ge-wrap::after {
+  content:''; position:absolute; inset:0; pointer-events:none; z-index:8;
+  background:repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,.03) 3px, rgba(0,0,0,.03) 4px);
+}
+.ge-div { width:100%; height:100%; }
+
+/* ── HUD corners ── */
+.ge-corner { position:absolute; width:26px; height:26px; z-index:12; pointer-events:none; }
+.ge-tl { top:12px; left:12px;  border-top:2px solid #00d4ff; border-left:2px solid #00d4ff;  border-radius:2px 0 0 0; }
+.ge-tr { top:12px; right:12px; border-top:2px solid #00d4ff; border-right:2px solid #00d4ff; border-radius:0 2px 0 0; }
+.ge-bl { bottom:12px; left:12px;  border-bottom:2px solid #00d4ff; border-left:2px solid #00d4ff;  border-radius:0 0 0 2px; }
+.ge-br { bottom:12px; right:12px; border-bottom:2px solid #00d4ff; border-right:2px solid #00d4ff; border-radius:0 0 2px 0; }
+
+/* ── Search (centered overlay) ── */
+.ge-search-wrap {
+  position:absolute; top:16px; left:50%; transform:translateX(-50%);
+  width:min(340px,calc(100% - 100px)); z-index:20;
+}
+.ge-search {
+  width:100%; padding:9px 16px; font-size:13px; font-family:inherit; box-sizing:border-box;
+  background:rgba(2,12,24,.88); border:1px solid rgba(0,212,255,.4);
+  border-radius:28px; color:#fff; outline:none; backdrop-filter:blur(14px);
+  box-shadow:0 0 24px rgba(0,212,255,.1); transition:border-color .2s, box-shadow .2s;
+}
+.ge-search::placeholder { color:rgba(255,255,255,.28); }
+.ge-search:focus { border-color:rgba(0,212,255,.75); box-shadow:0 0 36px rgba(0,212,255,.22); }
+.ge-results {
+  position:absolute; top:calc(100% + 6px); left:0; right:0; display:none;
+  background:rgba(2,12,24,.97); border:1px solid rgba(0,212,255,.2); border-radius:12px;
+  overflow:hidden; box-shadow:0 12px 40px rgba(0,0,0,.8); z-index:30;
+}
+.ge-results.show { display:block; }
+.ge-result {
+  padding:9px 14px; font-size:13px; cursor:pointer; font-family:inherit;
+  display:flex; align-items:center; gap:9px;
+  border-bottom:1px solid rgba(255,255,255,.04); transition:background .12s; color:#fff;
+}
+.ge-result:last-child { border-bottom:none; }
+.ge-result:hover { background:rgba(0,212,255,.1); }
+.ge-result-name { font-weight:700; }
+.ge-result-sub { font-size:11px; color:rgba(255,255,255,.32); margin-left:auto; white-space:nowrap; }
+
+/* ── Stats (bottom-left overlay) ── */
+.ge-stats { position:absolute; bottom:14px; left:14px; z-index:20; display:flex; gap:8px; }
+.ge-stat {
+  display:flex; flex-direction:column; align-items:center;
+  background:rgba(0,0,0,.65); border:1px solid rgba(0,212,255,.22);
+  border-radius:8px; padding:5px 12px; backdrop-filter:blur(10px);
+}
+.ge-stat-n { font-size:14px; font-weight:800; color:#00d4ff; line-height:1.2; }
+.ge-stat-l { font-size:9px; color:rgba(255,255,255,.38); font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
+
+/* ── Selected city label (bottom-right overlay) ── */
+.ge-city-label {
+  position:absolute; bottom:14px; right:14px; z-index:20;
+  background:rgba(0,0,0,.75); border:1px solid rgba(0,212,255,.3);
+  border-radius:10px; padding:8px 12px; backdrop-filter:blur(10px); display:none;
+}
+.ge-city-label.show { display:block; }
+.ge-city-name { font-size:13px; font-weight:700; color:#fff; white-space:nowrap; }
+.ge-city-link { display:block; font-size:11px; color:#00d4ff; margin-top:2px; font-weight:600; text-decoration:none; }
+.ge-city-link:hover { text-decoration:underline; }
+
+/* ── Bottom hint ── */
+.ge-hint {
+  position:absolute; bottom:14px; left:50%; transform:translateX(-50%);
+  font-size:10px; color:rgba(255,255,255,.22); white-space:nowrap;
+  letter-spacing:.06em; pointer-events:none; z-index:20;
+}
+
+/* ── CTA button ── */
+.ge-cta-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  background:linear-gradient(135deg,rgba(0,212,255,.1),rgba(129,140,248,.1));
+  border:1px solid rgba(0,212,255,.3); color:#00d4ff;
+  padding:11px 30px; border-radius:30px; font-size:13px; font-weight:700;
+  text-decoration:none; font-family:inherit;
+  box-shadow:0 0 24px rgba(0,212,255,.08); transition:background .2s, box-shadow .2s, transform .15s;
+}
+.ge-cta-btn:hover {
+  background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(129,140,248,.18));
+  box-shadow:0 0 44px rgba(0,212,255,.22); transform:translateY(-2px);
+}
+.ge-wrap .scene-tooltip { font-family:inherit!important; font-size:12px!important; background:rgba(2,12,24,.95)!important; border:1px solid rgba(0,212,255,.25)!important; border-radius:8px!important; color:#fff!important; padding:5px 10px!important; }
+
+@media(max-width:640px) {
+  .ge-wrap { height:340px; }
+  .ge-hint { display:none; }
+  .ge-stats { gap:5px; }
+}
+</style>
+
 <!-- ══ SCRIPTS ════════════════════════════════════════════════════ -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="config.js"></script>
@@ -766,6 +925,176 @@
   } else {
     applyTheme(isDaytime() ? 'light' : 'dark');
   }
+})();
+</script>
+
+<!-- ══ EMBEDDED GLOBE ═══════════════════════════════════════════ -->
+<script src="https://unpkg.com/globe.gl@2.32.0/dist/globe.gl.min.js"></script>
+<script>
+(function() {
+  var el = document.getElementById('home-globe-div');
+  if (!el || typeof Globe === 'undefined') return;
+
+  var COORDS = {
+    nyc:[40.71,-74.01],losangeles:[34.05,-118.24],chicago:[41.88,-87.63],miami:[25.76,-80.19],
+    sanfrancisco:[37.77,-122.42],lasvegas:[36.17,-115.14],seattle:[47.61,-122.33],austin:[30.27,-97.74],
+    neworleans:[29.95,-90.07],denver:[39.74,-104.99],nashville:[36.16,-86.78],orlando:[28.54,-81.38],
+    hawaii:[20.80,-156.33],sandiego:[32.72,-117.16],washingtondc:[38.91,-77.04],boston:[42.36,-71.06],
+    london:[51.51,-0.13],paris:[48.86,2.35],barcelona:[41.39,2.17],amsterdam:[52.37,4.90],
+    rome:[41.90,12.50],lisbon:[38.72,-9.14],prague:[50.08,14.44],budapest:[47.50,19.04],
+    istanbul:[41.01,28.98],vienna:[48.21,16.37],edinburgh:[55.95,-3.19],copenhagen:[55.68,12.57],
+    tokyo:[35.68,139.65],kyoto:[35.01,135.77],seoul:[37.57,126.98],bangkok:[13.76,100.50],
+    singapore:[1.35,103.82],bali:[-8.41,115.19],sydney:[-33.87,151.21],dubai:[25.20,55.27],
+    marrakech:[31.63,-7.98],capetown:[-33.92,18.42],mexicocity:[19.43,-99.13],havana:[23.11,-82.37],
+    santorini:[36.39,25.46],venice:[45.44,12.32],florence:[43.77,11.26],berlin:[52.52,13.41],
+    madrid:[40.42,-3.70],cairo:[30.04,31.24],osaka:[34.69,135.50],hongkong:[22.32,114.17],
+    taipei:[25.03,121.57],buenosaires:[-34.60,-58.38],toronto:[43.65,-79.38],
+    riodejaneiro:[-22.91,-43.17],lima:[-12.05,-77.04],bogota:[4.71,-74.07],
+    porto:[41.16,-8.63],athens:[37.98,23.73],stockholm:[59.33,18.07],dublin:[53.35,-6.26],
+    mumbai:[19.08,72.88],delhi:[28.61,77.21],beijing:[39.90,116.41],shanghai:[31.23,121.47],
+    lagos:[6.52,3.38],nairobi:[-1.29,36.82],doha:[25.29,51.53],telaviv:[32.09,34.78],
+  };
+
+  var CONTINENT_COLORS = {usa:'#f97316',europe:'#a78bfa',asia:'#34d399',latam:'#fb923c',gulf:'#fbbf24',africa:'#f87171',oceania:'#22d3ee'};
+  var CONTINENTS = [
+    {name:'USA & North America',emoji:'🇺🇸',region:'usa',    lat:39, lng:-98,  alt:2.3},
+    {name:'Europe',             emoji:'🏰', region:'europe', lat:54, lng:15,   alt:2.0},
+    {name:'Asia',               emoji:'🌏', region:'asia',   lat:30, lng:105,  alt:1.9},
+    {name:'Latin America',      emoji:'🌎', region:'latam',  lat:-8, lng:-58,  alt:2.3},
+    {name:'Middle East',        emoji:'🕌', region:'gulf',   lat:26, lng:46,   alt:2.6},
+    {name:'Africa',             emoji:'🌍', region:'africa', lat:2,  lng:22,   alt:2.2},
+    {name:'Oceania',            emoji:'🦘', region:'oceania',lat:-24,lng:134,  alt:2.5},
+  ];
+
+  function detectContinent(lat, lng) {
+    if (lat>15  && lat<72  && lng>-168 && lng<-52)  return 'usa';
+    if (lat>-56 && lat<15  && lng>-82  && lng<-34)  return 'latam';
+    if (lat>35  && lat<72  && lng>-25  && lng<45)   return 'europe';
+    if (lat>12  && lat<42  && lng>25   && lng<65)   return 'gulf';
+    if (lat>-35 && lat<37  && lng>-18  && lng<52)   return 'africa';
+    if (lat>-10 && lat<78  && lng>60   && lng<180)  return 'asia';
+    if (lat>-50 && lat<-8  && lng>108  && lng<180)  return 'oceania';
+    return null;
+  }
+
+  var CITY_MAP = {};
+  if (typeof CITIES !== 'undefined') CITIES.filter(Boolean).forEach(function(c){ CITY_MAP[c.id]=c; });
+
+  var points = Object.entries(COORDS).map(function(e) {
+    var id=e[0], coord=e[1], city=CITY_MAP[id];
+    if (!city) return null;
+    return {id:id, lat:coord[0], lng:coord[1], name:city.name, country:city.country};
+  }).filter(Boolean);
+
+  var hGlobe = Globe({animateIn:true})(el)
+    .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+    .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
+    .showAtmosphere(true)
+    .atmosphereColor('#00d4ff')
+    .atmosphereAltitude(0.15)
+    .ringsData([])
+    .ringLat('lat').ringLng('lng')
+    .ringColor(function(){ return '#00d4ff'; })
+    .ringMaxRadius(2.8).ringPropagationSpeed(3).ringRepeatPeriod(900)
+    .onGlobeClick(function(e) {
+      var region = detectContinent(e.lat, e.lng);
+      if (!region) return;
+      var c = CONTINENTS.find(function(x){ return x.region===region; });
+      if (!c) return;
+      hGlobe.controls().autoRotate = false;
+      hGlobe.pointOfView({lat:c.lat, lng:c.lng, altitude:c.alt}, 1200);
+      hideCityLabel();
+    });
+
+  try {
+    hGlobe.renderer().setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    hGlobe.controls().autoRotate = true;
+    hGlobe.controls().autoRotateSpeed = 0.4;
+    hGlobe.controls().enableDamping = true;
+    hGlobe.controls().dampingFactor = 0.08;
+  } catch(e){}
+
+  hGlobe.width(el.offsetWidth).height(el.offsetHeight);
+  hGlobe.pointOfView({lat:20, lng:10, altitude:1.8}, 0);
+  window.addEventListener('resize', function(){ hGlobe.width(el.offsetWidth).height(el.offsetHeight); });
+
+  /* City label */
+  var cityLabel = document.getElementById('ge-city-label');
+  var cityName  = document.getElementById('ge-city-name');
+  var cityLink  = document.getElementById('ge-city-link');
+  function showCityLabel(pt) {
+    cityName.textContent = pt.name;
+    cityLink.href = 'globe.html';
+    cityLink.textContent = 'Explore ' + pt.name + ' →';
+    cityLabel.classList.add('show');
+  }
+  function hideCityLabel() { cityLabel.classList.remove('show'); }
+
+  /* Search */
+  var searchInput = document.getElementById('home-globe-search');
+  var resultsDiv  = document.getElementById('home-globe-results');
+
+  function flyToCity(pt) {
+    hGlobe.controls().autoRotate = false;
+    hGlobe.pointOfView({lat:pt.lat, lng:pt.lng, altitude:1.5}, 1000);
+    hGlobe.ringsData([pt]);
+    setTimeout(function(){ showCityLabel(pt); }, 1050);
+    searchInput.value = ''; resultsDiv.classList.remove('show');
+  }
+  function flyToContinent(c) {
+    hGlobe.controls().autoRotate = false;
+    hGlobe.pointOfView({lat:c.lat, lng:c.lng, altitude:c.alt}, 1200);
+    hideCityLabel();
+    searchInput.value = ''; resultsDiv.classList.remove('show');
+  }
+
+  searchInput.addEventListener('input', function() {
+    var q = searchInput.value.trim().toLowerCase();
+    if (!q) { resultsDiv.classList.remove('show'); return; }
+    var cHits = CONTINENTS.filter(function(c){ return c.name.toLowerCase().includes(q); });
+    var pHits = points.filter(function(p){ return p.name.toLowerCase().includes(q)||p.country.toLowerCase().includes(q); }).slice(0,6);
+    if (!cHits.length && !pHits.length) { resultsDiv.classList.remove('show'); return; }
+    resultsDiv.innerHTML = [
+      ...cHits.map(function(c){
+        return '<div class="ge-result" data-continent="'+c.region+'"><span style="font-size:15px">'+c.emoji+'</span><span class="ge-result-name">'+c.name+'</span><span class="ge-result-sub" style="color:'+CONTINENT_COLORS[c.region]+'">Region</span></div>';
+      }),
+      ...pHits.map(function(p){
+        return '<div class="ge-result" data-id="'+p.id+'"><span style="width:8px;height:8px;border-radius:50%;background:#00d4ff;display:inline-block;flex-shrink:0"></span><span class="ge-result-name">'+p.name+'</span><span class="ge-result-sub">'+p.country+'</span></div>';
+      })
+    ].join('');
+    resultsDiv.classList.add('show');
+    resultsDiv.querySelectorAll('.ge-result').forEach(function(el){
+      el.addEventListener('click', function(){
+        if (el.dataset.continent) {
+          flyToContinent(CONTINENTS.find(function(c){ return c.region===el.dataset.continent; }));
+        } else {
+          var pt = points.find(function(p){ return p.id===el.dataset.id; });
+          if (pt) {
+            hGlobe.controls().autoRotate = false;
+            hGlobe.pointOfView({lat:pt.lat, lng:pt.lng, altitude:1.5}, 800);
+            searchInput.value = ''; resultsDiv.classList.remove('show');
+            if (typeof openCity === 'function') openCity(pt.id);
+          }
+        }
+      });
+    });
+  });
+  searchInput.addEventListener('keydown', function(e){
+    if (e.key==='Enter') {
+      var q=searchInput.value.trim().toLowerCase();
+      var m=points.find(function(p){ return p.name.toLowerCase().startsWith(q); });
+      if (m) {
+        hGlobe.controls().autoRotate = false;
+        hGlobe.pointOfView({lat:m.lat, lng:m.lng, altitude:1.5}, 800);
+        searchInput.value = ''; resultsDiv.classList.remove('show');
+        if (typeof openCity === 'function') openCity(m.id);
+      }
+    }
+    if (e.key==='Escape') { searchInput.value=''; resultsDiv.classList.remove('show'); }
+  });
+  document.addEventListener('click', function(e){
+    if (!e.target.closest('.ge-search-wrap')) resultsDiv.classList.remove('show');
+  });
 })();
 </script>
 </body>
