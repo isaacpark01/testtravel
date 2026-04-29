@@ -1,4 +1,4 @@
-# PinTrip / Dropped — Claude Context
+# Dropped — Claude Context
 
 Travel itinerary PWA. Vanilla HTML/CSS/JS, no build step. Two surfaces: `index.html` (explore cities) and `planner.html` (plan a trip).
 

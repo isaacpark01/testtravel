@@ -1,26 +1,31 @@
-# Netlify
+# ── Netlify ────────────────────────────────────────────────────
 .netlify
 
-# Build/helper scripts (not part of the deployed app)
+# ── Build / one-time helper scripts (not deployed) ─────────────
+# These live in scripts/ and are never served to users.
+# Run them locally with: node scripts/<filename>.js
+scripts/
 fetch-*.js
 fix-photos.js
 build-photo-db.js
 rebuild-photos.js
 add-descriptions.js
 gen-wiki.js
+merge_food.js
+
+# ── Generated / temp files ─────────────────────────────────────
 wiki-photos-generated.js
 wiki-photos-v2.js
-merge_food.js
 food_patch_*.json
-
-# Temp/state files
 *-progress*.json
 photo-progress*.json
 all-places.json
+wiki_query_log.json
+city_items.json
 
-# OS
+# ── OS ─────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
 
-# Node
+# ── Node ───────────────────────────────────────────────────────
 node_modules/

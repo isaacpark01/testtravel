@@ -1,5 +1,5 @@
 /* ============================================================
-   PinTrip — admin.js
+   Dropped — admin.js
    Security model:
      1. auth-gate is shown by default; admin shell is display:none
      2. initAdminGate() queries the DB — localStorage can be tampered,

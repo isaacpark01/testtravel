@@ -1,3 +1,56 @@
+/* ============================================================
+   Dropped — data.js
+   Pure static data. No logic. Loaded by every page.
+
+   EXPORTS (globals, no module system)
+   ─────────────────────────────────────────────────────────────
+   CITIES           — array of city objects (see schema below)
+   REWARDS_CARDS    — credit card rewards data
+   CITY_REWARDS_TIPS— per-city card recommendation tips
+   REWARDS_BLOG     — editorial rewards articles
+   REWARDS_CHECKLIST— travel rewards checklist items
+
+   CITY SCHEMA
+   ─────────────────────────────────────────────────────────────
+   {
+     id:         string   — unique key, lowercase, no spaces (e.g. "nyc")
+     name:       string   — display name ("New York City")
+     country:    string   — "USA" or country name
+     tagline:    string   — one-liner shown on city card hover
+     image:      string   — Unsplash CDN URL for hero image
+     iata:       string   — nearest airport code (shown on card badge)
+     packType:   string   — controls packing list in app.js PACK_DATA
+                            values: "city_usa" | "beach" | "desert" |
+                            "theme_park" | "international_europe" |
+                            "international_asia" | "international_latam" |
+                            "international_africa" | "international_gulf"
+     activities: Activity[]
+     food:       Food[]
+     transport:  Transport[]
+   }
+
+   Activity  { name, price, rating, duration, tip, desc, photo }
+   Food      { name, price, rating, cuisine, tip, desc, photo }
+   Transport { name, price, rating, type, tip }
+
+   ADDING A CITY — checklist
+   ─────────────────────────────────────────────────────────────
+   1. Add entry to CITIES array below (copy an existing city)
+   2. Add lat/lng to CITY_COORDS in planner.js
+   3. Add budget rates {b,m,l} to COL in app.js
+   4. Add phrase book to CITY_LANGUAGES in app.js
+   5. Add any new cuisine strings to GENRE_EMOJI in app.js
+   6. Run: node --check data.js   (syntax check)
+
+   EDITING FOOD / ACTIVITIES
+   ─────────────────────────────────────────────────────────────
+   Both object literal formats are valid JS and work identically:
+     Original:  { cuisine: "Ramen", name: "...", ... }
+     Appended:  {"cuisine":"Ramen","name":"...", ...}
+   Watch for double-commas when appending — they create array holes.
+   Verify with: node -e "..." (see CLAUDE.md for full command)
+   ============================================================ */
+
 const CITIES = [
   {
     id: "nyc",

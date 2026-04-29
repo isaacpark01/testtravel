@@ -928,7 +928,26 @@
 })();
 </script>
 
-<!-- ══ EMBEDDED GLOBE ═══════════════════════════════════════════ -->
+<!-- ══ EMBEDDED GLOBE ═══════════════════════════════════════════
+     A compact globe.gl (WebGL) globe rendered inside the
+     #home-globe-div element in the "Live World Explorer" section.
+
+     HOW IT WORKS
+     • COORDS   — lat/lng for ~60 cities, keyed by city id
+     • CONTINENTS — 7 regions with zoom targets (lat/lng/altitude)
+     • detectContinent(lat, lng) — bounding-box region detection
+     • Clicking the globe surface zooms to that continent
+     • Search matches city names + continents; clicking a result
+       calls openCity(id) from app.js to open the city modal
+       AND zooms the globe to that city's coordinates
+     • A cyan ring animates on the selected city pin
+     • flyToCity(pt)      — zoom + ring + open modal
+     • flyToContinent(c)  — zoom to region bounding center
+
+     SCOPE
+     Wrapped in an IIFE so none of these vars leak to window.
+     `openCity` is called as a global (defined in app.js).
+     ══════════════════════════════════════════════════════════ -->
 <script src="https://unpkg.com/globe.gl@2.32.0/dist/globe.gl.min.js"></script>
 <script>
 (function() {
