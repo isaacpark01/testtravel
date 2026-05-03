@@ -842,7 +842,7 @@
       <div class="bttg-leg-v2"><span class="bttg-leg-dot" style="background:#34d399"></span>Great</div>
       <div class="bttg-leg-v2"><span class="bttg-leg-dot" style="background:#fbbf24"></span>Fair</div>
       <div class="bttg-leg-v2"><span class="bttg-leg-dot" style="background:#ef4444"></span>Avoid</div>
-      <div class="bttg-leg-v2 bttg-leg-caption">Based on historical climate data</div>
+      <div class="bttg-leg-v2 bttg-leg-caption">Based on weather · crowds · prices</div>
     </div>
   </div>
 </section>
@@ -1104,22 +1104,55 @@ document.addEventListener('DOMContentLoaded', function() {
     return data.results || [];
   }
 
-  function renderWeatherData(monthlyTemp, monthlyPrecip) {
+  /* Crowd patterns by climate zone (1=empty → 5=packed) */
+  function crowdPattern(lat, monthlyPrecip) {
+    const abs = Math.abs(lat);
+    if (abs < 23) {
+      // Tropical: dry months draw tourists, wet months deter
+      const dryRank = [...monthlyPrecip].map((p, i) => ({ i, p })).sort((a, b) => a.p - b.p);
+      const crowds = Array(12).fill(3);
+      dryRank.slice(0, 4).forEach(({ i }) => crowds[i] = 5);
+      dryRank.slice(4, 7).forEach(({ i }) => crowds[i] = 4);
+      dryRank.slice(9).forEach(({ i }) => crowds[i] = 2);
+      return crowds;
+    }
+    if (lat > 0) {
+      // Northern hemisphere: summer + Christmas peak
+      const base = [2,2,2,3,3,5,5,5,4,3,2,4];
+      return base;
+    }
+    // Southern hemisphere: Dec-Feb summer peak
+    return [5,5,4,2,2,2,3,3,3,3,3,5];
+  }
+
+  /* Prices follow crowds with a 1-month lead (book ahead = cost rises) */
+  function pricePattern(crowds) {
+    return crowds.map((_, i) => {
+      const lead = crowds[(i + 1) % 12];
+      const raw = 6 - Math.round((crowds[i] + lead) / 2); // invert: busy = expensive = low price score
+      return Math.max(1, Math.min(5, raw));
+    });
+  }
+
+  function renderScores(monthlyTemp, monthlyPrecip, lat) {
     const IDEAL = 19;
-    function score(t, p) {
-      const dist = Math.abs(t - IDEAL);
-      const ts = dist < 5 ? 5 : dist < 10 ? 4 : dist < 15 ? 3 : dist < 20 ? 2 : 1;
-      const ps = p < 30 ? 5 : p < 60 ? 4 : p < 100 ? 3 : p < 160 ? 2 : 1;
-      return Math.round((ts * 2 + ps) / 3);
+    const crowds = crowdPattern(lat, monthlyPrecip);
+    const prices = pricePattern(crowds);
+    function score(i) {
+      const dist = Math.abs(monthlyTemp[i] - IDEAL);
+      const w = dist < 5 ? 5 : dist < 10 ? 4 : dist < 15 ? 3 : dist < 20 ? 2 : 1;
+      const p = monthlyPrecip[i] < 30 ? 5 : monthlyPrecip[i] < 60 ? 4 : monthlyPrecip[i] < 100 ? 3 : monthlyPrecip[i] < 160 ? 2 : 1;
+      const weather = Math.round((w * 2 + p) / 3);
+      return Math.round((weather * 2 + (6 - crowds[i]) * 0.5 + prices[i]) / 3.5);
     }
     grid.innerHTML = MONTHS.map((m, i) => {
-      const s = score(monthlyTemp[i], monthlyPrecip[i]);
+      const s = score(i);
       const isSweet = s >= 4;
       const [pillClass, pillLabel] = s >= 4 ? ['bttg-pill-great','Great'] : s === 3 ? ['bttg-pill-fair','Fair'] : ['bttg-pill-avoid','Avoid'];
       return `<div class="bttg-month-v2${isSweet?' sweet':''}"><div class="bttg-month-v2-name">${m}</div><span class="bttg-month-pill ${pillClass}">${pillLabel}</span></div>`;
     }).join('');
-    const great = MONTHS.filter((_, i) => score(monthlyTemp[i], monthlyPrecip[i]) >= 4);
-    banner.innerHTML = great.length ? `<strong>Best months:</strong> ${great.join(', ')} — based on historical climate data.` : '';
+    const great = MONTHS.filter((_, i) => score(i) >= 4);
+    banner.innerHTML = great.length ? `<strong>Best months:</strong> ${great.join(', ')} — pleasant weather, lower crowds, and better prices.` : '';
     banner.style.display = great.length ? 'block' : 'none';
   }
 
@@ -1138,7 +1171,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (data.daily.temperature_2m_mean[i] != null) { mT[mo].s += data.daily.temperature_2m_mean[i]; mT[mo].n++; }
         if (data.daily.precipitation_sum[i] != null)   { mP[mo].s += data.daily.precipitation_sum[i];   mP[mo].n++; }
       });
-      renderWeatherData(mT.map(m => m.n ? m.s/m.n : 15), mP.map(m => m.n ? (m.s/m.n)*30 : 50));
+      const avgTemp = mT.map(m => m.n ? m.s/m.n : 15);
+      const avgPrecip = mP.map(m => m.n ? (m.s/m.n)*30 : 50);
+      renderScores(avgTemp, avgPrecip, parseFloat(lat));
     } catch {
       grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:32px 0;color:rgba(240,250,249,.35);font-size:13px;">Could not load data. Try another city.</div>`;
     }
