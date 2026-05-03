@@ -361,7 +361,7 @@ async function signUp() {
   if (error) { err.textContent = error.message; err.classList.remove('hidden'); return; }
   // Supabase requires email confirmation by default — session will be null until confirmed
   if (data.session) {
-    showAuthSuccess(`Welcome to Dropped, ${username}!`);
+    showAuthSuccess(`Welcome to convotrek, ${username}!`);
   } else {
     showAuthSuccess(`Check your email at ${email} and click the confirmation link, then come back to log in.`, true);
   }

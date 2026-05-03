@@ -1333,7 +1333,7 @@ function exportItinerary() {
     <div class="section-title">Itinerary</div>
     <div class="itin-wrap">${dayColumns}</div>
     ${todoPanel}
-    <div class="footer">Planned with <strong>Dropped</strong></div>
+    <div class="footer">Planned with <strong>convotrek</strong></div>
   </div>
   <script>setTimeout(()=>window.print(),500)<\/script></body></html>`;
 
@@ -1378,7 +1378,7 @@ function shareTripPlan() {
   });
 
   if (totalSpend > 0) lines.push(`💰 Planned spend: ~$${totalSpend}`);
-  lines.push('✨ Planned with Dropped');
+  lines.push('✨ Planned with convotrek');
 
   const text = lines.join('\n');
 
@@ -1956,8 +1956,8 @@ function renderHero() {
 
   if (!currentTrip) {
     startSplash();
-    cityEl.textContent     = 'Dropped';
-    tripNameEl.textContent = 'Create or select a trip to begin planning';
+    cityEl.textContent     = 'Where to next?';
+    tripNameEl.textContent = 'Create a new trip or pick up where you left off';
     dateRangeEl.textContent = '';
     return;
   }
