@@ -1715,6 +1715,16 @@ body.light-mode .bttg-best-banner { background: rgba(52,211,153,.05); }
 .bttg-tabs-scroll {
   position: relative; margin-bottom: 24px;
 }
+.bttg-scroll-track {
+  position: relative; height: 2px; border-radius: 2px;
+  background: rgba(106,154,184,.1); margin-top: 10px; overflow: hidden;
+}
+.bttg-scroll-thumb {
+  position: absolute; top: 0; height: 100%; border-radius: 2px;
+  background: #6a9ab8; transition: left .08s linear, opacity .3s;
+}
+body.light-mode .bttg-scroll-track { background: rgba(106,154,184,.18); }
+body.light-mode .bttg-scroll-thumb { background: #5283a0; }
 .bttg-city-tabs {
   display: flex; flex-wrap: nowrap; gap: 8px;
   overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;

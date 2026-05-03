@@ -829,6 +829,7 @@
   <div class="bttg-wrap">
     <div class="bttg-tabs-scroll">
       <div class="bttg-city-tabs" id="bttg-tabs"></div>
+      <div class="bttg-scroll-track"><div class="bttg-scroll-thumb" id="bttg-scroll-thumb"></div></div>
     </div>
     <div id="bttg-grid" class="bttg-grid-v2"></div>
     <div id="bttg-best" class="bttg-best-banner" style="display:none;"></div>
@@ -1088,6 +1089,20 @@ document.addEventListener('DOMContentLoaded', function() {
     e.preventDefault();
     tabsEl.scrollLeft = dragScrollLeft - (e.pageX - tabsEl.offsetLeft - dragStartX);
   });
+
+  /* ── scroll progress bar ── */
+  const thumb = document.getElementById('bttg-scroll-thumb');
+  function updateThumb() {
+    const ratio = tabsEl.scrollWidth - tabsEl.clientWidth;
+    if (ratio <= 0) { thumb.style.opacity = '0'; return; }
+    const pct = tabsEl.scrollLeft / ratio;
+    const w = tabsEl.clientWidth / tabsEl.scrollWidth;
+    thumb.style.width = (w * 100) + '%';
+    thumb.style.left  = (pct * (1 - w) * 100) + '%';
+    thumb.style.opacity = '1';
+  }
+  tabsEl.addEventListener('scroll', updateThumb, { passive: true });
+  setTimeout(updateThumb, 50);
 
   tabsEl.addEventListener('click', function(e) {
     const btn = e.target.closest('.bttg-city-tab');
