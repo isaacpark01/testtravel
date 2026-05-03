@@ -85,8 +85,9 @@ body {
   width: 30px; height: 30px; border-radius: 8px;
   background: rgba(106,154,184,.1); border: 1px solid rgba(106,154,184,.18);
   display: flex; align-items: center; justify-content: center;
-  font-size: 14px; flex-shrink: 0;
+  flex-shrink: 0; color: rgba(240,250,249,.6);
 }
+.nav-tools-item:hover .nav-tools-item-icon { color: #97ace0; }
 .nav-tools-divider { height: 1px; background: rgba(106,154,184,.1); margin: 4px 6px; }
 
 /* light mode nav */
@@ -307,7 +308,7 @@ body.light-mode .btn-planner-outline:hover { background: rgba(255,255,255,.35); 
 }
 .hero-search input::placeholder { color: rgba(240,250,249,.35); }
 .hero-search button {
-  background: linear-gradient(135deg, #5a87b0 0%, #6a9ab8 100%);
+  background: linear-gradient(135deg, #6a9ab8 0%, #5283a0 100%);
   border: none; color: #fff; cursor: pointer;
   padding: 11px 22px; font-size: 14px; font-weight: 700;
   font-family: inherit; border-radius: 100px; flex-shrink: 0;
@@ -428,11 +429,13 @@ body.light-mode .btn-planner-outline:hover { background: rgba(255,255,255,.35); 
   transform: translateY(-3px); box-shadow: 0 16px 44px rgba(0,0,0,.28);
 }
 .tools-card-icon {
-  font-size: 28px; flex-shrink: 0;
+  flex-shrink: 0; color: #97ace0;
   width: 52px; height: 52px; border-radius: 14px;
   background: rgba(106,154,184,.1); border: 1px solid rgba(106,154,184,.18);
   display: flex; align-items: center; justify-content: center;
+  transition: color .2s;
 }
+.tools-card:hover .tools-card-icon { color: #f0faf9; }
 .tools-card-body { flex: 1; min-width: 0; }
 .tools-card-title { font-size: 16px; font-weight: 700; color: #f0faf9; margin-bottom: 6px; }
 .tools-card-desc { font-size: 13px; color: rgba(240,250,249,.45); line-height: 1.6; margin-bottom: 12px; }
