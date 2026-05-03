@@ -1715,13 +1715,6 @@ body.light-mode .bttg-best-banner { background: rgba(52,211,153,.05); }
 .bttg-tabs-scroll {
   position: relative; margin-bottom: 24px;
 }
-.bttg-tabs-scroll::before,
-.bttg-tabs-scroll::after {
-  content: ''; position: absolute; top: 0; bottom: 4px; width: 48px;
-  z-index: 2; pointer-events: none;
-}
-.bttg-tabs-scroll::before { left: 0; background: linear-gradient(to right, #080c14 20%, transparent); }
-.bttg-tabs-scroll::after  { right: 0; background: linear-gradient(to left,  #080c14 20%, transparent); }
 .bttg-city-tabs {
   display: flex; flex-wrap: nowrap; gap: 8px;
   overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
@@ -1790,13 +1783,11 @@ body.light-mode .bttg-pill-fair  { background: rgba(251,191,36,.2);   color: #b4
 body.light-mode .bttg-pill-avoid { background: rgba(239,68,68,.14);   color: #dc2626; }
 body.light-mode .bttg-best-banner { background: rgba(52,211,153,.08); border-color: rgba(52,211,153,.25); color: rgba(15,23,42,.65); }
 body.light-mode .bttg-best-banner strong { color: #059669; }
-body.light-mode .bttg-tabs-scroll::before { background: linear-gradient(to right, #f0f4f8 20%, transparent); }
-body.light-mode .bttg-tabs-scroll::after  { background: linear-gradient(to left,  #f0f4f8 20%, transparent); }
 body.light-mode .bttg-city-tab { background: rgba(106,154,184,.08); border-color: rgba(106,154,184,.2); color: rgba(15,23,42,.5); }
 body.light-mode .bttg-city-tab:hover { background: rgba(106,154,184,.15); color: #0f172a; }
 body.light-mode .bttg-city-tab.active { background: #6a9ab8; border-color: #6a9ab8; color: #fff; }
 body.light-mode .bttg-legend-row { border-top-color: rgba(106,154,184,.15); }
-body.light-mode .bttg-leg-v2 { color: rgba(15,23,42,.4); }
+body.light-mode .bttg-leg-v2 { color: rgba(15,23,42,.65); }
 
 /* ── Price Alerts Section ── */
 .price-alert-section { background: linear-gradient(135deg, rgba(106,154,184,.06) 0%, rgba(151,172,224,.04) 100%); border-top: 1px solid rgba(106,154,184,.1); border-bottom: 1px solid rgba(106,154,184,.1); padding: 72px 20px; }
