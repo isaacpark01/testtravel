@@ -842,7 +842,7 @@
       <div class="bttg-leg-v2"><span class="bttg-leg-dot" style="background:#34d399"></span>Great</div>
       <div class="bttg-leg-v2"><span class="bttg-leg-dot" style="background:#fbbf24"></span>Fair</div>
       <div class="bttg-leg-v2"><span class="bttg-leg-dot" style="background:#ef4444"></span>Avoid</div>
-      <div class="bttg-leg-v2 bttg-leg-caption" id="bttg-legend-caption">Based on weather · crowds · prices</div>
+      <div class="bttg-leg-v2 bttg-leg-caption">Based on historical climate data</div>
     </div>
   </div>
 </section>
@@ -1068,12 +1068,11 @@ function renderBestTime(cityKey) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  const popularLabels = {
-    paris:'Paris', london:'London', nyc:'New York', tokyo:'Tokyo',
-    bali:'Bali', barcelona:'Barcelona', rome:'Rome', bangkok:'Bangkok',
-    dubai:'Dubai', amsterdam:'Amsterdam', kyoto:'Kyoto',
-    singapore:'Singapore', cancun:'Cancun', prague:'Prague', maldives:'Maldives'
-  };
+  const suggestions = [
+    'Paris','London','New York','Tokyo','Bali','Barcelona',
+    'Rome','Bangkok','Dubai','Amsterdam','Kyoto',
+    'Singapore','Cancun','Prague','Maldives'
+  ];
 
   const searchEl = document.getElementById('bttg-search');
   const clearBtn = document.getElementById('bttg-search-clear');
@@ -1081,151 +1080,115 @@ document.addEventListener('DOMContentLoaded', function() {
   const labelEl  = document.getElementById('bttg-selected-label');
   const grid     = document.getElementById('bttg-grid');
   const banner   = document.getElementById('bttg-best');
-  let debounceTimer, currentLat, currentLon;
-
-  /* ── Render from prebuilt BTTG data ── */
-  function renderHardcoded(key) {
-    renderBestTime(key);
-  }
-
-  /* ── Render from API weather arrays ── */
-  function renderWeatherData(monthlyTemp, monthlyPrecip, cityName) {
-    const IDEAL = 19; // °C sweet spot
-    grid.innerHTML = MONTHS.map((m, i) => {
-      const temp = monthlyTemp[i], precip = monthlyPrecip[i];
-      const dist = Math.abs(temp - IDEAL);
-      const tempScore = dist < 5 ? 5 : dist < 10 ? 4 : dist < 15 ? 3 : dist < 20 ? 2 : 1;
-      const precipScore = precip < 30 ? 5 : precip < 60 ? 4 : precip < 100 ? 3 : precip < 160 ? 2 : 1;
-      const score = Math.round((tempScore * 2 + precipScore) / 3);
-      const isSweet = score >= 4;
-      let pillClass, pillLabel;
-      if (score >= 4) { pillClass = 'bttg-pill-great'; pillLabel = 'Great'; }
-      else if (score === 3) { pillClass = 'bttg-pill-fair'; pillLabel = 'Fair'; }
-      else { pillClass = 'bttg-pill-avoid'; pillLabel = 'Avoid'; }
-      return `<div class="bttg-month-v2${isSweet ? ' sweet' : ''}">
-        <div class="bttg-month-v2-name">${m}</div>
-        <span class="bttg-month-pill ${pillClass}">${pillLabel}</span>
-      </div>`;
-    }).join('');
-    const greatMonths = MONTHS.filter((_, i) => {
-      const dist = Math.abs(monthlyTemp[i] - IDEAL);
-      const t = dist < 5 ? 5 : dist < 10 ? 4 : dist < 15 ? 3 : dist < 20 ? 2 : 1;
-      const p = monthlyPrecip[i] < 30 ? 5 : monthlyPrecip[i] < 60 ? 4 : monthlyPrecip[i] < 100 ? 3 : monthlyPrecip[i] < 160 ? 2 : 1;
-      return Math.round((t * 2 + p) / 3) >= 4;
-    });
-    if (greatMonths.length) {
-      banner.innerHTML = `<strong>Best months:</strong> ${greatMonths.join(', ')} — ideal weather conditions based on historical climate data.`;
-      banner.style.display = 'block';
-    } else {
-      banner.style.display = 'none';
-    }
-  }
-
-  /* ── Fetch weather from Open-Meteo ── */
-  async function fetchWeather(lat, lon, cityName) {
-    grid.innerHTML = `<div class="bttg-loading" style="grid-column:1/-1;text-align:center;padding:32px 0;color:rgba(240,250,249,.35);font-size:13px;">
-      <svg style="animation:spin 1s linear infinite;display:block;margin:0 auto 10px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-      Fetching climate data…
-    </div>`;
-    banner.style.display = 'none';
-    try {
-      const end = new Date().getFullYear() - 1;
-      const start = end - 2;
-      const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${start}-01-01&end_date=${end}-12-31&daily=temperature_2m_mean,precipitation_sum&timezone=auto`;
-      const res = await fetch(url);
-      if (!res.ok) throw new Error('API error');
-      const data = await res.json();
-      const dates = data.daily.time;
-      const temps = data.daily.temperature_2m_mean;
-      const precips = data.daily.precipitation_sum;
-      const monthTemp = Array(12).fill(0).map(() => ({ sum: 0, count: 0 }));
-      const monthPrecip = Array(12).fill(0).map(() => ({ sum: 0, count: 0 }));
-      dates.forEach((d, i) => {
-        const mo = new Date(d).getMonth();
-        if (temps[i] != null)   { monthTemp[mo].sum += temps[i];   monthTemp[mo].count++; }
-        if (precips[i] != null) { monthPrecip[mo].sum += precips[i]; monthPrecip[mo].count++; }
-      });
-      const avgTemp   = monthTemp.map(m => m.count ? m.sum / m.count : 15);
-      const totalPrecip = monthPrecip.map(m => m.count ? (m.sum / (m.count / 30)) : 50);
-      renderWeatherData(avgTemp, totalPrecip, cityName);
-    } catch {
-      grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:32px 0;color:rgba(240,250,249,.35);font-size:13px;">Could not load data. Try another city.</div>`;
-    }
-  }
-
-  /* ── Geocoding search ── */
-  function showPopular() {
-    dropdown.innerHTML = `<div class="bttg-drop-header">Popular</div>` +
-      Object.entries(popularLabels).map(([k, v]) =>
-        `<div class="bttg-drop-item" data-key="${k}" data-label="${v}">${v}</div>`
-      ).join('');
-    dropdown.classList.add('open');
-  }
-
-  async function searchGeo(q) {
-    const res = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&count=8&language=en&format=json`);
-    const data = await res.json();
-    return data.results || [];
-  }
-
-  function closeDropdown() { dropdown.classList.remove('open'); dropdown.innerHTML = ''; }
+  let debounceTimer;
 
   function setClear(show) {
     clearBtn.style.opacity = show ? '1' : '0';
     clearBtn.style.pointerEvents = show ? 'auto' : 'none';
   }
+  function closeDropdown() { dropdown.classList.remove('open'); dropdown.innerHTML = ''; }
 
-  searchEl.addEventListener('focus', () => {
-    if (!searchEl.value) showPopular();
-  });
+  function dropItem(label, country, lat, lon) {
+    const sub = country ? `<span class="bttg-drop-country">${country}</span>` : '';
+    return `<div class="bttg-drop-item" data-lat="${lat}" data-lon="${lon}" data-label="${label}" data-country="${country}">${label}${sub}</div>`;
+  }
+
+  function showSuggestions() {
+    dropdown.innerHTML = suggestions.map(v => `<div class="bttg-drop-item" data-suggest="${v}">${v}</div>`).join('');
+    dropdown.classList.add('open');
+  }
+
+  async function liveSearch(q) {
+    const res = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&count=8&language=en&format=json`);
+    const data = await res.json();
+    return data.results || [];
+  }
+
+  function renderWeatherData(monthlyTemp, monthlyPrecip) {
+    const IDEAL = 19;
+    function score(t, p) {
+      const dist = Math.abs(t - IDEAL);
+      const ts = dist < 5 ? 5 : dist < 10 ? 4 : dist < 15 ? 3 : dist < 20 ? 2 : 1;
+      const ps = p < 30 ? 5 : p < 60 ? 4 : p < 100 ? 3 : p < 160 ? 2 : 1;
+      return Math.round((ts * 2 + ps) / 3);
+    }
+    grid.innerHTML = MONTHS.map((m, i) => {
+      const s = score(monthlyTemp[i], monthlyPrecip[i]);
+      const isSweet = s >= 4;
+      const [pillClass, pillLabel] = s >= 4 ? ['bttg-pill-great','Great'] : s === 3 ? ['bttg-pill-fair','Fair'] : ['bttg-pill-avoid','Avoid'];
+      return `<div class="bttg-month-v2${isSweet?' sweet':''}"><div class="bttg-month-v2-name">${m}</div><span class="bttg-month-pill ${pillClass}">${pillLabel}</span></div>`;
+    }).join('');
+    const great = MONTHS.filter((_, i) => score(monthlyTemp[i], monthlyPrecip[i]) >= 4);
+    banner.innerHTML = great.length ? `<strong>Best months:</strong> ${great.join(', ')} — based on historical climate data.` : '';
+    banner.style.display = great.length ? 'block' : 'none';
+  }
+
+  async function fetchAndRender(lat, lon) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:32px 0;color:rgba(240,250,249,.35);font-size:13px;"><svg style="animation:spin 1s linear infinite;display:block;margin:0 auto 10px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Fetching climate data…</div>`;
+    banner.style.display = 'none';
+    try {
+      const end = new Date().getFullYear() - 1, start = end - 2;
+      const res = await fetch(`https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${start}-01-01&end_date=${end}-12-31&daily=temperature_2m_mean,precipitation_sum&timezone=auto`);
+      if (!res.ok) throw 0;
+      const data = await res.json();
+      const mT = Array(12).fill(null).map(() => ({s:0,n:0}));
+      const mP = Array(12).fill(null).map(() => ({s:0,n:0}));
+      data.daily.time.forEach((d, i) => {
+        const mo = new Date(d).getMonth();
+        if (data.daily.temperature_2m_mean[i] != null) { mT[mo].s += data.daily.temperature_2m_mean[i]; mT[mo].n++; }
+        if (data.daily.precipitation_sum[i] != null)   { mP[mo].s += data.daily.precipitation_sum[i];   mP[mo].n++; }
+      });
+      renderWeatherData(mT.map(m => m.n ? m.s/m.n : 15), mP.map(m => m.n ? (m.s/m.n)*30 : 50));
+    } catch {
+      grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:32px 0;color:rgba(240,250,249,.35);font-size:13px;">Could not load data. Try another city.</div>`;
+    }
+  }
+
+  async function selectResult(label, country, lat, lon) {
+    const display = country ? `${label}, ${country}` : label;
+    searchEl.value = display; setClear(true);
+    labelEl.textContent = display; labelEl.style.display = 'block';
+    closeDropdown();
+    await fetchAndRender(lat, lon);
+  }
+
+  searchEl.addEventListener('focus', () => { if (!searchEl.value) showSuggestions(); });
 
   searchEl.addEventListener('input', () => {
     const q = searchEl.value.trim();
     setClear(!!q);
     clearTimeout(debounceTimer);
-    if (!q) { showPopular(); return; }
-    /* Filter popular first for instant feel */
-    const popMatches = Object.entries(popularLabels)
-      .filter(([k, v]) => v.toLowerCase().includes(q.toLowerCase()))
-      .map(([k, v]) => `<div class="bttg-drop-item" data-key="${k}" data-label="${v}">${v}</div>`).join('');
-    dropdown.innerHTML = (popMatches ? `<div class="bttg-drop-header">Popular</div>${popMatches}` : '') +
-      `<div class="bttg-drop-item bttg-drop-searching" style="pointer-events:none;opacity:.45;font-style:italic;">Searching…</div>`;
+    if (!q) { showSuggestions(); return; }
+    dropdown.innerHTML = `<div class="bttg-drop-item" style="pointer-events:none;opacity:.4;font-style:italic;">Searching…</div>`;
     dropdown.classList.add('open');
     debounceTimer = setTimeout(async () => {
       try {
-        const results = await searchGeo(q);
-        const popHtml = popMatches ? `<div class="bttg-drop-header">Popular</div>${popMatches}` : '';
-        const geoHtml = results.length
-          ? `<div class="bttg-drop-header">Results</div>` + results.map(r =>
-              `<div class="bttg-drop-item" data-lat="${r.latitude}" data-lon="${r.longitude}" data-label="${r.name}" data-country="${r.country||''}">${r.name}<span class="bttg-drop-country">${r.admin1 ? r.admin1+', ' : ''}${r.country||''}</span></div>`
-            ).join('')
+        const results = await liveSearch(q);
+        dropdown.innerHTML = results.length
+          ? results.map(r => dropItem(r.name, (r.admin1 ? r.admin1+', ' : '') + (r.country||''), r.latitude, r.longitude)).join('')
           : `<div class="bttg-drop-item" style="pointer-events:none;opacity:.4;">No results found</div>`;
-        dropdown.innerHTML = popHtml + geoHtml;
-        if (!dropdown.classList.contains('open')) dropdown.classList.add('open');
-      } catch { /* keep existing dropdown */ }
+        dropdown.classList.add('open');
+      } catch { closeDropdown(); }
     }, 350);
   });
 
-  dropdown.addEventListener('mousedown', e => {
+  dropdown.addEventListener('mousedown', async e => {
     const item = e.target.closest('.bttg-drop-item');
-    if (!item || item.classList.contains('bttg-drop-searching')) return;
+    if (!item) return;
     e.preventDefault();
-    const label = item.dataset.label;
-    const key   = item.dataset.key;
-    const lat   = item.dataset.lat;
-    const lon   = item.dataset.lon;
-    const country = item.dataset.country || '';
-    searchEl.value = label + (country ? `, ${country}` : '');
-    setClear(true);
-    labelEl.textContent = label + (country ? `, ${country}` : '');
-    labelEl.style.display = 'block';
-    closeDropdown();
-    if (key && BTTG[key]) {
-      renderHardcoded(key);
-    } else {
-      currentLat = lat; currentLon = lon;
-      fetchWeather(lat, lon, label);
+    if (item.dataset.suggest) {
+      const name = item.dataset.suggest;
+      searchEl.value = name; setClear(true);
+      dropdown.innerHTML = `<div class="bttg-drop-item" style="pointer-events:none;opacity:.4;font-style:italic;">Searching…</div>`;
+      try {
+        const results = await liveSearch(name);
+        const r = results[0];
+        if (r) await selectResult(r.name, r.country||'', r.latitude, r.longitude);
+        else closeDropdown();
+      } catch { closeDropdown(); }
+      return;
     }
+    await selectResult(item.dataset.label, item.dataset.country, item.dataset.lat, item.dataset.lon);
   });
 
   clearBtn.addEventListener('click', () => {
@@ -1234,15 +1197,12 @@ document.addEventListener('DOMContentLoaded', function() {
     closeDropdown(); searchEl.focus();
   });
 
-  document.addEventListener('click', e => {
-    if (!e.target.closest('.bttg-search-wrap')) closeDropdown();
-  });
+  document.addEventListener('click', e => { if (!e.target.closest('.bttg-search-wrap')) closeDropdown(); });
 
-  /* Load Paris on init */
-  searchEl.value = 'Paris';
-  labelEl.textContent = 'Paris'; labelEl.style.display = 'block';
-  setClear(true);
-  renderBestTime('paris');
+  /* Init: load Paris via API */
+  liveSearch('Paris').then(results => {
+    if (results[0]) selectResult(results[0].name, results[0].country||'', results[0].latitude, results[0].longitude);
+  });
 });
 
 /* ── Price Alerts ── */
