@@ -291,7 +291,8 @@ body.light-mode .btn-planner-outline:hover { background: rgba(255,255,255,.35); 
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 4px 28px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.07);
   transition: border-color .2s, box-shadow .2s;
-  padding: 5px 5px 5px 18px; gap: 10px; position: relative;
+  padding: 6px 6px 6px 20px; gap: 10px; position: relative;
+  height: 56px; box-sizing: border-box;
 }
 .hero-search:focus-within {
   border-color: rgba(151,172,224,.5);
@@ -303,8 +304,7 @@ body.light-mode .btn-planner-outline:hover { background: rgba(255,255,255,.35); 
 }
 .hero-search input {
   flex: 1; background: transparent; border: none; outline: none;
-  padding: 0; line-height: 1; font-size: 15px; color: #f0faf9; font-family: inherit; min-width: 0;
-  align-self: center;
+  padding: 0; height: 100%; line-height: 1; font-size: 15px; color: #f0faf9; font-family: inherit; min-width: 0;
 }
 .hero-search input::placeholder { color: rgba(240,250,249,.35); }
 .hero-search button {
