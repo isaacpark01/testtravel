@@ -1756,6 +1756,9 @@ body.light-mode .bttg-best-banner { background: rgba(52,211,153,.05); }
 }
 .bttg-drop-item:hover, .bttg-drop-item.active { background: rgba(106,154,184,.12); color: #f0faf9; }
 .bttg-drop-item.active { color: #6a9ab8; }
+.bttg-drop-header { padding: 8px 18px 4px; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(240,250,249,.25); }
+.bttg-drop-country { display: block; font-size: 11px; color: rgba(240,250,249,.35); font-weight: 400; margin-top: 1px; }
+@keyframes spin { to { transform: rotate(360deg); } }
 .bttg-selected-label {
   text-align: center; font-size: 13px; font-weight: 600; letter-spacing: .05em;
   text-transform: uppercase; color: rgba(240,250,249,.35); margin-bottom: 18px;
@@ -1772,6 +1775,8 @@ body.light-mode .bttg-dropdown { background: #fff; border-color: rgba(106,154,18
 body.light-mode .bttg-drop-item { color: rgba(15,23,42,.65); }
 body.light-mode .bttg-drop-item:hover, body.light-mode .bttg-drop-item.active { background: rgba(106,154,184,.08); color: #0f172a; }
 body.light-mode .bttg-drop-item.active { color: #5283a0; }
+body.light-mode .bttg-drop-header { color: rgba(15,23,42,.3); }
+body.light-mode .bttg-drop-country { color: rgba(15,23,42,.4); }
 body.light-mode .bttg-selected-label { color: rgba(15,23,42,.4); }
 .bttg-grid-v2 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
 @media (max-width: 540px) { .bttg-grid-v2 { grid-template-columns: repeat(4, 1fr); gap: 8px; } }
