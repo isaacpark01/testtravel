@@ -74,7 +74,7 @@
       --pink: #f472b6; --orange: #fb923c; --gold: #fbbf24;
       --grad-primary: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 100%);
       --grad-glow: linear-gradient(135deg, rgba(151,172,224,.18) 0%, rgba(106,154,184,.18) 100%);
-      --bg: #0b1120; --surface: #0f1929; --card: #111827;
+      --bg: #080c14; --surface: #0d1220; --card: #0f1929;
       --border: rgba(255,255,255,.07); --border-hover: rgba(151,172,224,.3);
       --text: #f0faf9; --text-sub: #94a3b8; --text-dim: #64748b; --text-muted: #334155;
     }
@@ -98,49 +98,54 @@
     /* ── Nav ───────────────────────────────────────────────────── */
     .top-nav {
       display: flex; align-items: center; gap: 10px;
-      padding: 0 18px; height: 52px; min-height: 52px;
-      background: #0f1929; border-bottom: 1px solid rgba(255,255,255,.06);
+      padding: 0 18px; height: 56px; min-height: 56px;
+      background: rgba(8,12,20,.95);
+      border-bottom: 1px solid rgba(106,154,184,.12);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
       z-index: 200; flex-shrink: 0;
     }
     .nav-logo {
-      font-weight: 800; font-size: 17px;
-      color: #e8edf5; -webkit-text-fill-color: #e8edf5;
-      text-decoration: none; white-space: nowrap; flex-shrink: 0; letter-spacing: -.5px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800; font-size: 18px;
+      color: #f0faf9; -webkit-text-fill-color: #f0faf9;
+      text-decoration: none; white-space: nowrap; flex-shrink: 0; letter-spacing: -.4px;
       display: flex; align-items: center; gap: 8px;
     }
-    .nav-logo .logo-img { height: 24px; width: auto; display: block; flex-shrink: 0; transition: filter .3s ease; }
-    .nav-sep { width: 1px; height: 20px; background: rgba(255,255,255,.08); flex-shrink: 0; }
+    .nav-logo .logo-img { height: 24px; width: auto; display: block; flex-shrink: 0; }
+    .nav-sep { width: 1px; height: 22px; background: rgba(106,154,184,.2); flex-shrink: 0; }
     .nav-center { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
     .trip-name-input {
       background: transparent; border: none; outline: none;
       font-size: 14px; font-weight: 700; color: #f0faf9; width: 100%;
+      font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: -.2px;
     }
-    .trip-name-input::placeholder { color: #334155; }
-    .nav-date-range { font-size: 11px; color: #64748b; }
-    .nav-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .trip-name-input::placeholder { color: rgba(240,250,249,.25); }
+    .nav-date-range { font-size: 11px; color: rgba(240,250,249,.35); letter-spacing: .02em; }
+    .nav-right { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
     .btn-primary {
-      background: linear-gradient(135deg, #0d9488 0%, #97ace0 100%); border: none; border-radius: 20px;
-      color: #fff; font-size: 13px; font-weight: 700; padding: 8px 16px;
-      cursor: pointer; white-space: nowrap; transition: opacity .15s, transform .1s, box-shadow .15s; flex-shrink: 0;
-      box-shadow: 0 2px 14px rgba(106,154,184,.4);
+      background: linear-gradient(135deg, #6a9ab8 0%, #5283a0 100%); border: none; border-radius: 20px;
+      color: #fff; font-size: 13px; font-weight: 700; padding: 8px 18px;
+      cursor: pointer; white-space: nowrap; transition: all .18s; flex-shrink: 0;
+      box-shadow: 0 2px 14px rgba(106,154,184,.35); font-family: inherit;
     }
-    .btn-primary:hover { opacity: .9; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(106,154,184,.5); }
+    .btn-primary:hover { background: linear-gradient(135deg, #7ab0cc 0%, #5a8aab 100%); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(106,154,184,.5); }
     .btn-primary:active { transform: translateY(0); }
     .btn-ghost {
-      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.09);
-      border-radius: 8px; color: #94a3b8; font-size: 12px; font-weight: 600;
+      background: rgba(255,255,255,.04); border: 1px solid rgba(151,172,224,.12);
+      border-radius: 8px; color: rgba(240,250,249,.5); font-size: 12px; font-weight: 600;
       padding: 6px 12px; cursor: pointer; white-space: nowrap;
       text-decoration: none; display: inline-flex; align-items: center;
-      transition: all .15s; flex-shrink: 0;
+      transition: all .15s; flex-shrink: 0; font-family: inherit;
     }
-    .btn-ghost:hover { background: rgba(255,255,255,.08); color: #e2e8f0; }
+    .btn-ghost:hover { background: rgba(106,154,184,.1); border-color: rgba(106,154,184,.3); color: #f0faf9; }
     .trips-dropdown-wrap { position: relative; }
     .trips-dropdown-btn {
-      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.09);
-      border-radius: 8px; color: #94a3b8; font-size: 12px; font-weight: 600;
-      padding: 6px 12px; cursor: pointer; white-space: nowrap; transition: all .15s;
+      background: rgba(106,154,184,.08); border: 1px solid rgba(106,154,184,.2);
+      border-radius: 20px; color: #6a9ab8; font-size: 12px; font-weight: 700;
+      padding: 6px 14px; cursor: pointer; white-space: nowrap; transition: all .15s;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
-    .trips-dropdown-btn:hover { background: rgba(255,255,255,.08); color: #e2e8f0; }
+    .trips-dropdown-btn:hover { background: rgba(106,154,184,.15); border-color: rgba(106,154,184,.35); color: #f0faf9; }
     .trips-dropdown-menu {
       position: absolute; top: calc(100% + 6px); right: 0; min-width: 220px;
       background: #1a2742; border: 1px solid rgba(255,255,255,.1);
@@ -205,22 +210,23 @@
     /* ── Tab bar ───────────────────────────────────────────────── */
     .tab-bar {
       display: flex; align-items: center; gap: 2px;
-      padding: 0 10px; height: 50px; min-height: 50px;
-      background: rgba(11,17,32,.96); border-bottom: 1px solid rgba(94,234,212,.1);
+      padding: 0 12px; height: 48px; min-height: 48px;
+      background: rgba(8,12,20,.9); border-bottom: 1px solid rgba(106,154,184,.1);
       flex-shrink: 0; overflow-x: auto; z-index: 10; -webkit-overflow-scrolling: touch;
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     }
     .tab-bar::-webkit-scrollbar { display: none; }
     .tab-btn {
       background: none; border: 1px solid transparent; border-radius: 20px;
-      color: #475569; font-size: 12px; font-weight: 700; padding: 6px 14px;
+      color: rgba(240,250,249,.35); font-size: 12px; font-weight: 700; padding: 6px 14px;
       cursor: pointer; white-space: nowrap; flex-shrink: 0;
-      transition: all .2s; letter-spacing: .01em; position: relative;
+      transition: all .2s; letter-spacing: .02em; position: relative;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
-    .tab-btn:hover { color: #94a3b8; background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.08); }
+    .tab-btn:hover { color: rgba(240,250,249,.7); background: rgba(106,154,184,.07); border-color: rgba(106,154,184,.15); }
     .tab-btn.active {
-      background: rgba(94,234,212,.08); border-color: rgba(94,234,212,.28); color: #5eead4;
-      box-shadow: 0 0 16px rgba(94,234,212,.12);
+      background: rgba(106,154,184,.12); border-color: rgba(106,154,184,.35); color: #6a9ab8;
+      box-shadow: 0 0 16px rgba(106,154,184,.12);
     }
     .tab-bar-spacer { flex: 1; }
     .saves-count-badge {
@@ -2102,7 +2108,7 @@
 
 <!-- Nav -->
 <nav class="top-nav">
-  <a class="nav-logo" href="index.html" style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;letter-spacing:-.4px;"><img class="logo-img" src="/convotrek.png" alt="convotrek logo"> convotrek</a>
+  <a class="nav-logo" href="index.html"><img class="logo-img" src="/convotrek.png" alt="convotrek logo"> convotrek</a>
   <div class="nav-sep"></div>
   <div class="nav-center">
     <input id="trip-name-input" class="trip-name-input" placeholder="This trip needs a name..." autocomplete="off" />
