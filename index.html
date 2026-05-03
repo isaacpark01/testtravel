@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="robots" content="noindex, nofollow" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#0d9488" />
+  <meta name="theme-color" content="#080c14" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -274,11 +274,19 @@
     <nav class="header-nav">
       <a href="#cities" data-i18n="navExplore" onclick="scrollToCities()">Explore</a>
       <a href="planner.html" data-i18n="navPlanner">Planner</a>
-      <a href="globe.html">Globe</a>
       <a href="#deals" data-i18n="navDeals">Deals</a>
-      <a href="visa.html">Visa</a>
-      <a href="trips.html">Trips</a>
-      <a href="split.html">Splitter</a>
+      <div class="nav-tools-wrap" id="nav-tools-wrap">
+        <button class="nav-tools-btn" onclick="toggleToolsMenu()" aria-haspopup="true" aria-expanded="false">
+          Tools
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-tools-menu" role="menu">
+          <a href="globe.html" class="nav-tools-item" role="menuitem"><span class="nav-tools-item-icon">🌍</span>Globe Explorer</a>
+          <a href="visa.html" class="nav-tools-item" role="menuitem"><span class="nav-tools-item-icon">🛂</span>Visa Checker</a>
+          <a href="trips.html" class="nav-tools-item" role="menuitem"><span class="nav-tools-item-icon">🗺️</span>Curated Trips</a>
+          <a href="split.html" class="nav-tools-item" role="menuitem"><span class="nav-tools-item-icon">💸</span>Cost Splitter</a>
+        </div>
+      </div>
     </nav>
     <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode">
       <span class="toggle-knob">
@@ -309,32 +317,33 @@
 
   <div class="hero-content">
     <div class="hero-left">
-      <div class="hero-eyebrow"><span class="eyebrow-plane">✈</span> Less searching. More going.</div>
-      <h1 class="hero-title">Ready to unbox<br>your next <span class="teal-text">trip?</span></h1>
-      <p class="hero-sub">Discover handpicked cities, plan your perfect itinerary, and find deals that fit your budget.</p>
+      <div class="hero-eyebrow"><span class="eyebrow-plane">✈</span> Plan smarter. Wander further.</div>
+      <h1 class="hero-title">The world is yours.<br><span class="teal-text">Plan it.</span></h1>
+      <p class="hero-sub">50+ handpicked destinations. AI-powered itineraries. Deals, visas, and cost splitting — all in one place. Free forever.</p>
 
-      <div class="hero-search" style="margin-top:32px;margin-bottom:24px">
+      <div class="hero-search" style="margin-top:36px;margin-bottom:28px">
         <span class="hero-search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-        <input id="city-search" type="text" placeholder="Search a destination…" autocomplete="off" onkeydown="if(event.key==='Enter')searchCity()" />
-        <button onclick="searchCity()">Search <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+        <input id="city-search" type="text" placeholder="Where to? Tokyo, Bali, Paris…" autocomplete="off" onkeydown="if(event.key==='Enter')searchCity()" />
+        <button onclick="searchCity()">Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
         <div id="search-suggestions" class="search-suggestions hidden" style="position:absolute;top:calc(100% + 10px);left:0;right:0;z-index:200"></div>
       </div>
 
       <div class="hero-trust">
         <div class="hero-trust-avatars">
-          <div class="hero-trust-avatar" style="background:#5a87b0">AK</div>
-          <div class="hero-trust-avatar" style="background:#7c6db5">JL</div>
-          <div class="hero-trust-avatar" style="background:#3d8c7a">MR</div>
-          <div class="hero-trust-avatar" style="background:#b56d6d">SP</div>
+          <div class="hero-trust-avatar" style="background:#4a7aa8">AK</div>
+          <div class="hero-trust-avatar" style="background:#6d5ea5">JL</div>
+          <div class="hero-trust-avatar" style="background:#2d7c6a">MR</div>
+          <div class="hero-trust-avatar" style="background:#9e5a5a">SP</div>
+          <div class="hero-trust-avatar" style="background:#5a6a9e">TW</div>
         </div>
         <div class="hero-trust-divider"></div>
         <div class="hero-trust-info">
           <div class="hero-trust-stars">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="#fbbf24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="#fbbf24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="#fbbf24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="#fbbf24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="#fbbf24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#fbbf24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#fbbf24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#fbbf24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#fbbf24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#fbbf24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <div class="hero-trust-copy"><strong>10,000+</strong> trips planned</div>
         </div>
@@ -414,38 +423,47 @@
   </div>
 </section>
 
-<!-- ══ GLOBE EXPLORER ═══════════════════════════════════════════ -->
-<section class="globe-embed-section">
-  <div class="ge-header reveal">
-    <span class="section-eyebrow ge-eyebrow">🌍 Live World Explorer</span>
-    <h2 class="ge-title">Your Next Destination Is Out There</h2>
-    <p class="ge-sub">Click any continent to zoom in · Search any city to explore</p>
-  </div>
-
-  <div class="ge-wrap">
-    <div class="ge-corner ge-tl"></div>
-    <div class="ge-corner ge-tr"></div>
-    <div class="ge-corner ge-bl"></div>
-    <div class="ge-corner ge-br"></div>
-    <div class="ge-search-wrap">
-      <input id="home-globe-search" class="ge-search" type="text" placeholder="🔍  Search cities or continents…" autocomplete="off" />
-      <div id="home-globe-results" class="ge-results"></div>
+<!-- ══ TOOLS SPOTLIGHT ═══════════════════════════════════════════ -->
+<section class="tools-spotlight-section">
+  <div class="tools-spotlight-inner">
+    <div class="tools-spotlight-header reveal">
+      <span class="section-eyebrow">Everything you need</span>
+      <h2 class="tools-spotlight-title">More than a planner</h2>
     </div>
-    <div id="home-globe-div" class="ge-div"></div>
-    <div class="ge-stats">
-      <div class="ge-stat"><span class="ge-stat-n">101</span><span class="ge-stat-l">Cities</span></div>
-      <div class="ge-stat"><span class="ge-stat-n">8k+</span><span class="ge-stat-l">Spots</span></div>
-      <div class="ge-stat"><span class="ge-stat-n">7</span><span class="ge-stat-l">Regions</span></div>
+    <div class="tools-spotlight-grid">
+      <a href="visa.html" class="tools-card reveal">
+        <div class="tools-card-icon">🛂</div>
+        <div class="tools-card-body">
+          <div class="tools-card-title">Visa Checker</div>
+          <div class="tools-card-desc">Know before you go. Instant visa requirements for 22 passports across 25+ destinations.</div>
+          <div class="tools-card-cta">Check requirements →</div>
+        </div>
+      </a>
+      <a href="trips.html" class="tools-card reveal reveal-delay-1">
+        <div class="tools-card-icon">🗺️</div>
+        <div class="tools-card-body">
+          <div class="tools-card-title">Curated Trips</div>
+          <div class="tools-card-desc">Expert-planned day-by-day itineraries for 8 destinations. Drop them straight into your planner.</div>
+          <div class="tools-card-cta">Browse itineraries →</div>
+        </div>
+      </a>
+      <a href="split.html" class="tools-card reveal reveal-delay-2">
+        <div class="tools-card-icon">💸</div>
+        <div class="tools-card-body">
+          <div class="tools-card-title">Cost Splitter</div>
+          <div class="tools-card-desc">No more awkward money talks. Split trip expenses fairly and see exactly who owes what.</div>
+          <div class="tools-card-cta">Split costs →</div>
+        </div>
+      </a>
+      <a href="globe.html" class="tools-card reveal reveal-delay-3">
+        <div class="tools-card-icon">🌍</div>
+        <div class="tools-card-body">
+          <div class="tools-card-title">Globe Explorer</div>
+          <div class="tools-card-desc">Spin the globe, click any city, and get instant local intel — activities, food, and transport.</div>
+          <div class="tools-card-cta">Explore the globe →</div>
+        </div>
+      </a>
     </div>
-    <div class="ge-city-label" id="ge-city-label">
-      <div class="ge-city-name" id="ge-city-name"></div>
-      <a class="ge-city-link" id="ge-city-link" href="globe.html">Explore →</a>
-    </div>
-    <div class="ge-hint">Click continent to zoom · Drag to rotate</div>
-  </div>
-
-  <div class="ge-footer">
-    <a href="globe.html" class="ge-cta-btn">Open Full Globe Explorer →</a>
   </div>
 </section>
 
@@ -540,12 +558,10 @@
         </div>
       </div>
     </div>
-    <div class="deals-grid-mini" style="margin-top:14px">
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildFlightLink('google',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57C21.36 18.34 22.56 15.52 22.56 12.25z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google Flights</a>
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildFlightLink('kayak',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FF690F"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 3c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm4 13H8v-2l2-3-2-3V8h2v1.5l2 3 2-3V8h2v2l-2 3 2 3v2z"/></svg>Kayak</a>
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildFlightLink('skyscanner',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#0770E3"><path d="M21.5 10.5c0 3.59-2.91 6.5-6.5 6.5a6.47 6.47 0 01-4.5-1.82L4 21.5 2.5 20l6.32-6.5A6.47 6.47 0 018 10.5C8 6.91 10.91 4 14.5 4S21.5 6.91 21.5 10.5zm-2 0C19.5 8.01 17.49 6 15 6s-4.5 2.01-4.5 4.5S12.51 15 15 15s4.5-2.01 4.5-4.5z"/></svg>Skyscanner</a>
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildFlightLink('expedia',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFC72C"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>Expedia</a>
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildFlightLink('priceline',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#003580" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" fill="#003580" stroke="none"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-size="10" font-weight="800" font-family="sans-serif">P</text></svg>Priceline</a>
+    <div class="deals-grid-mini" style="margin-top:18px;gap:12px;">
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildFlightLink('google',this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57C21.36 18.34 22.56 15.52 22.56 12.25z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google Flights</a>
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildFlightLink('skyscanner',this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="#0770E3"><path d="M21.5 10.5c0 3.59-2.91 6.5-6.5 6.5a6.47 6.47 0 01-4.5-1.82L4 21.5 2.5 20l6.32-6.5A6.47 6.47 0 018 10.5C8 6.91 10.91 4 14.5 4S21.5 6.91 21.5 10.5zm-2 0C19.5 8.01 17.49 6 15 6s-4.5 2.01-4.5 4.5S12.51 15 15 15s4.5-2.01 4.5-4.5z"/></svg>Skyscanner</a>
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildFlightLink('kayak',this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FF690F"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 3c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm4 13H8v-2l2-3-2-3V8h2v1.5l2 3 2-3V8h2v2l-2 3 2 3v2z"/></svg>Kayak</a>
     </div>
   </div>
   </div><!-- /deal-tab-panel flights -->
@@ -580,12 +596,10 @@
         </div>
       </div>
     </div>
-    <div class="deals-grid-mini" style="margin-top:14px">
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildHotelLink('booking',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#003580"><rect width="24" height="24" rx="4" fill="#003580"/><text x="12" y="17" text-anchor="middle" fill="#fff" font-size="13" font-weight="900" font-family="sans-serif">B</text></svg>Booking.com</a>
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildHotelLink('hotels',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#D32F2F"><rect width="24" height="24" rx="4" fill="#D32F2F"/><text x="12" y="17" text-anchor="middle" fill="#fff" font-size="11" font-weight="900" font-family="sans-serif">H</text></svg>Hotels.com</a>
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildHotelLink('expedia',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFC72C"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>Expedia</a>
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildHotelLink('google',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57C21.36 18.34 22.56 15.52 22.56 12.25z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google Hotels</a>
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildHotelLink('airbnb',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FF5A5F"><path d="M12 2C8.5 2 7 4.5 7 6.5c0 1.5.5 2.8 1.2 3.8C5 11.5 3 13.5 3 16c0 2.8 2.2 5 5 5 1.5 0 2.8-.6 3.8-1.6.3-.3.7-.4 1.2-.4.5 0 .9.1 1.2.4 1 1 2.3 1.6 3.8 1.6 2.8 0 5-2.2 5-5 0-2.5-2-4.5-5.2-5.7C18.5 9.3 19 8 19 6.5 19 4.5 17.5 2 14 2h-2zm0 2h2c2.3 0 3 1.5 3 2.5 0 1.5-1 3-3 3h-4c-2 0-3-1.5-3-3C7 3.5 7.7 4 10 4h2z"/></svg>Airbnb</a>
+    <div class="deals-grid-mini" style="margin-top:18px;gap:12px;">
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildHotelLink('booking',this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="#003580"><rect width="24" height="24" rx="4" fill="#003580"/><text x="12" y="17" text-anchor="middle" fill="#fff" font-size="13" font-weight="900" font-family="sans-serif">B</text></svg>Booking.com</a>
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildHotelLink('expedia',this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFC72C"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>Expedia</a>
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildHotelLink('airbnb',this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FF5A5F"><path d="M12 2C8.5 2 7 4.5 7 6.5c0 1.5.5 2.8 1.2 3.8C5 11.5 3 13.5 3 16c0 2.8 2.2 5 5 5 1.5 0 2.8-.6 3.8-1.6.3-.3.7-.4 1.2-.4.5 0 .9.1 1.2.4 1 1 2.3 1.6 3.8 1.6 2.8 0 5-2.2 5-5 0-2.5-2-4.5-5.2-5.7C18.5 9.3 19 8 19 6.5 19 4.5 17.5 2 14 2h-2zm0 2h2c2.3 0 3 1.5 3 2.5 0 1.5-1 3-3 3h-4c-2 0-3-1.5-3-3C7 3.5 7.7 4 10 4h2z"/></svg>Airbnb</a>
     </div>
   </div>
   </div><!-- /deal-tab-panel hotels -->
@@ -616,15 +630,12 @@
         </div>
       </div>
     </div>
-    <div class="deals-grid-mini" style="margin-top:14px">
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildCarLink('kayak',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FF690F"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 3c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm4 13H8v-2l2-3-2-3V8h2v1.5l2 3 2-3V8h2v2l-2 3 2 3v2z"/></svg>Kayak Cars</a>
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildCarLink('google',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57C21.36 18.34 22.56 15.52 22.56 12.25z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google</a>
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildCarLink('enterprise',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#00A651"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15H7v-2h6v-2H9a2 2 0 01-2-2V9a2 2 0 012-2h6v2H9v2h4a2 2 0 012 2v2a2 2 0 01-2 2z"/></svg>Enterprise</a>
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildCarLink('hertz',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD100"><path d="M3 3h4v7h10V3h4v18h-4v-7H7v7H3z"/></svg>Hertz</a>
-      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildCarLink('turo',this)" style="display:inline-flex;align-items:center;gap:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#1a1a1a"/><text x="12" y="17" text-anchor="middle" fill="#fff" font-size="10" font-weight="800" font-family="sans-serif">turo</text></svg>Turo</a>
+    <div class="deals-grid-mini" style="margin-top:18px;gap:12px;">
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildCarLink('kayak',this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FF690F"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 3c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm4 13H8v-2l2-3-2-3V8h2v1.5l2 3 2-3V8h2v2l-2 3 2 3v2z"/></svg>Kayak Cars</a>
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildCarLink('enterprise',this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="#00A651"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15H7v-2h6v-2H9a2 2 0 01-2-2V9a2 2 0 012-2h6v2H9v2h4a2 2 0 012 2v2a2 2 0 01-2 2z"/></svg>Enterprise</a>
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildCarLink('turo',this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#1a1a1a"/><text x="12" y="17" text-anchor="middle" fill="#fff" font-size="10" font-weight="800" font-family="sans-serif">turo</text></svg>Turo</a>
     </div>
   </div>
-
   </div><!-- /deal-tab-panel cars -->
 
   <!-- Budget estimator -->
@@ -810,28 +821,21 @@
 
 <!-- ══ BEST TIME TO GO ═══════════════════════════════════════════ -->
 <section class="section" id="best-time" style="padding-top:64px;padding-bottom:64px;">
-  <div class="section-header">
+  <div class="section-header reveal">
     <div class="section-eyebrow">📅 Plan smarter</div>
-    <h2 class="section-title">Best Time to Visit</h2>
-    <p class="section-sub">When should you go? See weather, crowd levels, and price trends by month for any destination.</p>
+    <h2>Best Time to Visit</h2>
+    <p>Pick a city and see at a glance which months are ideal — and which to avoid.</p>
   </div>
-  <div style="max-width:860px;margin:0 auto;padding:0 4px;">
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;">
-      <select id="bttg-city" class="deal-select" style="flex:1;min-width:160px;max-width:280px;" onchange="renderBestTime()">
-        <option value="tokyo">Tokyo, Japan</option>
-        <option value="bali">Bali, Indonesia</option>
-        <option value="paris">Paris, France</option>
-        <option value="nyc">New York City, USA</option>
-        <option value="barcelona">Barcelona, Spain</option>
-        <option value="kyoto">Kyoto, Japan</option>
-        <option value="singapore">Singapore</option>
-        <option value="london">London, UK</option>
-        <option value="rome">Rome, Italy</option>
-        <option value="bangkok">Bangkok, Thailand</option>
-      </select>
-    </div>
-    <div id="bttg-grid" class="bttg-grid"></div>
+  <div class="bttg-wrap">
+    <div class="bttg-city-tabs" id="bttg-tabs"></div>
+    <div id="bttg-grid" class="bttg-grid-v2"></div>
     <div id="bttg-best" class="bttg-best-banner" style="display:none;"></div>
+    <div class="bttg-legend-row">
+      <div class="bttg-leg-v2"><span class="bttg-leg-dot" style="background:#34d399"></span>Great</div>
+      <div class="bttg-leg-v2"><span class="bttg-leg-dot" style="background:#fbbf24"></span>Fair</div>
+      <div class="bttg-leg-v2"><span class="bttg-leg-dot" style="background:#ef4444"></span>Avoid</div>
+      <div class="bttg-leg-v2" style="margin-left:auto;color:rgba(240,250,249,.35);font-size:11px;">Based on weather · crowds · prices</div>
+    </div>
   </div>
 </section>
 
@@ -951,13 +955,13 @@
     <span class="bnav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
     <span class="bnav-label">Planner</span>
   </button>
-  <button class="bnav-btn" onclick="window.location.href='globe.html'">
-    <span class="bnav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4-4-4 4-4z"/></svg></span>
-    <span class="bnav-label">Globe</span>
+  <button class="bnav-btn" onclick="window.location.href='trips.html'">
+    <span class="bnav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6l9-3 9 3M3 18l9 3 9-3"/></svg></span>
+    <span class="bnav-label">Trips</span>
   </button>
-  <button class="bnav-btn" onclick="scrollToSection('deals',this)">
-    <span class="bnav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 00-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></span>
-    <span class="bnav-label">Deals</span>
+  <button class="bnav-btn" onclick="window.location.href='visa.html'">
+    <span class="bnav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M7 15h2M15 15h2"/></svg></span>
+    <span class="bnav-label">Visa</span>
   </button>
   <button class="bnav-btn" onclick="openProfileOrAuth()">
     <span class="bnav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
@@ -968,129 +972,6 @@
 <!-- ══ TOAST ═════════════════════════════════════════════════════ -->
 <div id="share-toast" class="share-toast"></div>
 
-<!-- ══ GLOBE EMBED STYLES ══════════════════════════════════════ -->
-<style>
-.globe-embed-section {
-  padding: 72px 0 60px;
-  background: linear-gradient(180deg, transparent 0%, #020c18 14%, #020c18 86%, transparent 100%);
-  position: relative; overflow: hidden;
-}
-.ge-header { text-align:center; padding:0 24px 28px; }
-.ge-footer  { text-align:center; padding:24px 24px 0; }
-.ge-eyebrow {
-  display:block; font-size:11px; font-weight:700; letter-spacing:.18em;
-  text-transform:uppercase; color:#00d4ff; margin-bottom:10px;
-}
-.ge-title {
-  font-size:clamp(24px,4vw,40px); font-weight:800; line-height:1.15; margin-bottom:10px;
-  background:linear-gradient(130deg,#fff 25%,#38bdf8 60%,#818cf8 100%);
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-}
-.ge-sub { font-size:15px; color:rgba(255,255,255,.42); max-width:480px; margin:0 auto; }
-
-/* ── Full-width wrap ── */
-.ge-wrap {
-  position:relative; width:100%; height:520px; overflow:hidden;
-  background:#020c18;
-  border-top:1px solid rgba(0,212,255,.2); border-bottom:1px solid rgba(0,212,255,.2);
-  box-shadow:0 0 100px rgba(0,212,255,.08) inset;
-  animation:ge-pulse 5s ease-in-out infinite;
-}
-@keyframes ge-pulse {
-  0%,100% { box-shadow:0 0 100px rgba(0,212,255,.06) inset, 0 0 60px rgba(0,212,255,.04); }
-  50%      { box-shadow:0 0 140px rgba(0,212,255,.12) inset, 0 0 80px rgba(0,212,255,.08); }
-}
-.ge-wrap::after {
-  content:''; position:absolute; inset:0; pointer-events:none; z-index:8;
-  background:repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,.03) 3px, rgba(0,0,0,.03) 4px);
-}
-.ge-div { width:100%; height:100%; }
-
-/* ── HUD corners ── */
-.ge-corner { position:absolute; width:26px; height:26px; z-index:12; pointer-events:none; }
-.ge-tl { top:12px; left:12px;  border-top:2px solid #00d4ff; border-left:2px solid #00d4ff;  border-radius:2px 0 0 0; }
-.ge-tr { top:12px; right:12px; border-top:2px solid #00d4ff; border-right:2px solid #00d4ff; border-radius:0 2px 0 0; }
-.ge-bl { bottom:12px; left:12px;  border-bottom:2px solid #00d4ff; border-left:2px solid #00d4ff;  border-radius:0 0 0 2px; }
-.ge-br { bottom:12px; right:12px; border-bottom:2px solid #00d4ff; border-right:2px solid #00d4ff; border-radius:0 0 2px 0; }
-
-/* ── Search (centered overlay) ── */
-.ge-search-wrap {
-  position:absolute; top:16px; left:50%; transform:translateX(-50%);
-  width:min(340px,calc(100% - 100px)); z-index:20;
-}
-.ge-search {
-  width:100%; padding:9px 16px; font-size:13px; font-family:inherit; box-sizing:border-box;
-  background:rgba(2,12,24,.88); border:1px solid rgba(0,212,255,.4);
-  border-radius:28px; color:#fff; outline:none; backdrop-filter:blur(14px);
-  box-shadow:0 0 24px rgba(0,212,255,.1); transition:border-color .2s, box-shadow .2s;
-}
-.ge-search::placeholder { color:rgba(255,255,255,.28); }
-.ge-search:focus { border-color:rgba(0,212,255,.75); box-shadow:0 0 36px rgba(0,212,255,.22); }
-.ge-results {
-  position:absolute; top:calc(100% + 6px); left:0; right:0; display:none;
-  background:rgba(2,12,24,.97); border:1px solid rgba(0,212,255,.2); border-radius:12px;
-  overflow:hidden; box-shadow:0 12px 40px rgba(0,0,0,.8); z-index:30;
-}
-.ge-results.show { display:block; }
-.ge-result {
-  padding:9px 14px; font-size:13px; cursor:pointer; font-family:inherit;
-  display:flex; align-items:center; gap:9px;
-  border-bottom:1px solid rgba(255,255,255,.04); transition:background .12s; color:#fff;
-}
-.ge-result:last-child { border-bottom:none; }
-.ge-result:hover { background:rgba(0,212,255,.1); }
-.ge-result-name { font-weight:700; }
-.ge-result-sub { font-size:11px; color:rgba(255,255,255,.32); margin-left:auto; white-space:nowrap; }
-
-/* ── Stats (bottom-left overlay) ── */
-.ge-stats { position:absolute; bottom:14px; left:14px; z-index:20; display:flex; gap:8px; }
-.ge-stat {
-  display:flex; flex-direction:column; align-items:center;
-  background:rgba(0,0,0,.65); border:1px solid rgba(0,212,255,.22);
-  border-radius:8px; padding:5px 12px; backdrop-filter:blur(10px);
-}
-.ge-stat-n { font-size:14px; font-weight:800; color:#00d4ff; line-height:1.2; }
-.ge-stat-l { font-size:9px; color:rgba(255,255,255,.38); font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
-
-/* ── Selected city label (bottom-right overlay) ── */
-.ge-city-label {
-  position:absolute; bottom:14px; right:14px; z-index:20;
-  background:rgba(0,0,0,.75); border:1px solid rgba(0,212,255,.3);
-  border-radius:10px; padding:8px 12px; backdrop-filter:blur(10px); display:none;
-}
-.ge-city-label.show { display:block; }
-.ge-city-name { font-size:13px; font-weight:700; color:#fff; white-space:nowrap; }
-.ge-city-link { display:block; font-size:11px; color:#00d4ff; margin-top:2px; font-weight:600; text-decoration:none; }
-.ge-city-link:hover { text-decoration:underline; }
-
-/* ── Bottom hint ── */
-.ge-hint {
-  position:absolute; bottom:14px; left:50%; transform:translateX(-50%);
-  font-size:10px; color:rgba(255,255,255,.22); white-space:nowrap;
-  letter-spacing:.06em; pointer-events:none; z-index:20;
-}
-
-/* ── CTA button ── */
-.ge-cta-btn {
-  display:inline-flex; align-items:center; gap:8px;
-  background:linear-gradient(135deg,rgba(0,212,255,.1),rgba(129,140,248,.1));
-  border:1px solid rgba(0,212,255,.3); color:#00d4ff;
-  padding:11px 30px; border-radius:30px; font-size:13px; font-weight:700;
-  text-decoration:none; font-family:inherit;
-  box-shadow:0 0 24px rgba(0,212,255,.08); transition:background .2s, box-shadow .2s, transform .15s;
-}
-.ge-cta-btn:hover {
-  background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(129,140,248,.18));
-  box-shadow:0 0 44px rgba(0,212,255,.22); transform:translateY(-2px);
-}
-.ge-wrap .scene-tooltip { font-family:inherit!important; font-size:12px!important; background:rgba(2,12,24,.95)!important; border:1px solid rgba(0,212,255,.25)!important; border-radius:8px!important; color:#fff!important; padding:5px 10px!important; }
-
-@media(max-width:640px) {
-  .ge-wrap { height:340px; }
-  .ge-hint { display:none; }
-  .ge-stats { gap:5px; }
-}
-</style>
 
 <!-- ══ SCRIPTS ════════════════════════════════════════════════════ -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -1099,6 +980,15 @@
 <script src="travel-apps.js?v=3"></script>
 <script src="app.js?v=3"></script>
 <script>
+function toggleToolsMenu() {
+  const wrap = document.getElementById('nav-tools-wrap');
+  const isOpen = wrap.classList.toggle('open');
+  wrap.querySelector('.nav-tools-btn').setAttribute('aria-expanded', isOpen);
+}
+document.addEventListener('click', function(e) {
+  const wrap = document.getElementById('nav-tools-wrap');
+  if (wrap && !wrap.contains(e.target)) { wrap.classList.remove('open'); wrap.querySelector('.nav-tools-btn').setAttribute('aria-expanded','false'); }
+});
 function switchDealTab(tab, btn) {
   document.querySelectorAll('.deals-tab').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.deal-tab-panel').forEach(p => p.classList.remove('active'));
@@ -1135,42 +1025,45 @@ const BTTG_BEST = {
 };
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
-function renderBestTime() {
-  const city = document.getElementById('bttg-city').value;
-  const d = BTTG[city];
+function renderBestTime(cityKey) {
+  const d = BTTG[cityKey];
   if (!d) return;
   const grid = document.getElementById('bttg-grid');
   grid.innerHTML = MONTHS.map((m, i) => {
     const w = d.weather[i], c = d.crowds[i], p = d.price[i];
-    const overall = Math.round((w + (6 - c) + p) / 3);
-    return `<div class="bttg-month">
-      <div class="bttg-month-name">${m}</div>
-      <div class="bttg-dot-row">
-        <div class="bttg-dot bttg-dot-${w}" title="Weather: ${w}/5"></div>
-        <div class="bttg-dot bttg-dot-${6-c}" title="Crowds: ${c}/5 (low=good)"></div>
-        <div class="bttg-dot bttg-dot-${p}" title="Prices: ${p}/5"></div>
-      </div>
-      <div class="bttg-score bttg-score-${overall}">${['','★','★','★★','★★','★★★'][overall]||''}</div>
+    const score = Math.round((w + (6 - c) + p) / 3);
+    const isSweet = score >= 4;
+    let pillClass, pillLabel;
+    if (score >= 4) { pillClass = 'bttg-pill-great'; pillLabel = 'Great'; }
+    else if (score === 3) { pillClass = 'bttg-pill-fair'; pillLabel = 'Fair'; }
+    else { pillClass = 'bttg-pill-avoid'; pillLabel = 'Avoid'; }
+    return `<div class="bttg-month-v2${isSweet ? ' sweet' : ''}">
+      <div class="bttg-month-v2-name">${m}</div>
+      <span class="bttg-month-pill ${pillClass}">${pillLabel}</span>
     </div>`;
   }).join('');
   const banner = document.getElementById('bttg-best');
-  banner.innerHTML = BTTG_BEST[city] || '';
-  banner.style.display = 'block';
+  banner.innerHTML = BTTG_BEST[cityKey] || '';
+  banner.style.display = BTTG_BEST[cityKey] ? 'block' : 'none';
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  renderBestTime();
-  /* ── Best time legend ── */
-  const wrap = document.getElementById('bttg-grid');
-  if (wrap) {
-    const leg = document.createElement('div');
-    leg.className = 'bttg-legend';
-    leg.style.cssText = 'grid-column:1/-1;';
-    leg.innerHTML = [
-      ['#34d399','Weather'],['#86efac','Low crowds'],['#fbbf24','Fair price']
-    ].map(([c,l]) => `<div class="bttg-leg-item"><div style="width:9px;height:9px;border-radius:50%;background:${c};flex-shrink:0;"></div>${l}</div>`).join('');
-    wrap.after(leg);
-  }
+  const tabsEl = document.getElementById('bttg-tabs');
+  const cityKeys = Object.keys(BTTG);
+  const cityLabels = { tokyo:'Tokyo', bali:'Bali', paris:'Paris', rome:'Rome', barcelona:'Barcelona', nyc:'New York', london:'London', bangkok:'Bangkok' };
+  let activeCity = cityKeys[0];
+  tabsEl.innerHTML = cityKeys.map(k =>
+    `<button class="bttg-city-tab${k===activeCity?' active':''}" data-city="${k}">${cityLabels[k]||k}</button>`
+  ).join('');
+  tabsEl.addEventListener('click', function(e) {
+    const btn = e.target.closest('.bttg-city-tab');
+    if (!btn) return;
+    tabsEl.querySelectorAll('.bttg-city-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCity = btn.dataset.city;
+    renderBestTime(activeCity);
+  });
+  renderBestTime(activeCity);
 });
 
 /* ── Price Alerts ── */

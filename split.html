@@ -125,10 +125,16 @@
     <nav class="header-nav">
       <a href="/">Explore</a>
       <a href="/planner.html">Planner</a>
-      <a href="/globe.html">Globe</a>
       <a href="/#deals">Deals</a>
-      <a href="/visa.html">Visa</a>
-      <a href="/trips.html">Trips</a>
+      <div class="nav-tools-wrap" id="nav-tools-wrap">
+        <button class="nav-tools-btn" onclick="toggleToolsMenu()" aria-haspopup="true" aria-expanded="false">Tools <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="nav-tools-menu" role="menu">
+          <a href="/globe.html" class="nav-tools-item"><span class="nav-tools-item-icon">🌍</span>Globe Explorer</a>
+          <a href="/visa.html" class="nav-tools-item"><span class="nav-tools-item-icon">🛂</span>Visa Checker</a>
+          <a href="/trips.html" class="nav-tools-item"><span class="nav-tools-item-icon">🗺️</span>Curated Trips</a>
+          <a href="/split.html" class="nav-tools-item" style="color:#97ace0;"><span class="nav-tools-item-icon">💸</span>Cost Splitter</a>
+        </div>
+      </div>
     </nav>
     <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
       <span class="toggle-knob">
@@ -462,6 +468,36 @@ function toast(msg) {
 
 /* ─ Init ─ */
 render();
+</script>
+
+<!-- ══ SLIM FOOTER ══════════════════════════════════════════════ -->
+<footer class="slim-footer">
+  <div class="slim-footer-inner">
+    <a href="/" class="slim-footer-logo">
+      <img src="travel-logo-5.png" class="logo-img" alt="Travia" style="width:22px;height:22px;object-fit:contain;">
+      Travia
+    </a>
+    <div class="slim-footer-links">
+      <a href="/">Explore</a>
+      <a href="/planner.html">Planner</a>
+      <a href="/#deals">Deals</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="mailto:support@travia.app">Contact</a>
+    </div>
+    <div class="slim-footer-copy">© 2026 Travia. Travel info is for guidance only — always verify with official sources.</div>
+  </div>
+</footer>
+
+<script>
+function toggleToolsMenu() {
+  const w = document.getElementById('nav-tools-wrap');
+  const open = w.classList.toggle('open');
+  w.querySelector('.nav-tools-btn').setAttribute('aria-expanded', open);
+}
+document.addEventListener('click', e => {
+  const w = document.getElementById('nav-tools-wrap');
+  if (w && !w.contains(e.target)) { w.classList.remove('open'); w.querySelector('.nav-tools-btn').setAttribute('aria-expanded','false'); }
+});
 </script>
 </body>
 </html>
