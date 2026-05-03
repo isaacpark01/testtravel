@@ -1504,6 +1504,8 @@ body.light-mode .stat-sep { background: linear-gradient(to bottom, transparent 5
 body.light-mode .search-suggestions { background: #fff; border-color: rgba(106,154,184,.2); }
 body.light-mode .search-suggestion-item:hover { background: rgba(106,154,184,.08); }
 body.light-mode .cookie-banner { background: #fff; border-color: rgba(106,154,184,.2); color: #1a1830; }
+body.light-mode .cookie-decline { color: rgba(15,23,42,.5); border-color: rgba(15,23,42,.2); }
+body.light-mode .cookie-decline:hover { color: rgba(15,23,42,.8); border-color: rgba(15,23,42,.4); }
 body.light-mode input[type="date"],
 body.light-mode input[type="text"],
 body.light-mode input[type="number"],
