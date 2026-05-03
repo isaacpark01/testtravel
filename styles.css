@@ -1,4 +1,6 @@
-﻿/* ===================== RESET & BASE ===================== */
+﻿@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* ===================== RESET & BASE ===================== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 select option { background-color: #0d1220; color: #f0faf9; }
