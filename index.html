@@ -828,9 +828,7 @@
   </div>
   <div class="bttg-wrap">
     <div class="bttg-tabs-scroll">
-      <button class="bttg-scroll-btn bttg-scroll-left" id="bttg-scroll-left" aria-label="Scroll left"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
       <div class="bttg-city-tabs" id="bttg-tabs"></div>
-      <button class="bttg-scroll-btn bttg-scroll-right" id="bttg-scroll-right" aria-label="Scroll right"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
     </div>
     <div id="bttg-grid" class="bttg-grid-v2"></div>
     <div id="bttg-best" class="bttg-best-banner" style="display:none;"></div>
@@ -1076,17 +1074,20 @@ document.addEventListener('DOMContentLoaded', function() {
   tabsEl.innerHTML = cityKeys.map(k =>
     `<button class="bttg-city-tab${k===activeCity?' active':''}" data-city="${k}">${cityLabels[k]||k}</button>`
   ).join('');
-  /* ── scroll arrow buttons ── */
-  const btnL = document.getElementById('bttg-scroll-left');
-  const btnR = document.getElementById('bttg-scroll-right');
-  function syncScrollBtns() {
-    btnL.classList.toggle('visible', tabsEl.scrollLeft > 8);
-    btnR.classList.toggle('visible', tabsEl.scrollLeft + tabsEl.clientWidth < tabsEl.scrollWidth - 8);
-  }
-  btnL.addEventListener('click', () => tabsEl.scrollBy({ left: -240, behavior: 'smooth' }));
-  btnR.addEventListener('click', () => tabsEl.scrollBy({ left:  240, behavior: 'smooth' }));
-  tabsEl.addEventListener('scroll', syncScrollBtns, { passive: true });
-  syncScrollBtns();
+  /* ── drag-to-scroll ── */
+  let isDragging = false, dragStartX = 0, dragScrollLeft = 0;
+  tabsEl.addEventListener('mousedown', e => {
+    isDragging = true; dragStartX = e.pageX - tabsEl.offsetLeft; dragScrollLeft = tabsEl.scrollLeft;
+    tabsEl.style.cursor = 'grabbing'; tabsEl.style.userSelect = 'none';
+  });
+  document.addEventListener('mouseup', () => {
+    isDragging = false; tabsEl.style.cursor = 'grab'; tabsEl.style.userSelect = '';
+  });
+  tabsEl.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    e.preventDefault();
+    tabsEl.scrollLeft = dragScrollLeft - (e.pageX - tabsEl.offsetLeft - dragStartX);
+  });
 
   tabsEl.addEventListener('click', function(e) {
     const btn = e.target.closest('.bttg-city-tab');
@@ -1095,7 +1096,6 @@ document.addEventListener('DOMContentLoaded', function() {
     btn.classList.add('active');
     activeCity = btn.dataset.city;
     renderBestTime(activeCity);
-    /* center active tab in scroll container */
     tabsEl.scrollTo({ left: btn.offsetLeft - tabsEl.clientWidth / 2 + btn.offsetWidth / 2, behavior: 'smooth' });
   });
   renderBestTime(activeCity);
