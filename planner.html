@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>convotrek — Planner</title>
   <meta name="description" content="Plan your next adventure — create day-by-day itineraries, discover hidden gems, compare flights, and track your budget." />
-  <link rel="canonical" href="https://dropped.app/planner.html" />
+  <link rel="canonical" href="https://convotrek.app/planner.html" />
   <!-- Open Graph -->
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://pintrip.netlify.app/planner.html" />
@@ -22,7 +22,7 @@
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="convotrek Planner — Build Your Trip" />
   <meta name="twitter:description" content="Day-by-day itinerary planner. Add activities, food, and transport. Compare flights. Free." />
-  <meta name="twitter:image"       content="https://dropped.app/og-image.jpg" />
+  <meta name="twitter:image"       content="https://convotrek.app/og-image.jpg" />
   <!-- JSON-LD -->
   <script type="application/ld+json">
   {
@@ -37,6 +37,9 @@
   }
   </script>
   <link rel="manifest" href="manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
@@ -187,6 +190,7 @@
       font-size: 24px; font-weight: 800; color: var(--text); letter-spacing: -.5px; line-height: 1.2;
       background: linear-gradient(135deg, #fff 40%, var(--teal) 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
     .hero-trip-name { font-size: 12px; color: rgba(240,250,249,.55); margin-top: 3px; -webkit-text-fill-color: rgba(240,250,249,.55); }
     .hero-actions { display: flex; gap: 6px; }
@@ -914,7 +918,7 @@
       background: #1a2742; border: 1px solid rgba(151,172,224,.2);
       border-radius: 18px; padding: 26px; width: 360px; max-width: 92vw;
     }
-    .modal-title { font-size: 18px; font-weight: 800; color: #f0faf9; margin-bottom: 18px; }
+    .modal-title { font-size: 18px; font-weight: 800; color: #f0faf9; margin-bottom: 18px; font-family: 'Plus Jakarta Sans', sans-serif; }
     .modal-label { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 5px; margin-top: 12px; }
     .modal-label:first-of-type { margin-top: 0; }
     .modal-input {
@@ -1669,7 +1673,7 @@
     .onb-step { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.15); transition: all .3s; }
     .onb-step.active { width: 24px; border-radius: 4px; background: var(--teal); }
     .onb-hero { font-size: 52px; text-align: center; margin-bottom: 16px; animation: floatIcon 3s ease-in-out infinite; }
-    .onb-title { font-size: 22px; font-weight: 800; color: var(--text); text-align: center; margin-bottom: 8px; line-height: 1.3; }
+    .onb-title { font-size: 22px; font-weight: 800; color: var(--text); text-align: center; margin-bottom: 8px; line-height: 1.3; font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: -.3px; }
     .onb-sub { font-size: 14px; color: var(--text-sub); text-align: center; line-height: 1.6; margin-bottom: 22px; }
     .onb-features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
     .onb-feat {
@@ -2141,8 +2145,8 @@
   <div class="hero-overlay">
     <div class="hero-meta">
       <div class="hero-titles">
-        <div class="hero-city" id="hero-city">Select a Trip</div>
-        <div class="hero-trip-name" id="hero-trip-name">Create or select a trip to begin planning</div>
+        <div class="hero-city" id="hero-city">Where to next?</div>
+        <div class="hero-trip-name" id="hero-trip-name">Create a new trip or pick up where you left off</div>
       </div>
       <div class="hero-actions">
         <button class="hero-action-btn" onclick="openPackingList()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-1px"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Pack</button>
@@ -2491,22 +2495,22 @@
 
     <!-- Step 0: Welcome -->
     <div class="onb-pane" id="onb-pane-0">
-      <div class="onb-hero"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="color:#97ace0"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
-      <div class="onb-title">Plan trips that actually happen</div>
-      <div class="onb-sub">convotrek helps you discover, plan, and organize every detail of your next adventure — all in one place.</div>
+      <div class="onb-hero"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="color:#6a9ab8"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M20 9h2"/><path d="M17.8 11.8L19 13"/><path d="M15 9h.01"/><path d="M17.8 6.2L19 5"/><path d="M13 6.2L11.8 5"/><path d="M17.8 11.8L19 13"/><path d="M3 21l9-9"/></svg></div>
+      <div class="onb-title">Your AI travel planner</div>
+      <div class="onb-sub">Describe your ideal trip and let convotrek build it — or craft every detail yourself. Either way, your best trip starts here.</div>
       <div class="onb-features">
-        <div class="onb-feat"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><span>Day-by-day itinerary builder</span></div>
-        <div class="onb-feat"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><span>Discover hidden gems &amp; top spots</span></div>
-        <div class="onb-feat"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L9.5 7H4l4.5 3.5-1.5 5.5L12 13l5 3-1.5-5.5L20 7h-5.5z"/></svg></span><span>AI assistant to plan for you</span></div>
-        <div class="onb-feat"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span>Group trip planning + collab boards</span></div>
+        <div class="onb-feat"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><span>Build your trip day by day, your way</span></div>
+        <div class="onb-feat"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><span>Uncover hidden gems in every destination</span></div>
+        <div class="onb-feat"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M20 9h2"/><path d="M17.8 11.8L19 13"/><path d="M15 9h.01"/><path d="M17.8 6.2L19 5"/><path d="M13 6.2L11.8 5"/><path d="M3 21l9-9"/></svg></span><span>Let AI draft your perfect itinerary</span></div>
+        <div class="onb-feat"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span>Plan together with friends &amp; family</span></div>
       </div>
-      <button class="onb-btn-primary" onclick="onbNext()">Let's go →</button>
+      <button class="onb-btn-primary" onclick="onbNext()">Start planning →</button>
     </div>
 
     <!-- Step 1: Pick a template -->
     <div class="onb-pane" id="onb-pane-1" style="display:none">
-      <div class="onb-title" style="font-size:20px">Start with a template</div>
-      <div class="onb-sub">Pick a style — we'll set up your first trip in seconds.</div>
+      <div class="onb-title" style="font-size:20px">Pick your trip style</div>
+      <div class="onb-sub">Choose a template and we'll set up your itinerary in seconds.</div>
       <div class="onb-templates">
         <div class="onb-tpl" onclick="onbSelectTemplate(this,'Weekend Getaway',2,'weekend')" data-tpl="weekend">
           <div class="onb-tpl-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#tplGrad1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="tplGrad1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#97ace0"/><stop offset="100%" stop-color="#5a87b0"/></linearGradient></defs><rect x="2" y="10" width="20" height="12" rx="1"/><rect x="6" y="6" width="12" height="6" rx="1"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg></div>
@@ -2535,8 +2539,8 @@
 
     <!-- Step 2: Destination pick -->
     <div class="onb-pane" id="onb-pane-2" style="display:none">
-      <div class="onb-title">Where are you headed?</div>
-      <div class="onb-sub">Choose a destination and we'll build your trip.</div>
+      <div class="onb-title">Where to next?</div>
+      <div class="onb-sub">Pick a destination and we'll prep your planner.</div>
       <select id="onb-city-select" class="onb-city-select"></select>
       <button class="onb-btn-primary" id="onb-finish-btn" onclick="onbFinish()">Start planning ✨</button>
       <button class="onb-btn-skip" onclick="onbDismiss()">Skip for now</button>
