@@ -1157,25 +1157,29 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   async function fetchAndRender(lat, lon) {
-    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:32px 0;color:rgba(240,250,249,.35);font-size:13px;"><svg style="animation:spin 1s linear infinite;display:block;margin:0 auto 10px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Fetching climate data…</div>`;
+    const errStyle = 'grid-column:1/-1;text-align:center;padding:32px 0;font-size:13px;opacity:.5;';
+    grid.innerHTML = `<div style="${errStyle}"><svg style="animation:spin 1s linear infinite;display:block;margin:0 auto 10px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Fetching climate data…</div>`;
     banner.style.display = 'none';
     try {
-      const end = new Date().getFullYear() - 1, start = end - 2;
-      const res = await fetch(`https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${start}-01-01&end_date=${end}-12-31&daily=temperature_2m_mean,precipitation_sum&timezone=auto`);
-      if (!res.ok) throw 0;
+      const year = new Date().getFullYear() - 1;
+      const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${year}-01-01&end_date=${year}-12-31&daily=temperature_2m_mean,precipitation_sum&timezone=GMT`;
+      const res = await fetch(url);
       const data = await res.json();
-      const mT = Array(12).fill(null).map(() => ({s:0,n:0}));
-      const mP = Array(12).fill(null).map(() => ({s:0,n:0}));
-      data.daily.time.forEach((d, i) => {
-        const mo = new Date(d).getMonth();
-        if (data.daily.temperature_2m_mean[i] != null) { mT[mo].s += data.daily.temperature_2m_mean[i]; mT[mo].n++; }
-        if (data.daily.precipitation_sum[i] != null)   { mP[mo].s += data.daily.precipitation_sum[i];   mP[mo].n++; }
+      if (!res.ok || !data.daily) throw new Error(data.reason || 'No data');
+      const mT = Array.from({length:12}, () => ({s:0,n:0}));
+      const mP = Array.from({length:12}, () => ({s:0,n:0}));
+      data.daily.time.forEach(function(d, i) {
+        const mo = parseInt(d.slice(5,7), 10) - 1;
+        const t = data.daily.temperature_2m_mean[i];
+        const p = data.daily.precipitation_sum[i];
+        if (t != null) { mT[mo].s += t; mT[mo].n++; }
+        if (p != null) { mP[mo].s += p; mP[mo].n++; }
       });
-      const avgTemp = mT.map(m => m.n ? m.s/m.n : 15);
-      const avgPrecip = mP.map(m => m.n ? (m.s/m.n)*30 : 50);
+      const avgTemp   = mT.map(function(m) { return m.n ? m.s / m.n : 15; });
+      const avgPrecip = mP.map(function(m) { return m.n ? (m.s / m.n) * 30 : 50; });
       renderScores(avgTemp, avgPrecip, parseFloat(lat));
-    } catch {
-      grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:32px 0;color:rgba(240,250,249,.35);font-size:13px;">Could not load data. Try another city.</div>`;
+    } catch(err) {
+      grid.innerHTML = `<div style="${errStyle}">Could not load data — ${err.message || 'try another city'}.</div>`;
     }
   }
 
@@ -1203,7 +1207,7 @@ document.addEventListener('DOMContentLoaded', function() {
           ? results.map(r => dropItem(r.name, (r.admin1 ? r.admin1+', ' : '') + (r.country||''), r.latitude, r.longitude)).join('')
           : `<div class="bttg-drop-item" style="pointer-events:none;opacity:.4;">No results found</div>`;
         dropdown.classList.add('open');
-      } catch { closeDropdown(); }
+      } catch(e) { closeDropdown(); }
     }, 350);
   });
 
@@ -1220,7 +1224,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const r = results[0];
         if (r) await selectResult(r.name, r.country||'', r.latitude, r.longitude);
         else closeDropdown();
-      } catch { closeDropdown(); }
+      } catch(e) { closeDropdown(); }
       return;
     }
     await selectResult(item.dataset.label, item.dataset.country, item.dataset.lat, item.dataset.lon);
