@@ -56,6 +56,7 @@
     .split-check-name { font-size: 12px; font-weight: 600; color: rgba(240,250,249,.7); }
     .split-all-toggle { font-size: 11px; font-weight: 600; color: #6a9ab8; cursor: pointer; margin-bottom: 8px; display: inline-block; }
     .split-all-toggle:hover { color: #97ace0; }
+    .split-hint { color: rgba(240,250,249,.25); }
 
     /* ─ expense list ─ */
     .expense-list { display: flex; flex-direction: column; gap: 10px; min-height: 60px; }
@@ -101,15 +102,31 @@
     /* ─ light mode ─ */
     body.light-mode .split-hero h1 { color: #0f172a; }
     body.light-mode .split-hero p { color: rgba(15,23,42,.5); }
-    body.light-mode .sp-card { background: #fff; border-color: rgba(106,154,184,.2); }
+    body.light-mode .sp-card { background: #fff; border-color: rgba(106,154,184,.2); box-shadow: 0 1px 6px rgba(106,154,184,.08); }
     body.light-mode .sp-card-title { color: #0f172a; }
+    body.light-mode .sp-label { color: rgba(15,23,42,.45); }
     body.light-mode .sp-input, body.light-mode .sp-select { background: #f8fafc; border-color: rgba(106,154,184,.25); color: #0f172a; }
-    body.light-mode .expense-item, body.light-mode .balance-person, body.light-mode .settlement-item { background: #f8fafc; }
+    body.light-mode .sp-input::placeholder { color: rgba(15,23,42,.35); }
+    body.light-mode .sp-select option { background: #fff; color: #0f172a; }
+    body.light-mode .expense-item, body.light-mode .balance-person { background: #f8fafc; border-color: rgba(106,154,184,.15); }
+    body.light-mode .settlement-item { background: rgba(52,211,153,.05); border-color: rgba(52,211,153,.2); color: rgba(15,23,42,.65); }
+    body.light-mode .settlement-payer, body.light-mode .settlement-payee { color: #0f172a; }
     body.light-mode .expense-item-desc, body.light-mode .balance-name { color: #0f172a; }
-    body.light-mode .split-check-item { background: #f8fafc; }
+    body.light-mode .expense-item-meta { color: rgba(15,23,42,.45); }
+    body.light-mode .expense-item-del { color: rgba(15,23,42,.25); }
+    body.light-mode .expense-item-del:hover { color: #dc2626; }
+    body.light-mode .expense-empty, body.light-mode .balance-empty { color: rgba(15,23,42,.35); }
+    body.light-mode .balance-amount.even { color: rgba(15,23,42,.35); }
+    body.light-mode .balance-sub { color: rgba(15,23,42,.4); }
+    body.light-mode .split-check-item { background: #f8fafc; border-color: rgba(106,154,184,.18); }
     body.light-mode .split-check-name { color: rgba(15,23,42,.7); }
-    body.light-mode .total-bar { background: rgba(106,154,184,.07); }
+    body.light-mode .split-hint { color: rgba(15,23,42,.4); }
+    body.light-mode .total-bar { background: rgba(106,154,184,.07); border-color: rgba(106,154,184,.18); }
+    body.light-mode .total-bar-label { color: rgba(15,23,42,.45); }
     body.light-mode .total-bar-amount { color: #0f172a; }
+    body.light-mode .sp-divider { background: rgba(106,154,184,.15); }
+    body.light-mode .sp-btn-outline { border-color: rgba(106,154,184,.3); color: #5283a0; }
+    body.light-mode #split-toast { background: #1e293b; color: #f0faf9; }
   </style>
 </head>
 <body>
@@ -392,7 +409,7 @@ function renderExpenseForm() {
   const grid = document.getElementById('split-checks');
   grid.innerHTML = state.people.length
     ? state.people.map(p => `<label class="split-check-item checked" data-name="${esc(p)}" onclick="this.classList.toggle('checked')"><span class="split-check-box"></span><span class="split-check-name">${esc(p)}</span></label>`).join('')
-    : '<span style="color:rgba(240,250,249,.25);font-size:13px;">Add travelers first</span>';
+    : '<span class="split-hint" style="font-size:13px;">Add travelers first</span>';
 }
 
 function renderExpenses() {
