@@ -320,11 +320,72 @@
       <h1 class="hero-title">The world is yours.<br><span class="teal-text">Plan it.</span></h1>
       <p class="hero-sub">50+ handpicked destinations. AI-powered itineraries. Deals, visas, and cost splitting — all in one place. Free forever.</p>
 
-      <div class="hero-search" style="margin-top:36px;margin-bottom:28px">
-        <span class="hero-search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-        <input id="city-search" type="text" placeholder="Where to? Tokyo, Bali, Paris…" autocomplete="off" onkeydown="if(event.key==='Enter')searchCity()" />
-        <button onclick="searchCity()">Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
-        <div id="search-suggestions" class="search-suggestions hidden" style="position:absolute;top:calc(100% + 10px);left:0;right:0;z-index:200"></div>
+      <!-- ── Mode toggle ── -->
+      <div class="hero-mode-toggle">
+        <button class="hero-mode-btn active" data-mode="concierge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          AI Concierge
+        </button>
+        <button class="hero-mode-btn" data-mode="builder">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Trip Builder
+        </button>
+      </div>
+
+      <!-- ── AI Concierge panel ── -->
+      <div class="hero-panel active" id="panel-concierge">
+        <div class="hero-concierge-wrap">
+          <textarea id="concierge-input" class="hero-concierge-input" rows="1" placeholder="Describe your ideal trip… e.g. 4 days, $1k budget, warm, good food, not crowded" autocomplete="off"></textarea>
+          <button class="hero-concierge-submit" onclick="submitConcierge()">
+            Plan my trip
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+        <div class="hero-chips">
+          <button class="hero-chip" data-prompt="Weekend escape, Europe, under $800">Weekend escape</button>
+          <button class="hero-chip" data-prompt="Solo adventure, Southeast Asia, budget backpacker">Solo adventure</button>
+          <button class="hero-chip" data-prompt="Beach honeymoon, tropical, 7 days, romantic">Honeymoon</button>
+          <button class="hero-chip" data-prompt="Family vacation, kid-friendly, warm, 5 days">Family trip</button>
+          <button class="hero-chip" data-prompt="Digital nomad, good wifi, affordable city, 1 month">Nomad life</button>
+        </div>
+        <div class="hero-concierge-note">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          AI backend coming soon — building it next.
+        </div>
+      </div>
+
+      <!-- ── Trip Builder panel ── -->
+      <div class="hero-panel" id="panel-builder">
+        <div class="hero-search">
+          <span class="hero-search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+          <input id="city-search" type="text" placeholder="Where to? Tokyo, Bali, Paris…" autocomplete="off" onkeydown="if(event.key==='Enter')searchCity()" />
+          <button onclick="searchCity()">Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+          <div id="search-suggestions" class="search-suggestions hidden" style="position:absolute;top:calc(100% + 10px);left:0;right:0;z-index:200"></div>
+        </div>
+        <div class="hero-builder-filters">
+          <select class="hero-filter-select">
+            <option value="">Duration</option>
+            <option>Weekend (2–3 days)</option>
+            <option>Short trip (4–6 days)</option>
+            <option>1 week</option>
+            <option>2 weeks+</option>
+          </select>
+          <select class="hero-filter-select">
+            <option value="">Budget</option>
+            <option>Under $500</option>
+            <option>$500–$1,500</option>
+            <option>$1,500–$3,000</option>
+            <option>$3,000+</option>
+          </select>
+          <select class="hero-filter-select">
+            <option value="">Vibe</option>
+            <option>Beach & relax</option>
+            <option>City & culture</option>
+            <option>Adventure</option>
+            <option>Food & nightlife</option>
+            <option>Nature & hiking</option>
+          </select>
+        </div>
       </div>
 
       <div class="hero-trust">
@@ -1239,6 +1300,50 @@ document.addEventListener('DOMContentLoaded', function() {
     if (results[0]) selectResult(results[0].name, results[0].country||'', results[0].latitude, results[0].longitude);
   });
 });
+
+/* ── Hero mode toggle ── */
+document.querySelectorAll('.hero-mode-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.hero-mode-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('.hero-panel').forEach(function(p) { p.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.mode).classList.add('active');
+  });
+});
+
+document.querySelectorAll('.hero-chip').forEach(function(chip) {
+  chip.addEventListener('click', function() {
+    var input = document.getElementById('concierge-input');
+    input.value = chip.dataset.prompt;
+    input.focus();
+    autoResizeConcierge(input);
+  });
+});
+
+function autoResizeConcierge(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+}
+
+var conciergeInput = document.getElementById('concierge-input');
+if (conciergeInput) {
+  conciergeInput.addEventListener('input', function() { autoResizeConcierge(this); });
+}
+
+function submitConcierge() {
+  var val = (document.getElementById('concierge-input').value || '').trim();
+  if (!val) return;
+  /* Backend hook — wired up in Phase 1 build */
+  var note = document.querySelector('.hero-concierge-note');
+  if (note) {
+    note.textContent = '✦ AI backend coming soon — your request is saved!';
+    note.style.color = '#34d399';
+    setTimeout(function() {
+      note.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> AI backend coming soon — building it next.';
+      note.style.color = '';
+    }, 3000);
+  }
+}
 
 /* ── Price Alerts ── */
 function submitPriceAlert() {
