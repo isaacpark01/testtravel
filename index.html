@@ -8,28 +8,28 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>Travia — Plan Your Next Adventure</title>
+  <title>Smartra — Plan Your Next Adventure</title>
   <meta name="description" content="Discover destinations, build day-by-day itineraries, and plan trips with family and friends — all in one place. Free travel planner with 50+ destinations." />
-  <link rel="canonical" href="https://Travia.app/" />
+  <link rel="canonical" href="https://smartraapp/" />
   <!-- Open Graph -->
   <meta property="og:type"        content="website" />
-  <meta property="og:url"         content="https://Travia.app/" />
-  <meta property="og:title"       content="Travia — Plan Your Next Adventure" />
+  <meta property="og:url"         content="https://smartraapp/" />
+  <meta property="og:title"       content="Smartra — Plan Your Next Adventure" />
   <meta property="og:description" content="Discover destinations, build day-by-day itineraries, and plan group trips — all in one place. Free forever." />
-  <meta property="og:image"       content="https://Travia.app/og-image.jpg" />
-  <meta property="og:site_name"   content="Travia" />
+  <meta property="og:image"       content="https://smartraapp/og-image.jpg" />
+  <meta property="og:site_name"   content="Smartra" />
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Travia — Plan Your Next Adventure" />
+  <meta name="twitter:title"       content="Smartra — Plan Your Next Adventure" />
   <meta name="twitter:description" content="Discover destinations, build itineraries, compare flights and hotels — free travel planner." />
-  <meta name="twitter:image"       content="https://Travia.app/og-image.jpg" />
+  <meta name="twitter:image"       content="https://smartraapp/og-image.jpg" />
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Travia",
-    "url": "https://Travia.app",
+    "name": "Smartra",
+    "url": "https://smartraapp",
     "description": "Discover destinations, build day-by-day itineraries, and plan trips with family and friends.",
     "applicationCategory": "TravelApplication",
     "operatingSystem": "Web",
@@ -268,7 +268,7 @@
 <header class="site-header">
   <div class="header-inner">
     <div class="logo">
-      <span class="logo-text">travia.</span>
+      <span class="logo-text">smartra</span>
     </div>
     <nav class="header-nav">
       <a href="#cities" data-i18n="navExplore" onclick="scrollToCities()">Explore</a>
@@ -455,7 +455,7 @@
   <div class="section-header reveal">
     <span class="section-eyebrow">How It Works</span>
     <h2>Go from "where to?" to "let's go!" in four steps</h2>
-    <p>From inspiration to itinerary — Travia does the heavy lifting</p>
+    <p>From inspiration to itinerary — Smartra does the heavy lifting</p>
   </div>
   <div class="how-grid">
     <div class="how-card reveal" data-step="01">
@@ -968,7 +968,7 @@
     <div class="footer-top">
       <!-- Brand -->
       <div>
-        <div class="footer-brand-logo">travia.</div>
+        <div class="footer-brand-logo">smartra</div>
         <p class="footer-brand-tagline">Discover destinations, build day-by-day itineraries, and plan trips with family and friends — all in one place. Free forever.</p>
         <div class="footer-socials">
           <a class="footer-social-btn" href="#" aria-label="Twitter / X" title="Twitter / X"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.845L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
@@ -994,15 +994,15 @@
         <h4>Legal</h4>
         <a href="/privacy.html">Privacy Policy</a>
         <a href="/terms.html">Terms of Service</a>
-        <a href="mailto:support@Travia.app">Contact Support</a>
+        <a href="mailto:support@smartraapp">Contact Support</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2026 Travia. All rights reserved. Travel information is for guidance only — always verify with official sources.</p>
+      <p class="footer-copy">© 2026 smartra All rights reserved. Travel information is for guidance only — always verify with official sources.</p>
       <div class="footer-legal-links">
         <a href="/privacy.html">Privacy</a>
         <a href="/terms.html">Terms</a>
-        <a href="mailto:support@Travia.app">Contact</a>
+        <a href="mailto:support@smartraapp">Contact</a>
       </div>
     </div>
   </div>
@@ -1355,9 +1355,9 @@ function submitPriceAlert() {
   const email = document.getElementById('pa-email').value.trim();
   if (!dest) { showPAError('Enter a destination'); return; }
   if (!email || !email.includes('@')) { showPAError('Enter a valid email'); return; }
-  const alerts = JSON.parse(localStorage.getItem('travia_price_alerts') || '[]');
+  const alerts = JSON.parse(localStorage.getItem('Smartra_price_alerts') || '[]');
   alerts.push({ dest, budget, month, email, createdAt: Date.now() });
-  localStorage.setItem('travia_price_alerts', JSON.stringify(alerts));
+  localStorage.setItem('Smartra_price_alerts', JSON.stringify(alerts));
   document.getElementById('pa-form').style.display = 'none';
   document.getElementById('pa-success').style.display = 'block';
 }
@@ -1379,7 +1379,7 @@ function showPAError(msg) {
 <script>
 /* ── Cookie consent ── */
 (function() {
-  var COOKIE_KEY = 'Travia_cookies';
+  var COOKIE_KEY = 'Smartra_cookies';
   var banner = document.getElementById('cookie-banner');
   if (!banner) return;
   if (localStorage.getItem(COOKIE_KEY) !== null) return; // already decided
@@ -1424,7 +1424,7 @@ function showPAError(msg) {
     } else {
       document.body.classList.remove('light-mode');
     }
-    localStorage.setItem('Travia_theme', mode);
+    localStorage.setItem('Smartra_theme', mode);
   }
 
   window.toggleTheme = function() {
@@ -1433,7 +1433,7 @@ function showPAError(msg) {
   };
 
   // On load: check saved preference, else use timezone
-  const saved = localStorage.getItem('Travia_theme');
+  const saved = localStorage.getItem('Smartra_theme');
   if (saved) {
     applyTheme(saved);
   } else {
