@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dropped — World Explorer</title>
+  <title>Travia — World Explorer</title>
   <style>
     @font-face { font-family:'Geist'; src:url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
     @font-face { font-family:'Geist'; src:url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Medium.woff2') format('woff2'); font-weight:500; font-display:swap; }
@@ -32,10 +32,14 @@
       pointer-events: none;
     }
     .globe-logo {
-      font-size: 18px; font-weight: 800; letter-spacing: -.5px;
-      background: linear-gradient(135deg, #97ace0 0%, #818cf8 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text; pointer-events: auto; text-decoration: none; flex-shrink: 0;
+      font-size: 18px; font-weight: 800; letter-spacing: -.3px;
+      color: #f0faf9; -webkit-text-fill-color: #f0faf9;
+      pointer-events: auto; text-decoration: none; flex-shrink: 0;
+      display: inline-flex; align-items: center; gap: 10px;
+    }
+    .globe-logo-img {
+      width: 30px; height: 30px; object-fit: contain; flex-shrink: 0;
+      filter: brightness(0) invert(1); transform: translateY(2px);
     }
     .globe-hint { font-size: 12px; color: rgba(255,255,255,.22); display: none; letter-spacing: .01em; white-space: nowrap; }
     @media (min-width: 700px) { .globe-hint { display: block; } }
@@ -264,18 +268,50 @@
       pointer-events: none; z-index: 100; white-space: nowrap; letter-spacing: .03em;
     }
     .city-count-badge span { color: #97ace0; font-weight: 800; }
+
+    /* ── Theme toggle ── */
+    .globe-theme-btn {
+      pointer-events: auto; flex-shrink: 0; margin-left: auto;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(151,172,224,.2);
+      border-radius: 20px; width: 52px; height: 28px; cursor: pointer;
+      display: flex; align-items: center; padding: 3px; transition: background .2s;
+    }
+    .globe-theme-btn:hover { background: rgba(255,255,255,.14); }
+    .globe-theme-knob {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(151,172,224,.25); display: flex; align-items: center;
+      justify-content: center; font-size: 12px; transition: transform .3s;
+    }
+    body.light-mode .globe-theme-knob { transform: translateX(24px); }
+
+    /* ── Light mode overrides ── */
+    body.light-mode { background: #e8edf5; }
+    body.light-mode .globe-header { background: rgba(232,237,245,.88); border-bottom-color: rgba(106,154,184,.15); }
+    body.light-mode .globe-logo { color: #1a1830; -webkit-text-fill-color: #1a1830; }
+    body.light-mode .globe-logo-img { filter: brightness(0); }
+    body.light-mode .globe-search { background: rgba(255,255,255,.9); border-color: rgba(106,154,184,.3); color: #1a1830; }
+    body.light-mode .globe-search::placeholder { color: rgba(26,24,48,.35); }
+    body.light-mode .globe-search-icon { color: rgba(26,24,48,.4); }
+    body.light-mode .globe-results { background: #fff; border-color: rgba(106,154,184,.2); }
+    body.light-mode .globe-result-item:hover { background: rgba(106,154,184,.08); }
+    body.light-mode .globe-result-name { color: #1a1830; }
+    body.light-mode .globe-result-sub { color: rgba(26,24,48,.45); }
+    body.light-mode .city-count-badge { background: rgba(255,255,255,.85); border-color: rgba(106,154,184,.2); color: rgba(26,24,48,.45); }
+    body.light-mode .city-count-badge span { color: #5283a0; }
+    body.light-mode .globe-hint { color: rgba(26,24,48,.35); }
+    body.light-mode .globe-theme-btn { background: rgba(0,0,0,.06); border-color: rgba(106,154,184,.3); }
   </style>
 </head>
 <body>
 
 <div class="globe-loading" id="globe-loading">
-  <div class="globe-loading-logo">Dropped</div>
+  <div class="globe-loading-logo">Travia</div>
   <div class="globe-loading-ring"></div>
   <div class="globe-loading-text">Loading Earth</div>
 </div>
 
 <div class="globe-header">
-  <a href="/" class="globe-logo">Dropped</a>
+  <a href="/" class="globe-logo"><img src="travel-logo-5.png" class="globe-logo-img" alt="">Travia</a>
   <div class="globe-search-wrap" id="search-wrap">
     <input id="globe-search" class="globe-search" type="text" placeholder="Search cities…" autocomplete="off" />
     <span class="globe-search-icon">
@@ -289,6 +325,9 @@
     </button>
     <a href="planner.html" class="globe-navbtn primary">Planner</a>
     <a href="/" class="globe-navbtn">Explore</a>
+    <button class="globe-theme-btn" onclick="toggleTheme()" title="Toggle light/dark mode">
+      <span class="globe-theme-knob">🌙</span>
+    </button>
   </nav>
 </div>
 
@@ -610,5 +649,6 @@
   }
 })();
 </script>
+<script src="theme.js"></script>
 </body>
 </html>

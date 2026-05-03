@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex, noarchive, nofollow" />
   <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
-  <title>Dropped Admin</title>
+  <title>Travia Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
@@ -15,7 +15,7 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', sans-serif;
-      background: #071a17;
+      background: #080c14;
       color: #f0faf9;
       min-height: 100vh;
       font-size: 14px;
@@ -32,8 +32,8 @@
     }
     .gate-spinner {
       width: 36px; height: 36px;
-      border: 3px solid rgba(45,212,191,.2);
-      border-top-color: #2dd4bf;
+      border: 3px solid rgba(151,172,224,.2);
+      border-top-color: #97ace0;
       border-radius: 50%;
       animation: spin .8s linear infinite;
     }
@@ -45,8 +45,8 @@
 
     /* ── HEADER ── */
     .admin-header {
-      background: rgba(7,26,23,.95);
-      border-bottom: 1px solid rgba(45,212,191,.12);
+      background: rgba(8,12,20,.95);
+      border-bottom: 1px solid rgba(151,172,224,.12);
       padding: 0 24px;
       height: 60px;
       display: flex;
@@ -57,7 +57,7 @@
       z-index: 100;
       backdrop-filter: blur(16px);
     }
-    .admin-logo { font-weight: 800; font-size: 16px; color: #2dd4bf; margin-right: auto; }
+    .admin-logo { font-weight: 800; font-size: 16px; color: #97ace0; margin-right: auto; }
     .admin-user { font-size: 13px; color: rgba(240,250,249,.5); }
     .btn-signout {
       background: rgba(239,68,68,.12);
@@ -81,7 +81,7 @@
     }
     .stat-card {
       background: rgba(255,255,255,.03);
-      border: 1px solid rgba(45,212,191,.1);
+      border: 1px solid rgba(151,172,224,.1);
       border-radius: 12px;
       padding: 16px 20px;
       display: flex;
@@ -89,14 +89,14 @@
       gap: 4px;
     }
     .stat-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: rgba(240,250,249,.4); }
-    .stat-value { font-size: 32px; font-weight: 800; color: #2dd4bf; }
+    .stat-value { font-size: 32px; font-weight: 800; color: #97ace0; }
 
     /* ── TAB NAV ── */
     .tab-nav {
       display: flex;
       gap: 4px;
       padding: 0 24px;
-      border-bottom: 1px solid rgba(45,212,191,.08);
+      border-bottom: 1px solid rgba(151,172,224,.08);
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -111,7 +111,7 @@
       transition: color .2s, border-color .2s;
     }
     .tab-nav-btn:hover { color: #f0faf9; }
-    .tab-nav-btn.active { color: #2dd4bf; border-bottom-color: #2dd4bf; }
+    .tab-nav-btn.active { color: #97ace0; border-bottom-color: #97ace0; }
 
     /* ── TAB PANELS ── */
     .tab-panel { display: none; padding: 20px 24px; max-width: 1200px; margin: 0 auto; }
@@ -124,7 +124,7 @@
       font-size: 10px; font-weight: 700; text-transform: uppercase;
       letter-spacing: .1em; color: rgba(240,250,249,.3);
       padding: 10px 12px;
-      border-bottom: 1px solid rgba(45,212,191,.08);
+      border-bottom: 1px solid rgba(151,172,224,.08);
     }
     .admin-table td {
       padding: 12px;
@@ -145,7 +145,7 @@
       padding: 3px 8px; border-radius: 20px;
       letter-spacing: .06em;
     }
-    .badge-admin  { background: rgba(45,212,191,.12); color: #2dd4bf; border: 1px solid rgba(45,212,191,.25); }
+    .badge-admin  { background: rgba(151,172,224,.12); color: #97ace0; border: 1px solid rgba(151,172,224,.25); }
     .badge-banned { background: rgba(239,68,68,.12);  color: #f87171;  border: 1px solid rgba(239,68,68,.25); }
     .badge-you    { background: rgba(168,85,247,.12); color: #c084fc;  border: 1px solid rgba(168,85,247,.25); }
 
@@ -161,7 +161,7 @@
     .btn-action:hover { opacity: .8; }
     .btn-ban    { background: rgba(251,191,36,.08);  color: #fbbf24; border-color: rgba(251,191,36,.25); }
     .btn-unban  { background: rgba(34,197,94,.08);   color: #4ade80; border-color: rgba(34,197,94,.25); }
-    .btn-mkadm  { background: rgba(45,212,191,.08);  color: #2dd4bf; border-color: rgba(45,212,191,.25); }
+    .btn-mkadm  { background: rgba(151,172,224,.08);  color: #97ace0; border-color: rgba(151,172,224,.25); }
     .btn-rvadm  { background: rgba(168,85,247,.08);  color: #c084fc; border-color: rgba(168,85,247,.25); }
     .btn-del    { background: rgba(239,68,68,.08);   color: #f87171; border-color: rgba(239,68,68,.25); }
     .btn-del-c  { background: rgba(239,68,68,.05);   color: #fca5a5; border-color: rgba(239,68,68,.15); }
@@ -187,14 +187,14 @@
       min-width: 200px;
       transition: border-color .2s;
     }
-    .table-search:focus { border-color: rgba(45,212,191,.4); }
+    .table-search:focus { border-color: rgba(151,172,224,.4); }
     .table-search::placeholder { color: rgba(240,250,249,.25); }
     .table-count { font-size: 12px; color: rgba(240,250,249,.35); margin-left: auto; }
 
     /* ── TOAST ── */
     .admin-toast {
       position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
-      background: #0d2b28; border: 1px solid rgba(45,212,191,.3);
+      background: #0d2b28; border: 1px solid rgba(151,172,224,.3);
       color: #f0faf9; padding: 11px 20px; border-radius: 10px;
       font-size: 13px; font-weight: 600;
       opacity: 0; transition: opacity .25s;
@@ -211,7 +211,23 @@
       .admin-table td:nth-child(3) { display: none; }
       .stats-bar { grid-template-columns: 1fr 1fr; }
     }
-  </style>
+
+    /* ── Light mode ── */
+    body.light-mode { background: #f0f4f8; color: #1a1830; }
+    body.light-mode .admin-header { background: rgba(240,244,248,.95); border-bottom-color: rgba(106,154,184,.2); }
+    body.light-mode .admin-logo { color: #5283a0; }
+    body.light-mode .stat-card { background: #fff; border-color: rgba(106,154,184,.15); }
+    body.light-mode .stat-value { color: #5283a0; }
+    body.light-mode .stat-label { color: rgba(26,24,48,.45); }
+    body.light-mode .tab-nav-btn { color: rgba(26,24,48,.45); }
+    body.light-mode .tab-nav-btn.active { color: #5283a0; border-bottom-color: #5283a0; }
+    body.light-mode .admin-table th { color: rgba(26,24,48,.4); border-bottom-color: rgba(106,154,184,.12); }
+    body.light-mode .admin-table td { border-bottom-color: rgba(0,0,0,.05); color: #1a1830; }
+    body.light-mode .admin-table tr:hover td { background: rgba(106,154,184,.05); }
+    body.light-mode .table-search { background: #fff; border-color: rgba(106,154,184,.25); color: #1a1830; }
+    body.light-mode .admin-toast { background: #fff; border-color: rgba(106,154,184,.3); color: #1a1830; }
+    body.light-mode .gate-text { color: rgba(26,24,48,.45); }
+    body.light-mode .admin-user { color: rgba(26,24,48,.5); }  </style>
 </head>
 <body>
 
@@ -225,9 +241,11 @@
 <div id="admin-shell">
 
   <header class="admin-header">
-    <div class="admin-logo">📍 Dropped Admin</div>
+    <div class="admin-logo">
+      📍 Travia Admin
+    </div>
     <div class="admin-user" id="admin-user-label"></div>
-    <button class="btn-signout" id="btn-signout">Sign Out</button>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" style="background:rgba(255,255,255,.08);border:1px solid rgba(151,172,224,.2);border-radius:20px;width:48px;height:26px;cursor:pointer;display:flex;align-items:center;padding:3px;margin-right:8px"><span style="width:20px;height:20px;border-radius:50%;background:rgba(151,172,224,.2);font-size:11px;display:flex;align-items:center;justify-content:center">🌙</span></button><button class="btn-signout" id="btn-signout">Sign Out</button>
   </header>
 
   <div class="stats-bar">
@@ -326,5 +344,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script src="admin.js"></script>
+<script src="theme.js"></script>
 </body>
 </html>

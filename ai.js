@@ -24,11 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
 const _BOLT_SVG = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`;
 
 function _aiUpdateModeBadge() {
-  const hasKey = !!localStorage.getItem(_AI_KEY_STORE);
-  const badge  = document.getElementById('ai-mode-badge');
-  const sub    = document.getElementById('ai-mode-text');
-  if (badge) badge.innerHTML = hasKey ? `${_BOLT_SVG} AI` : `${_BOLT_SVG} Smart`;
-  if (sub)   sub.textContent = hasKey ? 'AI mode · Groq LLM' : 'Smart mode · no key needed';
+  const badge = document.getElementById('ai-mode-badge');
+  const sub   = document.getElementById('ai-mode-text');
+  if (badge) badge.innerHTML = `${_BOLT_SVG} Claude`;
+  if (sub)   sub.textContent = 'Powered by Claude · Anthropic';
 }
 
 /* ── Panel open/close ───────────────────────────────────────── */
@@ -509,4 +508,196 @@ function _aiMarkdown(text) {
 
 function _aiSaveHistory() {
   try { localStorage.setItem('pinly_ai_chat', JSON.stringify(_aiHistory.slice(-20))); } catch(e) {}
+}
+
+/* ── Claude Plan (via Netlify function) ─────────────────────── */
+const _PLAN_ENDPOINT = '/.netlify/functions/plan-trip';
+
+function openAIPlanForm() {
+  const welcome = document.getElementById('ai-welcome');
+  if (welcome) welcome.remove();
+
+  const city = _aiCurrentCity();
+  if (!currentTrip || !city) {
+    _aiPushMessage('assistant', "Create a trip first and I'll build you a full AI-powered itinerary! 🗺️");
+    return;
+  }
+
+  _aiAppendRaw(`
+    <div class="ai-plan-form" id="ai-plan-form">
+      <div class="ai-plan-form-title">✨ Plan My Trip to ${esc(city.name)}</div>
+      <div class="ai-plan-field">
+        <label class="ai-plan-label">Number of days</label>
+        <div class="ai-plan-days-row">
+          ${[1,2,3,4,5,6,7].map(d => `<button class="ai-plan-day-btn${d===3?' active':''}" onclick="aiSelectDays(this,${d})">${d}</button>`).join('')}
+        </div>
+        <input type="hidden" id="ai-plan-days" value="3">
+      </div>
+      <div class="ai-plan-field">
+        <label class="ai-plan-label">Daily budget <span style="color:rgba(240,250,249,.3);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+        <input id="ai-plan-budget" class="ai-plan-input" type="number" placeholder="$ per day — leave blank for flexible" min="0" max="9999">
+      </div>
+      <div class="ai-plan-field">
+        <label class="ai-plan-label">Travel vibe</label>
+        <div class="ai-plan-vibes">
+          ${['🌍 Mix','🏃 Adventure','🍜 Food & Drinks','🏛 Culture','🏖 Relaxation'].map((v,i) =>
+            `<button class="ai-plan-vibe${i===0?' active':''}" onclick="aiSelectVibe(this)">${v}</button>`
+          ).join('')}
+        </div>
+      </div>
+      <button class="ai-plan-submit" onclick="submitAIPlan()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L9.5 7H4l4.5 3.5-1.5 5.5L12 13l5 3-1.5-5.5L20 7h-5.5z"/></svg>
+        Generate Itinerary with Claude
+      </button>
+    </div>
+  `);
+}
+
+function aiSelectDays(btn, n) {
+  document.querySelectorAll('.ai-plan-day-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const input = document.getElementById('ai-plan-days');
+  if (input) input.value = n;
+}
+
+function aiSelectVibe(btn) {
+  document.querySelectorAll('.ai-plan-vibe').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+async function submitAIPlan() {
+  const city = _aiCurrentCity();
+  if (!city) return;
+
+  const numDays   = parseInt(document.getElementById('ai-plan-days')?.value || 3);
+  const budget    = document.getElementById('ai-plan-budget')?.value?.trim() || '';
+  const vibeEl    = document.querySelector('.ai-plan-vibe.active');
+  const interests = vibeEl ? vibeEl.textContent.replace(/^[^\s]+\s/, '') : 'Mix of everything';
+
+  document.getElementById('ai-plan-form')?.remove();
+
+  _aiPushMessage('assistant', `Planning your **${numDays}-day ${city.name}** trip with Claude...`);
+  _aiShowTyping();
+
+  try {
+    const res = await fetch(_PLAN_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        cityName: city.name,
+        cityId: city.id,
+        numDays,
+        budget: budget || null,
+        interests,
+        cityContext: _aiCityContext(city),
+      }),
+    });
+
+    _aiHideTyping();
+
+    if (!res.ok) throw new Error(`Server error ${res.status}`);
+    const plan = await res.json();
+    if (!plan.days?.length) throw new Error('No itinerary returned');
+
+    _aiPushMessage('assistant', `Here's your **${numDays}-day ${city.name}** itinerary! Remove anything you don't want, then tap **Add to Planner**.`);
+    _aiShowRichPlanPreview(plan);
+
+  } catch(e) {
+    _aiHideTyping();
+    console.error('AI plan error:', e);
+    _aiPushMessage('assistant', `Couldn't reach Claude right now (${e.message}). Here's a smart-mode itinerary instead:`);
+    const result = _aiBuildItinerary(city, `${numDays} day`);
+    if (result.text)   _aiPushMessage('assistant', result.text);
+    if (result.action) _aiExecute(result.action);
+  }
+}
+
+function _aiShowRichPlanPreview(plan) {
+  const id = `ai-rp-${Date.now()}`;
+
+  const daysHtml = plan.days.map((day, di) => `
+    <div class="ai-rp-day">
+      <div class="ai-rp-day-label">${esc(day.label || `Day ${di + 1}`)}</div>
+      ${(day.cards || []).map((card, ci) => `
+        <div class="ai-rp-card" id="${id}-${di}-${ci}">
+          <div class="ai-rp-card-info">
+            <span class="ai-rp-cat-icon">${card.category === 'food' ? '🍽' : '📍'}</span>
+            <div class="ai-rp-card-body">
+              <div class="ai-rp-card-name">${esc(card.name)}</div>
+              <div class="ai-rp-card-meta">${[card.startTime, card.duration, card.price != null ? (card.price === 0 ? 'Free' : `$${card.price}`) : null, card.rating ? `⭐ ${card.rating}` : null].filter(Boolean).join(' · ')}</div>
+              ${card.tip ? `<div class="ai-rp-card-tip">💡 ${esc(card.tip)}</div>` : ''}
+            </div>
+          </div>
+          <button class="ai-rp-remove" onclick="removeAIPlanCard('${id}',${di},${ci})" title="Remove">✕</button>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+
+  _aiAppendRaw(`
+    <div class="ai-rich-plan" id="${id}">
+      ${daysHtml}
+      <button class="ai-rp-apply" onclick="applyAIPlan('${id}')">✓ Add to Planner</button>
+    </div>
+  `);
+
+  document.getElementById(id)._plan = plan;
+}
+
+function removeAIPlanCard(previewId, dayIdx, cardIdx) {
+  const el = document.getElementById(`${previewId}-${dayIdx}-${cardIdx}`);
+  if (el) {
+    el.style.cssText += 'opacity:0;transform:translateX(8px);transition:opacity .18s,transform .18s;pointer-events:none;';
+    setTimeout(() => el.remove(), 200);
+  }
+  const preview = document.getElementById(previewId);
+  if (preview?._plan?.days?.[dayIdx]?.cards?.[cardIdx]) {
+    preview._plan.days[dayIdx].cards[cardIdx]._removed = true;
+  }
+}
+
+function applyAIPlan(previewId) {
+  const preview = document.getElementById(previewId);
+  if (!preview?._plan || !currentTrip) { openNewTripModal(); return; }
+
+  const plan = preview._plan;
+  const city = _aiCurrentCity();
+  const d    = getStore();
+  const t    = d.trips.find(x => x.id === currentTrip.id);
+  if (!t) return;
+
+  while (t.days.length < plan.days.length) {
+    t.days.push({ id: crypto.randomUUID(), num: t.days.length + 1, cards: [] });
+  }
+
+  let added = 0;
+  plan.days.forEach((day, i) => {
+    const tripDay = t.days[i];
+    if (!tripDay) return;
+    (day.cards || []).forEach(card => {
+      if (card._removed) return;
+      tripDay.cards.push({
+        id:        crypto.randomUUID(),
+        name:      card.name,
+        category:  card.category || 'activity',
+        price:     card.price ?? null,
+        rating:    card.rating ?? null,
+        duration:  card.duration || '',
+        tip:       card.tip || '',
+        note:      card.note || '',
+        startTime: card.startTime || '',
+        cityId:    t.cityId,
+        cityName:  city?.name || '',
+        fromSave:  false,
+      });
+      added++;
+    });
+  });
+
+  currentTrip = t;
+  saveStore(d);
+  renderAll();
+  switchTab('itinerary');
+  closeAI();
+  showToast(`✓ ${added} place${added !== 1 ? 's' : ''} added to your itinerary!`);
 }
