@@ -1788,6 +1788,8 @@ body.light-mode .bttg-city-tab:hover { background: rgba(106,154,184,.15); color:
 body.light-mode .bttg-city-tab.active { background: #6a9ab8; border-color: #6a9ab8; color: #fff; }
 body.light-mode .bttg-legend-row { border-top-color: rgba(106,154,184,.15); }
 body.light-mode .bttg-leg-v2 { color: rgba(15,23,42,.65); }
+.bttg-leg-caption { margin-left: auto; font-size: 11px; color: rgba(240,250,249,.35); }
+body.light-mode .bttg-leg-caption { color: rgba(15,23,42,.45); }
 
 /* ── Price Alerts Section ── */
 .price-alert-section { background: linear-gradient(135deg, rgba(106,154,184,.06) 0%, rgba(151,172,224,.04) 100%); border-top: 1px solid rgba(106,154,184,.1); border-bottom: 1px solid rgba(106,154,184,.1); padding: 72px 20px; }
