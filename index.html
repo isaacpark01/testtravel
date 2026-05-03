@@ -422,28 +422,28 @@
   <div class="stats-bar-inner">
 
     <div class="stat-item reveal">
-      <span class="stat-num" data-count="50" data-suffix="+">50+</span>
-      <span class="stat-label">Handpicked Cities</span>
+      <span class="stat-num stat-ai stat-fade">AI</span>
+      <span class="stat-label">Powered Planning</span>
     </div>
 
     <div class="stat-sep"></div>
 
     <div class="stat-item reveal reveal-delay-1">
-      <span class="stat-num">Free</span>
+      <span class="stat-num stat-fade" style="transition-delay:.15s">Free</span>
       <span class="stat-label">Always &amp; Forever</span>
     </div>
 
     <div class="stat-sep"></div>
 
     <div class="stat-item reveal reveal-delay-2">
-      <span class="stat-num" data-count="11">11</span>
-      <span class="stat-label">Languages</span>
+      <span class="stat-num stat-fade" style="transition-delay:.3s">Any City</span>
+      <span class="stat-label">Search Worldwide</span>
     </div>
 
     <div class="stat-sep"></div>
 
     <div class="stat-item reveal reveal-delay-3">
-      <span class="stat-num stat-inf">∞</span>
+      <span class="stat-num stat-inf stat-fade" style="transition-delay:.45s">∞</span>
       <span class="stat-label">Trips &amp; Boards</span>
     </div>
 
@@ -1398,25 +1398,15 @@ function showPAError(msg) {
   var done = false;
   var statsBar = document.querySelector('.stats-bar');
   if (!statsBar) return;
-  function runCounters() {
+  function runStats() {
     if (done) return; done = true;
-    statsBar.querySelectorAll('[data-count]').forEach(function(el) {
-      var target = parseInt(el.dataset.count);
-      var suffix = el.dataset.suffix || '';
-      var duration = 1400;
-      var start = performance.now();
-      function tick(now) {
-        var p = Math.min((now - start) / duration, 1);
-        var eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = Math.floor(eased * target) + suffix;
-        if (p < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
+    statsBar.querySelectorAll('.stat-fade').forEach(function(el) {
+      el.classList.add('animated');
     });
   }
   var obs = new IntersectionObserver(function(entries) {
-    if (entries[0].isIntersecting) { runCounters(); obs.disconnect(); }
-  }, { threshold: 0.6 });
+    if (entries[0].isIntersecting) { runStats(); obs.disconnect(); }
+  }, { threshold: 0.5 });
   obs.observe(statsBar);
 })();
 </script>

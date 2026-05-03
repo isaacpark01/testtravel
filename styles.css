@@ -1087,6 +1087,11 @@ body.light-mode * { scrollbar-color: #5283a0 rgba(15,23,42,.07); }
   filter: drop-shadow(0 0 22px rgba(90,135,176,.5));
 }
 .stat-num.stat-inf { font-size: 62px; line-height: .85; letter-spacing: 0; }
+.stat-num.stat-ai { font-size: 38px; letter-spacing: -.02em; }
+.stat-num.stat-fade { opacity: 0; transform: translateY(8px); transition: opacity .7s ease, transform .7s ease; }
+.stat-num.stat-fade.animated { opacity: 1; transform: translateY(0); }
+.stat-num.stat-inf.animated { display: inline-block; animation: inf-spin 6s linear infinite; }
+@keyframes inf-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 .stat-label {
   font-size: 10.5px; font-weight: 700;
   color: rgba(240,250,249,.52);
@@ -1669,9 +1674,7 @@ body.light-mode .wip-banner-dismiss:hover { color: #fff; border-color: rgba(255,
   padding: 6px 13px; border-radius: 20px; cursor: pointer; font-family: inherit;
   transition: all .18s; white-space: nowrap; letter-spacing: .01em;
 }
-.hero-chip::before { content: '↗'; font-size: 10px; opacity: .5; }
 .hero-chip:hover { background: rgba(106,154,184,.14); border-color: rgba(106,154,184,.38); color: #f0faf9; }
-.hero-chip:hover::before { opacity: 1; }
 
 .hero-concierge-note {
   display: flex; align-items: center; gap: 8px; margin-top: 12px;
