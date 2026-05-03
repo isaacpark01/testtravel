@@ -446,6 +446,9 @@ body.light-mode .tools-card { background: #fff; border-color: rgba(106,154,184,.
 body.light-mode .tools-card:hover { background: rgba(106,154,184,.05); box-shadow: 0 12px 36px rgba(106,154,184,.1); }
 body.light-mode .tools-card-title { color: #0f172a; }
 body.light-mode .tools-card-icon { background: rgba(106,154,184,.08); }
+body.light-mode .tools-card-desc { color: rgba(15,23,42,.55); }
+body.light-mode .tools-card-cta { color: #5283a0; }
+body.light-mode .tools-card:hover .tools-card-cta { color: #3a6a8a; }
 
 /* Region filter */
 .region-filter { display: flex; gap: 8px; justify-content: center; margin-bottom: 36px; flex-wrap: wrap; }
@@ -1544,6 +1547,10 @@ body.light-mode .toggle-moon { opacity: 0; transform: rotate(-90deg) scale(.6); 
 body.light-mode .toggle-sun  { opacity: 1; transform: rotate(0) scale(1); }
 
 /* ── Light mode text contrast fixes ── */
+body.light-mode .deals-tab { color: rgba(15,23,42,.55); }
+body.light-mode .deals-tab:hover { color: rgba(15,23,42,.8); background: rgba(106,154,184,.06); }
+body.light-mode .deals-tab.active { color: #3a6a8a; border-bottom-color: #5283a0; background: rgba(106,154,184,.08); }
+body.light-mode .deals-tab-bar { border-bottom-color: rgba(106,154,184,.2); }
 body.light-mode .inline-deal-btn { background: rgba(106,154,184,.1); border-color: rgba(106,154,184,.25); color: #1a1830; }
 body.light-mode .inline-deal-btn:hover { background: rgba(106,154,184,.2); border-color: #6a9ab8; color: #5283a0; }
 body.light-mode .deal-form-card { background: #fff; border: 1px solid rgba(106,154,184,.2); }
