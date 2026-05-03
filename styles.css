@@ -1750,8 +1750,13 @@ body.light-mode .bttg-best-banner { background: rgba(52,211,153,.05); }
 }
 .bttg-leg-v2 { display: flex; align-items: center; gap: 6px; font-size: 12px; color: rgba(240,250,249,.4); }
 .bttg-leg-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-body.light-mode .bttg-month-v2 { background: #f8fafc; border-color: rgba(106,154,184,.15); }
-body.light-mode .bttg-city-tab { background: #f1f5f9; border-color: rgba(106,154,184,.2); color: rgba(15,23,42,.5); }
+body.light-mode .bttg-month-v2 { background: #f4f7fb; border-color: rgba(106,154,184,.15); }
+body.light-mode .bttg-month-v2.sweet { background: rgba(52,211,153,.06); border-color: rgba(52,211,153,.3); }
+body.light-mode .bttg-city-tab { background: rgba(106,154,184,.08); border-color: rgba(106,154,184,.2); color: rgba(15,23,42,.5); }
+body.light-mode .bttg-city-tab:hover { background: rgba(106,154,184,.15); color: #0f172a; }
+body.light-mode .bttg-city-tab.active { background: rgba(106,154,184,.2); border-color: #6a9ab8; color: #0f172a; }
+body.light-mode .bttg-legend-row { border-top-color: rgba(106,154,184,.15); }
+body.light-mode .bttg-leg-v2 { color: rgba(15,23,42,.4); }
 
 /* ── Price Alerts Section ── */
 .price-alert-section { background: linear-gradient(135deg, rgba(106,154,184,.06) 0%, rgba(151,172,224,.04) 100%); border-top: 1px solid rgba(106,154,184,.1); border-bottom: 1px solid rgba(106,154,184,.1); padding: 72px 20px; }

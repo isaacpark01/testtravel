@@ -999,29 +999,41 @@ function switchDealTab(tab, btn) {
 
 <script>
 /* ── Best Time to Go ── */
+/* weather 1-5 (5=perfect), crowds 1-5 (5=packed), price 1-5 (5=cheapest)
+   score = round((w*2 + (6-c)*0.5 + p) / 3.5) → 4-5=Great, 3=Fair, 1-2=Avoid */
 const BTTG = {
-  tokyo:     { weather:[3,3,4,4,3,2,1,2,4,5,4,4], crowds:[3,3,4,5,4,3,2,2,3,5,3,3], price:[3,3,4,5,4,4,3,3,3,4,3,3] },
-  bali:      { weather:[2,2,3,4,5,5,5,5,5,4,3,2], crowds:[3,3,3,4,5,5,4,4,4,5,4,3], price:[3,3,3,4,4,3,2,2,3,4,4,3] },
-  paris:     { weather:[2,2,3,4,4,5,5,5,4,3,2,2], crowds:[3,3,4,5,5,4,3,3,4,4,3,3], price:[3,3,3,4,5,4,3,3,4,4,3,3] },
-  nyc:       { weather:[2,2,3,4,5,5,4,4,5,5,3,2], crowds:[3,3,3,4,4,5,5,5,4,4,3,4], price:[3,3,3,4,4,3,3,3,4,4,4,4] },
-  barcelona: { weather:[2,3,3,4,5,5,5,5,5,4,3,2], crowds:[3,3,3,4,4,4,2,2,3,4,3,3], price:[3,3,3,4,5,4,2,2,4,4,4,3] },
-  kyoto:     { weather:[2,3,4,5,4,2,1,2,3,5,4,3], crowds:[3,3,5,5,4,3,2,2,3,5,4,3], price:[3,3,5,5,4,3,3,3,3,5,3,3] },
-  singapore: { weather:[2,3,4,4,4,4,4,4,3,3,2,2], crowds:[4,4,3,4,4,5,4,4,3,3,3,4], price:[4,4,3,4,4,5,4,4,3,3,3,4] },
-  london:    { weather:[2,2,3,3,4,5,5,5,4,3,2,2], crowds:[3,3,3,4,5,5,4,4,4,4,3,4], price:[3,3,3,4,4,3,3,3,3,3,3,4] },
-  rome:      { weather:[2,3,3,4,5,5,5,5,5,4,3,2], crowds:[3,3,4,5,5,3,2,2,3,4,3,3], price:[3,3,4,5,5,3,2,2,3,4,3,3] },
-  bangkok:   { weather:[4,5,5,5,3,2,2,2,3,3,3,3], crowds:[5,5,4,4,3,2,2,2,3,3,4,5], price:[5,5,4,4,3,2,2,2,3,3,4,5] }
+  paris:     { weather:[1,2,3,5,5,5,5,5,5,3,2,1], crowds:[2,2,3,4,5,5,5,5,5,4,3,3], price:[4,4,3,3,2,2,1,1,3,3,4,4] },
+  london:    { weather:[1,1,2,3,4,5,5,5,4,3,2,1], crowds:[2,2,2,3,4,5,5,5,4,3,3,4], price:[4,4,4,4,3,2,2,2,3,3,4,4] },
+  nyc:       { weather:[1,1,3,5,5,4,3,3,5,5,3,2], crowds:[2,2,3,4,4,4,5,5,4,4,3,4], price:[4,4,3,3,3,3,2,2,3,3,3,2] },
+  tokyo:     { weather:[1,1,3,5,4,3,2,2,4,5,4,1], crowds:[2,2,3,5,3,3,3,3,3,5,2,2], price:[4,4,3,2,3,3,3,3,3,2,3,4] },
+  bali:      { weather:[1,1,2,3,5,5,5,5,5,4,2,1], crowds:[2,2,2,3,3,4,5,5,4,3,2,3], price:[4,4,4,3,4,3,1,1,3,4,4,4] },
+  barcelona: { weather:[1,2,3,4,5,5,5,5,5,4,3,2], crowds:[2,2,3,3,4,4,5,5,4,3,3,3], price:[4,4,3,3,3,3,1,1,3,4,4,4] },
+  rome:      { weather:[1,2,3,5,5,5,5,5,5,4,3,2], crowds:[2,2,3,4,4,3,5,5,4,3,2,2], price:[4,4,3,3,3,4,1,1,3,3,4,4] },
+  bangkok:   { weather:[5,5,3,1,2,2,2,2,2,3,5,5], crowds:[4,3,3,3,2,2,2,2,2,2,3,4], price:[3,4,4,4,4,4,4,4,4,3,3,3] },
+  dubai:     { weather:[5,5,5,4,3,1,1,1,2,4,5,5], crowds:[3,3,3,3,2,2,2,2,2,3,3,4], price:[2,2,3,3,4,4,4,4,4,3,2,2] },
+  amsterdam: { weather:[1,1,2,5,5,5,5,5,4,3,2,1], crowds:[2,2,2,5,4,4,5,5,4,3,2,3], price:[4,4,4,2,3,3,2,2,3,3,4,4] },
+  kyoto:     { weather:[1,2,3,5,4,3,1,1,3,5,5,2], crowds:[2,2,3,5,3,3,2,2,3,5,4,2], price:[4,4,3,2,3,3,3,3,3,2,2,4] },
+  singapore: { weather:[3,4,5,4,3,3,3,3,3,3,3,3], crowds:[4,3,3,3,3,4,4,4,3,3,4,5], price:[3,4,4,3,3,2,2,2,3,3,3,2] },
+  cancun:    { weather:[5,5,5,5,4,3,3,1,1,3,4,5], crowds:[4,4,3,4,3,2,3,2,2,3,3,5], price:[3,3,4,2,4,4,3,4,4,3,3,2] },
+  prague:    { weather:[1,1,3,5,5,5,4,4,5,3,2,1], crowds:[2,2,3,4,4,4,5,5,4,3,3,4], price:[4,4,3,3,3,3,2,2,4,4,4,3] },
+  maldives:  { weather:[5,5,5,5,4,1,1,1,1,3,4,5], crowds:[4,3,3,3,2,1,1,1,1,2,3,5], price:[2,3,4,4,5,4,4,4,4,4,3,1] }
 };
 const BTTG_BEST = {
-  tokyo:'Best months: <strong>October</strong> and <strong>April</strong> — mild weather, fall foliage or cherry blossoms, fewer crowds than summer peak.',
-  bali:'Best months: <strong>May–October</strong> (dry season) — the classic Bali window. July–August gets crowded; May and September are sweet spots.',
-  paris:'Best months: <strong>April–May</strong> and <strong>September</strong> — pleasant weather, blooming parks, and calmer than summer.',
-  nyc:'Best months: <strong>April–May</strong> and <strong>September–October</strong> — comfortable temps, events season, and hotel rates drop slightly from summer peak.',
-  barcelona:'Best months: <strong>May</strong> and <strong>September–October</strong> — warm sun, fewer tourists than July/August, lower prices.',
-  kyoto:'Best months: <strong>April</strong> (cherry blossom) or <strong>November</strong> (maple leaves) — both magical but very crowded. Book months ahead.',
-  singapore:'Best months: <strong>February–April</strong> — driest months with slightly lower humidity. Rest of year has sudden showers but always warm.',
-  london:'Best months: <strong>June–August</strong> — the only reliable warm weather. Book 3+ months ahead; prices spike in summer.',
-  rome:'Best months: <strong>April–May</strong> and <strong>September–October</strong> — perfect weather, no August crowds, sites are manageable.',
-  bangkok:'Best months: <strong>November–February</strong> — cool and dry season, low humidity. March–April is scorching hot.'
+  paris:    'Best months: <strong>April–May</strong> and <strong>September</strong> — pleasant weather, blooming parks, and calmer than the summer crush.',
+  london:   'Best months: <strong>June–August</strong> — the only reliably warm window. Book 3+ months ahead; prices spike significantly in summer.',
+  nyc:      'Best months: <strong>April–May</strong> and <strong>September–October</strong> — comfortable temps, peak events, and hotel rates ease slightly from summer.',
+  tokyo:    'Best months: <strong>April</strong> (cherry blossoms) and <strong>October–November</strong> — mild weather, stunning foliage, fewer crowds than peak summer.',
+  bali:     'Best months: <strong>May</strong> and <strong>September</strong> — dry season sweet spots with great weather before/after peak crowd months.',
+  barcelona:'Best months: <strong>May</strong> and <strong>September–October</strong> — warm sun, manageable crowds, and prices well below the July/August peak.',
+  rome:     'Best months: <strong>April–May</strong> and <strong>September–October</strong> — perfect weather, no August madness, and landmarks you can actually enjoy.',
+  bangkok:  'Best months: <strong>November–February</strong> — cool dry season, low humidity. Avoid April: Songkran heat exceeds 40°C.',
+  dubai:    'Best months: <strong>November–March</strong> — winter sunshine, ideal beach weather, cooler desert evenings. June–September is brutally hot (45°C+).',
+  amsterdam:'Best months: <strong>April</strong> (tulip season) or <strong>May–June</strong> — blooming parks, canal-side terraces, and crowds before peak summer.',
+  kyoto:    'Best months: <strong>April</strong> (cherry blossoms) or <strong>November</strong> (maple leaves) — both magical but very crowded. Book accommodation months ahead.',
+  singapore:'Best months: <strong>February–April</strong> — driest months, slightly lower humidity. The rest of year is warm year-round with occasional showers.',
+  cancun:   'Best months: <strong>December–May</strong> — dry season with calm turquoise water. Avoid August–September: peak hurricane risk.',
+  prague:   'Best months: <strong>May–June</strong> and <strong>September</strong> — warm days, long evenings, and manageable crowds before/after peak tourist summer.',
+  maldives: 'Best months: <strong>November–April</strong> (dry NE monsoon) — crystal water, best diving visibility. June–September brings heavy rain and choppy seas.'
 };
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
@@ -1031,7 +1043,7 @@ function renderBestTime(cityKey) {
   const grid = document.getElementById('bttg-grid');
   grid.innerHTML = MONTHS.map((m, i) => {
     const w = d.weather[i], c = d.crowds[i], p = d.price[i];
-    const score = Math.round((w + (6 - c) + p) / 3);
+    const score = Math.round((w * 2 + (6 - c) * 0.5 + p) / 3.5);
     const isSweet = score >= 4;
     let pillClass, pillLabel;
     if (score >= 4) { pillClass = 'bttg-pill-great'; pillLabel = 'Great'; }
@@ -1050,7 +1062,12 @@ function renderBestTime(cityKey) {
 document.addEventListener('DOMContentLoaded', function() {
   const tabsEl = document.getElementById('bttg-tabs');
   const cityKeys = Object.keys(BTTG);
-  const cityLabels = { tokyo:'Tokyo', bali:'Bali', paris:'Paris', rome:'Rome', barcelona:'Barcelona', nyc:'New York', london:'London', bangkok:'Bangkok' };
+  const cityLabels = {
+    paris:'Paris', london:'London', nyc:'New York', tokyo:'Tokyo',
+    bali:'Bali', barcelona:'Barcelona', rome:'Rome', bangkok:'Bangkok',
+    dubai:'Dubai', amsterdam:'Amsterdam', kyoto:'Kyoto',
+    singapore:'Singapore', cancun:'Cancun', prague:'Prague', maldives:'Maldives'
+  };
   let activeCity = cityKeys[0];
   tabsEl.innerHTML = cityKeys.map(k =>
     `<button class="bttg-city-tab${k===activeCity?' active':''}" data-city="${k}">${cityLabels[k]||k}</button>`
