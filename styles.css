@@ -1085,6 +1085,7 @@ body.light-mode * { scrollbar-color: #5283a0 rgba(15,23,42,.07); }
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
   filter: drop-shadow(0 0 22px rgba(90,135,176,.5));
+  text-align: center; white-space: nowrap;
 }
 .stat-num.stat-inf { font-size: 62px; line-height: .85; letter-spacing: 0; }
 .stat-num.stat-ai { font-size: 38px; letter-spacing: -.02em; }
@@ -1095,7 +1096,7 @@ body.light-mode * { scrollbar-color: #5283a0 rgba(15,23,42,.07); }
 .stat-label {
   font-size: 10.5px; font-weight: 700;
   color: rgba(240,250,249,.52);
-  text-transform: uppercase; letter-spacing: .11em;
+  text-transform: uppercase; letter-spacing: .11em; text-align: center;
 }
 
 /* ===================== HOW IT WORKS ===================== */
