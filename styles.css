@@ -1811,6 +1811,16 @@ body.light-mode .group-feature-desc { color: rgba(26,24,48,.55); }
 /* ── Stats: bigger on desktop ── */
 @media (min-width: 641px) { .stat-num { font-size: 52px; } .stat-num.stat-inf { font-size: 68px; } .stat-item { padding: 40px 36px; } }
 
+/* ── Stats: single row on small screens ── */
+@media (max-width: 640px) {
+  .stats-bar-inner { flex-wrap: nowrap; }
+  .stat-item { padding: 22px 10px; min-width: 0; flex: 1; }
+  .stat-num { font-size: 26px; letter-spacing: -.03em; }
+  .stat-num.stat-inf { font-size: 34px; }
+  .stat-num.stat-ai { font-size: 22px; }
+  .stat-label { font-size: 8.5px; letter-spacing: .07em; }
+}
+
 /* ── Best Time to Go ── */
 .bttg-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 6px; }
 @media (max-width: 700px) { .bttg-grid { grid-template-columns: repeat(6, 1fr); } }
