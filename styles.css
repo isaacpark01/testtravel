@@ -31,12 +31,11 @@ body {
   cursor: pointer;
 }
 .logo-text {
-  font-family: 'Geist', sans-serif;
-  font-size: 22px; font-weight: 700; letter-spacing: -.3px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 21px; font-weight: 800; letter-spacing: -.4px; line-height: 1;
   color: #f0faf9; -webkit-text-fill-color: #f0faf9;
 }
-.logo-img { filter: brightness(0) invert(1); transition: filter .3s ease; transform: translateY(2px); }
-.logo-text { line-height: 1; }
+.logo-img { display: none; }
 .header-nav { display: none; }
 @media (min-width: 768px) {
   .header-nav { display: flex; align-items: center; gap: 28px; }
@@ -1162,11 +1161,11 @@ body.light-mode .step-num { color: #5283a0; }
 }
 @media (min-width: 640px) { .footer-top { grid-template-columns: 1.6fr 1fr 1fr; } }
 .footer-brand-logo {
-  font-family: 'Geist', sans-serif;
-  font-size: 22px; font-weight: 700; color: #e8edf5;
-  margin-bottom: 10px; letter-spacing: -.3px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 20px; font-weight: 800; color: #e8edf5;
+  margin-bottom: 10px; letter-spacing: -.4px; display: flex; align-items: center; gap: 8px;
 }
-.footer-brand-logo .logo-img { filter: brightness(0) invert(1); }
+.footer-brand-logo .logo-img { display: none; }
 .footer-brand-tagline {
   font-size: 13px; color: rgba(240,250,249,.4); line-height: 1.6;
   max-width: 280px; margin-bottom: 20px;
@@ -1224,9 +1223,10 @@ body.light-mode .step-num { color: #5283a0; }
 .slim-footer-logo {
   display: flex; align-items: center; gap: 9px;
   text-decoration: none; color: rgba(240,250,249,.6);
-  font-size: 15px; font-weight: 700; letter-spacing: -.2px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px; font-weight: 800; letter-spacing: -.3px;
 }
-.slim-footer-logo .logo-img { width: 22px; height: 22px; object-fit: contain; filter: brightness(0) invert(1); opacity: .5; }
+.slim-footer-logo .logo-img { display: none; }
 .slim-footer-links {
   display: flex; gap: 20px; flex-wrap: wrap; align-items: center;
 }
