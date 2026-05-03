@@ -827,10 +827,15 @@
     <p>Pick a city and see at a glance which months are ideal — and which to avoid.</p>
   </div>
   <div class="bttg-wrap">
-    <div class="bttg-tabs-scroll">
-      <div class="bttg-city-tabs" id="bttg-tabs"></div>
-      <div class="bttg-scroll-track"><div class="bttg-scroll-thumb" id="bttg-scroll-thumb"></div></div>
+    <div class="bttg-search-wrap">
+      <svg class="bttg-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="bttg-search" class="bttg-search-input" type="text" placeholder="Search a destination…" autocomplete="off" spellcheck="false">
+      <button id="bttg-search-clear" class="bttg-search-clear" aria-label="Clear">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div id="bttg-dropdown" class="bttg-dropdown"></div>
     </div>
+    <div id="bttg-selected-label" class="bttg-selected-label" style="display:none;"></div>
     <div id="bttg-grid" class="bttg-grid-v2"></div>
     <div id="bttg-best" class="bttg-best-banner" style="display:none;"></div>
     <div class="bttg-legend-row">
@@ -1063,57 +1068,61 @@ function renderBestTime(cityKey) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  const tabsEl = document.getElementById('bttg-tabs');
-  const cityKeys = Object.keys(BTTG);
   const cityLabels = {
     paris:'Paris', london:'London', nyc:'New York', tokyo:'Tokyo',
     bali:'Bali', barcelona:'Barcelona', rome:'Rome', bangkok:'Bangkok',
     dubai:'Dubai', amsterdam:'Amsterdam', kyoto:'Kyoto',
     singapore:'Singapore', cancun:'Cancun', prague:'Prague', maldives:'Maldives'
   };
+  const cityKeys = Object.keys(BTTG);
   let activeCity = cityKeys[0];
-  tabsEl.innerHTML = cityKeys.map(k =>
-    `<button class="bttg-city-tab${k===activeCity?' active':''}" data-city="${k}">${cityLabels[k]||k}</button>`
-  ).join('');
-  /* ── drag-to-scroll ── */
-  let isDragging = false, dragStartX = 0, dragScrollLeft = 0;
-  tabsEl.addEventListener('mousedown', e => {
-    isDragging = true; dragStartX = e.pageX - tabsEl.offsetLeft; dragScrollLeft = tabsEl.scrollLeft;
-    tabsEl.style.cursor = 'grabbing'; tabsEl.style.userSelect = 'none';
-  });
-  document.addEventListener('mouseup', () => {
-    isDragging = false; tabsEl.style.cursor = 'grab'; tabsEl.style.userSelect = '';
-  });
-  tabsEl.addEventListener('mousemove', e => {
-    if (!isDragging) return;
-    e.preventDefault();
-    tabsEl.scrollLeft = dragScrollLeft - (e.pageX - tabsEl.offsetLeft - dragStartX);
-  });
 
-  /* ── scroll progress bar ── */
-  const thumb = document.getElementById('bttg-scroll-thumb');
-  function updateThumb() {
-    const ratio = tabsEl.scrollWidth - tabsEl.clientWidth;
-    if (ratio <= 0) { thumb.style.opacity = '0'; return; }
-    const pct = tabsEl.scrollLeft / ratio;
-    const w = tabsEl.clientWidth / tabsEl.scrollWidth;
-    thumb.style.width = (w * 100) + '%';
-    thumb.style.left  = (pct * (1 - w) * 100) + '%';
-    thumb.style.opacity = '1';
+  const searchEl   = document.getElementById('bttg-search');
+  const clearBtn   = document.getElementById('bttg-search-clear');
+  const dropdown   = document.getElementById('bttg-dropdown');
+  const labelEl    = document.getElementById('bttg-selected-label');
+
+  function selectCity(key) {
+    activeCity = key;
+    searchEl.value = cityLabels[key] || key;
+    clearBtn.style.opacity = '1'; clearBtn.style.pointerEvents = 'auto';
+    labelEl.textContent = cityLabels[key] || key;
+    labelEl.style.display = 'block';
+    closeDropdown();
+    renderBestTime(key);
   }
-  tabsEl.addEventListener('scroll', updateThumb, { passive: true });
-  setTimeout(updateThumb, 50);
 
-  tabsEl.addEventListener('click', function(e) {
-    const btn = e.target.closest('.bttg-city-tab');
-    if (!btn) return;
-    tabsEl.querySelectorAll('.bttg-city-tab').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    activeCity = btn.dataset.city;
-    renderBestTime(activeCity);
-    tabsEl.scrollTo({ left: btn.offsetLeft - tabsEl.clientWidth / 2 + btn.offsetWidth / 2, behavior: 'smooth' });
+  function showDropdown(filter) {
+    const q = filter.toLowerCase();
+    const matches = cityKeys.filter(k => (cityLabels[k]||k).toLowerCase().includes(q));
+    if (!matches.length) { closeDropdown(); return; }
+    dropdown.innerHTML = matches.map(k =>
+      `<div class="bttg-drop-item${k===activeCity?' active':''}" data-city="${k}">${cityLabels[k]||k}</div>`
+    ).join('');
+    dropdown.classList.add('open');
+  }
+
+  function closeDropdown() { dropdown.classList.remove('open'); dropdown.innerHTML = ''; }
+
+  searchEl.addEventListener('focus', () => showDropdown(searchEl.value));
+  searchEl.addEventListener('input', () => {
+    clearBtn.style.opacity = searchEl.value ? '1' : '0';
+    clearBtn.style.pointerEvents = searchEl.value ? 'auto' : 'none';
+    showDropdown(searchEl.value);
   });
-  renderBestTime(activeCity);
+  dropdown.addEventListener('mousedown', e => {
+    const item = e.target.closest('.bttg-drop-item');
+    if (item) selectCity(item.dataset.city);
+  });
+  clearBtn.addEventListener('click', () => {
+    searchEl.value = ''; clearBtn.style.opacity = '0'; clearBtn.style.pointerEvents = 'none';
+    closeDropdown(); searchEl.focus();
+  });
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.bttg-search-wrap')) closeDropdown();
+  });
+
+  selectCity(activeCity);
 });
 
 /* ── Price Alerts ── */
