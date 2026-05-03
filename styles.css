@@ -303,7 +303,8 @@ body.light-mode .btn-planner-outline:hover { background: rgba(255,255,255,.35); 
 }
 .hero-search input {
   flex: 1; background: transparent; border: none; outline: none;
-  padding: 12px 0; font-size: 15px; color: #f0faf9; font-family: inherit; min-width: 0;
+  padding: 0; line-height: 1; font-size: 15px; color: #f0faf9; font-family: inherit; min-width: 0;
+  align-self: center;
 }
 .hero-search input::placeholder { color: rgba(240,250,249,.35); }
 .hero-search button {
