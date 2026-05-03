@@ -1,5 +1,5 @@
 -- ============================================================
--- PinTrip Database Schema
+-- Dropped Database Schema
 -- Run this in your Supabase project: SQL Editor → New Query
 -- ============================================================
 

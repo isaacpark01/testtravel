@@ -551,6 +551,31 @@
     currentCity = null;
   };
 
+  /* ── Continents ── */
+  const CONTINENTS = [
+    { name: 'USA & North America', region: 'usa',    lat: 39,  lng: -98,  alt: 2.3 },
+    { name: 'Europe',              region: 'europe', lat: 54,  lng: 15,   alt: 2.0 },
+    { name: 'Asia',                region: 'asia',   lat: 30,  lng: 105,  alt: 1.9 },
+    { name: 'Latin America',       region: 'latam',  lat: -8,  lng: -58,  alt: 2.3 },
+    { name: 'Middle East',         region: 'gulf',   lat: 26,  lng: 46,   alt: 2.6 },
+    { name: 'Africa',              region: 'africa', lat: 2,   lng: 22,   alt: 2.2 },
+    { name: 'Oceania',             region: 'oceania',lat: -24, lng: 134,  alt: 2.5 },
+  ];
+  function detectContinent(lat, lng) {
+    if (lat > 15  && lat < 72  && lng > -168 && lng < -52)  return 'usa';
+    if (lat > -56 && lat < 15  && lng > -82  && lng < -34)  return 'latam';
+    if (lat > 35  && lat < 72  && lng > -25  && lng < 45)   return 'europe';
+    if (lat > 12  && lat < 42  && lng > 25   && lng < 65)   return 'gulf';
+    if (lat > -35 && lat < 37  && lng > -18  && lng < 52)   return 'africa';
+    if (lat > -10 && lat < 78  && lng > 60   && lng < 180)  return 'asia';
+    if (lat > -50 && lat < -8  && lng > 108  && lng < 180)  return 'oceania';
+    return null;
+  }
+  function flyToContinent(c) {
+    globe.controls().autoRotate = false;
+    globe.pointOfView({ lat: c.lat, lng: c.lng, altitude: c.alt }, 1200);
+  }
+
   /* ── Globe ── */
   const globe = Globe({ animateIn: true })(document.getElementById('globe-wrap'))
     .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
@@ -558,7 +583,17 @@
     .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
     .showAtmosphere(true)
     .atmosphereColor('#4a90d9')
-    .atmosphereAltitude(0.2);
+    .atmosphereAltitude(0.2)
+    .ringsData([])
+    .ringLat('lat').ringLng('lng')
+    .ringColor(() => '#38bdf8')
+    .ringMaxRadius(2.5).ringPropagationSpeed(3).ringRepeatPeriod(900)
+    .onGlobeClick(({ lat, lng }) => {
+      const region = detectContinent(lat, lng);
+      if (!region) return;
+      const c = CONTINENTS.find(c => c.region === region);
+      if (c) flyToContinent(c);
+    });
 
   /* Ocean specularity — subtle sheen on water */
   const mat = globe.globeMaterial();
@@ -584,6 +619,7 @@
   function flyToCity(pt) {
     globe.controls().autoRotate = false;
     globe.pointOfView({ lat: pt.lat, lng: pt.lng, altitude: 1.4 }, 1200);
+    globe.ringsData([pt]);
     setTimeout(() => { openPanel(pt); }, 1200);
     searchInput.value = '';
     searchResults.classList.remove('show');

@@ -1,5 +1,5 @@
 // ============================================================
-// PinTrip — Supabase Configuration
+// Dropped — Supabase Configuration
 // ============================================================
 // 1. Go to https://supabase.com → "New project" (free)
 // 2. Project Settings → API → copy "Project URL" and "anon public" key

@@ -1,7 +1,54 @@
 /* ============================================================
-   PinTrip — app.js
-   - Supabase auth + real-time boards
-   - City browsing, food genres, pack lists, essentials
+   Dropped — app.js
+   Loaded by: index.html
+   Depends on: data.js (CITIES), config.js (Supabase creds),
+               travel-apps.js (CITY_TRAVEL_APPS), i18n.js, reveal.js
+
+   WHAT THIS FILE DOES
+   ─────────────────────────────────────────────────────────────
+   Powers the home/explore page (index.html). Handles:
+     • Supabase auth (sign-in, sign-up, forgot password)
+     • City browser — carousel, region filter, search
+     • City detail modal — activities / food / transport tabs
+     • Group boards — real-time Supabase kanban boards
+     • Packing lists, language phrases, essential travel apps
+     • Deal search links (flights, hotels, car hire)
+
+   SUPABASE NOTE
+   ─────────────────────────────────────────────────────────────
+   The CDN declares `window.supabase` globally. We use the name
+   `supabaseClient` for our instance to avoid a SyntaxError in
+   strict mode. Never rename it back to `supabase`.
+
+   GROUP BOARDS
+   ─────────────────────────────────────────────────────────────
+   Boards and ideas live in Supabase (see schema.sql).
+   Real-time updates use Supabase Realtime channels.
+   All DB access is governed by RLS — the anon key in config.js
+   is safe to expose; it has no elevated privileges.
+
+   FUNCTION INDEX (major sections)
+   ─────────────────────────────────────────────────────────────
+   ~13   IS_CONFIGURED — guards Supabase init if no key is set
+   ~29   PACK_DATA — packing lists by destination type
+   ~109  CITY_LANGUAGES — phrase books + TTS lang codes per city
+   ~252  Auth — openAuth, signIn, signUp, signOut, handleSession
+   ~387  Board CRUD — loadUserBoards, createBoard, selectBoard
+   ~416  Ideas — addIdea, voteIdea, deleteIdea, renderIdeas
+   ~561  openCity(id) — opens city detail modal (called from cards + globe)
+   ~590  switchTab / applyFilter — activities | food | transport | deals
+   ~663  GENRE_EMOJI — maps cuisine strings to emoji labels
+   ~904  renderFoodByGenre — groups food cards by cuisine
+   ~933  PHOTO_MAP / getSpotPhoto — photo fallback chain
+   ~1033 buildSearchLinks — Yelp / Maps / TikTok deep links per place
+   ~1312 City card HTML builder
+   ~1341 filterRegion / scrollCityCarousel — carousel controls
+
+   XSS SAFETY
+   ─────────────────────────────────────────────────────────────
+   escHtml(s) / esc(s) — for HTML content and double-quoted attrs
+   jsqApp(s)           — for values inside single-quoted onclick='...'
+   Never inject city names, item names, or user content raw.
    ============================================================ */
 
 /* ===================== SUPABASE INIT ===================== */
@@ -292,7 +339,7 @@ async function signIn() {
   const { error } = await supabaseClient.auth.signInWithPassword({ email, password: pass });
   if (error) {
     err.textContent = error.message === 'Email not confirmed'
-      ? 'Please confirm your email first — check your inbox for the PinTrip link.'
+      ? 'Please confirm your email first — check your inbox for the Dropped confirmation link.'
       : error.message;
     err.classList.remove('hidden');
     return;
@@ -314,7 +361,7 @@ async function signUp() {
   if (error) { err.textContent = error.message; err.classList.remove('hidden'); return; }
   // Supabase requires email confirmation by default — session will be null until confirmed
   if (data.session) {
-    showAuthSuccess(`Welcome to PinTrip, ${username}!`);
+    showAuthSuccess(`Welcome to Dropped, ${username}!`);
   } else {
     showAuthSuccess(`Check your email at ${email} and click the confirmation link, then come back to log in.`, true);
   }

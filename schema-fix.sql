@@ -1,5 +1,5 @@
 -- ============================================================
--- PinTrip — Schema Fix
+-- Dropped — Schema Fix
 -- Run this in Supabase SQL Editor → New Query if signup fails
 -- with "Database error saving new user"
 -- ============================================================

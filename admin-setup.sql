@@ -1,5 +1,5 @@
 -- ============================================================
--- PinTrip Admin Setup
+-- Dropped Admin Setup
 -- Run this ONCE in Supabase SQL Editor → New Query
 -- ============================================================
 

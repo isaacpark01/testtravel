@@ -1,9 +1,66 @@
 /* ============================================================
    Dropped — planner.js
-   Five-tab travel planner: Saves | Itinerary | Discover | Rewards | Lang
-   Map: Leaflet.js + OpenStreetMap
-   Storage: localStorage key "dropped_v2"
-   i18n: 11 languages, RTL support for Arabic
+   Loaded by: planner.html
+   Depends on: data.js (CITIES), config.js (Supabase creds),
+               ai.js (AI assistant), group.js (group boards)
+
+   WHAT THIS FILE DOES
+   ─────────────────────────────────────────────────────────────
+   Manages the five-tab trip planner UI. All trip data is stored
+   in localStorage under the key "dropped_v2" (see STORAGE_KEY).
+   No server calls except for Supabase group boards (group.js).
+
+   TABS
+   ─────────────────────────────────────────────────────────────
+   Saves      → wishlisted places per trip (heart icon on cards)
+   Itinerary  → drag-and-drop day planner (kanban-style)
+   Discover   → browse city food & activities; add to Saves/Days
+   Rewards    → credit card rewards tips per city
+   Lang       → phrase book + audio pronunciation (11 languages)
+
+   KEY DATA STRUCTURES
+   ─────────────────────────────────────────────────────────────
+   Trip object (stored in localStorage):
+     { id, name, cityId, startDate, endDate, budget,
+       days: [{ id, label, cards: [{ id, name, price, duration }] }],
+       saves: [{ id, name, price, ... }] }
+
+   STORAGE
+     localStorage["dropped_v2"] = { trips: [...], activeTripId }
+     getStore() / saveStore(d) — read/write helpers (line ~1342)
+
+   MAP
+     Leaflet.js + OpenStreetMap tiles
+     CITY_COORDS — lat/lng for all cities (line ~173)
+     jitter(coord, seed) — offsets pins so stacked places don't overlap
+
+   FUNCTION INDEX (major sections)
+   ─────────────────────────────────────────────────────────────
+   ~12   i18n / translations (LANGS, TRANSLATIONS, t(), applyTranslations)
+   ~173  CITY_COORDS — lat/lng for every city
+   ~283  jitter() — spreads map pins ±2.5 km
+   ~291  Photo lookup (PHOTO_MAP, getPhoto, getPlacePhotos)
+   ~815  HTML helpers — escHtml(), jsq(), renderStars()
+   ~849  Vibe tags (getVibes, renderVibeTags)
+   ~903  Day health score (getDayStats, renderDayHealthBar)
+   ~1016 Smart packing list
+   ~1116 Export / share itinerary
+   ~1339 Storage helpers (getStore, saveStore)
+   ~1354 App state & trip CRUD
+   ~1453 City lookup helpers
+   ~1900 Renders: trips list, day columns, card rows
+   ~2800 Discover tab — filter, sort, vibe filter, bottom sheet
+   ~3200 Saves tab
+   ~3500 Rewards tab
+   ~3800 Map tab (Leaflet init, pin rendering)
+   ~4100 AI assistant integration (ai.js bridge)
+
+   XSS SAFETY
+   ─────────────────────────────────────────────────────────────
+   All user/city data injected into HTML must use:
+     esc(s)  / escHtml(s) — for HTML content & double-quoted attrs
+     jsq(s)              — for values inside single-quoted onclick='...'
+   Never use raw innerHTML with untrusted strings.
    ============================================================ */
 
 'use strict';
