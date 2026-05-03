@@ -1452,6 +1452,35 @@ function buildHotelLink(platform, anchor) {
   return true;
 }
 
+function buildExpLink(platform, anchor) {
+  const dest     = encodeURIComponent(document.getElementById('exp-dest')?.value.trim() || '');
+  const category = document.getElementById('exp-category')?.value || '';
+  const date     = document.getElementById('exp-date')?.value || '';
+  const urls = {
+    viator:       `https://www.viator.com/search/${dest}`,
+    getyourguide: `https://www.getyourguide.com/s/?q=${dest}&date_from=${date}`,
+    klook:        `https://www.klook.com/en-US/search/?query=${dest}`,
+    airbnb:       `https://www.airbnb.com/experiences/search?query=${dest}`,
+    tripadvisor:  `https://www.tripadvisor.com/Search?q=${dest}+${category}+experiences`,
+  };
+  anchor.href = urls[platform] || '#';
+  return true;
+}
+
+function buildInsLink(platform, anchor) {
+  const dest      = encodeURIComponent(document.getElementById('ins-dest')?.value.trim() || '');
+  const depart    = document.getElementById('ins-depart')?.value || '';
+  const ret       = document.getElementById('ins-return')?.value || '';
+  const travelers = document.getElementById('ins-travelers')?.value || '1';
+  const urls = {
+    safetywing:  `https://safetywing.com/?referenceID=travia`,
+    worldnomads: `https://www.worldnomads.com/travel-insurance/?from=${depart}&to=${ret}&destination=${dest}&travelers=${travelers}`,
+    allianz:     `https://www.allianztravelinsurance.com/`,
+  };
+  anchor.href = urls[platform] || '#';
+  return true;
+}
+
 /* ===================== BUDGET ESTIMATOR ===================== */
 let _estDropdownOpen = false;
 

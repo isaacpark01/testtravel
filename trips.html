@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Curated Trips — Travia</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    @font-face { font-family:'Geist'; src:url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'Geist'; src:url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Bold.woff2') format('woff2'); font-weight:700; font-display:swap; }
+
+    /* ─ hero ─ */
+    .trips-hero { padding: 100px 20px 52px; text-align: center; max-width: 780px; margin: 0 auto; }
+    .trips-hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #97ace0; background: rgba(151,172,224,.08); border: 1px solid rgba(151,172,224,.2); padding: 6px 14px; border-radius: 30px; margin-bottom: 20px; }
+    .trips-hero h1 { font-family: 'Geist', sans-serif; font-size: clamp(32px, 6vw, 56px); font-weight: 800; letter-spacing: -.03em; line-height: 1.1; color: #f0faf9; margin-bottom: 16px; }
+    .trips-hero p { font-size: 16px; color: rgba(240,250,249,.5); line-height: 1.7; max-width: 560px; margin: 0 auto; }
+
+    /* ─ filter bar ─ */
+    .trips-filter-bar { max-width: 960px; margin: 0 auto 40px; padding: 0 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .trips-filter-btn { background: rgba(255,255,255,.04); border: 1px solid rgba(106,154,184,.18); border-radius: 8px; color: rgba(240,250,249,.55); font-size: 13px; font-weight: 600; font-family: inherit; padding: 8px 16px; cursor: pointer; transition: all .15s; }
+    .trips-filter-btn:hover { border-color: rgba(106,154,184,.4); color: #f0faf9; }
+    .trips-filter-btn.active { background: rgba(106,154,184,.15); border-color: #6a9ab8; color: #f0faf9; }
+
+    /* ─ grid ─ */
+    .trips-grid { max-width: 960px; margin: 0 auto; padding: 0 20px 100px; display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 20px; }
+
+    /* ─ trip card ─ */
+    .trip-card { background: rgba(255,255,255,.03); border: 1px solid rgba(106,154,184,.12); border-radius: 20px; overflow: hidden; cursor: pointer; transition: border-color .2s, transform .2s, box-shadow .2s; display: flex; flex-direction: column; }
+    .trip-card:hover { border-color: rgba(106,154,184,.35); transform: translateY(-3px); box-shadow: 0 16px 48px rgba(0,0,0,.35); }
+    .trip-card-img { width: 100%; height: 180px; object-fit: cover; display: block; background: rgba(106,154,184,.08); }
+    .trip-card-body { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+    .trip-card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+    .trip-tag { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 3px 9px; border-radius: 6px; }
+    .trip-tag-region { background: rgba(106,154,184,.1); color: #97ace0; border: 1px solid rgba(106,154,184,.2); }
+    .trip-tag-days { background: rgba(52,211,153,.08); color: #34d399; border: 1px solid rgba(52,211,153,.18); }
+    .trip-tag-vibe { background: rgba(167,139,250,.08); color: #a78bfa; border: 1px solid rgba(167,139,250,.18); }
+    .trip-card-title { font-size: 18px; font-weight: 800; color: #f0faf9; line-height: 1.25; margin-bottom: 8px; }
+    .trip-card-desc { font-size: 13px; color: rgba(240,250,249,.45); line-height: 1.6; flex: 1; margin-bottom: 16px; }
+    .trip-card-highlights { display: flex; flex-direction: column; gap: 5px; margin-bottom: 16px; }
+    .trip-card-highlight { font-size: 12px; color: rgba(240,250,249,.5); display: flex; align-items: flex-start; gap: 7px; }
+    .trip-card-highlight::before { content: '✓'; color: #34d399; font-weight: 700; flex-shrink: 0; }
+    .trip-card-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid rgba(106,154,184,.08); padding-top: 14px; }
+    .trip-card-price { display: flex; align-items: baseline; gap: 4px; }
+    .trip-price-amount { font-size: 22px; font-weight: 800; color: #f0faf9; }
+    .trip-price-label { font-size: 11px; color: rgba(240,250,249,.35); }
+    .trip-preview-btn { background: #6a9ab8; border: none; color: #fff; font-size: 12px; font-weight: 700; font-family: inherit; padding: 9px 18px; border-radius: 8px; cursor: pointer; transition: background .2s; white-space: nowrap; }
+    .trip-preview-btn:hover { background: #5283a0; }
+
+    /* ─ modal ─ */
+    .trip-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(6px); }
+    .trip-modal-overlay.hidden { display: none; }
+    .trip-modal { background: #0d1829; border: 1px solid rgba(106,154,184,.2); border-radius: 24px; max-width: 640px; width: 100%; max-height: 88vh; overflow-y: auto; }
+    .trip-modal-img { width: 100%; height: 220px; object-fit: cover; border-radius: 24px 24px 0 0; display: block; background: rgba(106,154,184,.08); }
+    .trip-modal-body { padding: 28px; }
+    .trip-modal-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+    .trip-modal-title { font-size: 24px; font-weight: 800; color: #f0faf9; line-height: 1.2; }
+    .trip-modal-close { background: rgba(255,255,255,.06); border: 1px solid rgba(106,154,184,.18); border-radius: 8px; color: rgba(240,250,249,.5); font-size: 18px; width: 36px; height: 36px; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+    .trip-modal-close:hover { background: rgba(255,255,255,.1); color: #f0faf9; }
+    .trip-modal-section-title { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(240,250,249,.35); margin-bottom: 12px; margin-top: 24px; }
+    .trip-day { background: rgba(255,255,255,.03); border: 1px solid rgba(106,154,184,.1); border-radius: 14px; padding: 16px 18px; margin-bottom: 10px; }
+    .trip-day-label { font-size: 12px; font-weight: 700; color: #6a9ab8; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+    .trip-day-items { display: flex; flex-direction: column; gap: 6px; }
+    .trip-day-item { font-size: 13px; color: rgba(240,250,249,.6); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+    .trip-day-item-icon { font-size: 14px; flex-shrink: 0; }
+    .trip-modal-cta { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
+    .trip-get-btn { background: linear-gradient(135deg, #6a9ab8 0%, #5283a0 100%); border: none; color: #fff; font-size: 15px; font-weight: 800; font-family: inherit; padding: 14px 28px; border-radius: 12px; cursor: pointer; transition: opacity .2s; width: 100%; }
+    .trip-get-btn:hover { opacity: .88; }
+    .trip-planner-btn { background: transparent; border: 1px solid rgba(151,172,224,.25); color: #97ace0; font-size: 13px; font-weight: 700; font-family: inherit; padding: 12px 28px; border-radius: 12px; cursor: pointer; transition: all .2s; width: 100%; }
+    .trip-planner-btn:hover { background: rgba(151,172,224,.08); color: #f0faf9; }
+    .trip-modal-note { font-size: 11px; color: rgba(240,250,249,.25); text-align: center; margin-top: 8px; }
+
+    /* ─ light mode ─ */
+    body.light-mode .trips-hero h1 { color: #0f172a; }
+    body.light-mode .trips-hero p { color: rgba(15,23,42,.5); }
+    body.light-mode .trips-filter-btn { background: #f8fafc; border-color: rgba(106,154,184,.2); color: rgba(15,23,42,.5); }
+    body.light-mode .trips-filter-btn.active { background: rgba(106,154,184,.12); border-color: #6a9ab8; color: #0f172a; }
+    body.light-mode .trip-card { background: #fff; border-color: rgba(106,154,184,.18); }
+    body.light-mode .trip-card:hover { box-shadow: 0 12px 36px rgba(106,154,184,.12); }
+    body.light-mode .trip-card-title { color: #0f172a; }
+    body.light-mode .trip-price-amount { color: #0f172a; }
+    body.light-mode .trip-modal { background: #fff; }
+    body.light-mode .trip-modal-title { color: #0f172a; }
+    body.light-mode .trip-day { background: #f8fafc; }
+  </style>
+</head>
+<body>
+<script src="theme.js"></script>
+
+<!-- ══ HEADER ═══════════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <img src="travel-logo-5.png" class="logo-img" alt="Travia" style="width:30px;height:30px;object-fit:contain;">
+      <span class="logo-text">Travia</span>
+    </a>
+    <nav class="header-nav">
+      <a href="/">Explore</a>
+      <a href="/planner.html">Planner</a>
+      <a href="/globe.html">Globe</a>
+      <a href="/#deals">Deals</a>
+      <a href="/visa.html">Visa</a>
+      <a href="/split.html">Splitter</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+      <span class="toggle-knob">
+        <svg class="toggle-moon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="toggle-sun" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>
+      </span>
+    </button>
+  </div>
+</header>
+
+<!-- ══ HERO ════════════════════════════════════════════════════ -->
+<section class="trips-hero">
+  <div class="trips-hero-eyebrow">🗺️ Expert-planned itineraries</div>
+  <h1>Curated Trips, <span class="teal-text">Ready to Go</span></h1>
+  <p>Skip the planning overwhelm. Expert-crafted day-by-day itineraries you can drop straight into your Travia planner.</p>
+</section>
+
+<!-- ══ FILTERS ══════════════════════════════════════════════════ -->
+<div class="trips-filter-bar" id="filter-bar">
+  <button class="trips-filter-btn active" data-filter="all" onclick="filterTrips('all', this)">All trips</button>
+  <button class="trips-filter-btn" data-filter="asia" onclick="filterTrips('asia', this)">Asia</button>
+  <button class="trips-filter-btn" data-filter="europe" onclick="filterTrips('europe', this)">Europe</button>
+  <button class="trips-filter-btn" data-filter="americas" onclick="filterTrips('americas', this)">Americas</button>
+  <button class="trips-filter-btn" data-filter="adventure" onclick="filterTrips('adventure', this)">Adventure</button>
+  <button class="trips-filter-btn" data-filter="culture" onclick="filterTrips('culture', this)">Culture</button>
+  <button class="trips-filter-btn" data-filter="food" onclick="filterTrips('food', this)">Food & Drink</button>
+  <button class="trips-filter-btn" data-filter="romantic" onclick="filterTrips('romantic', this)">Romantic</button>
+</div>
+
+<!-- ══ GRID ═════════════════════════════════════════════════════ -->
+<div class="trips-grid" id="trips-grid"></div>
+
+<!-- ══ MODAL ════════════════════════════════════════════════════ -->
+<div class="trip-modal-overlay hidden" id="trip-modal" onclick="if(event.target===this)closeModal()">
+  <div class="trip-modal">
+    <img class="trip-modal-img" id="modal-img" src="" alt="" />
+    <div class="trip-modal-body">
+      <div class="trip-modal-header">
+        <div>
+          <div class="trip-modal-title" id="modal-title"></div>
+          <div id="modal-tags" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;"></div>
+        </div>
+        <button class="trip-modal-close" onclick="closeModal()">×</button>
+      </div>
+      <div id="modal-desc" style="font-size:14px;color:rgba(240,250,249,.5);line-height:1.7;margin-bottom:4px;"></div>
+      <div class="trip-modal-section-title">Day-by-day breakdown</div>
+      <div id="modal-days"></div>
+      <div class="trip-modal-cta">
+        <button class="trip-get-btn" onclick="openInPlanner()">Open in My Planner →</button>
+        <button class="trip-planner-btn" onclick="closeModal()">Maybe later</button>
+        <div class="trip-modal-note">Free to use — trips open directly in your Travia planner.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const TRIPS = [
+  {
+    id: 'tokyo-7',
+    title: 'Tokyo in 7 Days',
+    region: 'asia',
+    vibes: ['culture', 'food'],
+    days: 7,
+    price: 'Free',
+    image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600&q=80',
+    desc: 'Dive deep into Tokyo — from ancient temples to neon-lit alleys, world-class sushi to Harajuku street style.',
+    highlights: ['Tsukiji Fish Market morning trawl', 'Day trip to Nikko or Hakone', 'Shibuya crossing at night'],
+    itinerary: [
+      { label: 'Day 1 — Arrival & Shinjuku', items: [{ icon: '🍜', text: 'Arrive, drop bags, ramen at Ichiran Shinjuku' }, { icon: '🌃', text: 'Kabukicho neon walk, Tokyo Metropolitan Govt Building observatory (free)' }] },
+      { label: 'Day 2 — Asakusa & Akihabara', items: [{ icon: '⛩️', text: 'Senso-ji Temple & Nakamise shopping street' }, { icon: '🎮', text: 'Akihabara electronics & retro game arcades' }, { icon: '🍱', text: 'Sushi dinner at Tsukiji outer market' }] },
+      { label: 'Day 3 — Shibuya & Harajuku', items: [{ icon: '🛍️', text: 'Takeshita Street, Omotesando' }, { icon: '🎌', text: 'Meiji Shrine (free)' }, { icon: '🥩', text: 'Wagyu sukiyaki dinner' }] },
+      { label: 'Day 4 — Day Trip: Nikko', items: [{ icon: '🚄', text: 'Shinkansen to Nikko (1.5h)' }, { icon: '🌲', text: 'Tosho-gu Shrine & Kegon Falls' }, { icon: '🍡', text: 'Yuba kaiseki lunch' }] },
+      { label: 'Day 5 — Yanaka & Ueno', items: [{ icon: '🏘️', text: 'Yanaka old Tokyo neighborhood stroll' }, { icon: '🎨', text: 'Tokyo National Museum' }, { icon: '🍣', text: 'Omakase at a neighborhood counter' }] },
+      { label: 'Day 6 — Odaiba & teamLab', items: [{ icon: '🌊', text: 'Odaiba waterfront & Rainbow Bridge views' }, { icon: '✨', text: 'teamLab Borderless digital art (book ahead)' }, { icon: '🍺', text: 'Craft beer at local taproom' }] },
+      { label: 'Day 7 — Shimokitazawa & Depart', items: [{ icon: '🎵', text: 'Shimokitazawa vintage shops & live music cafes' }, { icon: '✈️', text: 'Narita/Haneda — allow 90 min transit' }] }
+    ],
+    plannerCity: 'tokyo'
+  },
+  {
+    id: 'bali-10',
+    title: 'Bali in 10 Days',
+    region: 'asia',
+    vibes: ['adventure', 'romantic'],
+    days: 10,
+    price: 'Free',
+    image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80',
+    desc: 'Rice terraces, sacred temples, surf breaks, and the best sunsets on earth. This is the Bali most tourists miss.',
+    highlights: ['Sunrise hike at Mount Batur', 'Private villa in Ubud jungle', 'Seminyak beach club sunset'],
+    itinerary: [
+      { label: 'Day 1–2 — Seminyak', items: [{ icon: '🏖️', text: 'Arrive, beach, Ku De Ta sunset' }, { icon: '🛵', text: 'Scooter rental, explore Canggu' }] },
+      { label: 'Day 3–4 — Ubud', items: [{ icon: '🌿', text: 'Tegalalang rice terraces at dawn' }, { icon: '🐒', text: 'Sacred Monkey Forest & Goa Gajah temple' }, { icon: '💆', text: 'Balinese massage & Ubud spa afternoon' }] },
+      { label: 'Day 5 — Mount Batur', items: [{ icon: '🌋', text: 'Pre-dawn hike, summit sunrise (guide required)' }, { icon: '♨️', text: 'Natural hot springs after descent' }] },
+      { label: 'Day 6–7 — Amed & Snorkeling', items: [{ icon: '🤿', text: 'Amed coral reef snorkeling & WWII shipwreck dive' }, { icon: '🌅', text: 'Lempuyang "Gates of Heaven" temple' }] },
+      { label: 'Day 8–9 — Nusa Penida', items: [{ icon: '⛵', text: 'Speed boat to Nusa Penida (45min)' }, { icon: '📸', text: 'Kelingking Beach cliff viewpoint' }, { icon: '🐠', text: 'Angel Billabong & Broken Beach' }] },
+      { label: 'Day 10 — Departure', items: [{ icon: '🛍️', text: 'Last morning market, silver jewelry at Celuk' }, { icon: '✈️', text: 'Ngurah Rai Airport — DPS' }] }
+    ],
+    plannerCity: 'bali'
+  },
+  {
+    id: 'paris-5',
+    title: 'Paris in 5 Days',
+    region: 'europe',
+    vibes: ['romantic', 'culture'],
+    days: 5,
+    price: 'Free',
+    image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80',
+    desc: 'The classic Paris — done right. Beyond the Eiffel Tower selfie to the neighborhood bistros, markets, and hidden courtyards.',
+    highlights: ['Morning at Sainte-Chapelle (no crowds)', 'Le Marais food tour', 'Seine river sunset cruise'],
+    itinerary: [
+      { label: 'Day 1 — Eiffel & Montmartre', items: [{ icon: '🗼', text: 'Eiffel Tower (book summit tickets online)' }, { icon: '🎨', text: 'Montmartre & Sacré-Cœur at golden hour' }, { icon: '🍷', text: 'Cave de la Bourgogne wine bar' }] },
+      { label: 'Day 2 — Louvre & Marais', items: [{ icon: '🏛️', text: 'Louvre — 3h max (skip the Mona Lisa queue, go straight to Vermeer)' }, { icon: '🥐', text: 'Le Marais falafel at L\'As du Fallafel' }, { icon: '🛍️', text: 'Place des Vosges & vintage shopping' }] },
+      { label: 'Day 3 — Versailles Day Trip', items: [{ icon: '👑', text: 'Palace of Versailles (book skip-the-line)' }, { icon: '🌸', text: 'Gardens & Trianon palaces — pack a picnic' }] },
+      { label: 'Day 4 — Left Bank & Sainte-Chapelle', items: [{ icon: '📚', text: 'Shakespeare & Co, Latin Quarter morning' }, { icon: '🕍', text: 'Sainte-Chapelle stained glass — 9am to beat crowds' }, { icon: '🥩', text: 'Brasserie Lipp dinner, Saint-Germain' }] },
+      { label: 'Day 5 — Belleville & Depart', items: [{ icon: '🎭', text: 'Belleville murals & Père-Lachaise cemetery walk' }, { icon: '☕', text: 'Third-wave coffee at Café Oberkampf' }, { icon: '✈️', text: 'CDG — allow 2h+, RER B from Châtelet' }] }
+    ],
+    plannerCity: 'paris'
+  },
+  {
+    id: 'nyc-4',
+    title: 'New York City in 4 Days',
+    region: 'americas',
+    vibes: ['culture', 'food'],
+    days: 4,
+    price: 'Free',
+    image: 'https://images.unsplash.com/photo-1483653364400-eedcfb9f1f88?w=600&q=80',
+    desc: 'Four days, four boroughs, zero tourist traps. The local\'s guide to New York\'s best food, art, and views.',
+    highlights: ['Brooklyn Bridge walk at sunrise', 'Chelsea Market & High Line', 'Jazz in Harlem'],
+    itinerary: [
+      { label: 'Day 1 — Midtown & Central Park', items: [{ icon: '🌳', text: 'Central Park morning run or bike rental' }, { icon: '🏛️', text: 'MoMA (free Fri 5–9pm)' }, { icon: '🍕', text: 'Joe\'s Pizza slice, then Times Square after dark' }] },
+      { label: 'Day 2 — Brooklyn', items: [{ icon: '🌉', text: 'Brooklyn Bridge walk (start Manhattan side, 7am)' }, { icon: '🧆', text: 'DUMBO brunch at Superfine or Vinegar Hill House' }, { icon: '🎸', text: 'Williamsburg vintage shops, evening bar-hop' }] },
+      { label: 'Day 3 — Lower Manhattan & Chelsea', items: [{ icon: '🍱', text: 'Smorgasburg (weekends) or Chelsea Market' }, { icon: '🌿', text: 'The High Line elevated park' }, { icon: '🎺', text: 'Harlem jazz dinner at Sylvia\'s or Bill\'s Place' }] },
+      { label: 'Day 4 — Queens & Depart', items: [{ icon: '🍜', text: 'Jackson Heights food crawl: Nepali, Colombian, Bangladeshi' }, { icon: '🚁', text: 'One World Observatory or Edge (Hudson Yards)' }, { icon: '✈️', text: 'JFK/EWR/LGA — check your terminal early' }] }
+    ],
+    plannerCity: 'nyc'
+  },
+  {
+    id: 'kyoto-6',
+    title: 'Kyoto in 6 Days',
+    region: 'asia',
+    vibes: ['culture', 'food'],
+    days: 6,
+    price: 'Free',
+    image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&q=80',
+    desc: 'Ancient capital, 2,000 temples, and the best kaiseki on the planet. Kyoto rewards those who slow down.',
+    highlights: ['Fushimi Inari at 5am (before the crowds)', 'Tea ceremony in Higashiyama', 'Nishiki Market food tour'],
+    itinerary: [
+      { label: 'Day 1 — Arrival & Gion', items: [{ icon: '🏮', text: 'Gion evening stroll, geisha spotting on Hanamikoji' }, { icon: '🍣', text: 'Kaiseki dinner at a traditional machiya' }] },
+      { label: 'Day 2 — Fushimi & Arashiyama', items: [{ icon: '⛩️', text: 'Fushimi Inari gates — arrive 5am, leave by 8am' }, { icon: '🎋', text: 'Arashiyama bamboo grove, Tenryu-ji garden' }] },
+      { label: 'Day 3 — Higashiyama', items: [{ icon: '🍵', text: 'Matcha tea ceremony at En tea house' }, { icon: '🛕', text: 'Kiyomizudera, Ninenzaka cobblestone lane' }, { icon: '🥟', text: 'Tofu cuisine lunch at Tousuiro' }] },
+      { label: 'Day 4 — Nijo & Philosopher\'s Path', items: [{ icon: '🏯', text: 'Nijo Castle — gorgeous painted walls' }, { icon: '🌸', text: 'Philosopher\'s Path (sakura in spring, maple in fall)' }] },
+      { label: 'Day 5 — Nara Day Trip', items: [{ icon: '🦌', text: 'Nara deer park & Todai-ji Great Buddha (45min from Kyoto)' }, { icon: '🌿', text: 'Kasuga Taisha lantern shrine' }] },
+      { label: 'Day 6 — Nishiki & Depart', items: [{ icon: '🥢', text: 'Nishiki Market: pickled plum, yuba, grilled mochi' }, { icon: '✈️', text: 'Shinkansen to Tokyo, or KIX/ITM for flights home' }] }
+    ],
+    plannerCity: 'kyoto'
+  },
+  {
+    id: 'barcelona-5',
+    title: 'Barcelona in 5 Days',
+    region: 'europe',
+    vibes: ['food', 'adventure'],
+    days: 5,
+    price: 'Free',
+    image: 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600&q=80',
+    desc: 'Gaudí, the beach, tapas at midnight, and the most electric food scene in Europe. Barcelona doesn\'t disappoint.',
+    highlights: ['Sagrada Família at opening time', 'Boqueria market breakfast', 'Barceloneta after-beach cocktails'],
+    itinerary: [
+      { label: 'Day 1 — Gothic Quarter', items: [{ icon: '🏛️', text: 'Gothic Quarter morning wander, MNAC' }, { icon: '🥘', text: 'Paella lunch at La Mar Salada, Barceloneta beach PM' }] },
+      { label: 'Day 2 — Gaudí Day', items: [{ icon: '⛪', text: 'Sagrada Família 9am (must book tickets online)' }, { icon: '🦎', text: 'Park Güell terrace & Casa Batlló facade' }] },
+      { label: 'Day 3 — El Born & Poblenou', items: [{ icon: '🎨', text: 'Picasso Museum (Tuesday: free)' }, { icon: '🍸', text: 'El Born craft cocktail bars, late tapas dinner' }] },
+      { label: 'Day 4 — Montjuïc & Gracia', items: [{ icon: '🌿', text: 'Montjuïc castle & gardens, cable car views' }, { icon: '🛍️', text: 'Gracia neighborhood market & local boutiques' }] },
+      { label: 'Day 5 — Boqueria & Depart', items: [{ icon: '🥐', text: 'La Boqueria market early breakfast (before tourists)' }, { icon: '✈️', text: 'BCN Airport — take the Aerobus, 35min' }] }
+    ],
+    plannerCity: 'barcelona'
+  },
+  {
+    id: 'costa-rica-8',
+    title: 'Costa Rica in 8 Days',
+    region: 'americas',
+    vibes: ['adventure'],
+    days: 8,
+    price: 'Free',
+    image: 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=600&q=80',
+    desc: 'Volcanoes, cloud forests, ziplines, and white-sand beaches. Pura vida through one of the world\'s great ecosystems.',
+    highlights: ['Zip-line through Monteverde Cloud Forest', 'Arenal volcano hot springs', 'Manuel Antonio beach sloth spotting'],
+    itinerary: [
+      { label: 'Day 1–2 — San José & Arrival', items: [{ icon: '🌿', text: 'Arrive SJO, Central Market, Barrio Escalante food scene' }] },
+      { label: 'Day 3–4 — Arenal Volcano', items: [{ icon: '🌋', text: 'Drive to La Fortuna (3h), Arenal views' }, { icon: '♨️', text: 'Tabacón hot springs at night' }, { icon: '🚣', text: 'Caño Negro wildlife boat tour, sloths, caimans' }] },
+      { label: 'Day 5 — Monteverde Cloud Forest', items: [{ icon: '🌫️', text: 'Cloud forest guided walk, hummingbird gardens' }, { icon: '🪂', text: 'Zip-line & hanging bridges adventure' }] },
+      { label: 'Day 6–7 — Manuel Antonio', items: [{ icon: '🏖️', text: 'National park beach — arrive 7am to spot wildlife' }, { icon: '🦥', text: 'Sloth & capuchin monkey spotting with guide' }, { icon: '🌊', text: 'Sunset kayaking tour, Manuel Antonio village' }] },
+      { label: 'Day 8 — Departure', items: [{ icon: '☕', text: 'Fresh coffee farm stop en route to San José' }, { icon: '✈️', text: 'SJO — 2h buffer recommended' }] }
+    ],
+    plannerCity: null
+  },
+  {
+    id: 'singapore-4',
+    title: 'Singapore in 4 Days',
+    region: 'asia',
+    vibes: ['food', 'culture'],
+    days: 4,
+    price: 'Free',
+    image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=600&q=80',
+    desc: 'The world\'s cleanest city with the world\'s best hawker food. A layover destination that deserves far more time.',
+    highlights: ['Maxwell hawker centre lunch', 'Gardens by the Bay after dark', 'Chinatown & Little India in one morning'],
+    itinerary: [
+      { label: 'Day 1 — Marina Bay', items: [{ icon: '🌿', text: 'Gardens by the Bay supertrees (free from outside; Dome paid)' }, { icon: '🌃', text: 'Marina Bay Sands observation deck, laser show 8pm' }] },
+      { label: 'Day 2 — Hawker Tour', items: [{ icon: '🍜', text: 'Maxwell Food Centre: chicken rice, chai tow kway' }, { icon: '🦀', text: 'Lau Pa Sat chilli crab dinner' }] },
+      { label: 'Day 3 — Cultural Districts', items: [{ icon: '🕌', text: 'Chinatown morning, Sri Mariamman Temple' }, { icon: '🕍', text: 'Little India: Tekka Centre, Mustafa Centre' }, { icon: '🍡', text: 'Arab Quarter: Bussorah Street, kaya toast at Ya Kun' }] },
+      { label: 'Day 4 — Sentosa & Depart', items: [{ icon: '🏖️', text: 'Sentosa beach morning, S.E.A. Aquarium' }, { icon: '✈️', text: 'Changi Airport — allow 2h, world\'s best airport' }] }
+    ],
+    plannerCity: 'singapore'
+  }
+];
+
+let currentFilter = 'all';
+let currentTrip = null;
+
+function filterTrips(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.trips-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGrid();
+}
+
+function renderGrid() {
+  const grid = document.getElementById('trips-grid');
+  const filtered = currentFilter === 'all'
+    ? TRIPS
+    : TRIPS.filter(t => t.region === currentFilter || t.vibes.includes(currentFilter));
+
+  grid.innerHTML = filtered.map(t => `
+    <div class="trip-card" onclick="openModal('${t.id}')">
+      <img class="trip-card-img" src="${esc(t.image)}" alt="${esc(t.title)}" loading="lazy" />
+      <div class="trip-card-body">
+        <div class="trip-card-tags">
+          <span class="trip-tag trip-tag-region">${esc(t.region)}</span>
+          <span class="trip-tag trip-tag-days">${t.days} days</span>
+          ${t.vibes.map(v => `<span class="trip-tag trip-tag-vibe">${esc(v)}</span>`).join('')}
+        </div>
+        <div class="trip-card-title">${esc(t.title)}</div>
+        <div class="trip-card-desc">${esc(t.desc)}</div>
+        <div class="trip-card-highlights">
+          ${t.highlights.map(h => `<div class="trip-card-highlight">${esc(h)}</div>`).join('')}
+        </div>
+        <div class="trip-card-footer">
+          <div class="trip-card-price">
+            <span class="trip-price-amount">${esc(t.price)}</span>
+            <span class="trip-price-label">${t.price === 'Free' ? '— open in planner' : ''}</span>
+          </div>
+          <button class="trip-preview-btn" onclick="event.stopPropagation();openModal('${t.id}')">Preview →</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openModal(id) {
+  const t = TRIPS.find(x => x.id === id);
+  if (!t) return;
+  currentTrip = t;
+  document.getElementById('modal-img').src = t.image;
+  document.getElementById('modal-img').alt = t.title;
+  document.getElementById('modal-title').textContent = t.title;
+  document.getElementById('modal-desc').textContent = t.desc;
+  document.getElementById('modal-tags').innerHTML =
+    `<span class="trip-tag trip-tag-region">${esc(t.region)}</span>` +
+    `<span class="trip-tag trip-tag-days">${t.days} days</span>` +
+    t.vibes.map(v => `<span class="trip-tag trip-tag-vibe">${esc(v)}</span>`).join('');
+  document.getElementById('modal-days').innerHTML = t.itinerary.map(day => `
+    <div class="trip-day">
+      <div class="trip-day-label">${esc(day.label)}</div>
+      <div class="trip-day-items">
+        ${day.items.map(item => `<div class="trip-day-item"><span class="trip-day-item-icon">${item.icon}</span><span>${esc(item.text)}</span></div>`).join('')}
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('trip-modal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('trip-modal').classList.add('hidden');
+  document.body.style.overflow = '';
+  currentTrip = null;
+}
+
+function openInPlanner() {
+  if (!currentTrip) return;
+  const city = currentTrip.plannerCity;
+  const url = city ? `/planner.html?city=${city}` : '/planner.html';
+  closeModal();
+  window.location.href = url;
+}
+
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+renderGrid();
+</script>
+</body>
+</html>

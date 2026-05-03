@@ -276,6 +276,9 @@
       <a href="planner.html" data-i18n="navPlanner">Planner</a>
       <a href="globe.html">Globe</a>
       <a href="#deals" data-i18n="navDeals">Deals</a>
+      <a href="visa.html">Visa</a>
+      <a href="trips.html">Trips</a>
+      <a href="split.html">Splitter</a>
     </nav>
     <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode">
       <span class="toggle-knob">
@@ -493,6 +496,14 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
         Budget
       </button>
+      <button class="deals-tab" onclick="switchDealTab('experiences',this)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+        Experiences
+      </button>
+      <button class="deals-tab" onclick="switchDealTab('insurance',this)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Insurance
+      </button>
     </div>
 
   <!-- Flight search -->
@@ -664,7 +675,217 @@
   </div>
   </div><!-- /deal-tab-panel budget -->
 
+  <!-- Experiences -->
+  <div class="deal-tab-panel" id="deal-panel-experiences">
+  <div class="deal-form-card" style="border:none;border-radius:0;background:transparent;margin-top:0">
+    <div class="deal-card-hd">
+      <div class="deal-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></div>
+      <div class="deal-card-hd-text">
+        <div class="deal-card-eyebrow">Local Experiences</div>
+        <div class="deal-card-title">Book Tours &amp; Activities</div>
+      </div>
+    </div>
+    <div class="deal-form">
+      <div style="display:grid;grid-template-columns:1fr 1fr 160px;gap:10px">
+        <div class="form-field">
+          <label>Destination</label>
+          <input id="exp-dest" type="text" placeholder="City or country" />
+        </div>
+        <div class="form-field">
+          <label>Category</label>
+          <select id="exp-category">
+            <option value="">All experiences</option>
+            <option value="food">Food &amp; Drink</option>
+            <option value="adventure">Adventure &amp; Outdoor</option>
+            <option value="culture">Art &amp; Culture</option>
+            <option value="tours">City Tours</option>
+            <option value="wellness">Wellness &amp; Spa</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Date</label>
+          <input id="exp-date" type="date" />
+        </div>
+      </div>
+    </div>
+    <div class="deals-grid-mini" style="margin-top:14px">
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildExpLink('viator',this)" style="display:inline-flex;align-items:center;gap:7px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#1A7EDF"><circle cx="12" cy="12" r="10" fill="#1A7EDF"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-size="9" font-weight="800" font-family="sans-serif">V</text></svg>Viator
+      </a>
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildExpLink('getyourguide',this)" style="display:inline-flex;align-items:center;gap:7px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FF5533"><circle cx="12" cy="12" r="10" fill="#FF5533"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-size="9" font-weight="800" font-family="sans-serif">G</text></svg>GetYourGuide
+      </a>
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildExpLink('klook',this)" style="display:inline-flex;align-items:center;gap:7px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FF5722"><circle cx="12" cy="12" r="10" fill="#FF5722"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-size="9" font-weight="800" font-family="sans-serif">K</text></svg>Klook
+      </a>
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildExpLink('airbnb',this)" style="display:inline-flex;align-items:center;gap:7px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FF5A5F"><path d="M12 2C8.5 2 7 4.5 7 6.5c0 1.5.5 2.8 1.2 3.8C5 11.5 3 13.5 3 16c0 2.8 2.2 5 5 5 1.5 0 2.8-.6 3.8-1.6.3-.3.7-.4 1.2-.4.5 0 .9.1 1.2.4 1 1 2.3 1.6 3.8 1.6 2.8 0 5-2.2 5-5 0-2.5-2-4.5-5.2-5.7C18.5 9.3 19 8 19 6.5 19 4.5 17.5 2 14 2h-2z"/></svg>Airbnb Experiences
+      </a>
+      <a class="inline-deal-btn" href="#" target="_blank" rel="noopener" onclick="return buildExpLink('tripadvisor',this)" style="display:inline-flex;align-items:center;gap:7px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#00AA6C"><circle cx="12" cy="12" r="10" fill="#00AA6C"/><circle cx="8.5" cy="12" r="2" fill="#fff"/><circle cx="15.5" cy="12" r="2" fill="#fff"/></svg>TripAdvisor
+      </a>
+    </div>
+  </div>
+  </div><!-- /deal-tab-panel experiences -->
+
+  <!-- Insurance -->
+  <div class="deal-tab-panel" id="deal-panel-insurance">
+  <div class="deal-form-card" style="border:none;border-radius:0;background:transparent;margin-top:0">
+    <div class="deal-card-hd">
+      <div class="deal-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="deal-card-hd-text">
+        <div class="deal-card-eyebrow">Travel Insurance</div>
+        <div class="deal-card-title">Compare &amp; Get Covered</div>
+      </div>
+    </div>
+    <div class="deal-form">
+      <div style="display:grid;grid-template-columns:1fr 160px 160px 80px;gap:10px">
+        <div class="form-field">
+          <label>Destination</label>
+          <input id="ins-dest" type="text" placeholder="Country or worldwide" />
+        </div>
+        <div class="form-field">
+          <label>Departure</label>
+          <input id="ins-depart" type="date" />
+        </div>
+        <div class="form-field">
+          <label>Return</label>
+          <input id="ins-return" type="date" />
+        </div>
+        <div class="form-field">
+          <label>Travelers</label>
+          <input id="ins-travelers" type="number" min="1" max="10" value="1" />
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:16px">
+      <div class="ins-card">
+        <div class="ins-card-header">
+          <div class="ins-brand">🛡 SafetyWing</div>
+          <div class="ins-price-tag">From $1.87/day</div>
+        </div>
+        <div class="ins-features">
+          <span class="ins-feature">✓ Medical emergencies</span>
+          <span class="ins-feature">✓ Trip interruption</span>
+          <span class="ins-feature">✓ Lost luggage</span>
+          <span class="ins-feature ins-feature-muted">— Cancel for any reason</span>
+        </div>
+        <div class="ins-best-for">Best for: Long-term travelers &amp; nomads</div>
+        <a class="ins-cta" href="https://safetywing.com" target="_blank" rel="noopener" onclick="return buildInsLink('safetywing',this)">Get Quote →</a>
+      </div>
+      <div class="ins-card">
+        <div class="ins-card-header">
+          <div class="ins-brand">🌍 World Nomads</div>
+          <div class="ins-price-tag">From $5.75/day</div>
+        </div>
+        <div class="ins-features">
+          <span class="ins-feature">✓ Medical emergencies</span>
+          <span class="ins-feature">✓ Adventure sports</span>
+          <span class="ins-feature">✓ Trip cancellation</span>
+          <span class="ins-feature">✓ 24/7 emergency assist</span>
+        </div>
+        <div class="ins-best-for">Best for: Adventure travelers</div>
+        <a class="ins-cta" href="https://worldnomads.com" target="_blank" rel="noopener" onclick="return buildInsLink('worldnomads',this)">Get Quote →</a>
+      </div>
+      <div class="ins-card">
+        <div class="ins-card-header">
+          <div class="ins-brand">✈ Allianz Travel</div>
+          <div class="ins-price-tag">From $3.50/day</div>
+        </div>
+        <div class="ins-features">
+          <span class="ins-feature">✓ Trip cancellation</span>
+          <span class="ins-feature">✓ Medical coverage</span>
+          <span class="ins-feature">✓ Rental car damage</span>
+          <span class="ins-feature">✓ Baggage delay</span>
+        </div>
+        <div class="ins-best-for">Best for: Families &amp; business trips</div>
+        <a class="ins-cta" href="https://allianztravelinsurance.com" target="_blank" rel="noopener" onclick="return buildInsLink('allianz',this)">Get Quote →</a>
+      </div>
+    </div>
+  </div>
+  </div><!-- /deal-tab-panel insurance -->
+
   </div><!-- /deal-form-card outer -->
+</section>
+
+<!-- ══ BEST TIME TO GO ═══════════════════════════════════════════ -->
+<section class="section" id="best-time" style="padding-top:64px;padding-bottom:64px;">
+  <div class="section-header">
+    <div class="section-eyebrow">📅 Plan smarter</div>
+    <h2 class="section-title">Best Time to Visit</h2>
+    <p class="section-sub">When should you go? See weather, crowd levels, and price trends by month for any destination.</p>
+  </div>
+  <div style="max-width:860px;margin:0 auto;padding:0 4px;">
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;">
+      <select id="bttg-city" class="deal-select" style="flex:1;min-width:160px;max-width:280px;" onchange="renderBestTime()">
+        <option value="tokyo">Tokyo, Japan</option>
+        <option value="bali">Bali, Indonesia</option>
+        <option value="paris">Paris, France</option>
+        <option value="nyc">New York City, USA</option>
+        <option value="barcelona">Barcelona, Spain</option>
+        <option value="kyoto">Kyoto, Japan</option>
+        <option value="singapore">Singapore</option>
+        <option value="london">London, UK</option>
+        <option value="rome">Rome, Italy</option>
+        <option value="bangkok">Bangkok, Thailand</option>
+      </select>
+    </div>
+    <div id="bttg-grid" class="bttg-grid"></div>
+    <div id="bttg-best" class="bttg-best-banner" style="display:none;"></div>
+  </div>
+</section>
+
+<!-- ══ PRICE ALERTS ══════════════════════════════════════════════ -->
+<section class="price-alert-section" id="price-alerts">
+  <div class="price-alert-inner">
+    <div class="price-alert-left">
+      <div class="section-eyebrow" style="margin-bottom:14px;">🔔 Never overpay again</div>
+      <h2 class="price-alert-title">Get Price Drop Alerts</h2>
+      <p class="price-alert-sub">Tell us where you want to go and your budget. We'll email you when flights hit your target price.</p>
+      <div class="price-alert-bullets">
+        <div class="pa-bullet"><span class="pa-bullet-icon">✓</span> Free, no credit card required</div>
+        <div class="pa-bullet"><span class="pa-bullet-icon">✓</span> Unsubscribe any time</div>
+        <div class="pa-bullet"><span class="pa-bullet-icon">✓</span> Average savings: 34%</div>
+      </div>
+    </div>
+    <div class="price-alert-right">
+      <div class="price-alert-form" id="pa-form">
+        <div class="pa-form-row">
+          <div class="pa-field">
+            <label class="pa-label" for="pa-dest">Destination</label>
+            <input id="pa-dest" type="text" class="pa-input" placeholder="e.g. Tokyo, Bali, Paris…" />
+          </div>
+          <div class="pa-field">
+            <label class="pa-label" for="pa-budget">Max price ($)</label>
+            <input id="pa-budget" type="number" class="pa-input" placeholder="800" min="0" step="50" />
+          </div>
+        </div>
+        <div class="pa-form-row">
+          <div class="pa-field">
+            <label class="pa-label" for="pa-month">Travel month</label>
+            <select id="pa-month" class="pa-input">
+              <option value="">Any time</option>
+              <option>January</option><option>February</option><option>March</option>
+              <option>April</option><option>May</option><option>June</option>
+              <option>July</option><option>August</option><option>September</option>
+              <option>October</option><option>November</option><option>December</option>
+            </select>
+          </div>
+          <div class="pa-field">
+            <label class="pa-label" for="pa-email">Email address</label>
+            <input id="pa-email" type="email" class="pa-input" placeholder="you@example.com" />
+          </div>
+        </div>
+        <button class="pa-submit" onclick="submitPriceAlert()">Notify Me When Prices Drop →</button>
+      </div>
+      <div id="pa-success" class="pa-success" style="display:none;">
+        <div style="font-size:32px;margin-bottom:12px;">🎉</div>
+        <div style="font-size:17px;font-weight:800;color:#f0faf9;margin-bottom:6px;">You're on the list!</div>
+        <div style="font-size:13px;color:rgba(240,250,249,.5);">We'll email you when prices drop to your target. Check spam if you don't hear from us within 24h.</div>
+        <button onclick="resetPriceAlert()" style="margin-top:16px;background:transparent;border:1px solid rgba(151,172,224,.25);color:#97ace0;font-size:13px;font-weight:600;font-family:inherit;padding:8px 18px;border-radius:8px;cursor:pointer;">Set another alert</button>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ══ FOOTER ════════════════════════════════════════════════════ -->
@@ -692,6 +913,10 @@
         <a href="/planner.html">Trip Planner</a>
         <a href="/#deals">Find Flights &amp; Cars</a>
         <a href="/planner.html?tab=group">Group Board</a>
+        <a href="/visa.html">Visa Checker</a>
+        <a href="/trips.html">Curated Trips</a>
+        <a href="/split.html">Cost Splitter</a>
+        <a href="/globe.html">Globe Explorer</a>
       </div>
       <!-- Legal links -->
       <div class="footer-col">
@@ -879,6 +1104,101 @@ function switchDealTab(tab, btn) {
   document.querySelectorAll('.deal-tab-panel').forEach(p => p.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById('deal-panel-' + tab).classList.add('active');
+}
+</script>
+
+<script>
+/* ── Best Time to Go ── */
+const BTTG = {
+  tokyo:     { weather:[3,3,4,4,3,2,1,2,4,5,4,4], crowds:[3,3,4,5,4,3,2,2,3,5,3,3], price:[3,3,4,5,4,4,3,3,3,4,3,3] },
+  bali:      { weather:[2,2,3,4,5,5,5,5,5,4,3,2], crowds:[3,3,3,4,5,5,4,4,4,5,4,3], price:[3,3,3,4,4,3,2,2,3,4,4,3] },
+  paris:     { weather:[2,2,3,4,4,5,5,5,4,3,2,2], crowds:[3,3,4,5,5,4,3,3,4,4,3,3], price:[3,3,3,4,5,4,3,3,4,4,3,3] },
+  nyc:       { weather:[2,2,3,4,5,5,4,4,5,5,3,2], crowds:[3,3,3,4,4,5,5,5,4,4,3,4], price:[3,3,3,4,4,3,3,3,4,4,4,4] },
+  barcelona: { weather:[2,3,3,4,5,5,5,5,5,4,3,2], crowds:[3,3,3,4,4,4,2,2,3,4,3,3], price:[3,3,3,4,5,4,2,2,4,4,4,3] },
+  kyoto:     { weather:[2,3,4,5,4,2,1,2,3,5,4,3], crowds:[3,3,5,5,4,3,2,2,3,5,4,3], price:[3,3,5,5,4,3,3,3,3,5,3,3] },
+  singapore: { weather:[2,3,4,4,4,4,4,4,3,3,2,2], crowds:[4,4,3,4,4,5,4,4,3,3,3,4], price:[4,4,3,4,4,5,4,4,3,3,3,4] },
+  london:    { weather:[2,2,3,3,4,5,5,5,4,3,2,2], crowds:[3,3,3,4,5,5,4,4,4,4,3,4], price:[3,3,3,4,4,3,3,3,3,3,3,4] },
+  rome:      { weather:[2,3,3,4,5,5,5,5,5,4,3,2], crowds:[3,3,4,5,5,3,2,2,3,4,3,3], price:[3,3,4,5,5,3,2,2,3,4,3,3] },
+  bangkok:   { weather:[4,5,5,5,3,2,2,2,3,3,3,3], crowds:[5,5,4,4,3,2,2,2,3,3,4,5], price:[5,5,4,4,3,2,2,2,3,3,4,5] }
+};
+const BTTG_BEST = {
+  tokyo:'Best months: <strong>October</strong> and <strong>April</strong> — mild weather, fall foliage or cherry blossoms, fewer crowds than summer peak.',
+  bali:'Best months: <strong>May–October</strong> (dry season) — the classic Bali window. July–August gets crowded; May and September are sweet spots.',
+  paris:'Best months: <strong>April–May</strong> and <strong>September</strong> — pleasant weather, blooming parks, and calmer than summer.',
+  nyc:'Best months: <strong>April–May</strong> and <strong>September–October</strong> — comfortable temps, events season, and hotel rates drop slightly from summer peak.',
+  barcelona:'Best months: <strong>May</strong> and <strong>September–October</strong> — warm sun, fewer tourists than July/August, lower prices.',
+  kyoto:'Best months: <strong>April</strong> (cherry blossom) or <strong>November</strong> (maple leaves) — both magical but very crowded. Book months ahead.',
+  singapore:'Best months: <strong>February–April</strong> — driest months with slightly lower humidity. Rest of year has sudden showers but always warm.',
+  london:'Best months: <strong>June–August</strong> — the only reliable warm weather. Book 3+ months ahead; prices spike in summer.',
+  rome:'Best months: <strong>April–May</strong> and <strong>September–October</strong> — perfect weather, no August crowds, sites are manageable.',
+  bangkok:'Best months: <strong>November–February</strong> — cool and dry season, low humidity. March–April is scorching hot.'
+};
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function renderBestTime() {
+  const city = document.getElementById('bttg-city').value;
+  const d = BTTG[city];
+  if (!d) return;
+  const grid = document.getElementById('bttg-grid');
+  grid.innerHTML = MONTHS.map((m, i) => {
+    const w = d.weather[i], c = d.crowds[i], p = d.price[i];
+    const overall = Math.round((w + (6 - c) + p) / 3);
+    return `<div class="bttg-month">
+      <div class="bttg-month-name">${m}</div>
+      <div class="bttg-dot-row">
+        <div class="bttg-dot bttg-dot-${w}" title="Weather: ${w}/5"></div>
+        <div class="bttg-dot bttg-dot-${6-c}" title="Crowds: ${c}/5 (low=good)"></div>
+        <div class="bttg-dot bttg-dot-${p}" title="Prices: ${p}/5"></div>
+      </div>
+      <div class="bttg-score bttg-score-${overall}">${['','★','★','★★','★★','★★★'][overall]||''}</div>
+    </div>`;
+  }).join('');
+  const banner = document.getElementById('bttg-best');
+  banner.innerHTML = BTTG_BEST[city] || '';
+  banner.style.display = 'block';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  renderBestTime();
+  /* ── Best time legend ── */
+  const wrap = document.getElementById('bttg-grid');
+  if (wrap) {
+    const leg = document.createElement('div');
+    leg.className = 'bttg-legend';
+    leg.style.cssText = 'grid-column:1/-1;';
+    leg.innerHTML = [
+      ['#34d399','Weather'],['#86efac','Low crowds'],['#fbbf24','Fair price']
+    ].map(([c,l]) => `<div class="bttg-leg-item"><div style="width:9px;height:9px;border-radius:50%;background:${c};flex-shrink:0;"></div>${l}</div>`).join('');
+    wrap.after(leg);
+  }
+});
+
+/* ── Price Alerts ── */
+function submitPriceAlert() {
+  const dest = document.getElementById('pa-dest').value.trim();
+  const budget = document.getElementById('pa-budget').value;
+  const month = document.getElementById('pa-month').value;
+  const email = document.getElementById('pa-email').value.trim();
+  if (!dest) { showPAError('Enter a destination'); return; }
+  if (!email || !email.includes('@')) { showPAError('Enter a valid email'); return; }
+  const alerts = JSON.parse(localStorage.getItem('travia_price_alerts') || '[]');
+  alerts.push({ dest, budget, month, email, createdAt: Date.now() });
+  localStorage.setItem('travia_price_alerts', JSON.stringify(alerts));
+  document.getElementById('pa-form').style.display = 'none';
+  document.getElementById('pa-success').style.display = 'block';
+}
+function resetPriceAlert() {
+  document.getElementById('pa-form').style.display = 'block';
+  document.getElementById('pa-success').style.display = 'none';
+  document.getElementById('pa-dest').value = '';
+  document.getElementById('pa-budget').value = '';
+  document.getElementById('pa-email').value = '';
+}
+function showPAError(msg) {
+  var t = document.getElementById('share-toast');
+  if (!t) return;
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 2500);
 }
 </script>
 

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Trip Cost Splitter — Travia</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    @font-face { font-family:'Geist'; src:url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'Geist'; src:url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Bold.woff2') format('woff2'); font-weight:700; font-display:swap; }
+
+    /* ─ hero ─ */
+    .split-hero { padding: 100px 20px 48px; text-align: center; max-width: 700px; margin: 0 auto; }
+    .split-hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #97ace0; background: rgba(151,172,224,.08); border: 1px solid rgba(151,172,224,.2); padding: 6px 14px; border-radius: 30px; margin-bottom: 20px; }
+    .split-hero h1 { font-family: 'Geist', sans-serif; font-size: clamp(32px, 6vw, 54px); font-weight: 800; letter-spacing: -.03em; line-height: 1.1; color: #f0faf9; margin-bottom: 14px; }
+    .split-hero p { font-size: 16px; color: rgba(240,250,249,.5); line-height: 1.7; }
+
+    /* ─ main layout ─ */
+    .split-wrap { max-width: 960px; margin: 0 auto; padding: 0 20px 100px; display: grid; grid-template-columns: 1fr 360px; gap: 24px; }
+    @media (max-width: 760px) { .split-wrap { grid-template-columns: 1fr; } }
+
+    /* ─ card base ─ */
+    .sp-card { background: rgba(255,255,255,.03); border: 1px solid rgba(106,154,184,.15); border-radius: 20px; padding: 24px; }
+    .sp-card-title { font-size: 15px; font-weight: 800; color: #f0faf9; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+    .sp-card-title svg { color: #6a9ab8; }
+
+    /* ─ people setup ─ */
+    .people-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .people-chip { display: inline-flex; align-items: center; gap: 6px; background: rgba(106,154,184,.1); border: 1px solid rgba(106,154,184,.2); border-radius: 8px; padding: 6px 12px; font-size: 13px; font-weight: 600; color: #97ace0; cursor: default; }
+    .people-chip .remove-person { cursor: pointer; color: rgba(240,250,249,.3); font-size: 16px; line-height: 1; transition: color .15s; }
+    .people-chip .remove-person:hover { color: #ef4444; }
+    .add-person-row { display: flex; gap: 8px; }
+    .sp-input { flex: 1; background: rgba(255,255,255,.06); border: 1px solid rgba(106,154,184,.2); border-radius: 10px; color: #f0faf9; font-size: 14px; font-family: inherit; padding: 10px 14px; outline: none; transition: border-color .15s; }
+    .sp-input:focus { border-color: rgba(151,172,224,.5); }
+    .sp-input::placeholder { color: rgba(240,250,249,.25); }
+    .sp-btn { background: #6a9ab8; border: none; color: #fff; font-size: 13px; font-weight: 700; font-family: inherit; padding: 10px 18px; border-radius: 10px; cursor: pointer; white-space: nowrap; transition: background .2s; }
+    .sp-btn:hover { background: #5283a0; }
+    .sp-btn-sm { padding: 7px 14px; font-size: 12px; border-radius: 8px; }
+
+    /* ─ add expense ─ */
+    .expense-form { display: flex; flex-direction: column; gap: 12px; }
+    .expense-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 480px) { .expense-form-row { grid-template-columns: 1fr; } }
+    .sp-label { display: block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(240,250,249,.35); margin-bottom: 6px; }
+    .sp-select { width: 100%; background: rgba(255,255,255,.06); border: 1px solid rgba(106,154,184,.2); border-radius: 10px; color: #f0faf9; font-size: 14px; font-family: inherit; padding: 10px 14px; outline: none; cursor: pointer; transition: border-color .15s; }
+    .sp-select:focus { border-color: rgba(151,172,224,.5); }
+    .split-check-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; }
+    .split-check-item { display: flex; align-items: center; gap: 7px; background: rgba(255,255,255,.03); border: 1px solid rgba(106,154,184,.1); border-radius: 8px; padding: 8px 10px; cursor: pointer; transition: all .15s; }
+    .split-check-item:hover { border-color: rgba(106,154,184,.3); }
+    .split-check-item.checked { background: rgba(106,154,184,.1); border-color: rgba(106,154,184,.35); }
+    .split-check-item input { display: none; }
+    .split-check-box { width: 14px; height: 14px; border-radius: 4px; border: 1.5px solid rgba(106,154,184,.4); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+    .split-check-item.checked .split-check-box { background: #6a9ab8; border-color: #6a9ab8; }
+    .split-check-box::after { content: '✓'; font-size: 10px; color: #fff; display: none; }
+    .split-check-item.checked .split-check-box::after { display: block; }
+    .split-check-name { font-size: 12px; font-weight: 600; color: rgba(240,250,249,.7); }
+    .split-all-toggle { font-size: 11px; font-weight: 600; color: #6a9ab8; cursor: pointer; margin-bottom: 8px; display: inline-block; }
+    .split-all-toggle:hover { color: #97ace0; }
+
+    /* ─ expense list ─ */
+    .expense-list { display: flex; flex-direction: column; gap: 10px; min-height: 60px; }
+    .expense-empty { text-align: center; padding: 32px 16px; color: rgba(240,250,249,.25); font-size: 13px; }
+    .expense-item { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; background: rgba(255,255,255,.03); border: 1px solid rgba(106,154,184,.1); border-radius: 12px; padding: 14px 16px; }
+    .expense-item-left { flex: 1; min-width: 0; }
+    .expense-item-desc { font-size: 14px; font-weight: 700; color: #f0faf9; }
+    .expense-item-meta { font-size: 12px; color: rgba(240,250,249,.4); margin-top: 3px; }
+    .expense-item-amount { font-size: 18px; font-weight: 800; color: #6a9ab8; white-space: nowrap; }
+    .expense-item-del { cursor: pointer; color: rgba(240,250,249,.2); font-size: 18px; transition: color .15s; margin-left: 8px; line-height: 1; }
+    .expense-item-del:hover { color: #ef4444; }
+
+    /* ─ balances ─ */
+    .balance-list { display: flex; flex-direction: column; gap: 10px; }
+    .balance-empty { text-align: center; padding: 32px 16px; color: rgba(240,250,249,.25); font-size: 13px; }
+    .balance-person { background: rgba(255,255,255,.03); border: 1px solid rgba(106,154,184,.1); border-radius: 12px; padding: 14px 16px; }
+    .balance-name { font-size: 13px; font-weight: 700; color: #f0faf9; margin-bottom: 6px; }
+    .balance-amount { font-size: 22px; font-weight: 800; }
+    .balance-amount.owe { color: #ef4444; }
+    .balance-amount.get { color: #34d399; }
+    .balance-amount.even { color: rgba(240,250,249,.4); }
+    .balance-sub { font-size: 11px; color: rgba(240,250,249,.35); margin-top: 2px; }
+
+    .settlement-list { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+    .settlement-item { display: flex; align-items: center; gap: 10px; background: rgba(52,211,153,.04); border: 1px solid rgba(52,211,153,.12); border-radius: 10px; padding: 11px 14px; font-size: 13px; color: rgba(240,250,249,.65); }
+    .settlement-payer { font-weight: 700; color: #f0faf9; }
+    .settlement-payee { font-weight: 700; color: #f0faf9; }
+    .settlement-amt { font-weight: 800; color: #34d399; margin-left: auto; }
+
+    /* ─ total bar ─ */
+    .total-bar { background: rgba(106,154,184,.08); border: 1px solid rgba(106,154,184,.18); border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .total-bar-label { font-size: 12px; font-weight: 700; color: rgba(240,250,249,.4); text-transform: uppercase; letter-spacing: .08em; }
+    .total-bar-amount { font-size: 22px; font-weight: 800; color: #f0faf9; }
+
+    /* ─ section divider ─ */
+    .sp-divider { height: 1px; background: rgba(106,154,184,.1); margin: 20px 0; }
+
+    /* ─ copy bar ─ */
+    .copy-bar { display: flex; gap: 8px; flex-wrap: wrap; }
+    .sp-btn-outline { background: transparent; border: 1px solid rgba(151,172,224,.25); color: #97ace0; }
+    .sp-btn-outline:hover { background: rgba(151,172,224,.08); }
+
+    /* ─ light mode ─ */
+    body.light-mode .split-hero h1 { color: #0f172a; }
+    body.light-mode .split-hero p { color: rgba(15,23,42,.5); }
+    body.light-mode .sp-card { background: #fff; border-color: rgba(106,154,184,.2); }
+    body.light-mode .sp-card-title { color: #0f172a; }
+    body.light-mode .sp-input, body.light-mode .sp-select { background: #f8fafc; border-color: rgba(106,154,184,.25); color: #0f172a; }
+    body.light-mode .expense-item, body.light-mode .balance-person, body.light-mode .settlement-item { background: #f8fafc; }
+    body.light-mode .expense-item-desc, body.light-mode .balance-name { color: #0f172a; }
+    body.light-mode .split-check-item { background: #f8fafc; }
+    body.light-mode .split-check-name { color: rgba(15,23,42,.7); }
+    body.light-mode .total-bar { background: rgba(106,154,184,.07); }
+    body.light-mode .total-bar-amount { color: #0f172a; }
+  </style>
+</head>
+<body>
+<script src="theme.js"></script>
+
+<!-- ══ HEADER ═══════════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <img src="travel-logo-5.png" class="logo-img" alt="Travia" style="width:30px;height:30px;object-fit:contain;">
+      <span class="logo-text">Travia</span>
+    </a>
+    <nav class="header-nav">
+      <a href="/">Explore</a>
+      <a href="/planner.html">Planner</a>
+      <a href="/globe.html">Globe</a>
+      <a href="/#deals">Deals</a>
+      <a href="/visa.html">Visa</a>
+      <a href="/trips.html">Trips</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+      <span class="toggle-knob">
+        <svg class="toggle-moon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="toggle-sun" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>
+      </span>
+    </button>
+  </div>
+</header>
+
+<!-- ══ HERO ════════════════════════════════════════════════════ -->
+<section class="split-hero">
+  <div class="split-hero-eyebrow">💸 Group Travel, Zero Drama</div>
+  <h1>Split Trip Costs <span class="teal-text">Fairly</span></h1>
+  <p>Add expenses, choose who paid and who's splitting, and instantly see exactly who owes what. No spreadsheets required.</p>
+</section>
+
+<!-- ══ MAIN ═════════════════════════════════════════════════════ -->
+<div class="split-wrap">
+
+  <!-- LEFT: Setup + Expenses -->
+  <div style="display:flex;flex-direction:column;gap:20px;">
+
+    <!-- People -->
+    <div class="sp-card" id="people-card">
+      <div class="sp-card-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        Travelers
+      </div>
+      <div class="people-chips" id="people-chips"></div>
+      <div class="add-person-row">
+        <input class="sp-input" id="person-input" type="text" placeholder="Add a name…" onkeydown="if(event.key==='Enter')addPerson()" maxlength="32" />
+        <button class="sp-btn sp-btn-sm" onclick="addPerson()">Add</button>
+      </div>
+    </div>
+
+    <!-- Add Expense -->
+    <div class="sp-card">
+      <div class="sp-card-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add Expense
+      </div>
+      <div class="expense-form">
+        <div class="expense-form-row">
+          <div>
+            <label class="sp-label" for="exp-desc">Description</label>
+            <input class="sp-input" id="exp-desc" type="text" placeholder="e.g. Airbnb, dinner…" maxlength="60" />
+          </div>
+          <div>
+            <label class="sp-label" for="exp-amount">Amount ($)</label>
+            <input class="sp-input" id="exp-amount" type="number" placeholder="0.00" min="0" step="0.01" />
+          </div>
+        </div>
+        <div>
+          <label class="sp-label" for="exp-paidby">Paid by</label>
+          <select class="sp-select" id="exp-paidby">
+            <option value="">— select person —</option>
+          </select>
+        </div>
+        <div>
+          <label class="sp-label">Split between</label>
+          <span class="split-all-toggle" onclick="toggleAllSplit()">Toggle all</span>
+          <div class="split-check-grid" id="split-checks"></div>
+        </div>
+        <button class="sp-btn" onclick="addExpense()" style="align-self:flex-end;min-width:120px;">Add Expense</button>
+      </div>
+    </div>
+
+    <!-- Expense List -->
+    <div class="sp-card">
+      <div class="sp-card-title" style="justify-content:space-between;">
+        <span style="display:flex;align-items:center;gap:8px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Expenses
+        </span>
+        <button class="sp-btn sp-btn-sm sp-btn-outline" onclick="clearAll()" style="font-size:11px;">Clear all</button>
+      </div>
+      <div id="expense-list" class="expense-list">
+        <div class="expense-empty">No expenses yet. Add one above.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT: Balances + Settlements -->
+  <div style="display:flex;flex-direction:column;gap:20px;">
+
+    <div class="sp-card" style="position:sticky;top:76px;">
+      <div class="sp-card-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        Balances
+      </div>
+      <div class="total-bar" id="total-bar">
+        <span class="total-bar-label">Total spent</span>
+        <span class="total-bar-amount" id="total-amount">$0.00</span>
+      </div>
+      <div class="balance-list" id="balance-list">
+        <div class="balance-empty">Add people and expenses to see balances.</div>
+      </div>
+
+      <div class="sp-divider"></div>
+      <div class="sp-card-title" style="margin-bottom:12px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+        Settlements
+      </div>
+      <div class="settlement-list" id="settlement-list">
+        <div class="balance-empty" style="padding:12px 0;">All even — nothing to settle!</div>
+      </div>
+
+      <div class="sp-divider"></div>
+      <div class="copy-bar">
+        <button class="sp-btn sp-btn-sm sp-btn-outline" onclick="copySummary()" style="flex:1">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-1px;"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          Copy summary
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ TOAST ═══════════════════════════════════════════════════ -->
+<div id="split-toast" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1e293b;color:#f0faf9;padding:11px 20px;border-radius:10px;font-size:13px;font-weight:600;opacity:0;transition:opacity .2s;pointer-events:none;z-index:9999;border:1px solid rgba(106,154,184,.2);"></div>
+
+<script>
+const STORAGE_KEY = 'travia_split_v1';
+let state = load();
+
+function load() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { people: [], expenses: [] }; }
+  catch { return { people: [], expenses: [] }; }
+}
+function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+/* ─ People ─ */
+function addPerson() {
+  const inp = document.getElementById('person-input');
+  const name = inp.value.trim();
+  if (!name) return;
+  if (state.people.includes(name)) { toast('Name already added'); return; }
+  state.people.push(name);
+  inp.value = '';
+  save(); render();
+}
+function removePerson(name) {
+  state.people = state.people.filter(p => p !== name);
+  state.expenses = state.expenses.filter(e => e.paidBy !== name);
+  state.expenses.forEach(e => { e.splitBetween = e.splitBetween.filter(p => p !== name); });
+  save(); render();
+}
+
+/* ─ Expenses ─ */
+function addExpense() {
+  const desc = document.getElementById('exp-desc').value.trim();
+  const amount = parseFloat(document.getElementById('exp-amount').value);
+  const paidBy = document.getElementById('exp-paidby').value;
+  const checked = [...document.querySelectorAll('.split-check-item.checked')].map(el => el.dataset.name);
+  if (!desc) { toast('Enter a description'); return; }
+  if (!amount || amount <= 0) { toast('Enter a valid amount'); return; }
+  if (!paidBy) { toast('Select who paid'); return; }
+  if (!checked.length) { toast('Select at least one person to split with'); return; }
+  state.expenses.push({ id: Date.now(), desc, amount, paidBy, splitBetween: checked });
+  document.getElementById('exp-desc').value = '';
+  document.getElementById('exp-amount').value = '';
+  save(); render();
+}
+function removeExpense(id) {
+  state.expenses = state.expenses.filter(e => e.id !== id);
+  save(); render();
+}
+function clearAll() {
+  if (!confirm('Clear all expenses?')) return;
+  state.expenses = [];
+  save(); render();
+}
+
+/* ─ Toggle all split ─ */
+function toggleAllSplit() {
+  const items = document.querySelectorAll('.split-check-item');
+  const allChecked = [...items].every(el => el.classList.contains('checked'));
+  items.forEach(el => el.classList.toggle('checked', !allChecked));
+}
+
+/* ─ Balances ─ */
+function calcBalances() {
+  const paid = {}, share = {};
+  state.people.forEach(p => { paid[p] = 0; share[p] = 0; });
+  state.expenses.forEach(e => {
+    if (!paid[e.paidBy]) paid[e.paidBy] = 0;
+    paid[e.paidBy] += e.amount;
+    const split = e.splitBetween.filter(p => state.people.includes(p));
+    if (!split.length) return;
+    const each = e.amount / split.length;
+    split.forEach(p => { if (!share[p]) share[p] = 0; share[p] += each; });
+  });
+  const balances = {};
+  state.people.forEach(p => { balances[p] = (paid[p] || 0) - (share[p] || 0); });
+  return balances;
+}
+
+function calcSettlements(balances) {
+  const owing = [], receiving = [];
+  Object.entries(balances).forEach(([name, amt]) => {
+    if (amt < -0.01) owing.push({ name, amt: -amt });
+    else if (amt > 0.01) receiving.push({ name, amt });
+  });
+  owing.sort((a,b) => b.amt - a.amt);
+  receiving.sort((a,b) => b.amt - a.amt);
+  const settlements = [];
+  let oi = 0, ri = 0;
+  while (oi < owing.length && ri < receiving.length) {
+    const amount = Math.min(owing[oi].amt, receiving[ri].amt);
+    settlements.push({ from: owing[oi].name, to: receiving[ri].name, amount });
+    owing[oi].amt -= amount; receiving[ri].amt -= amount;
+    if (owing[oi].amt < 0.01) oi++;
+    if (receiving[ri].amt < 0.01) ri++;
+  }
+  return settlements;
+}
+
+/* ─ Copy summary ─ */
+function copySummary() {
+  const total = state.expenses.reduce((s, e) => s + e.amount, 0);
+  const balances = calcBalances();
+  const settlements = calcSettlements(balances);
+  let txt = `=== Travia Trip Cost Summary ===\nTotal: $${total.toFixed(2)}\n\nExpenses:\n`;
+  state.expenses.forEach(e => { txt += `  • ${e.desc}: $${e.amount.toFixed(2)} (paid by ${e.paidBy})\n`; });
+  txt += `\nSettlements:\n`;
+  if (settlements.length) settlements.forEach(s => { txt += `  • ${s.from} → ${s.to}: $${s.amount.toFixed(2)}\n`; });
+  else txt += `  All even!\n`;
+  navigator.clipboard.writeText(txt).then(() => toast('Summary copied!')).catch(() => toast('Copy failed'));
+}
+
+/* ─ Render ─ */
+function render() {
+  renderPeople();
+  renderExpenseForm();
+  renderExpenses();
+  renderBalances();
+}
+
+function renderPeople() {
+  const chips = document.getElementById('people-chips');
+  chips.innerHTML = state.people.map(p =>
+    `<div class="people-chip">${esc(p)}<span class="remove-person" onclick="removePerson('${jsq(p)}')">×</span></div>`
+  ).join('');
+}
+
+function renderExpenseForm() {
+  const sel = document.getElementById('exp-paidby');
+  const prev = sel.value;
+  sel.innerHTML = '<option value="">— select person —</option>' +
+    state.people.map(p => `<option value="${esc(p)}" ${p===prev?'selected':''}>${esc(p)}</option>`).join('');
+
+  const grid = document.getElementById('split-checks');
+  grid.innerHTML = state.people.length
+    ? state.people.map(p => `<label class="split-check-item checked" data-name="${esc(p)}" onclick="this.classList.toggle('checked')"><span class="split-check-box"></span><span class="split-check-name">${esc(p)}</span></label>`).join('')
+    : '<span style="color:rgba(240,250,249,.25);font-size:13px;">Add travelers first</span>';
+}
+
+function renderExpenses() {
+  const list = document.getElementById('expense-list');
+  if (!state.expenses.length) {
+    list.innerHTML = '<div class="expense-empty">No expenses yet. Add one above.</div>';
+    return;
+  }
+  list.innerHTML = [...state.expenses].reverse().map(e => `
+    <div class="expense-item">
+      <div class="expense-item-left">
+        <div class="expense-item-desc">${esc(e.desc)}</div>
+        <div class="expense-item-meta">Paid by ${esc(e.paidBy)} · Split ${e.splitBetween.length > 1 ? e.splitBetween.length+' ways ($'+(e.amount/e.splitBetween.length).toFixed(2)+'/each)' : 'solo'}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div class="expense-item-amount">$${e.amount.toFixed(2)}</div>
+        <div class="expense-item-del" onclick="removeExpense(${e.id})">×</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderBalances() {
+  const total = state.expenses.reduce((s, e) => s + e.amount, 0);
+  document.getElementById('total-amount').textContent = '$' + total.toFixed(2);
+
+  const balList = document.getElementById('balance-list');
+  const settlList = document.getElementById('settlement-list');
+
+  if (!state.people.length) {
+    balList.innerHTML = '<div class="balance-empty">Add travelers to see balances.</div>';
+    settlList.innerHTML = '<div class="balance-empty" style="padding:12px 0;">Add people and expenses.</div>';
+    return;
+  }
+
+  const balances = calcBalances();
+  balList.innerHTML = state.people.map(p => {
+    const b = balances[p] || 0;
+    const cls = b < -0.01 ? 'owe' : b > 0.01 ? 'get' : 'even';
+    const label = b < -0.01 ? `owes $${Math.abs(b).toFixed(2)}` : b > 0.01 ? `gets back $${b.toFixed(2)}` : 'settled up';
+    return `<div class="balance-person">
+      <div class="balance-name">${esc(p)}</div>
+      <div class="balance-amount ${cls}">${b < -0.01 ? '-' : b > 0.01 ? '+' : ''}$${Math.abs(b).toFixed(2)}</div>
+      <div class="balance-sub">${label}</div>
+    </div>`;
+  }).join('');
+
+  const settlements = calcSettlements(balances);
+  if (!settlements.length) {
+    settlList.innerHTML = '<div class="balance-empty" style="padding:12px 0;">All even — nothing to settle!</div>';
+  } else {
+    settlList.innerHTML = settlements.map(s =>
+      `<div class="settlement-item">
+        <span class="settlement-payer">${esc(s.from)}</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        <span class="settlement-payee">${esc(s.to)}</span>
+        <span class="settlement-amt">$${s.amount.toFixed(2)}</span>
+      </div>`
+    ).join('');
+  }
+}
+
+/* ─ Escape helpers ─ */
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function jsq(s) { return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+
+/* ─ Toast ─ */
+function toast(msg) {
+  const el = document.getElementById('split-toast');
+  el.textContent = msg; el.style.opacity = '1';
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.style.opacity = '0', 2200);
+}
+
+/* ─ Init ─ */
+render();
+</script>
+</body>
+</html>

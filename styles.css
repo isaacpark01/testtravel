@@ -655,6 +655,24 @@ body.light-mode .btn-planner-outline:hover { background: rgba(255,255,255,.35); 
 .deal-form-card { background: rgba(255,255,255,.02); border: 1px solid rgba(106,154,184,.1); border-radius: 18px; padding: 26px; }
 .deal-form-card h3 { font-size: 16px; font-weight: 700; color: #f0faf9; margin-bottom: 18px; }
 
+/* ── Insurance cards ── */
+.ins-card { background: rgba(255,255,255,.03); border: 1px solid rgba(106,154,184,.12); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 10px; transition: border-color .2s, background .2s; }
+.ins-card:hover { border-color: rgba(151,172,224,.25); background: rgba(151,172,224,.04); }
+.ins-card-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ins-brand { font-size: 14px; font-weight: 700; color: #f0faf9; }
+.ins-price-tag { font-size: 12px; font-weight: 700; color: #97ace0; background: rgba(151,172,224,.1); border: 1px solid rgba(151,172,224,.2); border-radius: 20px; padding: 3px 10px; white-space: nowrap; }
+.ins-features { display: flex; flex-direction: column; gap: 4px; }
+.ins-feature { font-size: 12px; color: rgba(240,250,249,.6); }
+.ins-feature-muted { color: rgba(240,250,249,.3); }
+.ins-best-for { font-size: 11px; color: rgba(240,250,249,.38); font-style: italic; }
+.ins-cta { display: inline-flex; align-items: center; background: #6a9ab8; color: #fff; border-radius: 8px; padding: 9px 16px; font-size: 13px; font-weight: 700; text-decoration: none; transition: background .2s; font-family: inherit; margin-top: auto; }
+.ins-cta:hover { background: #5283a0; }
+body.light-mode .ins-card { background: #fff; border-color: rgba(106,154,184,.2); }
+body.light-mode .ins-brand { color: #0f172a; }
+body.light-mode .ins-feature { color: rgba(15,23,42,.65); }
+body.light-mode .ins-feature-muted { color: rgba(15,23,42,.3); }
+body.light-mode .ins-best-for { color: rgba(15,23,42,.4); }
+
 /* ── Deals tabs ── */
 .deals-tab-bar {
   display: flex; border-bottom: 1px solid rgba(106,154,184,.1);
@@ -1527,6 +1545,62 @@ body.light-mode .group-feature-desc { color: rgba(26,24,48,.55); }
 
 /* ── Stats: bigger on desktop ── */
 @media (min-width: 641px) { .stat-num { font-size: 52px; } .stat-num.stat-inf { font-size: 68px; } .stat-item { padding: 40px 36px; } }
+
+/* ── Best Time to Go ── */
+.bttg-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 6px; }
+@media (max-width: 700px) { .bttg-grid { grid-template-columns: repeat(6, 1fr); } }
+@media (max-width: 400px) { .bttg-grid { grid-template-columns: repeat(4, 1fr); } }
+.bttg-month { background: rgba(255,255,255,.03); border: 1px solid rgba(106,154,184,.1); border-radius: 10px; padding: 10px 6px 8px; text-align: center; transition: border-color .15s; }
+.bttg-month:hover { border-color: rgba(106,154,184,.3); }
+.bttg-month-name { font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(240,250,249,.35); margin-bottom: 8px; }
+.bttg-dot-row { display: flex; flex-direction: column; gap: 5px; align-items: center; margin-bottom: 6px; }
+.bttg-dot { width: 10px; height: 10px; border-radius: 50%; }
+.bttg-dot-label { font-size: 8px; color: rgba(240,250,249,.25); letter-spacing: .04em; }
+.bttg-score { font-size: 10px; font-weight: 700; }
+.bttg-score-5 { color: #34d399; }
+.bttg-score-4 { color: #86efac; }
+.bttg-score-3 { color: #fbbf24; }
+.bttg-score-2 { color: #f97316; }
+.bttg-score-1 { color: #ef4444; }
+.bttg-dot-5 { background: #34d399; }
+.bttg-dot-4 { background: #86efac; }
+.bttg-dot-3 { background: #fbbf24; }
+.bttg-dot-2 { background: #f97316; }
+.bttg-dot-1 { background: #ef4444; }
+.bttg-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 16px; margin-bottom: 8px; }
+.bttg-leg-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: rgba(240,250,249,.4); }
+.bttg-best-banner { background: rgba(52,211,153,.07); border: 1px solid rgba(52,211,153,.2); border-radius: 12px; padding: 14px 18px; font-size: 13px; color: rgba(240,250,249,.65); margin-top: 16px; line-height: 1.6; }
+.bttg-best-banner strong { color: #34d399; }
+body.light-mode .bttg-month { background: #f8fafc; border-color: rgba(106,154,184,.15); }
+body.light-mode .bttg-month-name { color: rgba(15,23,42,.4); }
+body.light-mode .bttg-best-banner { background: rgba(52,211,153,.05); }
+
+/* ── Price Alerts Section ── */
+.price-alert-section { background: linear-gradient(135deg, rgba(106,154,184,.06) 0%, rgba(151,172,224,.04) 100%); border-top: 1px solid rgba(106,154,184,.1); border-bottom: 1px solid rgba(106,154,184,.1); padding: 72px 20px; }
+.price-alert-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+@media (max-width: 720px) { .price-alert-inner { grid-template-columns: 1fr; gap: 36px; } }
+.price-alert-title { font-family: 'Geist', sans-serif; font-size: clamp(26px, 4vw, 40px); font-weight: 800; letter-spacing: -.03em; line-height: 1.15; color: #f0faf9; margin-bottom: 12px; }
+.price-alert-sub { font-size: 15px; color: rgba(240,250,249,.45); line-height: 1.7; margin-bottom: 20px; }
+.price-alert-bullets { display: flex; flex-direction: column; gap: 8px; }
+.pa-bullet { display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(240,250,249,.55); }
+.pa-bullet-icon { color: #34d399; font-weight: 700; font-size: 14px; }
+.price-alert-form { background: rgba(255,255,255,.04); border: 1px solid rgba(106,154,184,.18); border-radius: 20px; padding: 24px; }
+.pa-success { background: rgba(255,255,255,.04); border: 1px solid rgba(52,211,153,.2); border-radius: 20px; padding: 28px 24px; text-align: center; }
+.pa-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+@media (max-width: 480px) { .pa-form-row { grid-template-columns: 1fr; } }
+.pa-field { display: flex; flex-direction: column; }
+.pa-label { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(240,250,249,.35); margin-bottom: 6px; }
+.pa-input { background: rgba(255,255,255,.06); border: 1px solid rgba(106,154,184,.2); border-radius: 10px; color: #f0faf9; font-size: 14px; font-family: inherit; padding: 10px 14px; outline: none; transition: border-color .15s; }
+.pa-input:focus { border-color: rgba(151,172,224,.5); }
+.pa-input::placeholder { color: rgba(240,250,249,.2); }
+.pa-submit { width: 100%; margin-top: 4px; background: #6a9ab8; border: none; color: #fff; font-size: 14px; font-weight: 700; font-family: inherit; padding: 13px 20px; border-radius: 10px; cursor: pointer; transition: background .2s; }
+.pa-submit:hover { background: #5283a0; }
+body.light-mode .price-alert-section { background: linear-gradient(135deg, rgba(106,154,184,.05) 0%, rgba(240,244,248,.5) 100%); }
+body.light-mode .price-alert-title { color: #0f172a; }
+body.light-mode .price-alert-sub { color: rgba(15,23,42,.5); }
+body.light-mode .pa-bullet { color: rgba(15,23,42,.55); }
+body.light-mode .price-alert-form { background: #fff; border-color: rgba(106,154,184,.2); }
+body.light-mode .pa-input { background: #f8fafc; border-color: rgba(106,154,184,.25); color: #0f172a; }
 
 /* ── Mobile compaction ── */
 @media (max-width: 640px) {

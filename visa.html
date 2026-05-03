@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Visa Checker — Travia</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    @font-face { font-family:'Geist'; src:url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'Geist'; src:url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Bold.woff2') format('woff2'); font-weight:700; font-display:swap; }
+
+    .visa-hero { padding: 100px 20px 48px; text-align: center; max-width: 700px; margin: 0 auto; }
+    .visa-hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #97ace0; background: rgba(151,172,224,.08); border: 1px solid rgba(151,172,224,.2); padding: 6px 14px; border-radius: 30px; margin-bottom: 20px; }
+    .visa-hero h1 { font-family: 'Geist', sans-serif; font-size: clamp(32px, 6vw, 54px); font-weight: 800; letter-spacing: -.03em; line-height: 1.1; color: #f0faf9; margin-bottom: 14px; }
+    .visa-hero p { font-size: 16px; color: rgba(240,250,249,.5); line-height: 1.7; }
+
+    .visa-tool { max-width: 860px; margin: 0 auto; padding: 0 20px 80px; }
+    .visa-form-card { background: rgba(255,255,255,.03); border: 1px solid rgba(106,154,184,.15); border-radius: 20px; padding: 28px; margin-bottom: 24px; }
+    .visa-form-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 14px; align-items: end; }
+    @media (max-width: 600px) { .visa-form-row { grid-template-columns: 1fr; } }
+    .visa-field label { display: block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(240,250,249,.4); margin-bottom: 8px; }
+    .visa-select { width: 100%; background: rgba(255,255,255,.06); border: 1px solid rgba(106,154,184,.2); border-radius: 10px; color: #f0faf9; font-size: 14px; font-family: 'Geist', inherit; padding: 11px 14px; outline: none; cursor: pointer; transition: border-color .15s; }
+    .visa-select:focus { border-color: rgba(151,172,224,.5); }
+    .visa-check-btn { background: #6a9ab8; border: none; color: #fff; font-size: 14px; font-weight: 700; font-family: inherit; padding: 12px 28px; border-radius: 10px; cursor: pointer; white-space: nowrap; transition: background .2s; min-height: 46px; }
+    .visa-check-btn:hover { background: #5283a0; }
+
+    .visa-result { display: none; background: rgba(255,255,255,.03); border: 1px solid rgba(106,154,184,.15); border-radius: 20px; padding: 28px; }
+    .visa-result.show { display: block; }
+    .visa-result-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+    .visa-result-title { font-size: 20px; font-weight: 800; color: #f0faf9; }
+    .visa-result-sub { font-size: 13px; color: rgba(240,250,249,.45); margin-top: 4px; }
+    .visa-badge { display: inline-flex; align-items: center; gap: 6px; padding: 7px 16px; border-radius: 20px; font-size: 13px; font-weight: 700; white-space: nowrap; }
+    .visa-badge.free { background: rgba(52,211,153,.12); color: #34d399; border: 1px solid rgba(52,211,153,.25); }
+    .visa-badge.required { background: rgba(251,191,36,.1); color: #fbbf24; border: 1px solid rgba(251,191,36,.2); }
+    .visa-badge.on-arrival { background: rgba(96,165,250,.1); color: #60a5fa; border: 1px solid rgba(96,165,250,.2); }
+    .visa-badge.etransit { background: rgba(167,139,250,.1); color: #a78bfa; border: 1px solid rgba(167,139,250,.2); }
+
+    .visa-details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px; }
+    .visa-detail-box { background: rgba(255,255,255,.03); border: 1px solid rgba(106,154,184,.1); border-radius: 12px; padding: 14px; }
+    .visa-detail-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(240,250,249,.35); margin-bottom: 6px; }
+    .visa-detail-value { font-size: 16px; font-weight: 700; color: #f0faf9; }
+    .visa-detail-note { font-size: 11px; color: rgba(240,250,249,.4); margin-top: 3px; }
+
+    .visa-notes { background: rgba(151,172,224,.06); border: 1px solid rgba(151,172,224,.15); border-radius: 12px; padding: 14px 16px; }
+    .visa-notes-title { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #97ace0; margin-bottom: 10px; }
+    .visa-note-item { font-size: 13px; color: rgba(240,250,249,.55); line-height: 1.6; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,.04); }
+    .visa-note-item:last-child { border-bottom: none; }
+
+    .visa-apply-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+    .visa-apply-btn { display: inline-flex; align-items: center; gap: 7px; background: #6a9ab8; color: #fff; border: none; border-radius: 10px; padding: 11px 20px; font-size: 13px; font-weight: 700; text-decoration: none; cursor: pointer; font-family: inherit; transition: background .2s; }
+    .visa-apply-btn:hover { background: #5283a0; }
+    .visa-apply-btn.secondary { background: transparent; border: 1px solid rgba(151,172,224,.3); color: #97ace0; }
+    .visa-apply-btn.secondary:hover { background: rgba(151,172,224,.1); }
+
+    .visa-popular { margin-top: 36px; }
+    .visa-popular-title { font-size: 13px; font-weight: 700; color: rgba(240,250,249,.4); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 14px; }
+    .visa-popular-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+    .visa-popular-card { background: rgba(255,255,255,.03); border: 1px solid rgba(106,154,184,.1); border-radius: 12px; padding: 14px 16px; cursor: pointer; transition: all .18s; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .visa-popular-card:hover { border-color: rgba(151,172,224,.3); background: rgba(151,172,224,.05); }
+    .visa-popular-route { font-size: 13px; font-weight: 600; color: #f0faf9; }
+    .visa-popular-status { font-size: 11px; font-weight: 700; }
+    .status-free { color: #34d399; }
+    .status-required { color: #fbbf24; }
+    .status-arrival { color: #60a5fa; }
+
+    .visa-disclaimer { margin-top: 28px; background: rgba(251,191,36,.06); border: 1px solid rgba(251,191,36,.15); border-radius: 12px; padding: 14px 16px; font-size: 12px; color: rgba(240,250,249,.45); line-height: 1.6; }
+    .visa-disclaimer strong { color: rgba(251,191,36,.8); }
+
+    body.light-mode .visa-hero h1 { color: #0f172a; }
+    body.light-mode .visa-hero p { color: rgba(15,23,42,.5); }
+    body.light-mode .visa-form-card, body.light-mode .visa-result { background: #fff; border-color: rgba(106,154,184,.2); }
+    body.light-mode .visa-select { background: #f8fafc; border-color: rgba(106,154,184,.25); color: #0f172a; }
+    body.light-mode .visa-result-title { color: #0f172a; }
+    body.light-mode .visa-detail-box { background: #f8fafc; border-color: rgba(106,154,184,.15); }
+    body.light-mode .visa-detail-value { color: #0f172a; }
+    body.light-mode .visa-popular-card { background: #f8fafc; border-color: rgba(106,154,184,.15); }
+    body.light-mode .visa-popular-route { color: #0f172a; }
+    body.light-mode .visa-note-item { color: rgba(15,23,42,.55); }
+  </style>
+</head>
+<body>
+<script src="theme.js"></script>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <img src="travel-logo-5.png" class="logo-img" alt="Travia" style="width:30px;height:30px;object-fit:contain;">
+      <span class="logo-text">Travia</span>
+    </a>
+    <nav class="header-nav">
+      <a href="/">Explore</a>
+      <a href="/planner.html">Planner</a>
+      <a href="/globe.html">Globe</a>
+      <a href="/#deals">Deals</a>
+      <a href="/trips.html">Trips</a>
+      <a href="/split.html">Splitter</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+      <span class="toggle-knob">
+        <svg class="toggle-moon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="toggle-sun" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>
+      </span>
+    </button>
+  </div>
+</header>
+
+<div class="visa-hero">
+  <div class="visa-hero-eyebrow">🛂 No surprises at the border</div>
+  <h1>Visa &amp; Entry<br>Requirements</h1>
+  <p>Instantly check what you need to enter any country — visa requirements, costs, stay limits, and where to apply.</p>
+</div>
+
+<div class="visa-tool">
+  <div class="visa-form-card">
+    <div class="visa-form-row">
+      <div class="visa-field">
+        <label>Your Passport</label>
+        <select class="visa-select" id="visa-passport">
+          <option value="">Select your passport…</option>
+          <option value="US">🇺🇸 United States</option>
+          <option value="GB">🇬🇧 United Kingdom</option>
+          <option value="CA">🇨🇦 Canada</option>
+          <option value="AU">🇦🇺 Australia</option>
+          <option value="DE">🇩🇪 Germany</option>
+          <option value="FR">🇫🇷 France</option>
+          <option value="JP">🇯🇵 Japan</option>
+          <option value="KR">🇰🇷 South Korea</option>
+          <option value="SG">🇸🇬 Singapore</option>
+          <option value="NZ">🇳🇿 New Zealand</option>
+          <option value="IE">🇮🇪 Ireland</option>
+          <option value="NL">🇳🇱 Netherlands</option>
+          <option value="SE">🇸🇪 Sweden</option>
+          <option value="NO">🇳🇴 Norway</option>
+          <option value="CH">🇨🇭 Switzerland</option>
+          <option value="IN">🇮🇳 India</option>
+          <option value="CN">🇨🇳 China</option>
+          <option value="BR">🇧🇷 Brazil</option>
+          <option value="MX">🇲🇽 Mexico</option>
+          <option value="ZA">🇿🇦 South Africa</option>
+          <option value="NG">🇳🇬 Nigeria</option>
+          <option value="PH">🇵🇭 Philippines</option>
+        </select>
+      </div>
+      <div class="visa-field">
+        <label>Destination Country</label>
+        <select class="visa-select" id="visa-destination">
+          <option value="">Select destination…</option>
+          <option value="JP">🇯🇵 Japan</option>
+          <option value="TH">🇹🇭 Thailand</option>
+          <option value="ID">🇮🇩 Indonesia / Bali</option>
+          <option value="VN">🇻🇳 Vietnam</option>
+          <option value="FR">🇫🇷 France / Schengen</option>
+          <option value="IT">🇮🇹 Italy / Schengen</option>
+          <option value="ES">🇪🇸 Spain / Schengen</option>
+          <option value="GB">🇬🇧 United Kingdom</option>
+          <option value="US">🇺🇸 United States</option>
+          <option value="CA">🇨🇦 Canada</option>
+          <option value="AU">🇦🇺 Australia</option>
+          <option value="AE">🇦🇪 UAE / Dubai</option>
+          <option value="SG">🇸🇬 Singapore</option>
+          <option value="MX">🇲🇽 Mexico</option>
+          <option value="BR">🇧🇷 Brazil</option>
+          <option value="MA">🇲🇦 Morocco</option>
+          <option value="KE">🇰🇪 Kenya</option>
+          <option value="TR">🇹🇷 Turkey</option>
+          <option value="GR">🇬🇷 Greece / Schengen</option>
+          <option value="PT">🇵🇹 Portugal / Schengen</option>
+          <option value="KR">🇰🇷 South Korea</option>
+          <option value="IN">🇮🇳 India</option>
+          <option value="NP">🇳🇵 Nepal</option>
+        </select>
+      </div>
+      <button class="visa-check-btn" onclick="checkVisa()">Check Now</button>
+    </div>
+  </div>
+
+  <div class="visa-result" id="visa-result">
+    <div class="visa-result-header">
+      <div>
+        <div class="visa-result-title" id="vr-title"></div>
+        <div class="visa-result-sub" id="vr-sub"></div>
+      </div>
+      <div class="visa-badge" id="vr-badge"></div>
+    </div>
+    <div class="visa-details-grid" id="vr-details"></div>
+    <div class="visa-notes" id="vr-notes-wrap">
+      <div class="visa-notes-title">📋 What you need to know</div>
+      <div id="vr-notes"></div>
+    </div>
+    <div class="visa-apply-bar" id="vr-apply"></div>
+  </div>
+
+  <div class="visa-popular">
+    <div class="visa-popular-title">Popular routes</div>
+    <div class="visa-popular-grid" id="visa-popular-grid"></div>
+  </div>
+
+  <div class="visa-disclaimer">
+    <strong>⚠ Always verify before you travel.</strong> Visa policies change frequently. This tool provides general guidance only — confirm requirements with the official embassy or consulate of your destination country before booking.
+  </div>
+</div>
+
+<script>
+const VISA_DATA = {
+  // [passport][destination] = { status, cost, stay, processing, notes[], applyUrl }
+  // status: 'free' | 'on-arrival' | 'required' | 'eta'
+  US: {
+    JP: { status:'free', stay:'90 days', cost:'Free', processing:'Instant', notes:['Valid passport required (6+ months validity)','No work permitted on tourist entry','Proof of onward travel may be requested'] },
+    TH: { status:'free', stay:'30 days', cost:'Free', processing:'Instant', notes:['30-day visa exemption stamp on arrival','Extendable once at Immigration for 30 more days','Show proof of funds (~$700) if asked'] },
+    ID: { status:'free', stay:'30 days', cost:'Free', processing:'Instant', notes:['Visa-free for tourism since 2024','Enter through approved ports only','Do not overstay — strict fines apply'] },
+    VN: { status:'free', stay:'45 days', cost:'Free', processing:'Instant', notes:['E-visa also available for longer stays ($25, 90 days)','Single or multiple entry options with e-visa','90-day e-visa recommended for flexibility'] },
+    FR: { status:'free', stay:'90 days in 180', cost:'Free', processing:'Instant', notes:['Schengen Zone — covers 27 EU countries','90 days within any 180-day rolling period','No border checks between Schengen countries'] },
+    GB: { status:'free', stay:'6 months', cost:'Free', processing:'Instant', notes:['ETA required from January 2025 — £10 fee','Apply online before travel at gov.uk/apply-foreign-national-travel-permission','Most applicants approved within minutes'] },
+    AU: { status:'eta', stay:'3 months', cost:'AUD 20', processing:'Minutes', notes:['ETA (Electronic Travel Authority) required','Apply via Australian ETA app or travel agent','Do not board without approved ETA'] },
+    AE: { status:'free', stay:'30 days', cost:'Free', processing:'Instant', notes:['Visa on arrival — stamp issued free at airport','Extendable once for 30 more days (AED 600)','No Israeli stamps needed to enter'] },
+    SG: { status:'free', stay:'30 days', cost:'Free', processing:'Instant', notes:['Visa-free for US passport holders','Extensions available at ICA','Yellow fever vaccination certificate needed if arriving from endemic countries'] },
+    MX: { status:'free', stay:'180 days', cost:'Free', processing:'Instant', notes:['Tourist card (FMM) issued on arrival','Keep your FMM — you need it to exit','DNot lose it or you will pay a fine'] },
+    MA: { status:'free', stay:'90 days', cost:'Free', processing:'Instant', notes:['Passport valid for 6+ months required','No yellow fever certificate needed','Travel insurance strongly recommended'] },
+    KE: { status:'required', stay:'90 days', cost:'$50', processing:'1-3 days', notes:['eVisa required — apply at evisa.go.ke','Single entry $50, multiple entry $100','Yellow fever vaccination may be required'] },
+    TR: { status:'on-arrival', stay:'90 days', cost:'$0', processing:'Instant', notes:['Visa-free since 2024 — verify before travel','Previously required e-Visa ($50)','Turkish lira widely accepted'] },
+    IN: { status:'required', stay:'60 days', cost:'$25', processing:'3-5 days', notes:['e-Visa available at indianvisaonline.gov.in','Tourist e-visa: $25 for 30 days, $40 for 1 year','Apply at least 4 days before travel'] },
+    NP: { status:'on-arrival', stay:'90 days', cost:'$30-100', processing:'Instant', notes:['15 days: $30 | 30 days: $50 | 90 days: $125','TIMS card required for trekking ($20)','Extend at Immigration Department in Kathmandu'] },
+    CA: { status:'free', stay:'6 months', cost:'Free', processing:'eTA required', notes:['eTA required — $7 CAD, valid 5 years','Apply at canada.ca/eta','Usually approved within minutes'] },
+    BR: { status:'free', stay:'90 days', cost:'Free', processing:'Instant', notes:['Visa-free since 2024','Previously required visa for US citizens','Travel insurance recommended'] },
+    KR: { status:'free', stay:'90 days', cost:'Free', processing:'Instant', notes:['K-ETA may be required — check before travel','K-ETA: 10,000 KRW','Valid for 2 years / multiple entries'] },
+    GR: { status:'free', stay:'90 days in 180', cost:'Free', processing:'Instant', notes:['Schengen Zone','90/180 rolling rule applies','Greece is a Schengen member'] },
+    PT: { status:'free', stay:'90 days in 180', cost:'Free', processing:'Instant', notes:['Schengen Zone','Portugal popular for Digital Nomad visa (D8)','D8 visa allows up to 2 years'] },
+    IT: { status:'free', stay:'90 days in 180', cost:'Free', processing:'Instant', notes:['Schengen Zone applies','Italy considering tourist entry fee in 2025','ETIAS required from 2025 (€7)'] },
+    ES: { status:'free', stay:'90 days in 180', cost:'Free', processing:'Instant', notes:['Schengen Zone','ETIAS required from 2025','Barcelona and Madrid have high tourist taxes'] },
+  },
+  GB: {
+    JP: { status:'free', stay:'90 days', cost:'Free', processing:'Instant', notes:['British passport holders visa-free','Proof of return ticket may be requested','No work on tourist entry'] },
+    TH: { status:'free', stay:'30 days', cost:'Free', processing:'Instant', notes:['30-day exemption','Extendable to 60 days at immigration','Thailand Elite Visa for long stays'] },
+    US: { status:'esta', stay:'90 days', cost:'$21', processing:'Minutes-72h', notes:['ESTA required — apply at esta.cbp.dhs.gov','Valid for 2 years / multiple entries','Apply at least 72h before departure'] },
+    AU: { status:'eta', stay:'3 months', cost:'AUD 20', processing:'Minutes', notes:['ETA required via Australian ETA app','Usually instant approval','Apply before booking flights'] },
+    AE: { status:'free', stay:'30 days', cost:'Free', processing:'Instant', notes:['Visa on arrival for UK passport holders','Extendable once for 30 days','No issues with Israeli stamps'] },
+    ID: { status:'free', stay:'30 days', cost:'Free', processing:'Instant', notes:['Visa-free 2024 policy applies','Tourism only','Keep copies of hotel bookings'] },
+    FR: { status:'free', stay:'90 days in 180', cost:'Free', processing:'Instant', notes:['No visa needed post-Brexit for tourism','Work/long stays require French visa','ETIAS from 2025 (€7)'] },
+    IN: { status:'required', stay:'60 days', cost:'$25', processing:'3-5 days', notes:['e-Visa required','Apply via indianvisaonline.gov.in','British nationals face extra screening sometimes'] },
+  },
+  CA: {
+    JP: { status:'free', stay:'90 days', cost:'Free', processing:'Instant', notes:['Visa-free for Canadian passport holders','Proof of onward travel recommended','eVisa for work/study required'] },
+    TH: { status:'free', stay:'30 days', cost:'Free', processing:'Instant', notes:['Visa exemption on arrival','Extendable once for 30 more days'] },
+    US: { status:'free', stay:'6 months', cost:'Free', processing:'Instant', notes:['No visa required','NEXUS/Global Entry available','Customs declaration required'] },
+    AU: { status:'eta', stay:'3 months', cost:'AUD 20', processing:'Minutes', notes:['ETA required','Apply via Australian ETA app or travel agent'] },
+    GB: { status:'free', stay:'6 months', cost:'Free', processing:'eTA £10', notes:['UK ETA required from 2025','Apply at gov.uk before travel'] },
+    AE: { status:'free', stay:'30 days', cost:'Free', processing:'Instant', notes:['Visa on arrival','Extendable'] },
+    IN: { status:'required', stay:'60 days', cost:'$25', processing:'3-5 days', notes:['e-Visa required','Apply at indianvisaonline.gov.in'] },
+    FR: { status:'free', stay:'90 days in 180', cost:'Free', processing:'Instant', notes:['Schengen area access','ETIAS from 2025'] },
+  },
+  IN: {
+    TH: { status:'free', stay:'30 days', cost:'Free', processing:'Instant', notes:['India-Thailand visa exemption (new 2024)','Mutual agreement for tourism','Previously required visa on arrival'] },
+    ID: { status:'on-arrival', stay:'30 days', cost:'$35', processing:'Instant', notes:['Visa on arrival available at major airports','USD accepted','Extendable for 30 more days'] },
+    VN: { status:'required', stay:'30 days', cost:'$25', processing:'3 days', notes:['e-Visa required at evisa.xuatnhapcanh.gov.vn','Single entry $25, multiple entry $50','Apply at least 3 business days ahead'] },
+    AE: { status:'on-arrival', stay:'14 days', cost:'Free', processing:'Instant', notes:['Visa on arrival for Indian passport holders','Valid for tourism and transit','Extend for AED 250/day if needed'] },
+    JP: { status:'required', stay:'90 days', cost:'Free', processing:'5-7 days', notes:['Tourist visa required from Indian Embassy','Free but requires documents','Processing 5-7 business days'] },
+    SG: { status:'required', stay:'30 days', cost:'$30 SGD', processing:'3-5 days', notes:['Visa required for Indian passports','Apply via ICA website','Long wait times during peak seasons'] },
+    US: { status:'required', stay:'Varies', cost:'$185', processing:'Weeks-months', notes:['B1/B2 visa required','Appointment wait times vary by consulate','Strong ties to India must be demonstrated'] },
+    GB: { status:'required', stay:'6 months', cost:'£115', processing:'3 weeks', notes:['Standard visitor visa required','Biometric appointment needed','Online application at gov.uk/visas-immigration'] },
+    AU: { status:'required', stay:'3 months', cost:'AUD 145', processing:'1-4 weeks', notes:['Visitor visa (subclass 600) required','Apply via ImmiAccount online','Financial evidence required'] },
+    FR: { status:'required', stay:'90 days', cost:'€80', processing:'2-4 weeks', notes:['Schengen visa required','Apply at VFS Global centres','Covers all 27 Schengen countries'] },
+    MA: { status:'free', stay:'90 days', cost:'Free', processing:'Instant', notes:['Visa-free for Indian passport holders','Tourism only'] },
+    KE: { status:'on-arrival', stay:'90 days', cost:'$50', processing:'Instant', notes:['eVisa also available','Apply at evisa.go.ke'] },
+  },
+  AU: {
+    JP: { status:'free', stay:'90 days', cost:'Free', processing:'Instant', notes:['Visa-free for Australian passport holders','Proof of return ticket may be requested'] },
+    ID: { status:'free', stay:'30 days', cost:'Free', processing:'Instant', notes:['Visa-free since 2024 reform','Bali no longer requires VoA for Australians'] },
+    TH: { status:'free', stay:'30 days', cost:'Free', processing:'Instant', notes:['Visa exemption on arrival','Most popular destination for Australians'] },
+    US: { status:'esta', stay:'90 days', cost:'$21', processing:'Minutes-72h', notes:['ESTA required — not a visa','Apply at esta.cbp.dhs.gov','Valid 2 years or until passport expires'] },
+    GB: { status:'free', stay:'6 months', cost:'Free/eTA £10', processing:'eTA required 2025', notes:['UK ETA required from 2025','Apply at gov.uk'] },
+    NZ: { status:'free', stay:'Indefinitely', cost:'Free', processing:'Instant', notes:['Trans-Tasman Travel Arrangement','Work rights included','No need to check in at immigration'] },
+    AE: { status:'free', stay:'30 days', cost:'Free', processing:'Instant', notes:['Visa on arrival','Dubai popular for Australians in layovers'] },
+  },
+};
+
+const POPULAR_ROUTES = [
+  { from:'US', fromFlag:'🇺🇸', to:'JP', toName:'Japan', status:'free' },
+  { from:'US', fromFlag:'🇺🇸', to:'TH', toName:'Thailand', status:'free' },
+  { from:'GB', fromFlag:'🇬🇧', to:'US', toName:'USA (ESTA)', status:'eta' },
+  { from:'IN', fromFlag:'🇮🇳', to:'AE', toName:'UAE / Dubai', status:'on-arrival' },
+  { from:'US', fromFlag:'🇺🇸', to:'IN', toName:'India', status:'required' },
+  { from:'AU', fromFlag:'🇦🇺', to:'ID', toName:'Bali', status:'free' },
+  { from:'US', fromFlag:'🇺🇸', to:'VN', toName:'Vietnam', status:'free' },
+  { from:'IN', fromFlag:'🇮🇳', to:'TH', toName:'Thailand', status:'free' },
+  { from:'GB', fromFlag:'🇬🇧', to:'AE', toName:'Dubai', status:'free' },
+  { from:'CA', fromFlag:'🇨🇦', to:'US', toName:'USA', status:'free' },
+  { from:'US', fromFlag:'🇺🇸', to:'MA', toName:'Morocco', status:'free' },
+  { from:'IN', fromFlag:'🇮🇳', to:'FR', toName:'France (Schengen)', status:'required' },
+];
+
+const DEST_NAMES = { JP:'Japan', TH:'Thailand', ID:'Indonesia / Bali', VN:'Vietnam', FR:'France / Schengen', IT:'Italy', ES:'Spain', GB:'United Kingdom', US:'United States', CA:'Canada', AU:'Australia', AE:'UAE / Dubai', SG:'Singapore', MX:'Mexico', BR:'Brazil', MA:'Morocco', KE:'Kenya', TR:'Turkey', GR:'Greece', PT:'Portugal', KR:'South Korea', IN:'India', NP:'Nepal' };
+const PASSPORT_NAMES = { US:'United States', GB:'United Kingdom', CA:'Canada', AU:'Australia', DE:'Germany', FR:'France', JP:'Japan', KR:'South Korea', SG:'Singapore', NZ:'New Zealand', IE:'Ireland', NL:'Netherlands', SE:'Sweden', NO:'Norway', CH:'Switzerland', IN:'India', CN:'China', BR:'Brazil', MX:'Mexico', ZA:'South Africa', NG:'Nigeria', PH:'Philippines' };
+
+function checkVisa() {
+  const passport = document.getElementById('visa-passport').value;
+  const dest     = document.getElementById('visa-destination').value;
+  if (!passport || !dest) { alert('Please select both your passport and destination.'); return; }
+
+  const data = VISA_DATA[passport]?.[dest];
+  const result = document.getElementById('visa-result');
+  result.classList.add('show');
+  result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  const pName = PASSPORT_NAMES[passport] || passport;
+  const dName = DEST_NAMES[dest] || dest;
+
+  document.getElementById('vr-title').textContent = `${pName} → ${dName}`;
+  document.getElementById('vr-sub').textContent = data ? 'Entry requirements as of 2025' : 'General guidance — verify with embassy';
+
+  if (!data) {
+    const badge = document.getElementById('vr-badge');
+    badge.className = 'visa-badge required';
+    badge.textContent = '⚠ Check Embassy';
+    document.getElementById('vr-details').innerHTML = '<div class="visa-detail-box"><div class="visa-detail-label">Status</div><div class="visa-detail-value" style="font-size:14px">Data not available</div><div class="visa-detail-note">Check the official embassy website</div></div>';
+    document.getElementById('vr-notes').innerHTML = '<div class="visa-note-item">We don\'t have data for this passport/destination combination yet. Please check the official embassy or consulate website for accurate requirements.</div>';
+    document.getElementById('vr-apply').innerHTML = `<a class="visa-apply-btn" href="https://www.visaindex.com" target="_blank" rel="noopener">🔍 Search Visa Requirements</a>`;
+    return;
+  }
+
+  const badgeEl = document.getElementById('vr-badge');
+  const badgeMap = { free: ['free','✓ Visa Free'], 'on-arrival': ['on-arrival','🛂 Visa on Arrival'], required: ['required','📋 Visa Required'], eta: ['on-arrival','📱 ETA / eVisa'], esta: ['on-arrival','📱 ESTA Required'] };
+  const [badgeClass, badgeText] = badgeMap[data.status] || ['required','Check Embassy'];
+  badgeEl.className = `visa-badge ${badgeClass}`;
+  badgeEl.textContent = badgeText;
+
+  document.getElementById('vr-details').innerHTML = `
+    <div class="visa-detail-box"><div class="visa-detail-label">Max Stay</div><div class="visa-detail-value">${data.stay}</div></div>
+    <div class="visa-detail-box"><div class="visa-detail-label">Cost</div><div class="visa-detail-value">${data.cost}</div></div>
+    <div class="visa-detail-box"><div class="visa-detail-label">Processing</div><div class="visa-detail-value">${data.processing}</div></div>
+    <div class="visa-detail-box"><div class="visa-detail-label">Entry Type</div><div class="visa-detail-value" style="text-transform:capitalize;font-size:14px">${data.status.replace('-',' ')}</div></div>
+  `;
+
+  document.getElementById('vr-notes').innerHTML = (data.notes || []).map(n => `<div class="visa-note-item">• ${n}</div>`).join('');
+
+  const applyLinks = {
+    required: `<a class="visa-apply-btn" href="https://www.ivisa.com" target="_blank" rel="noopener">Apply via iVisa →</a><a class="visa-apply-btn secondary" href="https://www.visahq.com" target="_blank" rel="noopener">VisaHQ</a>`,
+    eta: `<a class="visa-apply-btn" href="https://www.ivisa.com" target="_blank" rel="noopener">Apply ETA / eVisa →</a>`,
+    esta: `<a class="visa-apply-btn" href="https://esta.cbp.dhs.gov" target="_blank" rel="noopener">Apply ESTA (Official) →</a>`,
+    free: `<a class="visa-apply-btn secondary" href="https://www.visaindex.com" target="_blank" rel="noopener">📋 Full Entry Requirements</a>`,
+    'on-arrival': `<a class="visa-apply-btn secondary" href="https://www.visaindex.com" target="_blank" rel="noopener">📋 Arrival Details</a>`,
+  };
+  document.getElementById('vr-apply').innerHTML = applyLinks[data.status] || '';
+}
+
+function renderPopular() {
+  const grid = document.getElementById('visa-popular-grid');
+  const statusLabel = { free:'Visa Free', required:'Visa Required', 'on-arrival':'On Arrival', eta:'eVisa/ETA' };
+  const statusClass = { free:'status-free', required:'status-required', 'on-arrival':'status-arrival', eta:'status-arrival' };
+  grid.innerHTML = POPULAR_ROUTES.map(r => `
+    <div class="visa-popular-card" onclick="quickCheck('${r.from}','${r.to}')">
+      <div class="visa-popular-route">${r.fromFlag} → ${r.toName}</div>
+      <div class="visa-popular-status ${statusClass[r.status] || ''}">${statusLabel[r.status] || r.status}</div>
+    </div>
+  `).join('');
+}
+
+function quickCheck(passport, dest) {
+  document.getElementById('visa-passport').value = passport;
+  document.getElementById('visa-destination').value = dest;
+  checkVisa();
+}
+
+renderPopular();
+</script>
+</body>
+</html>
