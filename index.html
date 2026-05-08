@@ -944,6 +944,11 @@
   </div>
 </section>
 
+<!-- Netlify Forms bot detection — hidden, detected at deploy time -->
+<form name="price-alerts" netlify netlify-honeypot="bot-field" hidden>
+  <input name="destination" /><input name="budget" /><input name="month" /><input name="email" /><input name="bot-field" />
+</form>
+
 <!-- ══ PRICE ALERTS ══════════════════════════════════════════════ -->
 <section class="price-alert-section" id="price-alerts">
   <div class="price-alert-inner">
@@ -1617,16 +1622,29 @@ function submitConcierge() {
 }
 
 /* ── Price Alerts ── */
-function submitPriceAlert() {
-  const dest = document.getElementById('pa-dest').value.trim();
+async function submitPriceAlert() {
+  const dest   = document.getElementById('pa-dest').value.trim();
   const budget = document.getElementById('pa-budget').value;
-  const month = document.getElementById('pa-month').value;
-  const email = document.getElementById('pa-email').value.trim();
-  if (!dest) { showPAError('Enter a destination'); return; }
+  const month  = document.getElementById('pa-month').value;
+  const email  = document.getElementById('pa-email').value.trim();
+  if (!dest)  { showPAError('Enter a destination'); return; }
   if (!email || !email.includes('@')) { showPAError('Enter a valid email'); return; }
+
+  const btn = document.querySelector('.pa-submit');
+  btn.disabled = true; btn.textContent = 'Setting up your alert…';
+
+  /* Save locally as backup */
   const alerts = JSON.parse(localStorage.getItem('convotrek_price_alerts') || '[]');
   alerts.push({ dest, budget, month, email, createdAt: Date.now() });
   localStorage.setItem('convotrek_price_alerts', JSON.stringify(alerts));
+
+  /* Submit to Netlify Forms */
+  try {
+    const body = new URLSearchParams({ 'form-name': 'price-alerts', destination: dest, budget, month, email, 'bot-field': '' });
+    await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body.toString() });
+  } catch(e) { /* non-blocking — local save is the fallback */ }
+
+  btn.disabled = false; btn.textContent = 'Notify Me When Prices Drop →';
   document.getElementById('pa-form').style.display = 'none';
   document.getElementById('pa-success').style.display = 'block';
 }
