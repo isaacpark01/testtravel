@@ -2046,6 +2046,25 @@ function renderHero() {
     dateRangeEl.textContent = '';
   }
   updateCountdown();
+  updateNextTripNudge();
+}
+
+function updateNextTripNudge() {
+  const el = document.getElementById('next-trip-nudge');
+  if (!el) return;
+  if (!currentTrip?.start_date || !currentTrip?.days?.length) { el.style.display = 'none'; return; }
+  const dismissed = localStorage.getItem('ntn_dismissed_' + currentTrip.id);
+  if (dismissed) { el.style.display = 'none'; return; }
+  const today = new Date(); today.setHours(0,0,0,0);
+  const end   = new Date(currentTrip.start_date + 'T00:00:00');
+  end.setDate(end.getDate() + currentTrip.days.length - 1);
+  el.style.display = today > end ? 'flex' : 'none';
+}
+
+function dismissNextTripNudge() {
+  if (currentTrip?.id) localStorage.setItem('ntn_dismissed_' + currentTrip.id, '1');
+  const el = document.getElementById('next-trip-nudge');
+  if (el) el.style.display = 'none';
 }
 
 function updateCountdown() {
