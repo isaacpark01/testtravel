@@ -900,6 +900,10 @@
     <div id="bttg-selected-label" class="bttg-selected-label" style="display:none;"></div>
     <div id="bttg-grid" class="bttg-grid-v2"></div>
     <div id="bttg-best" class="bttg-best-banner" style="display:none;"></div>
+    <button id="bttg-share-btn" class="bttg-share-btn" onclick="shareBTTGCard()" style="display:none;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      Share this card
+    </button>
     <div class="bttg-legend-row">
       <div class="bttg-leg-v2"><span class="bttg-leg-dot" style="background:#34d399"></span>Great</div>
       <div class="bttg-leg-v2"><span class="bttg-leg-dot" style="background:#fbbf24"></span>Fair</div>
@@ -1103,6 +1107,7 @@ const BTTG_BEST = {
   maldives: 'Best months: <strong>November–April</strong> (dry NE monsoon) — crystal water, best diving visibility. June–September brings heavy rain and choppy seas.'
 };
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+let _bttgCity = '', _bttgScores = [];
 
 function renderBestTime(cityKey) {
   const d = BTTG[cityKey];
@@ -1213,6 +1218,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const great = MONTHS.filter((_, i) => score(i) >= 4);
     banner.innerHTML = great.length ? `<strong>Best months:</strong> ${great.join(', ')} — pleasant weather, lower crowds, and better prices.` : '';
     banner.style.display = great.length ? 'block' : 'none';
+    _bttgScores = MONTHS.map((_, i) => score(i));
+    document.getElementById('bttg-share-btn').style.display = 'flex';
   }
 
   async function fetchAndRender(lat, lon) {
@@ -1246,6 +1253,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const display = country ? `${label}, ${country}` : label;
     searchEl.value = display; setClear(true);
     labelEl.textContent = display; labelEl.style.display = 'block';
+    _bttgCity = label;
     closeDropdown();
     await fetchAndRender(lat, lon);
   }
@@ -1302,6 +1310,149 @@ document.addEventListener('DOMContentLoaded', function() {
     if (results[0]) selectResult(results[0].name, results[0].country||'', results[0].latitude, results[0].longitude);
   });
 });
+
+/* ── BTTG Share Card ── */
+function rRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+async function shareBTTGCard() {
+  const W = 1080, H = 1080;
+  const canvas = document.createElement('canvas');
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext('2d');
+  await document.fonts.ready;
+
+  /* Background */
+  const bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, '#080c14'); bg.addColorStop(1, '#0d1a2e');
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+
+  /* Dot grid */
+  ctx.fillStyle = 'rgba(106,154,184,0.045)';
+  for (let x = 30; x < W; x += 44) for (let y = 30; y < H; y += 44) {
+    ctx.beginPath(); ctx.arc(x, y, 1.5, 0, Math.PI * 2); ctx.fill();
+  }
+
+  /* Top accent bar */
+  const acc = ctx.createLinearGradient(0, 0, W, 0);
+  acc.addColorStop(0,'transparent'); acc.addColorStop(.3,'#6a9ab8');
+  acc.addColorStop(.7,'#34d399'); acc.addColorStop(1,'transparent');
+  ctx.fillStyle = acc; ctx.fillRect(0, 0, W, 4);
+
+  /* Eyebrow */
+  ctx.fillStyle = 'rgba(106,154,184,0.7)';
+  ctx.font = '600 32px "Plus Jakarta Sans", sans-serif';
+  ctx.textAlign = 'center'; ctx.letterSpacing = '4px';
+  ctx.fillText('BEST TIME TO VISIT', W / 2, 130);
+  ctx.letterSpacing = '0px';
+
+  /* City name */
+  const city = (_bttgCity || 'City').toUpperCase();
+  ctx.font = '800 100px "Plus Jakarta Sans", sans-serif';
+  ctx.fillStyle = '#f0faf9';
+  /* scale down if too wide */
+  let fs = 100;
+  while (ctx.measureText(city).width > W - 120 && fs > 48) {
+    fs -= 4; ctx.font = `800 ${fs}px "Plus Jakarta Sans", sans-serif`;
+  }
+  ctx.fillText(city, W / 2, 260);
+
+  /* Month bars */
+  const barW = 58, gap = 28;
+  const totalBarW = 12 * barW + 11 * gap;
+  const startX = (W - totalBarW) / 2;
+  const maxH = 300, baseY = 640;
+
+  _bttgScores.forEach(function(s, i) {
+    const x = startX + i * (barW + gap);
+    const h = Math.max(16, (s / 5) * maxH);
+    const y = baseY - h;
+    const great = s >= 4, fair = s === 3;
+    const col = great ? '#34d399' : fair ? '#fbbf24' : '#ef4444';
+
+    if (great) { ctx.shadowColor = 'rgba(52,211,153,0.5)'; ctx.shadowBlur = 24; }
+
+    const bGrad = ctx.createLinearGradient(x, y, x, baseY);
+    bGrad.addColorStop(0, col); bGrad.addColorStop(1, col + '55');
+    ctx.fillStyle = bGrad;
+    rRect(ctx, x, y, barW, h, 10); ctx.fill();
+    ctx.shadowBlur = 0;
+
+    /* Score number inside bar */
+    if (h > 40) {
+      ctx.fillStyle = great ? 'rgba(8,12,20,0.7)' : 'rgba(255,255,255,0.5)';
+      ctx.font = `700 ${great ? 22 : 18}px "Plus Jakarta Sans", sans-serif`;
+      ctx.fillText(s, x + barW / 2, y + (great ? 30 : 26));
+    }
+
+    /* Month label */
+    ctx.fillStyle = great ? '#f0faf9' : 'rgba(240,250,249,0.38)';
+    ctx.font = `${great ? '700' : '500'} 24px "Plus Jakarta Sans", sans-serif`;
+    ctx.fillText(MONTHS[i], x + barW / 2, baseY + 42);
+  });
+
+  /* Legend */
+  const legends = [['#34d399','Great'],['#fbbf24','Fair'],['#ef4444','Avoid']];
+  let lx = W / 2 - 210;
+  legends.forEach(function([col, label]) {
+    ctx.fillStyle = col; ctx.beginPath(); ctx.arc(lx, 720, 8, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = 'rgba(240,250,249,0.45)';
+    ctx.font = '500 22px "Plus Jakarta Sans", sans-serif';
+    ctx.textAlign = 'left'; ctx.fillText(label, lx + 16, 726);
+    lx += 140;
+  });
+  ctx.textAlign = 'center';
+
+  /* Best months pill */
+  const great = MONTHS.filter(function(_, i) { return _bttgScores[i] >= 4; });
+  if (great.length) {
+    const txt = '✓  Best months: ' + great.join(', ');
+    ctx.font = '600 26px "Plus Jakarta Sans", sans-serif';
+    const pillW = Math.min(ctx.measureText(txt).width + 80, W - 120);
+    const pillX = (W - pillW) / 2;
+    ctx.fillStyle = 'rgba(52,211,153,0.12)';
+    ctx.strokeStyle = 'rgba(52,211,153,0.35)'; ctx.lineWidth = 1.5;
+    rRect(ctx, pillX, 775, pillW, 60, 30); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#34d399';
+    ctx.fillText(txt, W / 2, 812);
+  }
+
+  /* Divider */
+  ctx.strokeStyle = 'rgba(106,154,184,0.12)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(80, 900); ctx.lineTo(W - 80, 900); ctx.stroke();
+
+  /* Branding */
+  ctx.font = '800 38px "Plus Jakarta Sans", sans-serif';
+  ctx.fillStyle = 'rgba(240,250,249,0.9)';
+  ctx.fillText('convotrek', W / 2, 966);
+  ctx.font = '400 24px "Plus Jakarta Sans", sans-serif';
+  ctx.fillStyle = 'rgba(106,154,184,0.55)';
+  ctx.fillText('AI-powered travel planning', W / 2, 1010);
+
+  /* Share / download */
+  canvas.toBlob(async function(blob) {
+    const fname = 'convotrek-' + (_bttgCity || 'city').toLowerCase().replace(/[^a-z0-9]+/g, '-') + '.png';
+    const file = new File([blob], fname, { type: 'image/png' });
+    if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({ title: 'Best time to visit ' + _bttgCity, text: 'Planning a trip? Here\'s when to go — via convotrek', files: [file] });
+        return;
+      } catch(e) {}
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = fname; a.click();
+    setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+  }, 'image/png');
+}
 
 /* ── Hero mode toggle ── */
 document.querySelectorAll('.hero-mode-btn').forEach(function(btn) {

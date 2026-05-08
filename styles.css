@@ -1846,6 +1846,16 @@ body.light-mode .group-feature-desc { color: rgba(26,24,48,.55); }
 .bttg-leg-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: rgba(240,250,249,.4); }
 .bttg-best-banner { background: rgba(52,211,153,.07); border: 1px solid rgba(52,211,153,.2); border-radius: 12px; padding: 14px 18px; font-size: 13px; color: rgba(240,250,249,.65); margin-top: 16px; line-height: 1.6; }
 .bttg-best-banner strong { color: #34d399; }
+.bttg-share-btn {
+  display: flex; align-items: center; gap: 7px; margin: 14px auto 0;
+  background: rgba(106,154,184,.1); border: 1px solid rgba(106,154,184,.25);
+  color: #6a9ab8; font-size: 13px; font-weight: 700; font-family: inherit;
+  padding: 9px 20px; border-radius: 20px; cursor: pointer;
+  transition: all .18s; letter-spacing: .01em;
+}
+.bttg-share-btn:hover { background: rgba(106,154,184,.2); border-color: rgba(106,154,184,.45); color: #f0faf9; transform: translateY(-1px); }
+body.light-mode .bttg-share-btn { color: #5283a0; border-color: rgba(82,131,160,.3); background: rgba(82,131,160,.08); }
+body.light-mode .bttg-share-btn:hover { background: rgba(82,131,160,.18); color: #1e4468; }
 body.light-mode .bttg-month { background: #f8fafc; border-color: rgba(106,154,184,.15); }
 body.light-mode .bttg-month-name { color: rgba(15,23,42,.4); }
 body.light-mode .bttg-best-banner { background: rgba(52,211,153,.05); }
