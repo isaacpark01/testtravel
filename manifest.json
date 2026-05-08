@@ -1,14 +1,41 @@
 {
-  "name": "Dropped",
-  "short_name": "Dropped",
-  "description": "Plan Smarter. Travel Better.",
-  "start_url": "/planner.html",
+  "name": "convotrek",
+  "short_name": "convotrek",
+  "description": "Plan Smarter. Travel Better. Discover destinations, build itineraries, and explore the world.",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#0b1120",
+  "background_color": "#080c14",
   "theme_color": "#0d9488",
   "orientation": "any",
+  "lang": "en",
+  "categories": ["travel", "lifestyle"],
   "icons": [
-    { "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>", "sizes": "any", "type": "image/svg+xml" }
+    { "src": "convotrek.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "convotrek.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Trip Planner",
+      "short_name": "Planner",
+      "description": "Build your next itinerary",
+      "url": "/planner.html",
+      "icons": [{ "src": "convotrek.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Visa Checker",
+      "short_name": "Visa",
+      "description": "Check visa requirements",
+      "url": "/visa.html",
+      "icons": [{ "src": "convotrek.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Globe Explorer",
+      "short_name": "Globe",
+      "description": "Explore destinations on the globe",
+      "url": "/globe.html",
+      "icons": [{ "src": "convotrek.png", "sizes": "96x96" }]
+    }
   ],
   "share_target": {
     "action": "/planner.html",

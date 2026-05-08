@@ -2093,3 +2093,27 @@ body.light-mode .pa-input { background: #f8fafc; border-color: rgba(106,154,184,
   .hero-trust-avatar { width: 28px; height: 28px; font-size: 10px; }
   .hero-trust-copy { white-space: normal; }
 }
+
+/* ── Skip navigation link (accessibility) ── */
+.skip-link {
+  position: absolute; left: -9999px; top: auto;
+  width: 1px; height: 1px; overflow: hidden;
+  background: #6a9ab8; color: #fff;
+  font-size: 14px; font-weight: 700; font-family: inherit;
+  padding: 10px 18px; border-radius: 0 0 8px 8px;
+  text-decoration: none; z-index: 10000;
+  transition: left 0s, width 0s, height 0s;
+}
+.skip-link:focus {
+  left: 16px; top: 0; width: auto; height: auto; overflow: visible;
+}
+
+/* ── Respect reduced-motion preferences (accessibility) ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

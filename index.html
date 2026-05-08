@@ -41,7 +41,7 @@
   <link rel="manifest" href="manifest.json" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     @font-face {
       font-family: 'Geist';
@@ -73,6 +73,7 @@
 </head>
 <body>
 
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
 <!-- ══ COOKIE CONSENT BANNER ════════════════════════════════════ -->
 <div id="cookie-banner" class="cookie-banner" role="region" aria-label="Cookie consent" style="display:none">
@@ -126,8 +127,9 @@
       <label class="modal-field-label">Email</label>
       <input id="forgot-email" class="auth-field" type="email" placeholder="you@example.com" autocomplete="email" />
       <div id="forgot-error" class="modal-error hidden"></div>
-      <div id="forgot-ok" class="hidden" style="background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.3);color:#34d399;border-radius:8px;padding:11px 14px;font-size:13px;margin-top:12px">
-        ✓ Check your email for a reset link.
+      <div id="forgot-ok" class="hidden" style="background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.3);color:#34d399;border-radius:8px;padding:11px 14px;font-size:13px;margin-top:12px;display:flex;align-items:center;gap:8px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Check your email for a reset link.
       </div>
       <button id="forgot-submit-btn" class="auth-btn-solid" style="width:100%;margin-top:16px" onclick="sendPasswordReset()">Send Reset Link</button>
       <p style="text-align:center;font-size:13px;color:rgba(240,250,249,.4);margin-top:14px">
@@ -136,7 +138,9 @@
     </div>
     <!-- Success -->
     <div id="auth-success-view" class="hidden" style="text-align:center;padding:20px 0">
-      <div style="font-size:40px;margin-bottom:12px">✅</div>
+      <div style="width:56px;height:56px;border-radius:50%;background:rgba(52,211,153,.15);border:2px solid rgba(52,211,153,.4);display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
       <div id="auth-success-msg" style="font-size:15px;font-weight:600;color:#f0faf9;line-height:1.6"></div>
     </div>
   </div>
@@ -158,7 +162,7 @@
   <div class="modal-card">
     <div class="modal-drag-handle"></div>
     <div id="modal-hero-img" class="modal-hero">
-      <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="modal-body">
       <div class="modal-city-header">
@@ -167,11 +171,11 @@
           <div id="modal-country" class="modal-country"></div>
           <div id="modal-tagline" class="modal-tagline"></div>
         </div>
-        <button class="modal-pin-btn" onclick="pinCityToBoard()">📌 Pin to Board</button>
+        <button class="modal-pin-btn" onclick="pinCityToBoard()" style="display:inline-flex;align-items:center;gap:6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Pin to Board</button>
       </div>
 
       <div class="modal-filters">
-        <input id="tab-search" class="modal-search-input" type="text" placeholder="🔍 Search…" oninput="applyFilter()" autocomplete="off" />
+        <input id="tab-search" class="modal-search-input" type="text" placeholder="Search…" oninput="applyFilter()" autocomplete="off" aria-label="Search activities, food or transport" />
         <select id="price-filter" class="filter-select" onchange="applyFilter()">
           <option value="all">All Prices</option>
           <option value="free">Free</option>
@@ -287,14 +291,14 @@
         </div>
       </div>
     </nav>
-    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode">
+    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode" aria-label="Toggle light/dark mode">
       <span class="toggle-knob">
         <svg class="toggle-moon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
         <svg class="toggle-sun" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>
       </span>
     </button>
     <div class="lang-picker-wrap" id="home-lang-wrap">
-      <button class="lang-globe-btn" onclick="toggleHomeLang()" title="Language"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg><span class="lang-label">United States (English)</span></button>
+      <button class="lang-globe-btn" onclick="toggleHomeLang()" title="Change language" aria-label="Change language" aria-haspopup="listbox"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg><span class="lang-label">United States (English)</span></button>
       <div class="lang-dropdown" id="home-lang-menu"></div>
     </div>
     <div id="header-auth" class="header-auth">
@@ -302,14 +306,14 @@
       <button class="auth-btn-solid"   data-i18n="navSignup" onclick="openAuth('signup')">Sign Up</button>
     </div>
     <div id="header-user" class="header-user hidden">
-      <div id="header-avatar" class="user-avatar" onclick="openProfile()"></div>
+      <div id="header-avatar" class="user-avatar" onclick="openProfile()" role="button" tabindex="0" aria-label="Open profile" onkeydown="if(event.key==='Enter'||event.key===' ')openProfile()"></div>
       <span id="header-username" class="header-username"></span>
     </div>
   </div>
 </header>
 
 <!-- ══ HERO ═════════════════════════════════════════════════════ -->
-<section class="hero" id="hero">
+<section class="hero" id="hero" aria-label="Hero"><span id="main-content" aria-hidden="true" style="position:absolute;top:0"></span>
   <div class="hero-bg" id="hero-bg-a"></div>
   <div class="hero-bg hero-bg-b" id="hero-bg-b"></div>
 
@@ -838,10 +842,10 @@
           <div class="ins-price-tag">From $1.87/day</div>
         </div>
         <div class="ins-features">
-          <span class="ins-feature">✓ Medical emergencies</span>
-          <span class="ins-feature">✓ Trip interruption</span>
-          <span class="ins-feature">✓ Lost luggage</span>
-          <span class="ins-feature ins-feature-muted">— Cancel for any reason</span>
+          <span class="ins-feature" style="display:inline-flex;align-items:center;gap:5px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Medical emergencies</span>
+          <span class="ins-feature" style="display:inline-flex;align-items:center;gap:5px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Trip interruption</span>
+          <span class="ins-feature" style="display:inline-flex;align-items:center;gap:5px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Lost luggage</span>
+          <span class="ins-feature ins-feature-muted" style="display:inline-flex;align-items:center;gap:5px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" opacity="0.4"><line x1="5" y1="12" x2="19" y2="12"/></svg> Cancel for any reason</span>
         </div>
         <div class="ins-best-for">Best for: Long-term travelers &amp; nomads</div>
         <a class="ins-cta" href="https://safetywing.com" target="_blank" rel="noopener" onclick="return buildInsLink('safetywing',this)">Get Quote →</a>
@@ -852,10 +856,10 @@
           <div class="ins-price-tag">From $5.75/day</div>
         </div>
         <div class="ins-features">
-          <span class="ins-feature">✓ Medical emergencies</span>
-          <span class="ins-feature">✓ Adventure sports</span>
-          <span class="ins-feature">✓ Trip cancellation</span>
-          <span class="ins-feature">✓ 24/7 emergency assist</span>
+          <span class="ins-feature" style="display:inline-flex;align-items:center;gap:5px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Medical emergencies</span>
+          <span class="ins-feature" style="display:inline-flex;align-items:center;gap:5px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Adventure sports</span>
+          <span class="ins-feature" style="display:inline-flex;align-items:center;gap:5px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Trip cancellation</span>
+          <span class="ins-feature" style="display:inline-flex;align-items:center;gap:5px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> 24/7 emergency assist</span>
         </div>
         <div class="ins-best-for">Best for: Adventure travelers</div>
         <a class="ins-cta" href="https://worldnomads.com" target="_blank" rel="noopener" onclick="return buildInsLink('worldnomads',this)">Get Quote →</a>
@@ -866,10 +870,10 @@
           <div class="ins-price-tag">From $3.50/day</div>
         </div>
         <div class="ins-features">
-          <span class="ins-feature">✓ Trip cancellation</span>
-          <span class="ins-feature">✓ Medical coverage</span>
-          <span class="ins-feature">✓ Rental car damage</span>
-          <span class="ins-feature">✓ Baggage delay</span>
+          <span class="ins-feature" style="display:inline-flex;align-items:center;gap:5px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Trip cancellation</span>
+          <span class="ins-feature" style="display:inline-flex;align-items:center;gap:5px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Medical coverage</span>
+          <span class="ins-feature" style="display:inline-flex;align-items:center;gap:5px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Rental car damage</span>
+          <span class="ins-feature" style="display:inline-flex;align-items:center;gap:5px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Baggage delay</span>
         </div>
         <div class="ins-best-for">Best for: Families &amp; business trips</div>
         <a class="ins-cta" href="https://allianztravelinsurance.com" target="_blank" rel="noopener" onclick="return buildInsLink('allianz',this)">Get Quote →</a>
@@ -907,13 +911,13 @@
           <span id="bttg-share-label">Share card</span>
         </button>
         <div class="bttg-fmt-picker" id="bttg-fmt-picker">
-          <button class="bttg-fmt-btn active" title="1:1 Square · Instagram, X" onclick="setShareFormat('square',this)">
+          <button class="bttg-fmt-btn active" title="1:1 Square · Instagram, X" aria-label="Square format (1:1)" onclick="setShareFormat('square',this)">
             <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="1.5" y="1.5" width="13" height="13" rx="2.5"/></svg>
           </button>
-          <button class="bttg-fmt-btn" title="16:9 Landscape · Reddit, X" onclick="setShareFormat('landscape',this)">
+          <button class="bttg-fmt-btn" title="16:9 Landscape · Reddit, X" aria-label="Landscape format (16:9)" onclick="setShareFormat('landscape',this)">
             <svg width="16" height="10" viewBox="0 0 20 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="1" y="1" width="18" height="11" rx="2"/></svg>
           </button>
-          <button class="bttg-fmt-btn" title="9:16 Story · TikTok, Reels" onclick="setShareFormat('story',this)">
+          <button class="bttg-fmt-btn" title="9:16 Story · TikTok, Reels" aria-label="Story format (9:16)" onclick="setShareFormat('story',this)">
             <svg width="9" height="14" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="1" y="1" width="10" height="18" rx="2.5"/></svg>
           </button>
         </div>
@@ -963,9 +967,9 @@
       <h2 class="price-alert-title">Get Price Drop Alerts</h2>
       <p class="price-alert-sub">Tell us where you want to go and your budget. We'll email you when flights hit your target price.</p>
       <div class="price-alert-bullets">
-        <div class="pa-bullet"><span class="pa-bullet-icon">✓</span> Free, no credit card required</div>
-        <div class="pa-bullet"><span class="pa-bullet-icon">✓</span> Unsubscribe any time</div>
-        <div class="pa-bullet"><span class="pa-bullet-icon">✓</span> Average savings: 34%</div>
+        <div class="pa-bullet"><span class="pa-bullet-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span> Free, no credit card required</div>
+        <div class="pa-bullet"><span class="pa-bullet-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span> Unsubscribe any time</div>
+        <div class="pa-bullet"><span class="pa-bullet-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span> Average savings: 34%</div>
       </div>
     </div>
     <div class="price-alert-right">
@@ -999,7 +1003,9 @@
         <button class="pa-submit" onclick="submitPriceAlert()">Notify Me When Prices Drop →</button>
       </div>
       <div id="pa-success" class="pa-success" style="display:none;">
-        <div style="font-size:32px;margin-bottom:12px;">🎉</div>
+        <div style="width:52px;height:52px;border-radius:50%;background:rgba(52,211,153,.15);border:2px solid rgba(52,211,153,.4);display:flex;align-items:center;justify-content:center;margin:0 auto 14px">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
         <div style="font-size:17px;font-weight:800;color:#f0faf9;margin-bottom:6px;">You're on the list!</div>
         <div style="font-size:13px;color:rgba(240,250,249,.5);">We'll email you when prices drop to your target. Check spam if you don't hear from us within 24h.</div>
         <button onclick="resetPriceAlert()" style="margin-top:16px;background:transparent;border:1px solid rgba(151,172,224,.25);color:#97ace0;font-size:13px;font-weight:600;font-family:inherit;padding:8px 18px;border-radius:8px;cursor:pointer;">Set another alert</button>
@@ -1040,7 +1046,7 @@
         <h4>Legal</h4>
         <a href="/privacy.html">Privacy Policy</a>
         <a href="/terms.html">Terms of Service</a>
-        <a href="mailto:support@convotrekapp">Contact Support</a>
+        <a href="mailto:support@convotrekapp.com">Contact Support</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -1048,7 +1054,7 @@
       <div class="footer-legal-links">
         <a href="/privacy.html">Privacy</a>
         <a href="/terms.html">Terms</a>
-        <a href="mailto:support@convotrekapp">Contact</a>
+        <a href="mailto:support@convotrekapp.com">Contact</a>
       </div>
     </div>
   </div>
