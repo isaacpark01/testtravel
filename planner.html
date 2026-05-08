@@ -1319,6 +1319,38 @@
     .pack-custom-add-btn { background: rgba(106,154,184,.15); border: 1px solid rgba(106,154,184,.25); color: #6a9ab8; font-size: 13px; font-weight: 700; font-family: inherit; padding: 8px 16px; border-radius: 8px; cursor: pointer; white-space: nowrap; }
     .pack-custom-add-btn:hover { background: rgba(106,154,184,.28); color: #f0faf9; }
 
+    /* ── Journal Tab ──────────────────────────────────────────── */
+    .jnl-header { margin-bottom: 20px; }
+    .jnl-trip-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; color: #f0faf9; letter-spacing: -.3px; margin-bottom: 8px; }
+    .jnl-rating-row { display: flex; align-items: center; gap: 4px; }
+    .jnl-star { background: none; border: none; font-size: 22px; color: rgba(240,250,249,.2); cursor: pointer; padding: 0 1px; transition: color .12s, transform .1s; line-height: 1; }
+    .jnl-star:hover, .jnl-star.active { color: #fbbf24; transform: scale(1.15); }
+    .jnl-rating-label { font-size: 12px; font-weight: 700; color: rgba(240,250,249,.3); margin-left: 6px; }
+    .jnl-section-label { font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: rgba(240,250,249,.25); margin: 14px 0 6px; }
+    .jnl-textarea {
+      width: 100%; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px; padding: 12px; color: #e2e8f0; font-family: 'Geist', sans-serif;
+      font-size: 13px; line-height: 1.6; resize: vertical; min-height: 120px; outline: none;
+    }
+    .jnl-textarea--sm { min-height: 72px; }
+    .jnl-textarea::placeholder { color: rgba(240,250,249,.2); }
+    .jnl-textarea:focus { border-color: rgba(106,154,184,.35); }
+    .jnl-prompts-label { font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: rgba(240,250,249,.25); margin: 14px 0 6px; }
+    .jnl-prompts { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+    .jnl-prompt-chip { background: rgba(106,154,184,.08); border: 1px solid rgba(106,154,184,.15); border-radius: 20px; padding: 5px 12px; font-size: 11.5px; font-weight: 600; color: rgba(240,250,249,.45); cursor: pointer; font-family: inherit; transition: all .15s; text-align: left; }
+    .jnl-prompt-chip:hover { background: rgba(106,154,184,.18); color: #f0faf9; border-color: rgba(106,154,184,.3); }
+    .jnl-photo-row { display: flex; align-items: center; gap: 10px; }
+    .jnl-photo-input { flex: 1; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 8px; padding: 8px 12px; color: #e2e8f0; font-size: 12px; font-family: inherit; outline: none; }
+    .jnl-photo-input:focus { border-color: rgba(106,154,184,.35); }
+    .jnl-photo-thumb { width: 52px; height: 52px; object-fit: cover; border-radius: 8px; flex-shrink: 0; border: 1px solid rgba(255,255,255,.1); }
+    .jnl-saved-note { font-size: 11px; font-weight: 700; color: #34d399; margin-top: 10px; opacity: 0; transition: opacity .2s; }
+    .jnl-saved-note.visible { opacity: 1; }
+    .journal-empty { color: rgba(240,250,249,.3); font-size: 13px; text-align: center; padding: 48px 0; }
+    body.light-mode .jnl-trip-name { color: #0f172a; }
+    body.light-mode .jnl-star { color: rgba(15,23,42,.15); }
+    body.light-mode .jnl-textarea, body.light-mode .jnl-photo-input { background: rgba(15,23,42,.04); border-color: rgba(15,23,42,.1); color: #0f172a; }
+    body.light-mode .jnl-textarea::placeholder, body.light-mode .jnl-photo-input::placeholder { color: rgba(15,23,42,.25); }
+
     /* ── Vibe Tags ────────────────────────────────────────────── */
     .vibe-tags { display: flex; flex-wrap: wrap; gap: 4px; margin: 2px 0; }
     .vibe-tag {
@@ -2208,6 +2240,7 @@
   <button class="tab-btn" id="tab-discover" data-i18n="tabDiscover" onclick="switchTab('discover')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-1px"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Discover</button>
   <button class="tab-btn" id="tab-rewards" data-i18n="tabRewards" onclick="switchTab('rewards')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-1px"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Rewards</button>
   <button class="tab-btn" id="tab-group" data-i18n="tabGroup" onclick="switchTab('group')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-1px"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Group</button>
+  <button class="tab-btn" id="tab-journal" onclick="switchTab('journal')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-1px"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Journal</button>
 </div>
 
 <!-- Main layout -->
@@ -2331,6 +2364,11 @@
 
         <div id="grp-ideas-list" class="ideas-list"></div>
       </div>
+    </div>
+
+    <!-- Journal panel -->
+    <div class="tab-panel" id="panel-journal" style="overflow-y:auto;padding:20px 16px">
+      <div id="journal-panel-inner"></div>
     </div>
 
   </div>

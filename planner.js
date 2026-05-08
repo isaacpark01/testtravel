@@ -2285,14 +2285,17 @@ function handleHeroShare() {
 // ── Tabs ──────────────────────────────────────────────────────
 function switchTab(tab) {
   activeTab = tab;
-  ['saves', 'itinerary', 'discover', 'rewards', 'group'].forEach(t => {
-    document.getElementById(`tab-${t}`).classList.toggle('active', t === tab);
-    document.getElementById(`panel-${t}`).classList.toggle('active', t === tab);
+  ['saves', 'itinerary', 'discover', 'rewards', 'group', 'journal'].forEach(t => {
+    const tabEl   = document.getElementById(`tab-${t}`);
+    const panelEl = document.getElementById(`panel-${t}`);
+    if (tabEl)   tabEl.classList.toggle('active', t === tab);
+    if (panelEl) panelEl.classList.toggle('active', t === tab);
   });
   if (tab === 'itinerary') { renderDatePills(); renderItinCards(); }
   if (tab === 'saves')     renderSavesTab();
   if (tab === 'discover')  renderDiscoverTab();
   if (tab === 'rewards')   renderRewardsTab();
+  if (tab === 'journal')   renderJournalTab();
   updateMapPins();
 }
 
@@ -4068,6 +4071,73 @@ function showToast(msg) {
   _toastTimer = setTimeout(() => el.remove(), 3000);
 }
 
+// ── Journal Tab ───────────────────────────────────────────────
+const JOURNAL_PROMPTS = [
+  'What was the best moment of this trip?',
+  'Something unexpected that happened…',
+  'The food I keep thinking about…',
+  'What I'd do differently next time…',
+  'Would I go back? Why?',
+];
+
+function renderJournalTab() {
+  const el = document.getElementById('journal-panel-inner');
+  if (!el) return;
+  if (!currentTrip) {
+    el.innerHTML = `<div class="journal-empty">Create a trip first to start your journal.</div>`;
+    return;
+  }
+  const j = currentTrip._journal || {};
+  const rating = j.rating || 0;
+  const stars  = [1,2,3,4,5].map(n =>
+    `<button class="jnl-star ${n <= rating ? 'active' : ''}" onclick="setJournalRating(${n})">★</button>`).join('');
+
+  el.innerHTML = `
+    <div class="jnl-header">
+      <div class="jnl-trip-name">${escHtml(currentTrip.name)}</div>
+      <div class="jnl-rating-row">${stars}<span class="jnl-rating-label">${rating ? ['','Poor','Okay','Good','Great','Amazing'][rating] : 'Rate your trip'}</span></div>
+    </div>
+    <div class="jnl-section-label">Reflection</div>
+    <textarea class="jnl-textarea" id="jnl-text" placeholder="Write about your experience…" maxlength="2000" oninput="saveJournalField('text',this.value)">${escHtml(j.text || '')}</textarea>
+    <div class="jnl-prompts-label">Quick prompts</div>
+    <div class="jnl-prompts">${JOURNAL_PROMPTS.map(p =>
+      `<button class="jnl-prompt-chip" onclick="insertJournalPrompt(${JSON.stringify(p)})">${escHtml(p)}</button>`).join('')}</div>
+    <div class="jnl-section-label">Highlights (one per line)</div>
+    <textarea class="jnl-textarea jnl-textarea--sm" id="jnl-highlights" placeholder="• The ramen at Ichiran was insane&#10;• Got lost in Shinjuku — best mistake ever" maxlength="600" oninput="saveJournalField('highlights',this.value)">${escHtml(j.highlights || '')}</textarea>
+    <div class="jnl-section-label">Photo URL (cover memory)</div>
+    <div class="jnl-photo-row">
+      <input id="jnl-photo" type="url" class="jnl-photo-input" placeholder="https://…" value="${escHtml(j.photo || '')}" oninput="saveJournalField('photo',this.value)">
+      ${j.photo ? `<img src="${escHtml(j.photo)}" class="jnl-photo-thumb" alt="memory" onerror="this.style.display='none'">` : ''}
+    </div>
+    <div class="jnl-saved-note" id="jnl-saved">Saved ✓</div>`;
+}
+
+function setJournalRating(n) {
+  if (!currentTrip) return;
+  if (!currentTrip._journal) currentTrip._journal = {};
+  currentTrip._journal.rating = n;
+  saveState();
+  renderJournalTab();
+}
+
+function saveJournalField(field, val) {
+  if (!currentTrip) return;
+  if (!currentTrip._journal) currentTrip._journal = {};
+  currentTrip._journal[field] = val;
+  saveState();
+  const note = document.getElementById('jnl-saved');
+  if (note) { note.classList.add('visible'); clearTimeout(note._t); note._t = setTimeout(() => note.classList.remove('visible'), 1500); }
+}
+
+function insertJournalPrompt(prompt) {
+  const ta = document.getElementById('jnl-text');
+  if (!ta) return;
+  const prefix = ta.value ? ta.value + '\n\n' : '';
+  ta.value = prefix + prompt + '\n';
+  saveJournalField('text', ta.value);
+  ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length);
+}
+
 // ── Rewards Tab ───────────────────────────────────────────────
 function renderRewardsTab() {
   const container = document.getElementById('rewards-scroll');
@@ -4509,7 +4579,7 @@ function downloadShareCard() {
 // ══════════════════════════════════════════════════════════════
 function _initSwipe() {
   let touchStartX = 0, touchStartY = 0, touchStartTime = 0;
-  const TABS = ['itinerary', 'saves', 'discover', 'map', 'flights', 'rewards', 'group'];
+  const TABS = ['itinerary', 'saves', 'discover', 'map', 'flights', 'rewards', 'group', 'journal'];
 
   document.addEventListener('touchstart', e => {
     touchStartX    = e.touches[0].clientX;
