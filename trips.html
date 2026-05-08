@@ -15,8 +15,24 @@
     .trips-hero h1 { font-family: 'Geist', sans-serif; font-size: clamp(32px, 6vw, 56px); font-weight: 800; letter-spacing: -.03em; line-height: 1.1; color: #f0faf9; margin-bottom: 16px; }
     .trips-hero p { font-size: 16px; color: rgba(240,250,249,.5); line-height: 1.7; max-width: 560px; margin: 0 auto; }
 
+    /* ─ search bar ─ */
+    .trips-search-bar { max-width: 960px; margin: 0 auto 16px; padding: 0 20px; }
+    .trips-search-wrap { position: relative; display: flex; align-items: center; }
+    .trips-search-icon { position: absolute; left: 14px; color: rgba(240,250,249,.3); pointer-events: none; display: flex; }
+    .trips-search-input { width: 100%; background: rgba(255,255,255,.04); border: 1px solid rgba(106,154,184,.18); border-radius: 12px; color: #f0faf9; font-size: 14px; font-family: inherit; padding: 12px 40px 12px 42px; outline: none; transition: border-color .18s, background .18s; }
+    .trips-search-input:focus { border-color: rgba(151,172,224,.4); background: rgba(255,255,255,.06); }
+    .trips-search-input::placeholder { color: rgba(240,250,249,.28); }
+    .trips-search-clear { position: absolute; right: 12px; background: none; border: none; cursor: pointer; color: rgba(240,250,249,.3); display: flex; align-items: center; transition: color .15s; padding: 4px; }
+    .trips-search-clear:hover { color: rgba(240,250,249,.7); }
+    body.light-mode .trips-search-input { background: #fff; border-color: rgba(106,154,184,.22); color: #0f172a; }
+    body.light-mode .trips-search-input::placeholder { color: rgba(15,23,42,.3); }
+    body.light-mode .trips-search-input:focus { border-color: rgba(82,131,160,.4); }
+    body.light-mode .trips-search-icon { color: rgba(15,23,42,.3); }
+    .trips-no-results { text-align: center; padding: 60px 20px; color: rgba(240,250,249,.3); font-size: 14px; }
+    body.light-mode .trips-no-results { color: rgba(15,23,42,.35); }
+
     /* ─ filter bar ─ */
-    .trips-filter-bar { max-width: 960px; margin: 0 auto 40px; padding: 0 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .trips-filter-bar { max-width: 960px; margin: 0 auto 32px; padding: 0 20px; display: flex; flex-wrap: wrap; gap: 8px; }
     .trips-filter-btn { background: rgba(255,255,255,.04); border: 1px solid rgba(106,154,184,.18); border-radius: 8px; color: rgba(240,250,249,.55); font-size: 13px; font-weight: 600; font-family: inherit; padding: 8px 16px; cursor: pointer; transition: all .15s; }
     .trips-filter-btn:hover { border-color: rgba(106,154,184,.4); color: #f0faf9; }
     .trips-filter-btn.active { background: rgba(106,154,184,.15); border-color: #6a9ab8; color: #f0faf9; }
@@ -132,10 +148,19 @@
 
 <!-- ══ HERO ════════════════════════════════════════════════════ -->
 <section class="trips-hero">
-  <div class="trips-hero-eyebrow">🗺️ Expert-planned itineraries</div>
+  <div class="trips-hero-eyebrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg> Expert-planned itineraries</div>
   <h1>Curated Trips, <span class="teal-text">Ready to Go</span></h1>
   <p>Skip the planning overwhelm. Expert-crafted day-by-day itineraries you can drop straight into your convotrek planner.</p>
 </section>
+
+<!-- ══ SEARCH ════════════════════════════════════════════════════ -->
+<div class="trips-search-bar">
+  <div class="trips-search-wrap">
+    <span class="trips-search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+    <input class="trips-search-input" id="trips-search" type="text" placeholder="Search trips by destination, vibe, or duration…" oninput="searchTrips(this.value)" autocomplete="off">
+    <button class="trips-search-clear" id="trips-search-clear" onclick="clearSearch()" style="display:none" aria-label="Clear search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+</div>
 
 <!-- ══ FILTERS ══════════════════════════════════════════════════ -->
 <div class="trips-filter-bar" id="filter-bar">
@@ -162,7 +187,7 @@
           <div class="trip-modal-title" id="modal-title"></div>
           <div id="modal-tags" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;"></div>
         </div>
-        <button class="trip-modal-close" onclick="closeModal()">×</button>
+        <button class="trip-modal-close" onclick="closeModal()" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
       </div>
       <div id="modal-desc" style="font-size:14px;color:rgba(240,250,249,.5);line-height:1.7;margin-bottom:4px;"></div>
       <div class="trip-modal-section-title">Day-by-day breakdown</div>
@@ -336,6 +361,7 @@ const TRIPS = [
 
 let currentFilter = 'all';
 let currentTrip = null;
+let searchQuery = '';
 
 function filterTrips(filter, btn) {
   currentFilter = filter;
@@ -344,11 +370,41 @@ function filterTrips(filter, btn) {
   renderGrid();
 }
 
+function searchTrips(q) {
+  searchQuery = q.toLowerCase().trim();
+  const clearBtn = document.getElementById('trips-search-clear');
+  if (clearBtn) clearBtn.style.display = searchQuery ? 'flex' : 'none';
+  renderGrid();
+}
+function clearSearch() {
+  searchQuery = '';
+  const inp = document.getElementById('trips-search');
+  const clearBtn = document.getElementById('trips-search-clear');
+  if (inp) inp.value = '';
+  if (clearBtn) clearBtn.style.display = 'none';
+  renderGrid();
+}
+
 function renderGrid() {
   const grid = document.getElementById('trips-grid');
-  const filtered = currentFilter === 'all'
+  let filtered = currentFilter === 'all'
     ? TRIPS
     : TRIPS.filter(t => t.region === currentFilter || t.vibes.includes(currentFilter));
+
+  if (searchQuery) {
+    filtered = filtered.filter(t =>
+      t.title.toLowerCase().includes(searchQuery) ||
+      t.desc.toLowerCase().includes(searchQuery) ||
+      t.region.toLowerCase().includes(searchQuery) ||
+      t.vibes.some(v => v.toLowerCase().includes(searchQuery)) ||
+      t.highlights.some(h => h.toLowerCase().includes(searchQuery))
+    );
+  }
+
+  if (!filtered.length) {
+    grid.innerHTML = '<div class="trips-no-results">No trips match your search. Try a different keyword.</div>';
+    return;
+  }
 
   grid.innerHTML = filtered.map(t => `
     <div class="trip-card" onclick="openModal('${t.id}')">
@@ -428,7 +484,7 @@ renderGrid();
       <a href="/planner.html">Planner</a>
       <a href="/#deals">Deals</a>
       <a href="/privacy.html">Privacy</a>
-      <a href="mailto:support@convotrekapp">Contact</a>
+      <a href="mailto:support@convotrekapp.com">Contact</a>
     </div>
     <div class="slim-footer-copy">© 2026 convotrek Travel info is for guidance only — always verify with official sources.</div>
   </div>

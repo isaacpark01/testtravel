@@ -2409,7 +2409,7 @@
           <span class="disc-search-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
           <input type="text" id="disc-search" class="disc-search-input"
             placeholder="Search places, food, activities…" autocomplete="off" />
-          <button class="disc-search-clear" id="disc-search-clear" style="display:none" title="Clear">✕</button>
+          <button class="disc-search-clear" id="disc-search-clear" style="display:none" title="Clear" aria-label="Clear"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
         </div>
         <div class="disc-type-row">
           <div class="filter-pills" id="discover-filter-pills">
@@ -2491,7 +2491,7 @@
 
   <!-- Map panel -->
   <div class="map-panel" id="map-panel">
-    <button class="mob-map-close" id="mob-map-close" onclick="toggleMobileMap()">✕ Close Map</button>
+    <button class="mob-map-close" id="mob-map-close" onclick="toggleMobileMap()" style="display:inline-flex;align-items:center;gap:6px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Close Map</button>
     <div class="map-box">
       <div class="map-box-header">
         <span class="map-box-icon">
@@ -2819,8 +2819,9 @@
       <label class="modal-field-label">Email</label>
       <input id="grp-forgot-email" class="auth-field" type="email" placeholder="you@example.com" />
       <div id="grp-forgot-error" class="modal-error hidden"></div>
-      <div id="grp-forgot-ok" class="hidden" style="background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.3);color:#34d399;border-radius:8px;padding:11px 14px;font-size:13px;margin-top:12px">
-        ✓ Check your email for a reset link.
+      <div id="grp-forgot-ok" class="hidden" style="background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.3);color:#34d399;border-radius:8px;padding:11px 14px;font-size:13px;margin-top:12px;display:flex;align-items:center;gap:8px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Check your email for a reset link.
       </div>
       <button class="auth-btn-solid" style="width:100%;margin-top:16px" onclick="grpSendReset()">Send Reset Link</button>
       <p style="text-align:center;font-size:13px;color:rgba(240,250,249,.4);margin-top:14px">
@@ -2828,7 +2829,9 @@
       </p>
     </div>
     <div id="grp-auth-success" class="hidden" style="text-align:center;padding:20px 0">
-      <div style="font-size:40px;margin-bottom:12px">✅</div>
+      <div style="width:56px;height:56px;border-radius:50%;background:rgba(52,211,153,.15);border:2px solid rgba(52,211,153,.4);display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
       <div id="grp-auth-success-msg" style="font-size:15px;font-weight:600;color:#f0faf9;line-height:1.6"></div>
     </div>
   </div>
@@ -2872,12 +2875,12 @@
   <div class="share-card-box">
     <div class="share-card-header">
       <span style="font-weight:800;font-size:16px;display:inline-flex;align-items:center;gap:7px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>Share your trip</span>
-      <button class="ai-icon-btn" onclick="closeShareCard()">✕</button>
+      <button class="ai-icon-btn" onclick="closeShareCard()" aria-label="Close"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <canvas id="share-canvas" style="display:block;width:100%;border-radius:14px;margin:0 auto;max-width:375px"></canvas>
     <div style="display:flex;gap:10px;margin-top:14px">
-      <button class="onb-btn-primary" style="margin:0;flex:1" onclick="downloadShareCard()">⬇ Save as PNG</button>
-      <button class="onb-btn-primary" style="margin:0;flex:1;background:rgba(255,255,255,.08);color:var(--text)" onclick="_shareCardNative()">↗ Share</button>
+      <button class="onb-btn-primary" style="margin:0;flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px" onclick="downloadShareCard()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Save as PNG</button>
+      <button class="onb-btn-primary" style="margin:0;flex:1;background:rgba(255,255,255,.08);color:var(--text);display:inline-flex;align-items:center;justify-content:center;gap:6px" onclick="_shareCardNative()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Share</button>
     </div>
     <div style="font-size:11px;color:var(--text-dim);text-align:center;margin-top:8px">Your trip card — share it anywhere 🌍</div>
   </div>
@@ -2995,7 +2998,7 @@
   <div class="dfs-handle"></div>
   <div class="dfs-header">
     <span class="dfs-title">Filters</span>
-    <button class="dfs-close" onclick="closeDiscoverFilters()">✕</button>
+    <button class="dfs-close" onclick="closeDiscoverFilters()" aria-label="Close"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
   </div>
   <div class="dfs-body">
     <div class="dfs-section">

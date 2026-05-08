@@ -163,7 +163,7 @@
 
 <!-- ══ HERO ════════════════════════════════════════════════════ -->
 <section class="split-hero">
-  <div class="split-hero-eyebrow">💸 Group Travel, Zero Drama</div>
+  <div class="split-hero-eyebrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg> Group Travel, Zero Drama</div>
   <h1>Split Trip Costs <span class="teal-text">Fairly</span></h1>
   <p>Add expenses, choose who paid and who's splitting, and instantly see exactly who owes what. No spreadsheets required.</p>
 </section>
@@ -239,9 +239,23 @@
   <div style="display:flex;flex-direction:column;gap:20px;">
 
     <div class="sp-card" style="position:sticky;top:76px;">
-      <div class="sp-card-title">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-        Balances
+      <div class="sp-card-title" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+        <span style="display:flex;align-items:center;gap:8px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          Balances
+        </span>
+        <select class="sp-select" id="sp-currency" onchange="setCurrency(this.value)" style="max-width:100px;padding:5px 8px;font-size:12px;border-radius:8px;font-weight:700;" title="Currency">
+          <option value="USD">$ USD</option>
+          <option value="EUR">€ EUR</option>
+          <option value="GBP">£ GBP</option>
+          <option value="JPY">¥ JPY</option>
+          <option value="AUD">A$ AUD</option>
+          <option value="CAD">C$ CAD</option>
+          <option value="MXN">$ MXN</option>
+          <option value="THB">฿ THB</option>
+          <option value="INR">₹ INR</option>
+          <option value="SGD">S$ SGD</option>
+        </select>
       </div>
       <div class="total-bar" id="total-bar">
         <span class="total-bar-label">Total spent</span>
@@ -277,6 +291,18 @@
 
 <script>
 const STORAGE_KEY = 'convotrek_split_v1';
+
+const CURRENCIES = {
+  USD:{sym:'$',  code:'USD', dec:2}, EUR:{sym:'€',  code:'EUR', dec:2},
+  GBP:{sym:'£',  code:'GBP', dec:2}, JPY:{sym:'¥',  code:'JPY', dec:0},
+  AUD:{sym:'A$', code:'AUD', dec:2}, CAD:{sym:'C$', code:'CAD', dec:2},
+  MXN:{sym:'$',  code:'MXN', dec:2}, THB:{sym:'฿',  code:'THB', dec:0},
+  INR:{sym:'₹',  code:'INR', dec:0}, SGD:{sym:'S$', code:'SGD', dec:2},
+};
+let _curr = CURRENCIES['USD'];
+function setCurrency(code) { _curr = CURRENCIES[code] || CURRENCIES['USD']; render(); }
+function fmt(n) { return _curr.sym + n.toFixed(_curr.dec); }
+
 let state = load();
 
 function load() {
@@ -376,10 +402,10 @@ function copySummary() {
   const total = state.expenses.reduce((s, e) => s + e.amount, 0);
   const balances = calcBalances();
   const settlements = calcSettlements(balances);
-  let txt = `=== convotrek Trip Cost Summary ===\nTotal: $${total.toFixed(2)}\n\nExpenses:\n`;
-  state.expenses.forEach(e => { txt += `  • ${e.desc}: $${e.amount.toFixed(2)} (paid by ${e.paidBy})\n`; });
+  let txt = `=== convotrek Trip Cost Summary ===\nTotal: ${fmt(total)}\n\nExpenses:\n`;
+  state.expenses.forEach(e => { txt += `  • ${e.desc}: ${fmt(e.amount)} (paid by ${e.paidBy})\n`; });
   txt += `\nSettlements:\n`;
-  if (settlements.length) settlements.forEach(s => { txt += `  • ${s.from} → ${s.to}: $${s.amount.toFixed(2)}\n`; });
+  if (settlements.length) settlements.forEach(s => { txt += `  • ${s.from} → ${s.to}: ${fmt(s.amount)}\n`; });
   else txt += `  All even!\n`;
   navigator.clipboard.writeText(txt).then(() => toast('Summary copied!')).catch(() => toast('Copy failed'));
 }
@@ -395,7 +421,7 @@ function render() {
 function renderPeople() {
   const chips = document.getElementById('people-chips');
   chips.innerHTML = state.people.map(p =>
-    `<div class="people-chip">${esc(p)}<span class="remove-person" onclick="removePerson('${jsq(p)}')">×</span></div>`
+    `<div class="people-chip">${esc(p)}<span class="remove-person" onclick="removePerson('${jsq(p)}')" aria-label="Remove ${esc(p)}"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span></div>`
   ).join('');
 }
 
@@ -421,18 +447,18 @@ function renderExpenses() {
     <div class="expense-item">
       <div class="expense-item-left">
         <div class="expense-item-desc">${esc(e.desc)}</div>
-        <div class="expense-item-meta">Paid by ${esc(e.paidBy)} · Split ${e.splitBetween.length > 1 ? e.splitBetween.length+' ways ($'+(e.amount/e.splitBetween.length).toFixed(2)+'/each)' : 'solo'}</div>
+        <div class="expense-item-meta">Paid by ${esc(e.paidBy)} · Split ${e.splitBetween.length > 1 ? e.splitBetween.length+' ways ('+fmt(e.amount/e.splitBetween.length)+'/each)' : 'solo'}</div>
       </div>
       <div style="display:flex;align-items:center;gap:6px;">
-        <div class="expense-item-amount">$${e.amount.toFixed(2)}</div>
-        <div class="expense-item-del" onclick="removeExpense(${e.id})">×</div>
+        <div class="expense-item-amount">${fmt(e.amount)}</div>
+        <div class="expense-item-del" onclick="removeExpense(${e.id})" aria-label="Remove expense"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
       </div>
     </div>`).join('');
 }
 
 function renderBalances() {
   const total = state.expenses.reduce((s, e) => s + e.amount, 0);
-  document.getElementById('total-amount').textContent = '$' + total.toFixed(2);
+  document.getElementById('total-amount').textContent = fmt(total);
 
   const balList = document.getElementById('balance-list');
   const settlList = document.getElementById('settlement-list');
@@ -447,10 +473,10 @@ function renderBalances() {
   balList.innerHTML = state.people.map(p => {
     const b = balances[p] || 0;
     const cls = b < -0.01 ? 'owe' : b > 0.01 ? 'get' : 'even';
-    const label = b < -0.01 ? `owes $${Math.abs(b).toFixed(2)}` : b > 0.01 ? `gets back $${b.toFixed(2)}` : 'settled up';
+    const label = b < -0.01 ? `owes ${fmt(Math.abs(b))}` : b > 0.01 ? `gets back ${fmt(b)}` : 'settled up';
     return `<div class="balance-person">
       <div class="balance-name">${esc(p)}</div>
-      <div class="balance-amount ${cls}">${b < -0.01 ? '-' : b > 0.01 ? '+' : ''}$${Math.abs(b).toFixed(2)}</div>
+      <div class="balance-amount ${cls}">${b < -0.01 ? '-' : b > 0.01 ? '+' : ''}${fmt(Math.abs(b))}</div>
       <div class="balance-sub">${label}</div>
     </div>`;
   }).join('');
@@ -464,7 +490,7 @@ function renderBalances() {
         <span class="settlement-payer">${esc(s.from)}</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         <span class="settlement-payee">${esc(s.to)}</span>
-        <span class="settlement-amt">$${s.amount.toFixed(2)}</span>
+        <span class="settlement-amt">${fmt(s.amount)}</span>
       </div>`
     ).join('');
   }

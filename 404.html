@@ -1,34 +1,158 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="robots" content="noindex, nofollow" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex" />
   <title>Page Not Found — convotrek</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    @font-face { font-family:'Geist'; src:url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'Geist'; src:url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Bold.woff2') format('woff2'); font-weight:700; font-display:swap; }
+
+    .not-found-btn-row { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:4px; }
+    .nf-btn-primary {
+      display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+      background:#6a9ab8; color:#fff; padding:13px 28px; border-radius:50px;
+      font-size:14px; font-weight:700; transition:background .2s, transform .18s;
+    }
+    .nf-btn-primary:hover { background:#5283a0; transform:translateY(-1px); }
+    .nf-btn-secondary {
+      display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+      background:transparent; border:1px solid rgba(151,172,224,.35); color:#97ace0;
+      padding:13px 28px; border-radius:50px; font-size:14px; font-weight:700;
+      transition:all .2s;
+    }
+    .nf-btn-secondary:hover { background:rgba(151,172,224,.1); color:#f0faf9; }
+    body.light-mode .nf-btn-secondary { border-color:rgba(82,131,160,.35); color:#5283a0; }
+    body.light-mode .nf-btn-secondary:hover { background:rgba(82,131,160,.08); }
+
+    /* ── decorative grid ── */
+    .nf-grid-deco {
+      position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+    }
+    .nf-grid-deco::before {
+      content:''; position:absolute; inset:0;
+      background-image: radial-gradient(rgba(151,172,224,.07) 1px, transparent 1px);
+      background-size:32px 32px;
+    }
+    .nf-grid-deco::after {
+      content:''; position:absolute; inset:0;
+      background:radial-gradient(ellipse 60% 50% at 50% 50%, transparent 40%, #080c14 100%);
+    }
+    body.light-mode .nf-grid-deco::before { background-image: radial-gradient(rgba(106,154,184,.12) 1px, transparent 1px); }
+    body.light-mode .nf-grid-deco::after { background:radial-gradient(ellipse 60% 50% at 50% 50%, transparent 40%, #eef2f7 100%); }
+
+    .not-found { position:relative; z-index:1; }
+    .not-found-badge {
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+      color:#97ace0; background:rgba(151,172,224,.08); border:1px solid rgba(151,172,224,.2);
+      padding:6px 14px; border-radius:30px; margin-bottom:24px;
+    }
+    .not-found-badge svg { color:#6a9ab8; }
+    .not-found-links {
+      margin-top:40px; display:flex; flex-direction:column; align-items:center; gap:8px;
+    }
+    .not-found-links-label { font-size:12px; color:rgba(240,250,249,.3); font-weight:600; letter-spacing:.06em; text-transform:uppercase; }
+    .not-found-page-links { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; }
+    .not-found-page-links a { font-size:14px; color:#97ace0; text-decoration:none; transition:color .15s; }
+    .not-found-page-links a:hover { color:#f0faf9; }
+    body.light-mode .not-found-links-label { color:rgba(15,23,42,.3); }
+    body.light-mode .not-found-page-links a { color:#5283a0; }
+    body.light-mode .not-found-page-links a:hover { color:#0f172a; }
+  </style>
 </head>
 <body>
+<script src="theme.js"></script>
 
-<header class="site-header"><div class="header-inner"><a href="/" class="logo" style="text-decoration:none"><img src="travel-logo-5.png" class="logo-img" alt="convotrek" style="width:30px;height:30px;object-fit:contain;"><img class="logo-img" src="/convotrek.png" alt="convotrek logo"><span class="logo-text">convotrek</span></a><nav class="header-nav"><a href="/#cities">Explore</a><a href="/planner.html">Planner</a><a href="/#deals">Deals</a></nav><button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode"><span class="toggle-knob"><svg class="toggle-moon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg class="toggle-sun" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg></span></button></div></header>
+<div class="nf-grid-deco"></div>
 
+<!-- ══ HEADER ═══════════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <img class="logo-img" src="/convotrek.png" alt="convotrek logo">
+      <span class="logo-text">convotrek</span>
+    </a>
+    <nav class="header-nav">
+      <a href="/">Explore</a>
+      <a href="/planner.html">Planner</a>
+      <a href="/#deals">Deals</a>
+      <div class="nav-tools-wrap" id="nav-tools-wrap">
+        <button class="nav-tools-btn" onclick="toggleToolsMenu()" aria-haspopup="true" aria-expanded="false">Tools <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="nav-tools-menu" role="menu">
+          <a href="/globe.html" class="nav-tools-item"><span class="nav-tools-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg></span>Globe Explorer</a>
+          <a href="/visa.html" class="nav-tools-item"><span class="nav-tools-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><circle cx="7" cy="15" r="1.5"/><line x1="11" y1="13.5" x2="17" y2="13.5"/><line x1="11" y1="16.5" x2="14" y2="16.5"/></svg></span>Visa Checker</a>
+          <a href="/trips.html" class="nav-tools-item"><span class="nav-tools-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg></span>Curated Trips</a>
+          <a href="/split.html" class="nav-tools-item"><span class="nav-tools-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></span>Cost Splitter</a>
+        </div>
+      </div>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+      <span class="toggle-knob">
+        <svg class="toggle-moon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="toggle-sun" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>
+      </span>
+    </button>
+  </div>
+</header>
+
+<!-- ══ 404 CONTENT ═══════════════════════════════════════════════ -->
 <main class="not-found">
+  <div class="not-found-badge">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    Error 404
+  </div>
   <div class="not-found-code">404</div>
   <h2>This destination doesn't exist</h2>
   <p>Looks like you've wandered off the map. The page you're looking for has moved, been deleted, or never existed.</p>
-  <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
-    <a href="/" class="auth-btn-solid" style="text-decoration:none;padding:14px 28px;border-radius:50px;font-size:14px">
+  <div class="not-found-btn-row">
+    <a href="/" class="nf-btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       Back to convotrek
     </a>
-    <a href="/planner.html" class="auth-btn-outline" style="text-decoration:none;padding:14px 28px;border-radius:50px;font-size:14px">
+    <a href="/planner.html" class="nf-btn-secondary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
       Open Planner
     </a>
   </div>
+  <div class="not-found-links">
+    <div class="not-found-links-label">Or explore</div>
+    <div class="not-found-page-links">
+      <a href="/globe.html">Globe Explorer</a>
+      <a href="/trips.html">Curated Trips</a>
+      <a href="/visa.html">Visa Checker</a>
+      <a href="/split.html">Cost Splitter</a>
+    </div>
+  </div>
 </main>
 
-<script src="theme.js"></script>
+<!-- ══ FOOTER ════════════════════════════════════════════════════ -->
+<footer class="slim-footer">
+  <div class="slim-footer-inner">
+    <a href="/" class="slim-footer-logo"><img class="logo-img" src="/convotrek.png" alt="convotrek logo"> convotrek</a>
+    <div class="slim-footer-links">
+      <a href="/">Explore</a>
+      <a href="/planner.html">Planner</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="mailto:support@convotrekapp.com">Contact</a>
+    </div>
+    <div class="slim-footer-copy">© 2026 convotrek — All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+function toggleToolsMenu() {
+  const w = document.getElementById('nav-tools-wrap');
+  const open = w.classList.toggle('open');
+  w.querySelector('.nav-tools-btn').setAttribute('aria-expanded', open);
+}
+document.addEventListener('click', e => {
+  const w = document.getElementById('nav-tools-wrap');
+  if (w && !w.contains(e.target)) { w.classList.remove('open'); w.querySelector('.nav-tools-btn').setAttribute('aria-expanded','false'); }
+});
+</script>
 </body>
 </html>

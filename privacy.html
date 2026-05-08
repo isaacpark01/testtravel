@@ -1,98 +1,203 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="robots" content="noindex, nofollow" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex" />
   <title>Privacy Policy — convotrek</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    @font-face { font-family:'Geist'; src:url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'Geist'; src:url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Bold.woff2') format('woff2'); font-weight:700; font-display:swap; }
+
+    /* ── Legal layout ── */
+    .legal-wrap { display:grid; grid-template-columns:240px 1fr; gap:40px; max-width:1000px; margin:0 auto; padding:100px 24px 80px; }
+    @media (max-width:800px) { .legal-wrap { grid-template-columns:1fr; padding-top:90px; } }
+
+    /* ── Sticky TOC sidebar ── */
+    .legal-toc { position:sticky; top:84px; align-self:start; }
+    @media (max-width:800px) { .legal-toc { position:static; } }
+    .legal-toc-inner { background:rgba(106,154,184,.05); border:1px solid rgba(106,154,184,.14); border-radius:14px; padding:18px 20px; }
+    .legal-toc-title { font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:rgba(240,250,249,.35); margin-bottom:12px; display:flex; align-items:center; gap:7px; }
+    .legal-toc-title svg { color:#6a9ab8; }
+    .legal-toc a { display:flex; align-items:center; gap:8px; font-size:12.5px; color:rgba(240,250,249,.45); text-decoration:none; padding:6px 0; border-bottom:1px solid rgba(106,154,184,.07); transition:color .15s; line-height:1.4; }
+    .legal-toc a:last-child { border-bottom:none; }
+    .legal-toc a:hover { color:#97ace0; }
+    .legal-toc a.active { color:#97ace0; }
+    .legal-toc-num { font-size:10px; font-weight:800; color:rgba(106,154,184,.5); min-width:18px; }
+    body.light-mode .legal-toc-inner { background:rgba(106,154,184,.06); border-color:rgba(106,154,184,.18); }
+    body.light-mode .legal-toc-title { color:rgba(15,23,42,.35); }
+    body.light-mode .legal-toc a { color:rgba(15,23,42,.45); }
+    body.light-mode .legal-toc a:hover { color:#5283a0; }
+
+    /* ── Legal eyebrow ── */
+    .legal-eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#97ace0; background:rgba(151,172,224,.08); border:1px solid rgba(151,172,224,.2); padding:6px 14px; border-radius:30px; margin-bottom:24px; }
+  </style>
 </head>
 <body>
+<script src="theme.js"></script>
 
-<header class="site-header"><div class="header-inner"><a href="/" class="logo" style="text-decoration:none"><img src="travel-logo-5.png" class="logo-img" alt="convotrek" style="width:30px;height:30px;object-fit:contain;"><img class="logo-img" src="/convotrek.png" alt="convotrek logo"><span class="logo-text">convotrek</span></a><nav class="header-nav"><a href="/#cities">Explore</a><a href="/planner.html">Planner</a><a href="/#deals">Deals</a></nav><button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode"><span class="toggle-knob"><svg class="toggle-moon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg class="toggle-sun" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg></span></button></div></header>
-
-<main class="legal-page">
-  <h1>Privacy Policy</h1>
-  <p class="legal-updated">Last updated: April 13, 2026</p>
-
-  <p>convotrek ("we", "us", or "our") operates the convotrek website and travel planning application. This Privacy Policy explains how we collect, use, and protect your information when you use our service.</p>
-
-  <h2>1. Information We Collect</h2>
-  <p>We collect information you provide directly to us, including:</p>
-  <ul>
-    <li><strong>Account information:</strong> display name, email address, and hashed password when you register.</li>
-    <li><strong>Trip data:</strong> itineraries, saved searches, pinned cities, and group board content you create.</li>
-    <li><strong>Usage data:</strong> pages visited, features used, and interactions within the app, collected automatically.</li>
-    <li><strong>Device information:</strong> browser type, operating system, IP address, and language preference.</li>
-  </ul>
-
-  <h2>2. How We Use Your Information</h2>
-  <p>We use the information we collect to:</p>
-  <ul>
-    <li>Provide, maintain, and improve the convotrek service.</li>
-    <li>Authenticate your account and protect against unauthorized access.</li>
-    <li>Sync your trips and boards across devices via Supabase.</li>
-    <li>Send transactional emails (account confirmation, password reset).</li>
-    <li>Understand how users interact with convotrek to improve features.</li>
-    <li>Comply with legal obligations.</li>
-  </ul>
-
-  <h2>3. Data Storage and Security</h2>
-  <p>Your data is stored in Supabase (PostgreSQL) hosted on AWS. We use row-level security (RLS) policies so each user can only access their own data. Passwords are never stored in plain text — only a bcrypt hash is retained. Data is encrypted in transit via TLS.</p>
-
-  <h2>4. Cookies and Local Storage</h2>
-  <p>We use browser localStorage to store your session token and language preference. We do not use third-party tracking cookies. If you click "Accept" on our cookie banner, we may set an analytics cookie in the future to understand aggregate usage patterns — no personal data is shared with advertising networks.</p>
-
-  <h2>5. Third-Party Services</h2>
-  <p>convotrek integrates with the following third-party services:</p>
-  <ul>
-    <li><strong>Supabase</strong> — database and authentication (<a href="https://supabase.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>)</li>
-    <li><strong>Unsplash</strong> — destination photography (<a href="https://unsplash.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>)</li>
-    <li><strong>Google Fonts</strong> — typography (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>)</li>
-  </ul>
-  <p>Flight, car rental, and hotel links redirect to third-party booking platforms. We do not control their data practices.</p>
-
-  <h2>6. Your Rights (GDPR / CCPA)</h2>
-  <p>If you are in the European Union, United Kingdom, or California, you have the right to:</p>
-  <ul>
-    <li>Access the personal data we hold about you.</li>
-    <li>Request correction of inaccurate data.</li>
-    <li>Request deletion of your account and all associated data.</li>
-    <li>Object to or restrict certain processing.</li>
-    <li>Data portability — export your trip data in JSON format.</li>
-  </ul>
-  <p>To exercise these rights, email us at <a href="mailto:privacy@convotrekapp">privacy@convotrekapp</a>. We will respond within 30 days.</p>
-
-  <h2>7. Data Retention</h2>
-  <p>We retain your account data for as long as your account is active. Inactive accounts (no login for 24 months) may be deleted after 60 days' notice. You can delete your account at any time from your profile settings.</p>
-
-  <h2>8. Children's Privacy</h2>
-  <p>convotrek is not directed at children under 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, contact us at <a href="mailto:privacy@convotrekapp">privacy@convotrekapp</a>.</p>
-
-  <h2>9. Changes to This Policy</h2>
-  <p>We may update this Privacy Policy from time to time. We will notify registered users by email when material changes occur. Continued use of convotrek after the effective date constitutes acceptance of the revised policy.</p>
-
-  <h2>10. Contact</h2>
-  <p>Questions about this Privacy Policy? Contact us at <a href="mailto:privacy@convotrekapp">privacy@convotrekapp</a>.</p>
-</main>
-
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-bottom" style="padding-top:0">
-      <p class="footer-copy">© 2026 convotrek All rights reserved.</p>
-      <div class="footer-legal-links">
-        <a href="/privacy.html">Privacy Policy</a>
-        <a href="/terms.html">Terms of Service</a>
-        <a href="/">Back to convotrek</a>
+<!-- ══ HEADER ═══════════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <img class="logo-img" src="/convotrek.png" alt="convotrek logo">
+      <span class="logo-text">convotrek</span>
+    </a>
+    <nav class="header-nav">
+      <a href="/">Explore</a>
+      <a href="/planner.html">Planner</a>
+      <a href="/#deals">Deals</a>
+      <div class="nav-tools-wrap" id="nav-tools-wrap">
+        <button class="nav-tools-btn" onclick="toggleToolsMenu()" aria-haspopup="true" aria-expanded="false">Tools <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="nav-tools-menu" role="menu">
+          <a href="/globe.html" class="nav-tools-item"><span class="nav-tools-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg></span>Globe Explorer</a>
+          <a href="/visa.html" class="nav-tools-item"><span class="nav-tools-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><circle cx="7" cy="15" r="1.5"/><line x1="11" y1="13.5" x2="17" y2="13.5"/><line x1="11" y1="16.5" x2="14" y2="16.5"/></svg></span>Visa Checker</a>
+          <a href="/trips.html" class="nav-tools-item"><span class="nav-tools-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg></span>Curated Trips</a>
+          <a href="/split.html" class="nav-tools-item"><span class="nav-tools-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></span>Cost Splitter</a>
+        </div>
       </div>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+      <span class="toggle-knob">
+        <svg class="toggle-moon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="toggle-sun" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>
+      </span>
+    </button>
+  </div>
+</header>
+
+<!-- ══ CONTENT ════════════════════════════════════════════════ -->
+<div class="legal-wrap">
+
+  <!-- Sidebar TOC -->
+  <aside class="legal-toc">
+    <div class="legal-toc-inner">
+      <div class="legal-toc-title">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        On this page
+      </div>
+      <a href="#section-1"><span class="legal-toc-num">1</span> Information We Collect</a>
+      <a href="#section-2"><span class="legal-toc-num">2</span> How We Use Your Information</a>
+      <a href="#section-3"><span class="legal-toc-num">3</span> Data Storage &amp; Security</a>
+      <a href="#section-4"><span class="legal-toc-num">4</span> Cookies &amp; Local Storage</a>
+      <a href="#section-5"><span class="legal-toc-num">5</span> Third-Party Services</a>
+      <a href="#section-6"><span class="legal-toc-num">6</span> Your Rights</a>
+      <a href="#section-7"><span class="legal-toc-num">7</span> Data Retention</a>
+      <a href="#section-8"><span class="legal-toc-num">8</span> Children's Privacy</a>
+      <a href="#section-9"><span class="legal-toc-num">9</span> Changes to Policy</a>
+      <a href="#section-10"><span class="legal-toc-num">10</span> Contact</a>
     </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="legal-page" style="padding:0;max-width:none;">
+    <div class="legal-eyebrow">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Legal
+    </div>
+    <h1>Privacy Policy</h1>
+    <p class="legal-updated">Last updated: April 13, 2026</p>
+
+    <p>convotrek ("we", "us", or "our") operates the convotrek website and travel planning application. This Privacy Policy explains how we collect, use, and protect your information when you use our service.</p>
+
+    <h2 id="section-1">1. Information We Collect</h2>
+    <p>We collect information you provide directly to us, including:</p>
+    <ul>
+      <li><strong>Account information:</strong> display name, email address, and hashed password when you register.</li>
+      <li><strong>Trip data:</strong> itineraries, saved searches, pinned cities, and group board content you create.</li>
+      <li><strong>Usage data:</strong> pages visited, features used, and interactions within the app, collected automatically.</li>
+      <li><strong>Device information:</strong> browser type, operating system, IP address, and language preference.</li>
+    </ul>
+
+    <h2 id="section-2">2. How We Use Your Information</h2>
+    <p>We use the information we collect to:</p>
+    <ul>
+      <li>Provide, maintain, and improve the convotrek service.</li>
+      <li>Authenticate your account and protect against unauthorized access.</li>
+      <li>Sync your trips and boards across devices via Supabase.</li>
+      <li>Send transactional emails (account confirmation, password reset).</li>
+      <li>Understand how users interact with convotrek to improve features.</li>
+      <li>Comply with legal obligations.</li>
+    </ul>
+
+    <h2 id="section-3">3. Data Storage and Security</h2>
+    <p>Your data is stored in Supabase (PostgreSQL) hosted on AWS. We use row-level security (RLS) policies so each user can only access their own data. Passwords are never stored in plain text — only a bcrypt hash is retained. Data is encrypted in transit via TLS.</p>
+
+    <h2 id="section-4">4. Cookies and Local Storage</h2>
+    <p>We use browser localStorage to store your session token and language preference. We do not use third-party tracking cookies. If you click "Accept" on our cookie banner, we may set an analytics cookie in the future to understand aggregate usage patterns — no personal data is shared with advertising networks.</p>
+
+    <h2 id="section-5">5. Third-Party Services</h2>
+    <p>convotrek integrates with the following third-party services:</p>
+    <ul>
+      <li><strong>Supabase</strong> — database and authentication (<a href="https://supabase.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>)</li>
+      <li><strong>Unsplash</strong> — destination photography (<a href="https://unsplash.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>)</li>
+      <li><strong>Google Fonts</strong> — typography (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>)</li>
+    </ul>
+    <p>Flight, car rental, and hotel links redirect to third-party booking platforms. We do not control their data practices.</p>
+
+    <h2 id="section-6">6. Your Rights (GDPR / CCPA)</h2>
+    <p>If you are in the European Union, United Kingdom, or California, you have the right to:</p>
+    <ul>
+      <li>Access the personal data we hold about you.</li>
+      <li>Request correction of inaccurate data.</li>
+      <li>Request deletion of your account and all associated data.</li>
+      <li>Object to or restrict certain processing.</li>
+      <li>Data portability — export your trip data in JSON format.</li>
+    </ul>
+    <p>To exercise these rights, email us at <a href="mailto:privacy@convotrekapp.com">privacy@convotrekapp.com</a>. We will respond within 30 days.</p>
+
+    <h2 id="section-7">7. Data Retention</h2>
+    <p>We retain your account data for as long as your account is active. Inactive accounts (no login for 24 months) may be deleted after 60 days' notice. You can delete your account at any time from your profile settings.</p>
+
+    <h2 id="section-8">8. Children's Privacy</h2>
+    <p>convotrek is not directed at children under 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, contact us at <a href="mailto:privacy@convotrekapp.com">privacy@convotrekapp.com</a>.</p>
+
+    <h2 id="section-9">9. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. We will notify registered users by email when material changes occur. Continued use of convotrek after the effective date constitutes acceptance of the revised policy.</p>
+
+    <h2 id="section-10">10. Contact</h2>
+    <p>Questions about this Privacy Policy? Contact us at <a href="mailto:privacy@convotrekapp.com">privacy@convotrekapp.com</a>.</p>
+  </main>
+
+</div>
+
+<!-- ══ FOOTER ════════════════════════════════════════════════════ -->
+<footer class="slim-footer">
+  <div class="slim-footer-inner">
+    <a href="/" class="slim-footer-logo"><img class="logo-img" src="/convotrek.png" alt="convotrek logo"> convotrek</a>
+    <div class="slim-footer-links">
+      <a href="/">Explore</a>
+      <a href="/planner.html">Planner</a>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="mailto:privacy@convotrekapp.com">Contact</a>
+    </div>
+    <div class="slim-footer-copy">© 2026 convotrek — All rights reserved.</div>
   </div>
 </footer>
 
-<script src="theme.js"></script>
+<script>
+function toggleToolsMenu() {
+  const w = document.getElementById('nav-tools-wrap');
+  const open = w.classList.toggle('open');
+  w.querySelector('.nav-tools-btn').setAttribute('aria-expanded', open);
+}
+document.addEventListener('click', e => {
+  const w = document.getElementById('nav-tools-wrap');
+  if (w && !w.contains(e.target)) { w.classList.remove('open'); w.querySelector('.nav-tools-btn').setAttribute('aria-expanded','false'); }
+});
+
+/* Highlight active TOC section on scroll */
+const tocLinks = document.querySelectorAll('.legal-toc a');
+const sections = [...tocLinks].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+function onScroll() {
+  let active = sections[0];
+  sections.forEach(s => { if (window.scrollY + 100 >= s.offsetTop) active = s; });
+  tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + active?.id));
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+</script>
 </body>
 </html>
