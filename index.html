@@ -901,10 +901,23 @@
     <div id="bttg-grid" class="bttg-grid-v2"></div>
     <div id="bttg-best" class="bttg-best-banner" style="display:none;"></div>
     <div class="bttg-action-row" id="bttg-action-row" style="display:none;">
-      <button class="bttg-share-btn" onclick="shareBTTGCard()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-        Share card
-      </button>
+      <div class="bttg-format-wrap">
+        <button class="bttg-share-btn bttg-share-main" id="bttg-share-main-btn" onclick="shareBTTGCard('square')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          <span id="bttg-share-label">Share card</span>
+        </button>
+        <div class="bttg-fmt-picker" id="bttg-fmt-picker">
+          <button class="bttg-fmt-btn active" title="Square — Instagram, Twitter" onclick="setShareFormat('square',this)">
+            <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor"><rect x="2" y="2" width="16" height="16" rx="2"/></svg>
+          </button>
+          <button class="bttg-fmt-btn" title="Landscape — Reddit, Twitter" onclick="setShareFormat('landscape',this)">
+            <svg width="16" height="10" viewBox="0 0 20 13" fill="currentColor"><rect x="0" y="0" width="20" height="13" rx="2"/></svg>
+          </button>
+          <button class="bttg-fmt-btn" title="Story — TikTok, Instagram" onclick="setShareFormat('story',this)">
+            <svg width="9" height="14" viewBox="0 0 12 20" fill="currentColor"><rect x="0" y="0" width="12" height="20" rx="2"/></svg>
+          </button>
+        </div>
+      </div>
       <button class="bttg-share-btn bttg-embed-btn" onclick="toggleEmbedPanel()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         Embed
@@ -1346,8 +1359,20 @@ function rRect(ctx, x, y, w, h, r) {
   ctx.quadraticCurveTo(x, y, x + r, y);
   ctx.closePath();
 }
-async function shareBTTGCard() {
-  const W = 1080, H = 1080;
+let _bttgFormat = 'square';
+function setShareFormat(fmt, btn) {
+  _bttgFormat = fmt;
+  document.querySelectorAll('.bttg-fmt-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  const labels = { square: 'Share card', landscape: 'Share (Reddit)', story: 'Share (TikTok)' };
+  document.getElementById('bttg-share-label').textContent = labels[fmt] || 'Share card';
+}
+
+async function shareBTTGCard(fmtOverride) {
+  const fmt = fmtOverride || _bttgFormat;
+  const dims = { square: [1080,1080], landscape: [1200,628], story: [1080,1920] };
+  const [W, H] = dims[fmt] || dims.square;
+
   const canvas = document.createElement('canvas');
   canvas.width = W; canvas.height = H;
   const ctx = canvas.getContext('2d');
@@ -1360,8 +1385,8 @@ async function shareBTTGCard() {
 
   /* Dot grid */
   ctx.fillStyle = 'rgba(106,154,184,0.045)';
-  for (let x = 30; x < W; x += 44) for (let y = 30; y < H; y += 44) {
-    ctx.beginPath(); ctx.arc(x, y, 1.5, 0, Math.PI * 2); ctx.fill();
+  for (let gx = 30; gx < W; gx += 44) for (let gy = 30; gy < H; gy += 44) {
+    ctx.beginPath(); ctx.arc(gx, gy, 1.5, 0, Math.PI * 2); ctx.fill();
   }
 
   /* Top accent bar */
@@ -1370,99 +1395,122 @@ async function shareBTTGCard() {
   acc.addColorStop(.7,'#34d399'); acc.addColorStop(1,'transparent');
   ctx.fillStyle = acc; ctx.fillRect(0, 0, W, 4);
 
+  ctx.textAlign = 'center';
+
+  /* Layout params per format */
+  const isLand = fmt === 'landscape';
+  const isStory = fmt === 'story';
+
+  const eyebrowY  = isLand ? 80  : isStory ? 180 : 130;
+  const cityY     = isLand ? 160 : isStory ? 320 : 260;
+  const eyebrowSz = isLand ? 22  : 32;
+  const citySzMax = isLand ? 72  : isStory ? 110 : 100;
+  const barMaxH   = isLand ? 180 : isStory ? 420 : 300;
+  const barBaseY  = isLand ? 370 : isStory ? 900 : 640;
+  const barW      = isLand ? 52  : isStory ? 52  : 58;
+  const gap       = isLand ? 20  : isStory ? 26  : 28;
+  const monthSz   = isLand ? 16  : 24;
+  const legendY   = isLand ? 440 : isStory ? 980 : 720;
+  const pillY     = isLand ? 494 : isStory ? 1060 : 775;
+  const pillTxtY  = isLand ? 530 : isStory ? 1097 : 812;
+  const divY      = isLand ? 570 : isStory ? 1200 : 900;
+  const brandY    = isLand ? 600 : isStory ? 1280 : 966;
+  const tagY      = isLand ? 618 : isStory ? 1320 : 1010;
+  const brandSz   = isLand ? 28  : isStory ? 44  : 38;
+  const tagSz     = isLand ? 18  : isStory ? 28  : 24;
+
   /* Eyebrow */
   ctx.fillStyle = 'rgba(106,154,184,0.7)';
-  ctx.font = '600 32px "Plus Jakarta Sans", sans-serif';
-  ctx.textAlign = 'center'; ctx.letterSpacing = '4px';
-  ctx.fillText('BEST TIME TO VISIT', W / 2, 130);
+  ctx.font = `600 ${eyebrowSz}px "Plus Jakarta Sans", sans-serif`;
+  ctx.letterSpacing = '4px';
+  ctx.fillText('BEST TIME TO VISIT', W / 2, eyebrowY);
   ctx.letterSpacing = '0px';
 
   /* City name */
   const city = (_bttgCity || 'City').toUpperCase();
-  ctx.font = '800 100px "Plus Jakarta Sans", sans-serif';
+  let fs = citySzMax;
+  ctx.font = `800 ${fs}px "Plus Jakarta Sans", sans-serif`;
   ctx.fillStyle = '#f0faf9';
-  /* scale down if too wide */
-  let fs = 100;
-  while (ctx.measureText(city).width > W - 120 && fs > 48) {
+  while (ctx.measureText(city).width > W - 120 && fs > 36) {
     fs -= 4; ctx.font = `800 ${fs}px "Plus Jakarta Sans", sans-serif`;
   }
-  ctx.fillText(city, W / 2, 260);
+  ctx.fillText(city, W / 2, cityY);
 
   /* Month bars */
-  const barW = 58, gap = 28;
   const totalBarW = 12 * barW + 11 * gap;
   const startX = (W - totalBarW) / 2;
-  const maxH = 300, baseY = 640;
 
   _bttgScores.forEach(function(s, i) {
     const x = startX + i * (barW + gap);
-    const h = Math.max(16, (s / 5) * maxH);
-    const y = baseY - h;
+    const h = Math.max(16, (s / 5) * barMaxH);
+    const y = barBaseY - h;
     const great = s >= 4, fair = s === 3;
     const col = great ? '#34d399' : fair ? '#fbbf24' : '#ef4444';
 
     if (great) { ctx.shadowColor = 'rgba(52,211,153,0.5)'; ctx.shadowBlur = 24; }
-
-    const bGrad = ctx.createLinearGradient(x, y, x, baseY);
+    const bGrad = ctx.createLinearGradient(x, y, x, barBaseY);
     bGrad.addColorStop(0, col); bGrad.addColorStop(1, col + '55');
     ctx.fillStyle = bGrad;
-    rRect(ctx, x, y, barW, h, 10); ctx.fill();
+    rRect(ctx, x, y, barW, h, 8); ctx.fill();
     ctx.shadowBlur = 0;
 
-    /* Score number inside bar */
     if (h > 40) {
       ctx.fillStyle = great ? 'rgba(8,12,20,0.7)' : 'rgba(255,255,255,0.5)';
-      ctx.font = `700 ${great ? 22 : 18}px "Plus Jakarta Sans", sans-serif`;
-      ctx.fillText(s, x + barW / 2, y + (great ? 30 : 26));
+      ctx.font = `700 ${great ? Math.round(monthSz*0.9) : Math.round(monthSz*0.75)}px "Plus Jakarta Sans", sans-serif`;
+      ctx.fillText(s, x + barW / 2, y + (great ? monthSz+4 : monthSz));
     }
-
-    /* Month label */
     ctx.fillStyle = great ? '#f0faf9' : 'rgba(240,250,249,0.38)';
-    ctx.font = `${great ? '700' : '500'} 24px "Plus Jakarta Sans", sans-serif`;
-    ctx.fillText(MONTHS[i], x + barW / 2, baseY + 42);
+    ctx.font = `${great ? '700' : '500'} ${monthSz}px "Plus Jakarta Sans", sans-serif`;
+    ctx.fillText(MONTHS[i], x + barW / 2, barBaseY + monthSz + 12);
   });
 
   /* Legend */
   const legends = [['#34d399','Great'],['#fbbf24','Fair'],['#ef4444','Avoid']];
-  let lx = W / 2 - 210;
+  const legSz = isLand ? 14 : 22;
+  const dotR  = isLand ? 6  : 8;
+  const legSpacing = isLand ? 100 : 140;
+  let lx = W / 2 - legSpacing;
   legends.forEach(function([col, label]) {
-    ctx.fillStyle = col; ctx.beginPath(); ctx.arc(lx, 720, 8, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = col; ctx.beginPath(); ctx.arc(lx, legendY, dotR, 0, Math.PI * 2); ctx.fill();
     ctx.fillStyle = 'rgba(240,250,249,0.45)';
-    ctx.font = '500 22px "Plus Jakarta Sans", sans-serif';
-    ctx.textAlign = 'left'; ctx.fillText(label, lx + 16, 726);
-    lx += 140;
+    ctx.font = `500 ${legSz}px "Plus Jakarta Sans", sans-serif`;
+    ctx.textAlign = 'left'; ctx.fillText(label, lx + dotR + 6, legendY + legSz * 0.35);
+    lx += legSpacing;
   });
   ctx.textAlign = 'center';
 
   /* Best months pill */
   const great = MONTHS.filter(function(_, i) { return _bttgScores[i] >= 4; });
   if (great.length) {
+    const pillFontSz = isLand ? 18 : 26;
     const txt = '✓  Best months: ' + great.join(', ');
-    ctx.font = '600 26px "Plus Jakarta Sans", sans-serif';
+    ctx.font = `600 ${pillFontSz}px "Plus Jakarta Sans", sans-serif`;
+    const pillH = isLand ? 42 : 60;
     const pillW = Math.min(ctx.measureText(txt).width + 80, W - 120);
     const pillX = (W - pillW) / 2;
     ctx.fillStyle = 'rgba(52,211,153,0.12)';
     ctx.strokeStyle = 'rgba(52,211,153,0.35)'; ctx.lineWidth = 1.5;
-    rRect(ctx, pillX, 775, pillW, 60, 30); ctx.fill(); ctx.stroke();
+    rRect(ctx, pillX, pillY, pillW, pillH, pillH / 2); ctx.fill(); ctx.stroke();
     ctx.fillStyle = '#34d399';
-    ctx.fillText(txt, W / 2, 812);
+    ctx.fillText(txt, W / 2, pillTxtY);
   }
 
   /* Divider */
   ctx.strokeStyle = 'rgba(106,154,184,0.12)'; ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(80, 900); ctx.lineTo(W - 80, 900); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(80, divY); ctx.lineTo(W - 80, divY); ctx.stroke();
 
   /* Branding */
-  ctx.font = '800 38px "Plus Jakarta Sans", sans-serif';
+  ctx.font = `800 ${brandSz}px "Plus Jakarta Sans", sans-serif`;
   ctx.fillStyle = 'rgba(240,250,249,0.9)';
-  ctx.fillText('convotrek', W / 2, 966);
-  ctx.font = '400 24px "Plus Jakarta Sans", sans-serif';
+  ctx.fillText('convotrek', W / 2, brandY);
+  ctx.font = `400 ${tagSz}px "Plus Jakarta Sans", sans-serif`;
   ctx.fillStyle = 'rgba(106,154,184,0.55)';
-  ctx.fillText('AI-powered travel planning', W / 2, 1010);
+  ctx.fillText('AI-powered travel planning', W / 2, tagY);
 
   /* Share / download */
   canvas.toBlob(async function(blob) {
-    const fname = 'convotrek-' + (_bttgCity || 'city').toLowerCase().replace(/[^a-z0-9]+/g, '-') + '.png';
+    const suffix = fmt !== 'square' ? '-' + fmt : '';
+    const fname = 'convotrek-' + (_bttgCity || 'city').toLowerCase().replace(/[^a-z0-9]+/g, '-') + suffix + '.png';
     const file = new File([blob], fname, { type: 'image/png' });
     if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
       try {
