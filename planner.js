@@ -1984,6 +1984,41 @@ function renderHero() {
   } else {
     dateRangeEl.textContent = '';
   }
+  updateCountdown();
+}
+
+function updateCountdown() {
+  const el = document.getElementById('trip-countdown');
+  if (!el) return;
+  if (!currentTrip?.start_date) { el.style.display = 'none'; return; }
+  const today = new Date(); today.setHours(0,0,0,0);
+  const start = new Date(currentTrip.start_date + 'T00:00:00');
+  const diff  = Math.round((start - today) / 86400000);
+  if (diff < 0) {
+    const dayNum = Math.abs(diff) + 1;
+    const total  = currentTrip.days?.length || 1;
+    if (dayNum > total) { el.style.display = 'none'; return; }
+    el.style.display = 'flex';
+    el.querySelector('.ctd-num').textContent = dayNum;
+    el.querySelector('.ctd-label').textContent = `/ ${total}`;
+    el.querySelector('.ctd-sub').textContent   = 'day of your trip';
+    el.querySelector('.ctd-icon').textContent  = '✈️';
+    el.className = 'trip-countdown trip-countdown--active';
+  } else if (diff === 0) {
+    el.style.display = 'flex';
+    el.querySelector('.ctd-num').textContent   = 'Today';
+    el.querySelector('.ctd-label').textContent = '';
+    el.querySelector('.ctd-sub').textContent   = 'is departure day!';
+    el.querySelector('.ctd-icon').textContent  = '🚀';
+    el.className = 'trip-countdown trip-countdown--today';
+  } else {
+    el.style.display = 'flex';
+    el.querySelector('.ctd-num').textContent   = diff;
+    el.querySelector('.ctd-label').textContent = diff === 1 ? 'day' : 'days';
+    el.querySelector('.ctd-sub').textContent   = 'until your trip';
+    el.querySelector('.ctd-icon').textContent  = diff <= 7 ? '🔥' : '📅';
+    el.className = 'trip-countdown' + (diff <= 7 ? ' trip-countdown--soon' : '');
+  }
 }
 
 // ── Budget bar ────────────────────────────────────────────────
