@@ -1098,7 +1098,18 @@ const PACK_BY_ACTIVITY = [
   { keywords: ['concert', 'festival', 'show', 'opera'],            items: ['👔 Smart-casual outfit', '🎟️ Print/download tickets offline'] },
 ];
 
-let _packChecked = new Set(); // in-memory checkbox state
+let _packChecked = new Set();
+
+const PACK_BY_SEASON = {
+  summer: ['🧴 Sunscreen SPF50+', '🕶️ Sunglasses', '👒 Hat', '💧 Reusable water bottle (heat!)', '💨 Portable mini fan'],
+  winter: ['🧥 Warm coat', '🧤 Gloves', '🧣 Scarf', '🥾 Waterproof boots', '💊 Cold & flu tablets'],
+  spring: ['☂️ Compact umbrella', '🧥 Light layer jacket', '💊 Antihistamine (pollen season)'],
+  autumn: ['☂️ Compact umbrella', '🧥 Mid-weight jacket', '🍂 Layers — mornings are cold'],
+};
+const PACK_BY_DURATION = [
+  { minDays: 8,  items: ['🧺 Laundry bag', '🧼 Travel laundry soap', '🧴 Refillable bottles'] },
+  { minDays: 14, items: ['💊 Prescription meds (14-day supply + buffer)', '🩺 First aid kit'] },
+];
 
 function openPackingList() {
   if (!currentTrip) { showToast('Create a trip first'); return; }
@@ -1122,38 +1133,62 @@ function renderPackingListContent() {
   const packType = city?.packType || 'city_usa';
   const allCards = (currentTrip?.days || []).flatMap(d => d.cards || []);
   const cardText = allCards.map(c => c.name.toLowerCase() + ' ' + (c.note || '').toLowerCase()).join(' ');
+  const numDays  = currentTrip?.days?.length || 0;
 
-  // Gather all items
+  /* Season detection from start_date */
+  let season = null, seasonLabel = '';
+  if (currentTrip?.start_date) {
+    const mo = new Date(currentTrip.start_date + 'T00:00:00').getMonth();
+    if (mo >= 5 && mo <= 7) { season = 'summer'; seasonLabel = '☀️ Summer trip'; }
+    else if (mo >= 11 || mo <= 1) { season = 'winter'; seasonLabel = '❄️ Winter trip'; }
+    else if (mo >= 2 && mo <= 4) { season = 'spring'; seasonLabel = '🌸 Spring trip'; }
+    else { season = 'autumn'; seasonLabel = '🍂 Autumn trip'; }
+  }
+
   const sections = [];
 
-  // Destination-specific
-  const destItems = PACK_BY_TYPE[packType] || PACK_BY_TYPE.city_usa;
-  sections.push({ title: `📍 For ${city?.name || 'Your Destination'}`, items: destItems });
+  /* Destination-specific */
+  sections.push({ title: `📍 For ${city?.name || 'Your Destination'}`, items: PACK_BY_TYPE[packType] || PACK_BY_TYPE.city_usa });
 
-  // Activity-specific
+  /* Season-specific */
+  if (season && PACK_BY_SEASON[season]) {
+    sections.push({ title: seasonLabel, items: PACK_BY_SEASON[season] });
+  }
+
+  /* Activity-specific */
   const actItems = [];
   PACK_BY_ACTIVITY.forEach(rule => {
-    if (rule.keywords.some(k => cardText.includes(k))) {
-      actItems.push(...rule.items);
-    }
+    if (rule.keywords.some(k => cardText.includes(k))) actItems.push(...rule.items);
   });
   if (actItems.length) sections.push({ title: '🎯 Based on Your Activities', items: [...new Set(actItems)] });
 
-  // Always
+  /* Duration-specific */
+  const durItems = [];
+  PACK_BY_DURATION.forEach(rule => { if (numDays >= rule.minDays) durItems.push(...rule.items); });
+  if (durItems.length) sections.push({ title: `📆 For a ${numDays}-Day Trip`, items: [...new Set(durItems)] });
+
+  /* Always */
   sections.push({ title: '✅ Always Bring', items: PACK_ALWAYS });
+
+  /* Custom items */
+  const customItems = currentTrip._customPackItems || [];
+  if (customItems.length) sections.push({ title: '✏️ Your Custom Items', items: customItems, custom: true });
 
   const total   = sections.reduce((n, s) => n + s.items.length, 0);
   const checked = _packChecked.size;
+
+  const smartChip = season ? `<div class="pack-smart-chip">✨ Personalised for ${numDays || '?'} days ${seasonLabel ? '· ' + seasonLabel.replace(/^[^ ]+ /, '') : ''}</div>` : '';
 
   const listHTML = sections.map(sec => `
     <div class="pack-section">
       <div class="pack-section-title">${escHtml(sec.title)}</div>
       ${sec.items.map(item => {
-        const key = item;
+        const key = (sec.custom ? 'custom::' : '') + item;
         const done = _packChecked.has(key);
         return `<label class="pack-item ${done ? 'checked' : ''}" onclick="togglePackItem(${JSON.stringify(key)})">
           <span class="pack-check">${done ? '✓' : ''}</span>
           <span class="pack-item-text">${escHtml(item)}</span>
+          ${sec.custom ? `<button class="pack-remove-btn" onclick="event.preventDefault();event.stopPropagation();removeCustomPackItem(${JSON.stringify(item)})" title="Remove">×</button>` : ''}
         </label>`;
       }).join('')}
     </div>`).join('');
@@ -1165,7 +1200,33 @@ function renderPackingListContent() {
       </div>
       <span class="pack-prog-label">${checked}/${total} packed</span>
     </div>
-    ${listHTML}`;
+    ${smartChip}
+    ${listHTML}
+    <div class="pack-add-row">
+      <input id="pack-custom-input" class="pack-custom-input" type="text" placeholder="Add your own item…" maxlength="60" onkeydown="if(event.key==='Enter')addCustomPackItem()">
+      <button class="pack-custom-add-btn" onclick="addCustomPackItem()">Add</button>
+    </div>`;
+}
+
+function addCustomPackItem() {
+  const inp = document.getElementById('pack-custom-input');
+  if (!inp) return;
+  const val = inp.value.trim();
+  if (!val || !currentTrip) return;
+  if (!currentTrip._customPackItems) currentTrip._customPackItems = [];
+  if (currentTrip._customPackItems.includes(val)) { inp.value = ''; return; }
+  currentTrip._customPackItems.push(val);
+  saveState();
+  inp.value = '';
+  renderPackingListContent();
+}
+
+function removeCustomPackItem(item) {
+  if (!currentTrip?._customPackItems) return;
+  currentTrip._customPackItems = currentTrip._customPackItems.filter(i => i !== item);
+  _packChecked.delete('custom::' + item);
+  saveState();
+  renderPackingListContent();
 }
 
 // ── Share Trip Plan ───────────────────────────────────────────

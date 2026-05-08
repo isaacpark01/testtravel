@@ -1308,7 +1308,16 @@
       transition: all .12s; background: transparent;
     }
     .pack-item.checked .pack-check { background: rgba(151,172,224,.15); border-color: #97ace0; }
-    .pack-item-text { font-size: 13px; color: #e2e8f0; font-weight: 500; }
+    .pack-item-text { font-size: 13px; color: #e2e8f0; font-weight: 500; flex: 1; }
+    .pack-remove-btn { background: none; border: none; color: rgba(240,250,249,.2); font-size: 16px; cursor: pointer; padding: 0 2px; line-height: 1; margin-left: auto; }
+    .pack-remove-btn:hover { color: #ef4444; }
+    .pack-smart-chip { font-size: 11px; font-weight: 700; color: #34d399; background: rgba(52,211,153,.08); border: 1px solid rgba(52,211,153,.18); border-radius: 20px; padding: 4px 12px; display: inline-block; margin-bottom: 14px; letter-spacing: .02em; }
+    .pack-add-row { display: flex; gap: 8px; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.06); }
+    .pack-custom-input { flex: 1; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 8px; padding: 8px 12px; color: #e2e8f0; font-size: 13px; font-family: inherit; outline: none; }
+    .pack-custom-input::placeholder { color: rgba(240,250,249,.25); }
+    .pack-custom-input:focus { border-color: rgba(106,154,184,.4); }
+    .pack-custom-add-btn { background: rgba(106,154,184,.15); border: 1px solid rgba(106,154,184,.25); color: #6a9ab8; font-size: 13px; font-weight: 700; font-family: inherit; padding: 8px 16px; border-radius: 8px; cursor: pointer; white-space: nowrap; }
+    .pack-custom-add-btn:hover { background: rgba(106,154,184,.28); color: #f0faf9; }
 
     /* ── Vibe Tags ────────────────────────────────────────────── */
     .vibe-tags { display: flex; flex-wrap: wrap; gap: 4px; margin: 2px 0; }
