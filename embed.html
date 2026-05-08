@@ -9,44 +9,55 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:transparent;font-family:'Plus Jakarta Sans',system-ui,sans-serif}
-body{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100%;padding:14px 16px;background:#080c14}
+html,body{height:100%;font-family:'Plus Jakarta Sans',system-ui,sans-serif}
+body{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100%;padding:10px 12px;background:#080c14}
 
-.widget{width:100%;max-width:560px;background:linear-gradient(135deg,#0d1220 0%,#0a0f1a 100%);border:1px solid rgba(106,154,184,.18);border-radius:14px;padding:16px 18px 14px;box-shadow:0 4px 32px rgba(0,0,0,.5)}
-.widget-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.widget-city{font-size:15px;font-weight:800;color:#f0faf9;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70%}
-.widget-eyebrow{font-size:9px;font-weight:700;letter-spacing:.12em;color:#6a9ab8;text-transform:uppercase;white-space:nowrap}
-.widget-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-bottom:10px}
-.widget-month{display:flex;flex-direction:column;align-items:center;gap:3px}
-.widget-bar-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:2px}
-.widget-bar{width:100%;border-radius:4px;position:relative;min-height:4px}
-.widget-score{font-size:8px;font-weight:700;color:rgba(240,250,249,.5);line-height:1}
-.widget-mname{font-size:7.5px;font-weight:600;color:rgba(240,250,249,.35);letter-spacing:.02em}
-.widget-mname.great{color:#34d399;font-weight:700}
+.widget{
+  width:100%;max-width:560px;
+  background:linear-gradient(145deg,#0d1220 0%,#090d18 100%);
+  border:1px solid rgba(106,154,184,.16);border-radius:14px;
+  padding:14px 16px 12px;box-shadow:0 8px 40px rgba(0,0,0,.6),0 0 0 0 transparent;
+}
+.widget-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;gap:8px}
+.widget-city{font-size:14px;font-weight:800;color:#f0faf9;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:68%;line-height:1.2}
+.widget-eyebrow{font-size:8.5px;font-weight:700;letter-spacing:.12em;color:#6a9ab8;text-transform:uppercase;white-space:nowrap;padding-top:2px}
 
-.widget-footer{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid rgba(106,154,184,.1)}
-.widget-legend{display:flex;align-items:center;gap:10px}
-.wleg{display:flex;align-items:center;gap:4px;font-size:8.5px;color:rgba(240,250,249,.4);font-weight:600}
-.wleg-dot{width:6px;height:6px;border-radius:50%}
-.widget-brand{font-size:9px;font-weight:700;color:rgba(106,154,184,.5);letter-spacing:.04em;text-decoration:none}
+/* Bar chart — fixed height, baseline aligned */
+.widget-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:3px;margin-bottom:8px;align-items:flex-end}
+.widget-month{display:flex;flex-direction:column;align-items:center;gap:0}
+.widget-bar-wrap{
+  width:100%;height:80px;display:flex;flex-direction:column;
+  align-items:center;justify-content:flex-end;gap:2px;
+}
+.widget-bar{width:100%;border-radius:3px 3px 2px 2px;transition:opacity .2s}
+.widget-bar:hover{opacity:.85}
+.widget-score{font-size:7.5px;font-weight:700;color:rgba(240,250,249,.45);line-height:1;margin-top:2px}
+.widget-mname{font-size:7px;font-weight:600;color:rgba(240,250,249,.28);letter-spacing:.01em;margin-top:3px;text-align:center}
+.widget-mname.great{color:#34d399;font-weight:800}
+
+.widget-footer{display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid rgba(106,154,184,.1);gap:6px}
+.widget-legend{display:flex;align-items:center;gap:8px}
+.wleg{display:flex;align-items:center;gap:3px;font-size:8px;color:rgba(240,250,249,.38);font-weight:600}
+.wleg-dot{width:5px;height:5px;border-radius:50%}
+.widget-brand{font-size:9px;font-weight:800;color:rgba(106,154,184,.45);letter-spacing:.02em;text-decoration:none;white-space:nowrap}
 .widget-brand span{color:#34d399}
-.widget-brand:hover{color:rgba(106,154,184,.8)}
+.widget-brand:hover{color:rgba(106,154,184,.75)}
 
-.loading{color:rgba(240,250,249,.3);font-size:12px;font-weight:600;text-align:center;padding:32px 0}
-.error{color:rgba(240,250,249,.3);font-size:11px;text-align:center;padding:20px 0}
+.loading{color:rgba(240,250,249,.25);font-size:11.5px;font-weight:600;text-align:center;padding:28px 0}
+.error{color:rgba(240,250,249,.25);font-size:11px;text-align:center;padding:18px 0}
 
 /* light theme */
-body.light{background:#f1f5f9}
-.light .widget{background:linear-gradient(135deg,#fff 0%,#f8fafc 100%);border-color:rgba(82,131,160,.2);box-shadow:0 2px 20px rgba(0,0,0,.08)}
+body.light{background:#eef2f7}
+.light .widget{background:linear-gradient(145deg,#fff 0%,#f8fafc 100%);border-color:rgba(82,131,160,.18);box-shadow:0 4px 24px rgba(0,0,0,.07)}
 .light .widget-city{color:#0f172a}
 .light .widget-eyebrow{color:#5283a0}
-.light .widget-score{color:rgba(15,23,42,.35)}
-.light .widget-mname{color:rgba(15,23,42,.3)}
+.light .widget-score{color:rgba(15,23,42,.32)}
+.light .widget-mname{color:rgba(15,23,42,.25)}
 .light .widget-mname.great{color:#059669}
-.light .widget-footer{border-color:rgba(82,131,160,.15)}
-.light .wleg{color:rgba(15,23,42,.4)}
-.light .widget-brand{color:rgba(82,131,160,.5)}
-.light .loading,.light .error{color:rgba(15,23,42,.3)}
+.light .widget-footer{border-color:rgba(82,131,160,.14)}
+.light .wleg{color:rgba(15,23,42,.38)}
+.light .widget-brand{color:rgba(82,131,160,.45)}
+.light .loading,.light .error{color:rgba(15,23,42,.28)}
 </style>
 </head>
 <body>
@@ -94,15 +105,18 @@ function calcScores(temps, precip, lat) {
 
 function renderWidget(city, scores) {
   document.getElementById('w-city').textContent = city;
-  const max = 5;
+  const BAR_MAX = 68; /* px — leaves room for score label within 80px wrap */
+  const BAR_MIN = 10;
   document.getElementById('w-grid').innerHTML = scores.map((s, i) => {
-    const pct = Math.max(18, (s / max) * 100);
-    const color = s >= 4 ? '#34d399' : s === 3 ? '#fbbf24' : '#ef4444';
-    const glow = s >= 4 ? `box-shadow:0 0 6px rgba(52,211,153,.5)` : '';
+    const h     = Math.round(BAR_MIN + (s / 5) * (BAR_MAX - BAR_MIN));
     const great = s >= 4;
+    const fair  = s === 3;
+    const color = great ? '#34d399' : fair ? '#fbbf24' : '#ef4444';
+    const alpha = 0.45 + s * 0.1;
+    const glow  = great ? `box-shadow:0 -2px 8px rgba(52,211,153,.4)` : '';
     return `<div class="widget-month">
       <div class="widget-bar-wrap">
-        <div class="widget-bar" style="height:${pct}px;background:${color};opacity:${0.5 + s*0.1};${glow}"></div>
+        <div class="widget-bar" style="height:${h}px;background:${color};opacity:${alpha};${glow}"></div>
         <div class="widget-score">${s}</div>
       </div>
       <div class="widget-mname${great?' great':''}">${MONTHS[i]}</div>

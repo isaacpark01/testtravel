@@ -1177,7 +1177,8 @@ function renderPackingListContent() {
   const total   = sections.reduce((n, s) => n + s.items.length, 0);
   const checked = _packChecked.size;
 
-  const smartChip = season ? `<div class="pack-smart-chip">✨ Personalised for ${numDays || '?'} days ${seasonLabel ? '· ' + seasonLabel.replace(/^[^ ]+ /, '') : ''}</div>` : '';
+  const _zapSvg = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`;
+  const smartChip = season ? `<div class="pack-smart-chip">${_zapSvg} Smart picks · ${numDays || '?'} days ${seasonLabel ? '· ' + seasonLabel.replace(/^[^ ]+ /, '') : ''}</div>` : '';
 
   const listHTML = sections.map(sec => `
     <div class="pack-section">
@@ -1188,7 +1189,7 @@ function renderPackingListContent() {
         return `<label class="pack-item ${done ? 'checked' : ''}" onclick="togglePackItem(${JSON.stringify(key)})">
           <span class="pack-check">${done ? '✓' : ''}</span>
           <span class="pack-item-text">${escHtml(item)}</span>
-          ${sec.custom ? `<button class="pack-remove-btn" onclick="event.preventDefault();event.stopPropagation();removeCustomPackItem(${JSON.stringify(item)})" title="Remove">×</button>` : ''}
+          ${sec.custom ? `<button class="pack-remove-btn" onclick="event.preventDefault();event.stopPropagation();removeCustomPackItem(${JSON.stringify(item)})" title="Remove" aria-label="Remove"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>` : ''}
         </label>`;
       }).join('')}
     </div>`).join('');
@@ -2067,6 +2068,13 @@ function dismissNextTripNudge() {
   if (el) el.style.display = 'none';
 }
 
+const _CTD_SVG = {
+  calendar: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+  plane:    `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 19.5 2.5c-1.5-1.5-3.5-1.5-5 0L11 6 2.8 4.2l-1.4 1.4L8 11l-4 4H1l-1 2 3-1 2 3 2-1V16l4-4 4.6 6.6 1.4-1.4z"/></svg>`,
+  zap:      `<svg width="12" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+  rocket:   `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>`,
+};
+
 function updateCountdown() {
   const el = document.getElementById('trip-countdown');
   if (!el) return;
@@ -2074,29 +2082,33 @@ function updateCountdown() {
   const today = new Date(); today.setHours(0,0,0,0);
   const start = new Date(currentTrip.start_date + 'T00:00:00');
   const diff  = Math.round((start - today) / 86400000);
+  const icon  = el.querySelector('.ctd-icon');
+  const num   = el.querySelector('.ctd-num');
+  const label = el.querySelector('.ctd-label');
+  const sub   = el.querySelector('.ctd-sub');
   if (diff < 0) {
     const dayNum = Math.abs(diff) + 1;
     const total  = currentTrip.days?.length || 1;
     if (dayNum > total) { el.style.display = 'none'; return; }
     el.style.display = 'flex';
-    el.querySelector('.ctd-num').textContent = dayNum;
-    el.querySelector('.ctd-label').textContent = `/ ${total}`;
-    el.querySelector('.ctd-sub').textContent   = 'day of your trip';
-    el.querySelector('.ctd-icon').textContent  = '✈️';
+    if (icon) icon.innerHTML = _CTD_SVG.plane;
+    if (num)  num.textContent  = `Day ${dayNum}`;
+    if (label) label.textContent = `of ${total}`;
+    if (sub)  sub.textContent  = 'of your trip';
     el.className = 'trip-countdown trip-countdown--active';
   } else if (diff === 0) {
     el.style.display = 'flex';
-    el.querySelector('.ctd-num').textContent   = 'Today';
-    el.querySelector('.ctd-label').textContent = '';
-    el.querySelector('.ctd-sub').textContent   = 'is departure day!';
-    el.querySelector('.ctd-icon').textContent  = '🚀';
+    if (icon) icon.innerHTML = _CTD_SVG.rocket;
+    if (num)  num.textContent  = 'Today';
+    if (label) label.textContent = '';
+    if (sub)  sub.textContent  = 'is departure day!';
     el.className = 'trip-countdown trip-countdown--today';
   } else {
     el.style.display = 'flex';
-    el.querySelector('.ctd-num').textContent   = diff;
-    el.querySelector('.ctd-label').textContent = diff === 1 ? 'day' : 'days';
-    el.querySelector('.ctd-sub').textContent   = 'until your trip';
-    el.querySelector('.ctd-icon').textContent  = diff <= 7 ? '🔥' : '📅';
+    if (icon) icon.innerHTML = diff <= 7 ? _CTD_SVG.zap : _CTD_SVG.calendar;
+    if (num)  num.textContent  = diff;
+    if (label) label.textContent = diff === 1 ? ' day' : ' days';
+    if (sub)  sub.textContent  = 'until your trip';
     el.className = 'trip-countdown' + (diff <= 7 ? ' trip-countdown--soon' : '');
   }
 }
@@ -4099,6 +4111,9 @@ const JOURNAL_PROMPTS = [
   'Would I go back? Why?',
 ];
 
+const _JNL_STAR_FILLED = `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+const _JNL_STAR_EMPTY  = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+
 function renderJournalTab() {
   const el = document.getElementById('journal-panel-inner');
   if (!el) return;
@@ -4108,27 +4123,60 @@ function renderJournalTab() {
   }
   const j = currentTrip._journal || {};
   const rating = j.rating || 0;
-  const stars  = [1,2,3,4,5].map(n =>
-    `<button class="jnl-star ${n <= rating ? 'active' : ''}" onclick="setJournalRating(${n})">★</button>`).join('');
+  const ratingLabels = ['','Poor','Okay','Good','Great','Amazing'];
+  const stars = [1,2,3,4,5].map(n =>
+    `<button class="jnl-star ${n <= rating ? 'active' : ''}" onclick="setJournalRating(${n})" title="${ratingLabels[n]}">${n <= rating ? _JNL_STAR_FILLED : _JNL_STAR_EMPTY}</button>`).join('');
 
   el.innerHTML = `
+    <div class="jnl-eyebrow">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      Trip Journal
+    </div>
     <div class="jnl-header">
       <div class="jnl-trip-name">${escHtml(currentTrip.name)}</div>
-      <div class="jnl-rating-row">${stars}<span class="jnl-rating-label">${rating ? ['','Poor','Okay','Good','Great','Amazing'][rating] : 'Rate your trip'}</span></div>
+      <div class="jnl-rating-row">${stars}<span class="jnl-rating-label">${rating ? ratingLabels[rating] : 'Tap to rate'}</span></div>
     </div>
-    <div class="jnl-section-label">Reflection</div>
-    <textarea class="jnl-textarea" id="jnl-text" placeholder="Write about your experience…" maxlength="2000" oninput="saveJournalField('text',this.value)">${escHtml(j.text || '')}</textarea>
-    <div class="jnl-prompts-label">Quick prompts</div>
-    <div class="jnl-prompts">${JOURNAL_PROMPTS.map(p =>
-      `<button class="jnl-prompt-chip" onclick="insertJournalPrompt(${JSON.stringify(p)})">${escHtml(p)}</button>`).join('')}</div>
-    <div class="jnl-section-label">Highlights (one per line)</div>
-    <textarea class="jnl-textarea jnl-textarea--sm" id="jnl-highlights" placeholder="• The ramen at Ichiran was insane&#10;• Got lost in Shinjuku — best mistake ever" maxlength="600" oninput="saveJournalField('highlights',this.value)">${escHtml(j.highlights || '')}</textarea>
-    <div class="jnl-section-label">Photo URL (cover memory)</div>
-    <div class="jnl-photo-row">
-      <input id="jnl-photo" type="url" class="jnl-photo-input" placeholder="https://…" value="${escHtml(j.photo || '')}" oninput="saveJournalField('photo',this.value)">
-      ${j.photo ? `<img src="${escHtml(j.photo)}" class="jnl-photo-thumb" alt="memory" onerror="this.style.display='none'">` : ''}
+    <div class="jnl-section">
+      <div class="jnl-section-label">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        Reflection
+      </div>
+      <textarea class="jnl-textarea" id="jnl-text" placeholder="Write about your experience…" maxlength="2000" oninput="saveJournalField('text',this.value)">${escHtml(j.text || '')}</textarea>
+      <div class="jnl-prompts" style="margin-top:8px">${JOURNAL_PROMPTS.map(p =>
+        `<button class="jnl-prompt-chip" onclick="insertJournalPrompt(${JSON.stringify(p)})">${escHtml(p)}</button>`).join('')}</div>
     </div>
-    <div class="jnl-saved-note" id="jnl-saved">Saved ✓</div>`;
+    <div class="jnl-section">
+      <div class="jnl-section-label">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Highlights
+      </div>
+      <textarea class="jnl-textarea jnl-textarea--sm" id="jnl-highlights" placeholder="• Best ramen I've ever had&#10;• Got lost in Shinjuku — best mistake" maxlength="600" oninput="saveJournalField('highlights',this.value)">${escHtml(j.highlights || '')}</textarea>
+    </div>
+    <div class="jnl-section">
+      <div class="jnl-section-label">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Cover photo
+      </div>
+      <div class="jnl-photo-row">
+        <div class="jnl-photo-wrap">
+          <svg class="jnl-photo-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          <input id="jnl-photo" type="url" class="jnl-photo-input" placeholder="Paste an image URL…" value="${escHtml(j.photo || '')}" oninput="saveJournalField('photo',this.value)">
+        </div>
+        ${j.photo ? `<img src="${escHtml(j.photo)}" class="jnl-photo-thumb" alt="memory" onerror="this.style.display='none'">` : ''}
+      </div>
+    </div>
+    <div class="jnl-saved" id="jnl-saved">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      Saved
+    </div>`;
+}
+
+function setJournalRating(n) {
+  if (!currentTrip) return;
+  if (!currentTrip._journal) currentTrip._journal = {};
+  currentTrip._journal.rating = n;
+  saveState();
+  renderJournalTab();
 }
 
 function setJournalRating(n) {
@@ -4145,7 +4193,7 @@ function saveJournalField(field, val) {
   currentTrip._journal[field] = val;
   saveState();
   const note = document.getElementById('jnl-saved');
-  if (note) { note.classList.add('visible'); clearTimeout(note._t); note._t = setTimeout(() => note.classList.remove('visible'), 1500); }
+  if (note) { note.classList.add('visible'); clearTimeout(note._t); note._t = setTimeout(function() { note.classList.remove('visible'); }, 1600); }
 }
 
 function insertJournalPrompt(prompt) {
