@@ -900,10 +900,28 @@
     <div id="bttg-selected-label" class="bttg-selected-label" style="display:none;"></div>
     <div id="bttg-grid" class="bttg-grid-v2"></div>
     <div id="bttg-best" class="bttg-best-banner" style="display:none;"></div>
-    <button id="bttg-share-btn" class="bttg-share-btn" onclick="shareBTTGCard()" style="display:none;">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-      Share this card
-    </button>
+    <div class="bttg-action-row" id="bttg-action-row" style="display:none;">
+      <button class="bttg-share-btn" onclick="shareBTTGCard()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        Share card
+      </button>
+      <button class="bttg-share-btn bttg-embed-btn" onclick="toggleEmbedPanel()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Embed
+      </button>
+    </div>
+    <div class="bttg-embed-panel" id="bttg-embed-panel" style="display:none;">
+      <div class="bep-tabs">
+        <button class="bep-tab active" onclick="switchEmbedTab('iframe',this)">iframe</button>
+        <button class="bep-tab" onclick="switchEmbedTab('md',this)">Markdown</button>
+      </div>
+      <div class="bep-code-wrap">
+        <textarea class="bep-code" id="bep-code" readonly spellcheck="false"></textarea>
+        <button class="bep-copy-btn" id="bep-copy-btn" onclick="copyEmbedCode()">Copy</button>
+      </div>
+      <div class="bep-preview-label">Preview</div>
+      <iframe class="bep-preview-iframe" id="bep-iframe" src="" loading="lazy" title="Best time to visit preview"></iframe>
+    </div>
     <div class="bttg-legend-row">
       <div class="bttg-leg-v2"><span class="bttg-leg-dot" style="background:#34d399"></span>Great</div>
       <div class="bttg-leg-v2"><span class="bttg-leg-dot" style="background:#fbbf24"></span>Fair</div>
@@ -1107,7 +1125,7 @@ const BTTG_BEST = {
   maldives: 'Best months: <strong>November–April</strong> (dry NE monsoon) — crystal water, best diving visibility. June–September brings heavy rain and choppy seas.'
 };
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-let _bttgCity = '', _bttgScores = [];
+let _bttgCity = '', _bttgScores = [], _bttgLat = 0, _bttgLon = 0, _bttgEmbedTab = 'iframe';
 
 function renderBestTime(cityKey) {
   const d = BTTG[cityKey];
@@ -1219,7 +1237,9 @@ document.addEventListener('DOMContentLoaded', function() {
     banner.innerHTML = great.length ? `<strong>Best months:</strong> ${great.join(', ')} — pleasant weather, lower crowds, and better prices.` : '';
     banner.style.display = great.length ? 'block' : 'none';
     _bttgScores = MONTHS.map((_, i) => score(i));
-    document.getElementById('bttg-share-btn').style.display = 'flex';
+    document.getElementById('bttg-action-row').style.display = 'flex';
+    document.getElementById('bttg-embed-panel').style.display = 'none';
+    _bttgEmbedTab = 'iframe';
   }
 
   async function fetchAndRender(lat, lon) {
@@ -1254,6 +1274,8 @@ document.addEventListener('DOMContentLoaded', function() {
     searchEl.value = display; setClear(true);
     labelEl.textContent = display; labelEl.style.display = 'block';
     _bttgCity = label;
+    _bttgLat = parseFloat(lat);
+    _bttgLon = parseFloat(lon);
     closeDropdown();
     await fetchAndRender(lat, lon);
   }
@@ -1452,6 +1474,54 @@ async function shareBTTGCard() {
     const a = document.createElement('a'); a.href = url; a.download = fname; a.click();
     setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
   }, 'image/png');
+}
+
+/* ── BTTG Embed ── */
+function toggleEmbedPanel() {
+  const panel = document.getElementById('bttg-embed-panel');
+  const open = panel.style.display !== 'none';
+  panel.style.display = open ? 'none' : 'block';
+  if (!open) buildEmbedCode();
+}
+
+function switchEmbedTab(tab, btn) {
+  _bttgEmbedTab = tab;
+  document.querySelectorAll('.bep-tab').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  buildEmbedCode();
+  document.getElementById('bep-copy-btn').textContent = 'Copy';
+}
+
+function buildEmbedCode() {
+  const citySlug = (_bttgCity || 'City');
+  const base = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
+  const iframeSrc = base + '/embed.html?city=' + encodeURIComponent(citySlug) + '&lat=' + _bttgLat + '&lon=' + _bttgLon;
+
+  let code = '';
+  if (_bttgEmbedTab === 'iframe') {
+    code = '<iframe src="' + iframeSrc + '" width="560" height="220" frameborder="0" style="border-radius:12px;overflow:hidden;display:block;" title="Best time to visit ' + citySlug + '"></iframe>';
+  } else {
+    /* Markdown table */
+    const MONTHS_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const labels = _bttgScores.map(function(s) { return s >= 4 ? '✅ Great' : s === 3 ? '🟡 Fair' : '🔴 Avoid'; });
+    code  = '**Best time to visit ' + citySlug + '** — via [convotrek](' + window.location.origin + ')\n\n';
+    code += '| ' + MONTHS_SHORT.join(' | ') + ' |\n';
+    code += '|' + MONTHS_SHORT.map(function() { return '---'; }).join('|') + '|\n';
+    code += '| ' + labels.join(' | ') + ' |\n\n';
+    code += '_Based on weather · crowds · prices_';
+  }
+  document.getElementById('bep-code').value = code;
+  document.getElementById('bep-iframe').src = _bttgEmbedTab === 'iframe' ? iframeSrc : '';
+  document.getElementById('bep-iframe').style.display = _bttgEmbedTab === 'iframe' ? 'block' : 'none';
+}
+
+function copyEmbedCode() {
+  const ta = document.getElementById('bep-code');
+  ta.select();
+  try { document.execCommand('copy'); } catch(e) {}
+  const btn = document.getElementById('bep-copy-btn');
+  btn.textContent = 'Copied!';
+  setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
 }
 
 /* ── Hero mode toggle ── */

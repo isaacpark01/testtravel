@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Best Time to Visit — convotrek</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:transparent;font-family:'Plus Jakarta Sans',system-ui,sans-serif}
+body{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100%;padding:14px 16px;background:#080c14}
+
+.widget{width:100%;max-width:560px;background:linear-gradient(135deg,#0d1220 0%,#0a0f1a 100%);border:1px solid rgba(106,154,184,.18);border-radius:14px;padding:16px 18px 14px;box-shadow:0 4px 32px rgba(0,0,0,.5)}
+.widget-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.widget-city{font-size:15px;font-weight:800;color:#f0faf9;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70%}
+.widget-eyebrow{font-size:9px;font-weight:700;letter-spacing:.12em;color:#6a9ab8;text-transform:uppercase;white-space:nowrap}
+.widget-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-bottom:10px}
+.widget-month{display:flex;flex-direction:column;align-items:center;gap:3px}
+.widget-bar-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:2px}
+.widget-bar{width:100%;border-radius:4px;position:relative;min-height:4px}
+.widget-score{font-size:8px;font-weight:700;color:rgba(240,250,249,.5);line-height:1}
+.widget-mname{font-size:7.5px;font-weight:600;color:rgba(240,250,249,.35);letter-spacing:.02em}
+.widget-mname.great{color:#34d399;font-weight:700}
+
+.widget-footer{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid rgba(106,154,184,.1)}
+.widget-legend{display:flex;align-items:center;gap:10px}
+.wleg{display:flex;align-items:center;gap:4px;font-size:8.5px;color:rgba(240,250,249,.4);font-weight:600}
+.wleg-dot{width:6px;height:6px;border-radius:50%}
+.widget-brand{font-size:9px;font-weight:700;color:rgba(106,154,184,.5);letter-spacing:.04em;text-decoration:none}
+.widget-brand span{color:#34d399}
+.widget-brand:hover{color:rgba(106,154,184,.8)}
+
+.loading{color:rgba(240,250,249,.3);font-size:12px;font-weight:600;text-align:center;padding:32px 0}
+.error{color:rgba(240,250,249,.3);font-size:11px;text-align:center;padding:20px 0}
+
+/* light theme */
+body.light{background:#f1f5f9}
+.light .widget{background:linear-gradient(135deg,#fff 0%,#f8fafc 100%);border-color:rgba(82,131,160,.2);box-shadow:0 2px 20px rgba(0,0,0,.08)}
+.light .widget-city{color:#0f172a}
+.light .widget-eyebrow{color:#5283a0}
+.light .widget-score{color:rgba(15,23,42,.35)}
+.light .widget-mname{color:rgba(15,23,42,.3)}
+.light .widget-mname.great{color:#059669}
+.light .widget-footer{border-color:rgba(82,131,160,.15)}
+.light .wleg{color:rgba(15,23,42,.4)}
+.light .widget-brand{color:rgba(82,131,160,.5)}
+.light .loading,.light .error{color:rgba(15,23,42,.3)}
+</style>
+</head>
+<body>
+<div class="widget" id="widget">
+  <div class="loading" id="loading">Loading climate data…</div>
+  <div id="content" style="display:none">
+    <div class="widget-header">
+      <div class="widget-city" id="w-city"></div>
+      <div class="widget-eyebrow">Best time to visit</div>
+    </div>
+    <div class="widget-grid" id="w-grid"></div>
+    <div class="widget-footer">
+      <div class="widget-legend">
+        <div class="wleg"><div class="wleg-dot" style="background:#34d399"></div>Great</div>
+        <div class="wleg"><div class="wleg-dot" style="background:#fbbf24"></div>Fair</div>
+        <div class="wleg"><div class="wleg-dot" style="background:#ef4444"></div>Avoid</div>
+      </div>
+      <a class="widget-brand" href="https://convotrek.app" target="_blank" rel="noopener">convotrek<span>.app</span></a>
+    </div>
+  </div>
+  <div class="error" id="error" style="display:none"></div>
+</div>
+<script>
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function crowdPattern(lat, precip) {
+  const summer = lat > 0 ? [5,6,7] : [11,0,1];
+  return MONTHS.map((_, i) => summer.includes(i) ? 5 : precip[i] < 50 ? 3 : 2);
+}
+function pricePattern(crowds) {
+  return crowds.map(c => 6 - c);
+}
+function calcScores(temps, precip, lat) {
+  const IDEAL = 19;
+  const crowds = crowdPattern(lat, precip);
+  const prices = pricePattern(crowds);
+  return MONTHS.map((_, i) => {
+    const dist = Math.abs(temps[i] - IDEAL);
+    const w = dist < 5 ? 5 : dist < 10 ? 4 : dist < 15 ? 3 : dist < 20 ? 2 : 1;
+    const p = precip[i] < 30 ? 5 : precip[i] < 60 ? 4 : precip[i] < 100 ? 3 : precip[i] < 160 ? 2 : 1;
+    const weather = Math.round((w * 2 + p) / 3);
+    return Math.round((weather * 2 + (6 - crowds[i]) * 0.5 + prices[i]) / 3.5);
+  });
+}
+
+function renderWidget(city, scores) {
+  document.getElementById('w-city').textContent = city;
+  const max = 5;
+  document.getElementById('w-grid').innerHTML = scores.map((s, i) => {
+    const pct = Math.max(18, (s / max) * 100);
+    const color = s >= 4 ? '#34d399' : s === 3 ? '#fbbf24' : '#ef4444';
+    const glow = s >= 4 ? `box-shadow:0 0 6px rgba(52,211,153,.5)` : '';
+    const great = s >= 4;
+    return `<div class="widget-month">
+      <div class="widget-bar-wrap">
+        <div class="widget-bar" style="height:${pct}px;background:${color};opacity:${0.5 + s*0.1};${glow}"></div>
+        <div class="widget-score">${s}</div>
+      </div>
+      <div class="widget-mname${great?' great':''}">${MONTHS[i]}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('content').style.display = 'block';
+}
+
+function showError(msg) {
+  document.getElementById('loading').style.display = 'none';
+  const el = document.getElementById('error');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+async function init() {
+  const params = new URLSearchParams(location.search);
+  const city = params.get('city') || 'City';
+  const lat  = parseFloat(params.get('lat'));
+  const lon  = parseFloat(params.get('lon'));
+  const theme = params.get('theme') || 'dark';
+
+  if (theme === 'light') document.body.classList.add('light');
+
+  if (!lat || !lon) { showError('Missing coordinates.'); return; }
+
+  try {
+    const year = new Date().getFullYear() - 1;
+    const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${year}-01-01&end_date=${year}-12-31&daily=temperature_2m_mean,precipitation_sum&timezone=GMT`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if (!res.ok || !data.daily) throw new Error(data.reason || 'No data');
+
+    const mT = Array.from({length:12}, () => ({s:0,n:0}));
+    const mP = Array.from({length:12}, () => ({s:0,n:0}));
+    data.daily.time.forEach((d, i) => {
+      const mo = parseInt(d.slice(5,7), 10) - 1;
+      const t = data.daily.temperature_2m_mean[i];
+      const p = data.daily.precipitation_sum[i];
+      if (t != null) { mT[mo].s += t; mT[mo].n++; }
+      if (p != null) { mP[mo].s += p; mP[mo].n++; }
+    });
+    const avgTemp   = mT.map(m => m.n ? m.s / m.n : 15);
+    const avgPrecip = mP.map(m => m.n ? (m.s / m.n) * 30 : 50);
+    const scores = calcScores(avgTemp, avgPrecip, lat);
+    renderWidget(city, scores);
+  } catch(e) {
+    showError('Could not load data — ' + (e.message || 'try again'));
+  }
+}
+
+init();
+</script>
+</body>
+</html>

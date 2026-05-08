@@ -1856,6 +1856,47 @@ body.light-mode .group-feature-desc { color: rgba(26,24,48,.55); }
 .bttg-share-btn:hover { background: rgba(106,154,184,.2); border-color: rgba(106,154,184,.45); color: #f0faf9; transform: translateY(-1px); }
 body.light-mode .bttg-share-btn { color: #5283a0; border-color: rgba(82,131,160,.3); background: rgba(82,131,160,.08); }
 body.light-mode .bttg-share-btn:hover { background: rgba(82,131,160,.18); color: #1e4468; }
+.bttg-action-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 16px; }
+.bttg-embed-btn { background: rgba(52,211,153,.06); border-color: rgba(52,211,153,.2); color: #34d399; }
+.bttg-embed-btn:hover { background: rgba(52,211,153,.15); border-color: rgba(52,211,153,.4); color: #f0faf9; }
+body.light-mode .bttg-embed-btn { color: #059669; border-color: rgba(5,150,105,.25); background: rgba(5,150,105,.06); }
+body.light-mode .bttg-embed-btn:hover { background: rgba(5,150,105,.14); color: #064e3b; }
+/* Embed panel */
+.bttg-embed-panel {
+  margin: 14px auto 0; max-width: 680px; background: rgba(13,18,32,.7);
+  border: 1px solid rgba(106,154,184,.15); border-radius: 14px; padding: 16px 18px;
+  backdrop-filter: blur(8px);
+}
+.bep-tabs { display: flex; gap: 4px; margin-bottom: 12px; }
+.bep-tab {
+  font-size: 11.5px; font-weight: 700; font-family: inherit; padding: 5px 14px;
+  border-radius: 20px; border: 1px solid rgba(106,154,184,.2); background: transparent;
+  color: rgba(240,250,249,.35); cursor: pointer; transition: all .15s; letter-spacing: .03em;
+}
+.bep-tab.active { background: rgba(106,154,184,.15); border-color: rgba(106,154,184,.35); color: #6a9ab8; }
+.bep-tab:hover:not(.active) { color: rgba(240,250,249,.6); border-color: rgba(106,154,184,.3); }
+.bep-code-wrap { position: relative; margin-bottom: 12px; }
+.bep-code {
+  width: 100%; min-height: 72px; background: rgba(8,12,20,.8); border: 1px solid rgba(106,154,184,.12);
+  border-radius: 8px; padding: 10px 70px 10px 12px; color: rgba(240,250,249,.65);
+  font-family: 'Geist Mono', 'Fira Code', monospace; font-size: 11px; line-height: 1.55;
+  resize: none; outline: none;
+}
+.bep-copy-btn {
+  position: absolute; top: 8px; right: 8px; font-size: 11px; font-weight: 700;
+  font-family: inherit; padding: 5px 12px; border-radius: 6px; cursor: pointer;
+  background: rgba(106,154,184,.15); border: 1px solid rgba(106,154,184,.3); color: #6a9ab8;
+  transition: all .15s; white-space: nowrap;
+}
+.bep-copy-btn:hover { background: rgba(106,154,184,.28); color: #f0faf9; }
+.bep-preview-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(240,250,249,.2); margin-bottom: 8px; }
+.bep-preview-iframe { width: 100%; height: 220px; border: 1px solid rgba(106,154,184,.1); border-radius: 10px; display: block; }
+body.light-mode .bttg-embed-panel { background: rgba(248,250,252,.9); border-color: rgba(82,131,160,.15); }
+body.light-mode .bep-tab { color: rgba(15,23,42,.3); border-color: rgba(82,131,160,.15); }
+body.light-mode .bep-tab.active { background: rgba(82,131,160,.1); border-color: rgba(82,131,160,.3); color: #5283a0; }
+body.light-mode .bep-code { background: rgba(241,245,249,.9); border-color: rgba(82,131,160,.12); color: rgba(15,23,42,.6); }
+body.light-mode .bep-copy-btn { background: rgba(82,131,160,.1); border-color: rgba(82,131,160,.25); color: #5283a0; }
+body.light-mode .bep-copy-btn:hover { background: rgba(82,131,160,.2); color: #1e4468; }
 body.light-mode .bttg-month { background: #f8fafc; border-color: rgba(106,154,184,.15); }
 body.light-mode .bttg-month-name { color: rgba(15,23,42,.4); }
 body.light-mode .bttg-best-banner { background: rgba(52,211,153,.05); }
