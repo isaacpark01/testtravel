@@ -2267,17 +2267,17 @@
   </div>
   <div class="nav-right">
     <div class="trips-dropdown-wrap" id="trips-dropdown-wrap">
-      <button class="trips-dropdown-btn" onclick="toggleTripsDropdown()">Trips ▾</button>
+      <button class="trips-dropdown-btn" onclick="toggleTripsDropdown()">Trips <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:2px;vertical-align:-1px"><polyline points="6 9 12 15 18 9"/></svg></button>
       <div class="trips-dropdown-menu" id="trips-dropdown-menu"></div>
     </div>
     <button class="btn-primary" id="btn-new-trip" data-i18n="newTrip" onclick="openNewTripModal()">+ New Trip</button>
     <button class="btn-ghost" onclick="openShareCard()" title="Share trip card"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-1px"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share</button>
     <button class="btn-ghost" onclick="exportItinerary()" title="Export / Print itinerary"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-1px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</button>
     <a href="globe.html" class="btn-ghost"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-1px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Globe</a>
-    <a href="visa.html" class="btn-ghost">Visa</a>
-    <a href="trips.html" class="btn-ghost">Trips</a>
-    <a href="split.html" class="btn-ghost">Splitter</a>
-    <a href="index.html" class="btn-ghost" id="btn-explore" data-i18n="explore">Explore</a>
+    <a href="visa.html" class="btn-ghost"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-1px"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>Visa</a>
+    <a href="trips.html" class="btn-ghost"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-1px"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Trips</a>
+    <a href="split.html" class="btn-ghost"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-1px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Splitter</a>
+    <a href="index.html" class="btn-ghost" id="btn-explore" data-i18n="explore"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-1px"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>Explore</a>
     <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode">
       <span class="toggle-knob">
         <svg class="toggle-moon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
@@ -2517,8 +2517,8 @@
       <button class="slide-nav next" onclick="profileSlide(1)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
       <div class="slide-dots" id="profile-slide-dots"></div>
       <span class="slide-counter" id="profile-slide-counter"></span>
-      <button class="profile-close" onclick="closePlaceProfile()">&#x2715;</button>
-      <div class="profile-saved-badge" id="profile-saved-badge">♥ Saved</div>
+      <button class="profile-close" onclick="closePlaceProfile()" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      <div class="profile-saved-badge" id="profile-saved-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="margin-right:4px;vertical-align:-1px"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Saved</div>
     </div>
     <div class="profile-content">
       <div class="profile-city-tag" id="profile-city-tag"></div>
@@ -2530,7 +2530,7 @@
         <span class="profile-free"  id="profile-free"  style="display:none">FREE</span>
         <span class="profile-cat"   id="profile-cat"></span>
         <span class="rating-source" id="profile-source-badge"></span>
-        <span class="local-gem-pill" id="profile-gem-badge" style="display:none">🔒 Local Gem</span>
+        <span class="local-gem-pill" id="profile-gem-badge" style="display:none"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:3px;vertical-align:-1px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Local Gem</span>
       </div>
       <div class="profile-desc" id="profile-desc" style="display:none"></div>
       <div class="profile-tip" id="profile-tip" style="display:none"></div>
@@ -2554,7 +2554,7 @@
       </div>
       <div class="profile-actions">
         <button class="profile-save-btn" id="profile-save-btn" onclick="profileToggleSave()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:5px;vertical-align:-1px"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Save</button>
-        <button class="profile-plan-btn" onclick="profileAddToPlanner()">+ Add to Planner</button>
+        <button class="profile-plan-btn" onclick="profileAddToPlanner()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:5px;vertical-align:-1px"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>Add to Planner</button>
       </div>
     </div>
   </div>
@@ -2673,7 +2673,7 @@
     <div class="import-review-list" id="import-review-list"></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeImportReview()">Cancel</button>
-      <button class="btn-primary" onclick="confirmImportReview()">Add Selected ♡</button>
+      <button class="btn-primary" onclick="confirmImportReview()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:5px;vertical-align:-1px"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Add Selected</button>
     </div>
   </div>
 </div>
@@ -2737,7 +2737,7 @@
       <div class="onb-title">Where to next?</div>
       <div class="onb-sub">Pick a destination and we'll prep your planner.</div>
       <select id="onb-city-select" class="onb-city-select"></select>
-      <button class="onb-btn-primary" id="onb-finish-btn" onclick="onbFinish()">Start planning ✨</button>
+      <button class="onb-btn-primary" id="onb-finish-btn" onclick="onbFinish()">Start planning</button>
       <button class="onb-btn-skip" onclick="onbDismiss()">Skip for now</button>
     </div>
   </div>
@@ -2778,7 +2778,7 @@
   <div class="pack-box">
     <div class="pack-header">
       <span class="pack-header-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:-2px"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Smart Packing List</span>
-      <button class="pack-header-close" onclick="closePackingList()">&#x2715;</button>
+      <button class="pack-header-close" onclick="closePackingList()" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="pack-body" id="pack-content"></div>
   </div>
@@ -2957,7 +2957,7 @@
       <div class="ai-welcome-title">Where to next?</div>
       <div class="ai-welcome-sub">Ask me anything — or let Claude build your full itinerary automatically.</div>
       <div class="ai-prompts">
-        <button class="ai-prompt-chip" onclick="openAIPlanForm()" style="background:linear-gradient(135deg,rgba(90,135,176,.25),rgba(151,172,224,.15));border-color:rgba(151,172,224,.4);color:#97ace0;font-weight:700">✨ Plan My Trip with Claude</button>
+        <button class="ai-prompt-chip" onclick="openAIPlanForm()" style="background:linear-gradient(135deg,rgba(90,135,176,.25),rgba(151,172,224,.15));border-color:rgba(151,172,224,.4);color:#97ace0;font-weight:700"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:5px;vertical-align:-1px"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M20 9h2"/><path d="M17.8 11.8L19 13"/><path d="M15 9h.01"/><path d="M17.8 6.2L19 5"/><path d="M13 6.2L11.8 5"/><path d="M3 21l9-9"/></svg>Plan My Trip with Claude</button>
         <button class="ai-prompt-chip" onclick="aiPrompt(this)">Best <strong>hidden gems</strong> in Paris locals won't tell you</button>
         <button class="ai-prompt-chip" onclick="aiPrompt(this)">Romantic <strong>honeymoon</strong> spots in Southeast Asia</button>
         <button class="ai-prompt-chip" onclick="aiPrompt(this)">What should I pack for a <strong>beach trip</strong> in December?</button>
